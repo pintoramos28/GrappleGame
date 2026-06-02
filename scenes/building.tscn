@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://bnms6xq4xg8yi"]
+
+[ext_resource type="Script" uid="uid://w5c2gogepxaf" path="res://scripts/building.gd" id="1_xd4f2"]
+[ext_resource type="Material" uid="uid://dh6yvfxg32a8n" path="res://materials/building_mat.tres" id="2_eph81"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ixdnv"]
+resource_local_to_scene = true
+size = Vector3(6, 12, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d2jlp"]
+resource_local_to_scene = true
+size = Vector3(6, 12, 6)
+
+[node name="Building" type="StaticBody3D"]
+script = ExtResource("1_xd4f2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+material_override = ExtResource("2_eph81")
+mesh = SubResource("BoxMesh_ixdnv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+shape = SubResource("BoxShape3D_d2jlp")

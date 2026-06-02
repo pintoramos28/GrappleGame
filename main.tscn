@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://dgei3sdvi5j3i"]
+
+[ext_resource type="Material" uid="uid://qs3mmx6kmsrf" path="res://materials/floor_mat.tres" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://u1u36ceuo8uj" path="res://scenes/player.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bnms6xq4xg8yi" path="res://scenes/building.tscn" id="3_hf4db"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7mycd"]
+size = Vector3(300, 0.2, 300)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_272bh"]
+size = Vector3(300, 0.2, 300)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4c57u"]
+sky_top_color = Color(0.49019608, 0.7176471, 1, 1)
+sky_horizon_color = Color(0.84313726, 0.9254902, 1, 1)
+ground_bottom_color = Color(0.2, 0.17, 0.13, 1)
+ground_horizon_color = Color(0.65, 0.67, 0.7, 1)
+
+[sub_resource type="Sky" id="Sky_efxa6"]
+sky_material = SubResource("ProceduralSkyMaterial_4c57u")
+
+[sub_resource type="Environment" id="Environment_dg77c"]
+background_mode = 2
+sky = SubResource("Sky_efxa6")
+ambient_light_source = 3
+
+[node name="Main" type="Node3D" unique_id=1215556330]
+
+[node name="World" type="Node3D" parent="." unique_id=695320948]
+
+[node name="Floor" type="StaticBody3D" parent="World" unique_id=1203086775]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Floor" unique_id=1573948567]
+material_override = ExtResource("1_h2yge")
+mesh = SubResource("BoxMesh_7mycd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Floor" unique_id=260032923]
+shape = SubResource("BoxShape3D_272bh")
+
+[node name="Buildings" type="Node3D" parent="World" unique_id=2083326549]
+
+[node name="LowBlockA" parent="World/Buildings" unique_id=869037298 instance=ExtResource("3_hf4db")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.1, -18)
+building_size = Vector3(7, 6, 8)
+
+[node name="TallTowerA" parent="World/Buildings" unique_id=120611990 instance=ExtResource("3_hf4db")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.1, -20)
+building_size = Vector3(5, 22, 5)
+
+[node name="WideBlockA" parent="World/Buildings" unique_id=1176000671 instance=ExtResource("3_hf4db")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0.1, -4)
+building_size = Vector3(12, 10, 6)
+
+[node name="ThinTowerA" parent="World/Buildings" unique_id=1820702026 instance=ExtResource("3_hf4db")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0.1, 8)
+building_size = Vector3(4, 18, 8)
+
+[node name="MediumBlockA" parent="World/Buildings" unique_id=2074279332 instance=ExtResource("3_hf4db")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.1, 18)
+building_size = Vector3(8, 14, 8)
+
+[node name="SquareTowerA" parent="World/Buildings" unique_id=1186683986 instance=ExtResource("3_hf4db")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0.1, 28)
+building_size = Vector3(6, 26, 6)
+
+[node name="TallTowerB" parent="World/Buildings" unique_id=1215083329 instance=ExtResource("3_hf4db")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0.1, 20)
+building_size = Vector3(5, 22, 5)
+
+[node name="WideBlockB" parent="World/Buildings" unique_id=1291744958 instance=ExtResource("3_hf4db")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0.1, -10)
+building_size = Vector3(12, 10, 6)
+
+[node name="ThinTowerB" parent="World/Buildings" unique_id=96678524 instance=ExtResource("3_hf4db")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+
+[node name="Player" parent="World" unique_id=467031457 instance=ExtResource("2_0xm2m")]
+speed = 10.0
+
+[node name="SunLight" type="DirectionalLight3D" parent="." unique_id=1231637837]
+transform = Transform3D(0.8660254, -0.3830222, 0.32139382, 0, 0.64278764, 0.7660444, -0.5, -0.6634139, 0.5566704, 0, 0, 0)
+light_energy = 2.5
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=719165497]
+environment = SubResource("Environment_dg77c")
