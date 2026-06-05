@@ -31,6 +31,7 @@ extends CharacterBody3D
 @export var grapple_visual_color := Color(0.1, 0.85, 1.0)
 @export var grapple_cursor_radius := 0.2
 @export var grapple_cursor_color := Color(1.0, 0.9, 0.1)
+@export var grapple_cursor_active_color := Color(0.2, 1.0, 0.25)
 
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var camera: Camera3D = $CameraPivot/SpringArm3D/Camera3D
@@ -45,6 +46,7 @@ var grapple_visual: MeshInstance3D
 var grapple_visual_mesh: CylinderMesh
 var grapple_cursor: MeshInstance3D
 var grapple_cursor_mesh: SphereMesh
+var grapple_cursor_material: StandardMaterial3D
 var is_wall_running := false
 var wall_normal := Vector3.ZERO
 var wall_run_direction := Vector3.ZERO
@@ -160,17 +162,16 @@ func _setup_grapple_cursor() -> void:
 	grapple_cursor_mesh.radius = grapple_cursor_radius
 	grapple_cursor_mesh.height = grapple_cursor_radius * 2.0
 
-	var material := StandardMaterial3D.new()
-	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	material.albedo_color = grapple_cursor_color
-	material.emission_enabled = true
-	material.emission = grapple_cursor_color
+	grapple_cursor_material = StandardMaterial3D.new()
+	grapple_cursor_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	grapple_cursor_material.emission_enabled = true
+	_set_grapple_cursor_color(grapple_cursor_color)
 
 	grapple_cursor = MeshInstance3D.new()
 	grapple_cursor.name = "GrappleCursor"
 	grapple_cursor.top_level = true
 	grapple_cursor.mesh = grapple_cursor_mesh
-	grapple_cursor.material_override = material
+	grapple_cursor.material_override = grapple_cursor_material
 	grapple_cursor.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	grapple_cursor.visible = false
 	add_child(grapple_cursor)
@@ -376,8 +377,15 @@ func _update_grapple_cursor() -> void:
 		grapple_cursor.visible = false
 		return
 
+	var cursor_color: Color = grapple_cursor_active_color if is_grappling else grapple_cursor_color
+	_set_grapple_cursor_color(cursor_color)
 	grapple_cursor.global_position = hit["position"]
 	grapple_cursor.visible = true
+
+
+func _set_grapple_cursor_color(color: Color) -> void:
+	grapple_cursor_material.albedo_color = color
+	grapple_cursor_material.emission = color
 
 
 func _basis_from_y_axis(y_axis: Vector3) -> Basis:
