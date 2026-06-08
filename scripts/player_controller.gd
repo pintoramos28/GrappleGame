@@ -50,6 +50,10 @@ var grapple_cursor_material: StandardMaterial3D
 var is_wall_running := false
 var wall_normal := Vector3.ZERO
 var wall_run_direction := Vector3.ZERO
+var is_wall_sticking := false
+var wall_stick_position := Vector3.ZERO
+var wall_stick_normal := Vector3.ZERO
+var wall_stick_run_direction := Vector3.ZERO
 
 
 func _ready() -> void:
@@ -102,10 +106,25 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("fire_grapple"):
 		_try_start_grapple()
 
+	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	if is_wall_sticking:
+		if not Input.is_action_pressed("fire_grapple") or not is_instance_valid(grapple_target):
+			_clear_grapple()
+		elif Input.is_action_just_pressed("jump"):
+			_wall_stick_jump()
+			move_and_slide()
+			_update_grapple_visual()
+			_update_grapple_cursor()
+			return
+		else:
+			_apply_wall_stick()
+			_update_grapple_visual()
+			_update_grapple_cursor()
+			return
+
 	if is_grappling:
 		_clear_wall_run()
 
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	_update_wall_run_state(input_dir)
 
 	if not is_on_floor():
@@ -128,7 +147,9 @@ func _physics_process(delta: float) -> void:
 	if is_grappling and Input.is_action_pressed("fire_grapple"):
 		_apply_grapple_acceleration(delta)
 
+	var slide_entry_velocity := velocity
 	move_and_slide()
+	_try_start_wall_stick_from_collisions(input_dir, slide_entry_velocity)
 	_update_grapple_visual()
 	_update_grapple_cursor()
 
@@ -214,12 +235,12 @@ func _update_wall_run_state(input_dir: Vector2) -> void:
 		_clear_wall_run()
 		return
 
-	if not is_wall_running and not _can_start_wall_run():
+	if not is_wall_running and not _can_start_wall_run(velocity):
 		return
 
 	var normal: Vector3 = wall_hit["normal"]
-	_set_wall_run(normal)
-	if not _has_wall_run_input(input_dir):
+	_set_wall_run(normal, velocity)
+	if not _has_wall_run_input_for_direction(input_dir, wall_run_direction):
 		_clear_wall_run()
 
 
@@ -266,11 +287,11 @@ func _find_wall_with_velocity_rays() -> Dictionary:
 	return best_hit
 
 
-func _can_start_wall_run() -> bool:
-	var horizontal_speed := Vector3(velocity.x, 0.0, velocity.z).length()
+func _can_start_wall_run(check_velocity: Vector3) -> bool:
+	var horizontal_speed := Vector3(check_velocity.x, 0.0, check_velocity.z).length()
 	return (
 		horizontal_speed >= wall_run_min_horizontal_speed
-		and velocity.length() <= wall_run_max_entry_speed
+		and check_velocity.length() <= wall_run_max_entry_speed
 	)
 
 
@@ -278,23 +299,28 @@ func _is_valid_wall_normal(normal: Vector3) -> bool:
 	return abs(normal.y) <= wall_run_max_normal_y
 
 
-func _set_wall_run(normal: Vector3) -> void:
+func _set_wall_run(normal: Vector3, reference_velocity: Vector3) -> void:
 	wall_normal = normal.normalized()
-	wall_run_direction = wall_normal.cross(Vector3.UP).normalized()
-
-	var horizontal_velocity := Vector3(velocity.x, 0.0, velocity.z)
-	if wall_run_direction.dot(horizontal_velocity) < 0.0:
-		wall_run_direction = -wall_run_direction
+	wall_run_direction = _get_wall_run_direction(wall_normal, reference_velocity)
 
 	is_wall_running = true
 
 
-func _has_wall_run_input(input_dir: Vector2) -> bool:
+func _get_wall_run_direction(normal: Vector3, reference_velocity: Vector3) -> Vector3:
+	var run_direction := normal.normalized().cross(Vector3.UP).normalized()
+	var horizontal_velocity := Vector3(reference_velocity.x, 0.0, reference_velocity.z)
+	if run_direction.dot(horizontal_velocity) < 0.0:
+		run_direction = -run_direction
+
+	return run_direction
+
+
+func _has_wall_run_input_for_direction(input_dir: Vector2, run_direction: Vector3) -> bool:
 	if input_dir == Vector2.ZERO:
 		return false
 
 	var input_direction := (global_transform.basis * Vector3(input_dir.x, 0.0, input_dir.y)).normalized()
-	return input_direction.dot(wall_run_direction) >= wall_run_min_input_alignment
+	return input_direction.dot(run_direction) >= wall_run_min_input_alignment
 
 
 func _apply_wall_run_movement(delta: float) -> void:
@@ -321,10 +347,67 @@ func _wall_jump() -> void:
 	_clear_wall_run()
 
 
+func _wall_stick_jump() -> void:
+	var along_wall_velocity: Vector3 = wall_stick_run_direction * wall_run_speed
+	velocity = wall_stick_normal * wall_jump_away_velocity + along_wall_velocity
+	velocity.y = wall_jump_up_velocity
+	_clear_wall_stick()
+	_clear_grapple()
+
+
 func _clear_wall_run() -> void:
 	is_wall_running = false
 	wall_normal = Vector3.ZERO
 	wall_run_direction = Vector3.ZERO
+
+
+func _try_start_wall_stick_from_collisions(input_dir: Vector2, entry_velocity: Vector3) -> void:
+	if (
+		is_wall_sticking
+		or not is_grappling
+		or not Input.is_action_pressed("fire_grapple")
+		or is_on_floor()
+		or not _can_start_wall_run(entry_velocity)
+	):
+		return
+
+	for collision_index in range(get_slide_collision_count()):
+		var collision := get_slide_collision(collision_index)
+		var collider := collision.get_collider()
+		if not collider is StaticBody3D:
+			continue
+
+		var normal := collision.get_normal()
+		if not _is_valid_wall_normal(normal):
+			continue
+
+		var run_direction := _get_wall_run_direction(normal, entry_velocity)
+		if not _has_wall_run_input_for_direction(input_dir, run_direction):
+			continue
+
+		_set_wall_stick(normal, run_direction)
+		return
+
+
+func _set_wall_stick(normal: Vector3, run_direction: Vector3) -> void:
+	is_wall_sticking = true
+	wall_stick_position = global_position
+	wall_stick_normal = normal.normalized()
+	wall_stick_run_direction = run_direction
+	velocity = Vector3.ZERO
+	_clear_wall_run()
+
+
+func _apply_wall_stick() -> void:
+	global_position = wall_stick_position
+	velocity = Vector3.ZERO
+
+
+func _clear_wall_stick() -> void:
+	is_wall_sticking = false
+	wall_stick_position = Vector3.ZERO
+	wall_stick_normal = Vector3.ZERO
+	wall_stick_run_direction = Vector3.ZERO
 
 
 func _try_start_grapple() -> void:
@@ -423,5 +506,6 @@ func _clear_grapple() -> void:
 	is_grappling = false
 	grapple_point = Vector3.ZERO
 	grapple_target = null
+	_clear_wall_stick()
 	if grapple_visual:
 		grapple_visual.visible = false

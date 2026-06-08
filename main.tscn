@@ -31,6 +31,7 @@ ambient_light_source = 3
 [node name="Floor" type="StaticBody3D" parent="World" unique_id=1203086775]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="World/Floor" unique_id=1573948567]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0034909248, -0.010471225, -0.0022547245)
 material_override = ExtResource("1_h2yge")
 mesh = SubResource("BoxMesh_7mycd")
 
