@@ -1,7 +1,12 @@
-[gd_scene format=3 uid="uid://u1u36ceuo8uj"]
+[gd_scene load_steps=11 format=3 uid="uid://u1u36ceuo8uj"]
 
 [ext_resource type="Script" uid="uid://wamp3knx1owk" path="res://scripts/player_controller.gd" id="1_cvnsp"]
 [ext_resource type="Material" uid="uid://n7sp4rkyhn5o" path="res://materials/player_mat.tres" id="2_6t5aa"]
+[ext_resource type="Script" path="res://scripts/combat/combat_health.gd" id="3_8agwv"]
+[ext_resource type="Script" path="res://scripts/combat/combat_stats.gd" id="4_vnv48"]
+[ext_resource type="Script" path="res://scripts/combat/combat_hurtbox_3d.gd" id="5_2kfp0"]
+[ext_resource type="Script" path="res://scripts/combat/combat_hitbox_3d.gd" id="6_o5f7t"]
+[ext_resource type="Resource" path="res://resources/attacks/player_basic_attack.tres" id="7_b7t7y"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5vw27"]
 radius = 0.45
@@ -11,7 +16,16 @@ height = 1.8
 radius = 0.45
 height = 1.8
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hurtbox"]
+radius = 0.55
+height = 1.9
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_attack"]
+size = Vector3(1.25, 1.3, 1.25)
+
 [node name="Player" type="CharacterBody3D" unique_id=467031457]
+collision_layer = 2
+collision_mask = 1
 script = ExtResource("1_cvnsp")
 max_ground_speed = 10.0
 air_deceleration = 5.0
@@ -37,3 +51,40 @@ spring_length = 3.0
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=1072658085]
 current = true
 fov = 70.0
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_8agwv")
+max_health = 100.0
+
+[node name="CombatStats" type="Node" parent="."]
+script = ExtResource("4_vnv48")
+attack_power = 5.0
+defense = 4.0
+crit_chance = 0.1
+resistances = {
+"physical": 0.05
+}
+
+[node name="Hurtbox" type="Area3D" parent="." node_paths=PackedStringArray("health", "combatant_path")]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("5_2kfp0")
+health = NodePath("../Health")
+team = "player"
+combatant_path = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_hurtbox")
+
+[node name="AttackHitbox" type="Area3D" parent="." node_paths=PackedStringArray("source_path")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -1.0)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("6_o5f7t")
+attack_data = ExtResource("7_b7t7y")
+owner_team = "player"
+source_path = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackHitbox"]
+shape = SubResource("BoxShape3D_attack")

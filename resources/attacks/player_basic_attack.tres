@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/attack_data.gd" id="1_8q3wc"]
+
+[resource]
+script = ExtResource("1_8q3wc")
+display_name = "Basic Strike"
+damage_by_type = {
+"physical": 16.0
+}
+attack_power_scale = 1.0
+poise_damage = 8.0
+crit_chance_bonus = 0.05
+tags = PackedStringArray("melee", "player")

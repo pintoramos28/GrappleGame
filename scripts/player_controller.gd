@@ -1,41 +1,94 @@
 extends CharacterBody3D
 
+@export_group("Ground And Air Movement")
+## Maximum horizontal speed while grounded, in meters per second.
 @export var max_ground_speed := 5.0
+## Maximum horizontal speed while airborne, in meters per second.
 @export var max_air_speed := 10.0
+## How quickly grounded movement reaches the target speed.
 @export var ground_acceleration := 16.0
+## How quickly airborne movement reaches the target speed.
 @export var air_acceleration := 5.0
+## How quickly grounded movement slows when there is no input.
 @export var ground_deceleration := 20.0
+## How quickly airborne movement slows when there is no input.
 @export var air_deceleration := 1.0
-@export var wall_run_max_entry_speed := 18.0
-@export var wall_run_min_horizontal_speed := 1.0
-@export var wall_run_speed := 10.0
-@export var wall_run_acceleration := 12.0
-@export var wall_run_gravity_scale := 0.25
-@export var wall_run_zero_vertical_velocity := true
-@export var wall_run_max_normal_y := 0.2
-@export var wall_run_min_input_alignment := 0.2
-@export var wall_check_distance := 0.8
-@export var wall_jump_up_velocity := 5.5
-@export var wall_jump_away_velocity := 8.0
+## Upward velocity applied when jumping from the floor.
 @export var jump_velocity := 4.5
+
+@export_group("Wall Running")
+## Highest total speed that can still enter a wall run or wall stick.
+@export var wall_run_max_entry_speed := 18.0
+## Minimum horizontal speed required to start or keep wall running.
+@export var wall_run_min_horizontal_speed := 1.0
+## Target movement speed while running along a wall.
+@export var wall_run_speed := 10.0
+## How quickly wall-run movement reaches its target speed.
+@export var wall_run_acceleration := 12.0
+## Gravity multiplier applied while wall running.
+@export var wall_run_gravity_scale := 0.25
+## If enabled, vertical velocity is reset while wall running.
+@export var wall_run_zero_vertical_velocity := true
+## Largest allowed absolute Y value for a surface normal to count as a wall.
+@export var wall_run_max_normal_y := 0.2
+## Minimum dot product between movement input and wall-run direction.
+@export var wall_run_min_input_alignment := 0.2
+## Distance used by side rays when searching for runnable walls.
+@export var wall_check_distance := 0.8
+## Upward velocity applied when jumping away from a wall.
+@export var wall_jump_up_velocity := 5.5
+## Horizontal velocity applied away from the wall during a wall jump.
+@export var wall_jump_away_velocity := 8.0
+
+@export_group("Camera And Input")
+## Mouse-look sensitivity for captured mouse motion.
 @export var mouse_sensitivity := 0.003
+## Trackpad pan sensitivity before conversion into mouse-look motion.
 @export var trackpad_pan_sensitivity := 0.03
+## Lowest camera pitch angle, in degrees.
 @export var pitch_min := -45.0
+## Highest camera pitch angle, in degrees.
 @export var pitch_max := 45.0
+## If enabled, captures the mouse when the player becomes ready.
 @export var capture_mouse_on_start := true
+
+@export_group("Grapple")
+## Maximum distance for the grapple targeting ray.
 @export var grapple_length := 35.0
+## Pull acceleration applied toward the grapple point.
 @export var grapple_acceleration := 35.0
+## Maximum total velocity allowed while grapple acceleration is applied.
 @export var grapple_max_velocity := 22.0
+## Gravity multiplier applied while grappling.
 @export var grapple_gravity_scale := 1.0
+
+@export_group("Grapple Visuals")
+## Radius of the grapple rope cylinder.
 @export var grapple_visual_radius := 0.035
+## Color used for the grapple rope.
 @export var grapple_visual_color := Color(0.1, 0.85, 1.0)
+## Radius of the grapple target cursor.
 @export var grapple_cursor_radius := 0.2
+## Cursor color when a valid grapple target is under the crosshair.
 @export var grapple_cursor_color := Color(1.0, 0.9, 0.1)
+## Cursor color while actively grappling.
 @export var grapple_cursor_active_color := Color(0.2, 1.0, 0.25)
+
+@export_group("Attack Timing")
+## Total time before another player attack can begin.
+@export var attack_cooldown_time := 0.45
+## Delay between attack input and hitbox activation.
+@export var attack_windup_time := 0.08
+## Duration that the player attack hitbox remains active.
+@export var attack_active_time := 0.18
 
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var camera: Camera3D = $CameraPivot/SpringArm3D/Camera3D
 @onready var player_mesh: MeshInstance3D = $MeshInstance3D
+@onready var health: CombatHealth = get_node_or_null("Health")
+@onready var attack_hitbox: CombatHitbox3D = get_node_or_null("AttackHitbox")
+
+enum AttackPhase { READY, WINDUP, ACTIVE, RECOVERY }
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var camera_pitch := 0.0
@@ -54,11 +107,19 @@ var is_wall_sticking := false
 var wall_stick_position := Vector3.ZERO
 var wall_stick_normal := Vector3.ZERO
 var wall_stick_run_direction := Vector3.ZERO
+var attack_phase: int = AttackPhase.READY
+var attack_phase_time_left := 0.0
+var is_dead := false
 
 
 func _ready() -> void:
+	add_to_group("player")
 	_setup_grapple_visual()
 	_setup_grapple_cursor()
+
+	if health:
+		health.damaged.connect(_on_health_damaged)
+		health.died.connect(_on_died)
 
 	camera_pitch = clamp(camera_pivot.rotation.x, deg_to_rad(pitch_min), deg_to_rad(pitch_max))
 	camera_pivot.rotation.x = camera_pitch
@@ -69,6 +130,9 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		return
+
+	if is_dead:
 		return
 
 	if event is InputEventMouseButton and event.pressed:
@@ -100,6 +164,14 @@ func _apply_mouse_look(relative_motion: Vector2) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_update_attack_state(delta)
+
+	if is_dead:
+		_apply_dead_physics(delta)
+		return
+
+	_try_start_attack()
+
 	if Input.is_action_just_released("fire_grapple"):
 		_clear_grapple()
 
@@ -509,3 +581,94 @@ func _clear_grapple() -> void:
 	_clear_wall_stick()
 	if grapple_visual:
 		grapple_visual.visible = false
+
+
+func _apply_dead_physics(delta: float) -> void:
+	velocity.x = move_toward(velocity.x, 0.0, ground_deceleration * delta)
+	velocity.z = move_toward(velocity.z, 0.0, ground_deceleration * delta)
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+
+	move_and_slide()
+	_update_grapple_visual()
+
+
+func _try_start_attack() -> void:
+	if attack_hitbox == null:
+		return
+
+	if attack_phase != AttackPhase.READY:
+		return
+
+	if not Input.is_action_just_pressed("attack"):
+		return
+
+	_set_attack_phase(AttackPhase.WINDUP, attack_windup_time)
+
+
+func _update_attack_state(delta: float) -> void:
+	if attack_phase == AttackPhase.READY:
+		return
+
+	attack_phase_time_left -= delta
+	if attack_phase_time_left > 0.0:
+		return
+
+	match attack_phase:
+		AttackPhase.WINDUP:
+			_set_attack_phase(AttackPhase.ACTIVE, attack_active_time)
+		AttackPhase.ACTIVE:
+			var recovery_time := maxf(attack_cooldown_time - attack_windup_time - attack_active_time, 0.0)
+			_set_attack_phase(AttackPhase.RECOVERY, recovery_time)
+		AttackPhase.RECOVERY:
+			_set_attack_phase(AttackPhase.READY, 0.0)
+
+
+func _set_attack_phase(next_phase: int, duration: float) -> void:
+	if attack_phase == AttackPhase.ACTIVE and attack_hitbox:
+		attack_hitbox.deactivate()
+
+	attack_phase = next_phase
+	attack_phase_time_left = maxf(duration, 0.0)
+
+	if attack_phase == AttackPhase.ACTIVE and attack_hitbox:
+		attack_hitbox.activate()
+
+	if attack_phase == AttackPhase.READY:
+		attack_phase_time_left = 0.0
+
+
+func _cancel_attack() -> void:
+	attack_phase = AttackPhase.READY
+	attack_phase_time_left = 0.0
+	if attack_hitbox:
+		attack_hitbox.cancel()
+
+
+func _set_dead() -> void:
+	if is_dead:
+		return
+
+	is_dead = true
+	_cancel_attack()
+	_clear_grapple()
+	_clear_wall_run()
+	_clear_wall_stick()
+	if grapple_cursor:
+		grapple_cursor.visible = false
+
+
+func _on_health_damaged(damage_instance: DamageInstance) -> void:
+	print(
+		"Player took %.1f %s damage. HP: %.1f/%.1f" % [
+			damage_instance.final_damage,
+			damage_instance.get_largest_damage_type(),
+			health.current_health,
+			health.max_health,
+		]
+	)
+
+
+func _on_died(_damage_instance: DamageInstance) -> void:
+	_set_dead()
+	print("Player died")

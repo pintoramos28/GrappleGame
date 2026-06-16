@@ -1,0 +1,82 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemy_controller.gd" id="1_5jygy"]
+[ext_resource type="Material" path="res://materials/enemy_mat.tres" id="2_7ok8x"]
+[ext_resource type="Script" path="res://scripts/combat/combat_health.gd" id="3_k16yf"]
+[ext_resource type="Script" path="res://scripts/combat/combat_stats.gd" id="4_6r4wn"]
+[ext_resource type="Script" path="res://scripts/combat/combat_hurtbox_3d.gd" id="5_y0g12"]
+[ext_resource type="Script" path="res://scripts/combat/combat_hitbox_3d.gd" id="6_ecmxs"]
+[ext_resource type="Resource" path="res://resources/attacks/enemy_basic_attack.tres" id="7_0g118"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f1xei"]
+radius = 0.45
+height = 1.8
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8t3gb"]
+radius = 0.45
+height = 1.8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xghq7"]
+size = Vector3(1.2, 1.2, 1.1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_55lg1"]
+radius = 2.1
+
+[node name="Enemy" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_5jygy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_f1xei")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+material_override = ExtResource("2_7ok8x")
+mesh = SubResource("CapsuleMesh_8t3gb")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_k16yf")
+max_health = 60.0
+
+[node name="CombatStats" type="Node" parent="."]
+script = ExtResource("4_6r4wn")
+attack_power = 3.0
+defense = 2.0
+resistances = {
+"fire": 0.25,
+"physical": 0.1
+}
+
+[node name="Hurtbox" type="Area3D" parent="." node_paths=PackedStringArray("health", "combatant_path")]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("5_y0g12")
+health = NodePath("../Health")
+team = "enemy"
+combatant_path = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_f1xei")
+
+[node name="AttackHitbox" type="Area3D" parent="." node_paths=PackedStringArray("source_path")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -1.0)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("6_ecmxs")
+attack_data = ExtResource("7_0g118")
+owner_team = "enemy"
+source_path = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackHitbox"]
+shape = SubResource("BoxShape3D_xghq7")
+
+[node name="AttackRange" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackRange"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("SphereShape3D_55lg1")
