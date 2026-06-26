@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://u1u36ceuo8uj"]
+[gd_scene load_steps=12 format=3 uid="uid://u1u36ceuo8uj"]
 
 [ext_resource type="Script" uid="uid://wamp3knx1owk" path="res://scripts/player_controller.gd" id="1_cvnsp"]
 [ext_resource type="Material" uid="uid://n7sp4rkyhn5o" path="res://materials/player_mat.tres" id="2_6t5aa"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/combat/combat_hurtbox_3d.gd" id="5_2kfp0"]
 [ext_resource type="Script" path="res://scripts/combat/combat_hitbox_3d.gd" id="6_o5f7t"]
 [ext_resource type="Resource" path="res://resources/attacks/player_basic_attack.tres" id="7_b7t7y"]
+[ext_resource type="Resource" path="res://resources/stats/player_base_stats.tres" id="8_3ra4k"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5vw27"]
 radius = 0.45
@@ -58,12 +59,7 @@ max_health = 100.0
 
 [node name="CombatStats" type="Node" parent="."]
 script = ExtResource("4_vnv48")
-attack_power = 5.0
-defense = 4.0
-crit_chance = 0.1
-resistances = {
-"physical": 0.05
-}
+base_stats = ExtResource("8_3ra4k")
 
 [node name="Hurtbox" type="Area3D" parent="." node_paths=PackedStringArray("health", "combatant_path")]
 collision_layer = 8

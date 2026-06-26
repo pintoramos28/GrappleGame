@@ -1,0 +1,40 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://x5dt6r1lm8wc"]
+
+[ext_resource type="Script" uid="uid://dugs6nivxuv08" path="res://ai/tasks/has_valid_target.gd" id="1_has_target"]
+[ext_resource type="Script" uid="uid://gkoei0kmo6pc" path="res://ai/tasks/face_target_3d.gd" id="2_face_target"]
+[ext_resource type="Script" uid="uid://bf2i8qmfrfj0v" path="res://ai/tasks/activate_attack_hitbox.gd" id="3_activate_attack"]
+[ext_resource type="Script" uid="uid://dvmreawluno2p" path="res://ai/tasks/stop_horizontal_movement.gd" id="4_stop_horizontal"]
+
+[sub_resource type="BTCondition" id="BTCondition_has_target"]
+script = ExtResource("1_has_target")
+
+[sub_resource type="BTAction" id="BTAction_face_target"]
+script = ExtResource("2_face_target")
+
+[sub_resource type="BTAction" id="BTAction_activate_attack"]
+script = ExtResource("3_activate_attack")
+
+[sub_resource type="BTCooldown" id="BTCooldown_attack"]
+duration = 1.25
+start_cooled = true
+custom_name = "Attack cooldown"
+children = [SubResource("BTAction_activate_attack")]
+
+[sub_resource type="BTSequence" id="BTSequence_attack_target"]
+custom_name = "Attack target"
+children = [SubResource("BTCondition_has_target"), SubResource("BTAction_face_target"), SubResource("BTCooldown_attack")]
+
+[sub_resource type="BTAction" id="BTAction_stop_horizontal"]
+script = ExtResource("4_stop_horizontal")
+
+[sub_resource type="BTSequence" id="BTSequence_idle"]
+custom_name = "Idle"
+children = [SubResource("BTAction_stop_horizontal")]
+
+[sub_resource type="BTSelector" id="BTSelector_root"]
+custom_name = "Enemy behavior"
+children = [SubResource("BTSequence_attack_target"), SubResource("BTSequence_idle")]
+
+[resource]
+description = "Stationary enemy behavior. If a valid target is present, face it and activate the melee hitbox on cooldown; otherwise idle."
+root_task = SubResource("BTSelector_root")

@@ -9,14 +9,16 @@ extends CharacterBody3D
 @onready var health: CombatHealth = $Health
 @onready var attack_hitbox: CombatHitbox3D = $AttackHitbox
 @onready var attack_range: Area3D = $AttackRange
+@onready var bt_player: BTPlayer = $BTPlayer
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-var attack_cooldown := 0.0
-var target: Node3D
 
 
 func _ready() -> void:
 	add_to_group("enemies")
+	_set_ai_blackboard_defaults()
+	_configure_behavior_tree()
+	bt_player.restart()
 	health.damaged.connect(_on_health_damaged)
 	health.died.connect(_on_died)
 	attack_range.body_entered.connect(_on_attack_range_body_entered)
@@ -24,8 +26,6 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	attack_cooldown = maxf(attack_cooldown - delta, 0.0)
-
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	else:
@@ -34,30 +34,41 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	if not is_instance_valid(target):
+
+func _set_ai_blackboard_defaults() -> void:
+	bt_player.blackboard.set_var(&"target", null)
+	bt_player.blackboard.set_var(&"attack_hitbox", attack_hitbox)
+	bt_player.blackboard.set_var(&"attack_active_time", attack_active_time)
+
+
+func _configure_behavior_tree() -> void:
+	if bt_player.behavior_tree == null:
 		return
 
-	_face_target()
-	if attack_cooldown <= 0.0:
-		attack_hitbox.activate_for(attack_active_time)
-		attack_cooldown = attack_cooldown_time
+	var behavior_tree := bt_player.behavior_tree.clone()
+	bt_player.behavior_tree = behavior_tree
+	_set_attack_cooldown_duration(behavior_tree.get_root_task())
 
 
-func _face_target() -> void:
-	var look_position := target.global_position
-	look_position.y = global_position.y
-	if global_position.distance_squared_to(look_position) > 0.01:
-		look_at(look_position, Vector3.UP)
+func _set_attack_cooldown_duration(task: BTTask) -> void:
+	if task == null:
+		return
+
+	if task is BTCooldown and task.get_custom_name() == "Attack cooldown":
+		task.duration = attack_cooldown_time
+
+	for child_index in task.get_child_count():
+		_set_attack_cooldown_duration(task.get_child(child_index))
 
 
 func _on_attack_range_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
-		target = body
+		bt_player.blackboard.set_var(&"target", body)
 
 
 func _on_attack_range_body_exited(body: Node3D) -> void:
-	if body == target:
-		target = null
+	if body == bt_player.blackboard.get_var(&"target", null):
+		bt_player.blackboard.set_var(&"target", null)
 
 
 func _on_health_damaged(damage_instance: DamageInstance) -> void:

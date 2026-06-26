@@ -72,7 +72,7 @@ static func _apply_attack_power(damage_instance: DamageInstance, attacker_stats:
 	var primary_type := attack_data.get_primary_damage_type()
 	var current_amount := float(damage_instance.damage_by_type.get(primary_type, 0.0))
 	damage_instance.damage_by_type[primary_type] = (
-		current_amount + attacker_stats.attack_power * attack_data.attack_power_scale
+		current_amount + attacker_stats.get_attack_power() * attack_data.attack_power_scale
 	)
 
 
@@ -84,12 +84,12 @@ static func _apply_critical_hit(
 	if attacker_stats == null:
 		return
 
-	var crit_chance := clampf(attacker_stats.crit_chance + attack_data.crit_chance_bonus, 0.0, 1.0)
+	var crit_chance := clampf(attacker_stats.get_crit_chance() + attack_data.crit_chance_bonus, 0.0, 1.0)
 	if randf() >= crit_chance:
 		return
 
 	var crit_multiplier := maxf(
-		attacker_stats.crit_multiplier + attack_data.crit_multiplier_bonus,
+		attacker_stats.get_crit_multiplier() + attack_data.crit_multiplier_bonus,
 		1.0
 	)
 	damage_instance.is_critical = true
@@ -130,7 +130,7 @@ static func _apply_defense(
 	attack_data: AttackData,
 	defender_stats: CombatStats
 ) -> void:
-	if defender_stats == null or defender_stats.defense <= 0.0:
+	if defender_stats == null or defender_stats.get_defense() <= 0.0:
 		return
 
 	var physical_total := 0.0
@@ -141,7 +141,7 @@ static func _apply_defense(
 		return
 
 	var penetration := clampf(attack_data.armor_penetration, 0.0, 1.0) if attack_data else 0.0
-	var reduction := minf(physical_total, defender_stats.defense * (1.0 - penetration))
+	var reduction := minf(physical_total, defender_stats.get_defense() * (1.0 - penetration))
 
 	for damage_type in PHYSICAL_DAMAGE_TYPES:
 		var amount := float(damage_instance.damage_by_type.get(damage_type, 0.0))
