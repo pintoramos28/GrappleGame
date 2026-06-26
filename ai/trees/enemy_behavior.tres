@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://bf2i8qmfrfj0v" path="res://ai/tasks/activate_attack_hitbox.gd" id="3_activate_attack"]
 [ext_resource type="Script" uid="uid://dvmreawluno2p" path="res://ai/tasks/stop_horizontal_movement.gd" id="4_stop_horizontal"]
 
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_sasvj"]
+
 [sub_resource type="BTCondition" id="BTCondition_has_target"]
 script = ExtResource("1_has_target")
 
@@ -37,4 +39,5 @@ children = [SubResource("BTSequence_attack_target"), SubResource("BTSequence_idl
 
 [resource]
 description = "Stationary enemy behavior. If a valid target is present, face it and activate the melee hitbox on cooldown; otherwise idle."
+blackboard_plan = SubResource("BlackboardPlan_sasvj")
 root_task = SubResource("BTSelector_root")

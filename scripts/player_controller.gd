@@ -87,8 +87,32 @@ extends CharacterBody3D
 @onready var player_mesh: MeshInstance3D = $MeshInstance3D
 @onready var health: CombatHealth = get_node_or_null("Health")
 @onready var attack_hitbox: CombatHitbox3D = get_node_or_null("AttackHitbox")
+@onready var movement_hsm: LimboHSM = $MovementHSM
+@onready var grounded_state: LimboState = $MovementHSM/GroundedState
+@onready var airborne_state: LimboState = $MovementHSM/AirborneState
+@onready var grappling_state: LimboState = $MovementHSM/GrapplingState
+@onready var wall_run_state: LimboState = $MovementHSM/WallRunState
+@onready var wall_stick_state: LimboState = $MovementHSM/WallStickState
+@onready var dead_state: LimboState = $MovementHSM/DeadState
+@onready var attack_hsm: LimboHSM = $AttackHSM
+@onready var attack_ready_state: LimboState = $AttackHSM/AttackReadyState
+@onready var attack_windup_state: LimboState = $AttackHSM/AttackWindupState
+@onready var attack_active_state: LimboState = $AttackHSM/AttackActiveState
+@onready var attack_recovery_state: LimboState = $AttackHSM/AttackRecoveryState
 
-enum AttackPhase { READY, WINDUP, ACTIVE, RECOVERY }
+const EVENT_LEFT_GROUND := &"left_ground"
+const EVENT_LANDED := &"landed"
+const EVENT_JUMPED := &"jumped"
+const EVENT_GRAPPLE_STARTED := &"grapple_started"
+const EVENT_GRAPPLE_RELEASED := &"grapple_released"
+const EVENT_WALL_RUN_STARTED := &"wall_run_started"
+const EVENT_WALL_RUN_FINISHED := &"wall_run_finished"
+const EVENT_WALL_STICK_STARTED := &"wall_stick_started"
+const EVENT_WALL_STICK_JUMPED := &"wall_stick_jumped"
+const EVENT_DIED := &"died"
+const EVENT_ATTACK_STARTED := &"attack_started"
+const EVENT_ATTACK_PHASE_FINISHED := &"attack_phase_finished"
+const EVENT_ATTACK_CANCELLED := &"attack_cancelled"
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var camera_pitch := 0.0
@@ -107,8 +131,6 @@ var is_wall_sticking := false
 var wall_stick_position := Vector3.ZERO
 var wall_stick_normal := Vector3.ZERO
 var wall_stick_run_direction := Vector3.ZERO
-var attack_phase: int = AttackPhase.READY
-var attack_phase_time_left := 0.0
 var is_dead := false
 
 
@@ -126,6 +148,37 @@ func _ready() -> void:
 
 	if capture_mouse_on_start:
 		call_deferred("_capture_mouse")
+
+	_init_player_state_machines()
+
+
+func _init_player_state_machines() -> void:
+	movement_hsm.add_transition(grounded_state, airborne_state, EVENT_LEFT_GROUND)
+	movement_hsm.add_transition(grounded_state, airborne_state, EVENT_JUMPED)
+	movement_hsm.add_transition(grounded_state, grappling_state, EVENT_GRAPPLE_STARTED)
+	movement_hsm.add_transition(airborne_state, grounded_state, EVENT_LANDED)
+	movement_hsm.add_transition(airborne_state, grappling_state, EVENT_GRAPPLE_STARTED)
+	movement_hsm.add_transition(airborne_state, wall_run_state, EVENT_WALL_RUN_STARTED)
+	movement_hsm.add_transition(grappling_state, grounded_state, EVENT_LANDED)
+	movement_hsm.add_transition(grappling_state, airborne_state, EVENT_GRAPPLE_RELEASED)
+	movement_hsm.add_transition(grappling_state, wall_stick_state, EVENT_WALL_STICK_STARTED)
+	movement_hsm.add_transition(wall_run_state, grounded_state, EVENT_LANDED)
+	movement_hsm.add_transition(wall_run_state, airborne_state, EVENT_WALL_RUN_FINISHED)
+	movement_hsm.add_transition(wall_run_state, grappling_state, EVENT_GRAPPLE_STARTED)
+	movement_hsm.add_transition(wall_stick_state, airborne_state, EVENT_GRAPPLE_RELEASED)
+	movement_hsm.add_transition(wall_stick_state, airborne_state, EVENT_WALL_STICK_JUMPED)
+	movement_hsm.add_transition(movement_hsm.ANYSTATE, dead_state, EVENT_DIED)
+	movement_hsm.initialize(self)
+	movement_hsm.set_active(true)
+
+	attack_hsm.add_transition(attack_ready_state, attack_windup_state, EVENT_ATTACK_STARTED)
+	attack_hsm.add_transition(attack_windup_state, attack_active_state, EVENT_ATTACK_PHASE_FINISHED)
+	attack_hsm.add_transition(attack_active_state, attack_recovery_state, EVENT_ATTACK_PHASE_FINISHED)
+	attack_hsm.add_transition(attack_recovery_state, attack_ready_state, EVENT_ATTACK_PHASE_FINISHED)
+	attack_hsm.add_transition(attack_hsm.ANYSTATE, attack_ready_state, EVENT_ATTACK_CANCELLED)
+	attack_hsm.initialize(self)
+	attack_hsm.set_active(true)
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -161,69 +214,6 @@ func _apply_mouse_look(relative_motion: Vector2) -> void:
 		deg_to_rad(pitch_max)
 	)
 	camera_pivot.rotation.x = camera_pitch
-
-
-func _physics_process(delta: float) -> void:
-	_update_attack_state(delta)
-
-	if is_dead:
-		_apply_dead_physics(delta)
-		return
-
-	_try_start_attack()
-
-	if Input.is_action_just_released("fire_grapple"):
-		_clear_grapple()
-
-	if Input.is_action_just_pressed("fire_grapple"):
-		_try_start_grapple()
-
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-	if is_wall_sticking:
-		if not Input.is_action_pressed("fire_grapple") or not is_instance_valid(grapple_target):
-			_clear_grapple()
-		elif Input.is_action_just_pressed("jump"):
-			_wall_stick_jump()
-			move_and_slide()
-			_update_grapple_visual()
-			_update_grapple_cursor()
-			return
-		else:
-			_apply_wall_stick()
-			_update_grapple_visual()
-			_update_grapple_cursor()
-			return
-
-	if is_grappling:
-		_clear_wall_run()
-
-	_update_wall_run_state(input_dir)
-
-	if not is_on_floor():
-		if is_wall_running and wall_run_zero_vertical_velocity:
-			velocity.y = 0.0
-		else:
-			velocity.y -= gravity * _get_gravity_scale() * delta
-
-	if Input.is_action_just_pressed("jump"):
-		if is_wall_running:
-			_wall_jump()
-		elif is_on_floor():
-			velocity.y = jump_velocity
-
-	if is_wall_running:
-		_apply_wall_run_movement(delta)
-	else:
-		_apply_horizontal_movement(input_dir, delta)
-
-	if is_grappling and Input.is_action_pressed("fire_grapple"):
-		_apply_grapple_acceleration(delta)
-
-	var slide_entry_velocity := velocity
-	move_and_slide()
-	_try_start_wall_stick_from_collisions(input_dir, slide_entry_velocity)
-	_update_grapple_visual()
-	_update_grapple_cursor()
 
 
 func _setup_grapple_visual() -> void:
@@ -482,16 +472,57 @@ func _clear_wall_stick() -> void:
 	wall_stick_run_direction = Vector3.ZERO
 
 
-func _try_start_grapple() -> void:
+func get_movement_input() -> Vector2:
+	return Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+
+
+func update_grapple_feedback() -> void:
+	_update_grapple_visual()
+	_update_grapple_cursor()
+
+
+func apply_default_gravity(delta: float) -> void:
+	if not is_on_floor():
+		if is_wall_running and wall_run_zero_vertical_velocity:
+			velocity.y = 0.0
+		else:
+			velocity.y -= gravity * _get_gravity_scale() * delta
+
+
+func apply_ground_jump() -> void:
+	velocity.y = jump_velocity
+
+
+func slide_and_check_wall_stick(input_dir: Vector2) -> void:
+	var slide_entry_velocity := velocity
+	move_and_slide()
+	_try_start_wall_stick_from_collisions(input_dir, slide_entry_velocity)
+
+
+func dispatch_locomotion_after_grapple_clear() -> void:
+	if is_on_floor():
+		movement_hsm.dispatch(EVENT_LANDED)
+	else:
+		movement_hsm.dispatch(EVENT_GRAPPLE_RELEASED)
+
+
+func try_start_grapple() -> bool:
 	var hit := _get_grapple_ray_hit()
 	if hit.is_empty():
-		return
+		return false
 
 	var collider: Object = hit["collider"]
 	if collider is StaticBody3D:
 		is_grappling = true
 		grapple_point = hit["position"]
 		grapple_target = collider as StaticBody3D
+		return true
+
+	return false
+
+
+func has_valid_grapple() -> bool:
+	return is_grappling and is_instance_valid(grapple_target)
 
 
 func _get_grapple_ray_hit() -> Dictionary:
@@ -593,54 +624,7 @@ func _apply_dead_physics(delta: float) -> void:
 	_update_grapple_visual()
 
 
-func _try_start_attack() -> void:
-	if attack_hitbox == null:
-		return
-
-	if attack_phase != AttackPhase.READY:
-		return
-
-	if not Input.is_action_just_pressed("attack"):
-		return
-
-	_set_attack_phase(AttackPhase.WINDUP, attack_windup_time)
-
-
-func _update_attack_state(delta: float) -> void:
-	if attack_phase == AttackPhase.READY:
-		return
-
-	attack_phase_time_left -= delta
-	if attack_phase_time_left > 0.0:
-		return
-
-	match attack_phase:
-		AttackPhase.WINDUP:
-			_set_attack_phase(AttackPhase.ACTIVE, attack_active_time)
-		AttackPhase.ACTIVE:
-			var recovery_time := maxf(attack_cooldown_time - attack_windup_time - attack_active_time, 0.0)
-			_set_attack_phase(AttackPhase.RECOVERY, recovery_time)
-		AttackPhase.RECOVERY:
-			_set_attack_phase(AttackPhase.READY, 0.0)
-
-
-func _set_attack_phase(next_phase: int, duration: float) -> void:
-	if attack_phase == AttackPhase.ACTIVE and attack_hitbox:
-		attack_hitbox.deactivate()
-
-	attack_phase = next_phase
-	attack_phase_time_left = maxf(duration, 0.0)
-
-	if attack_phase == AttackPhase.ACTIVE and attack_hitbox:
-		attack_hitbox.activate()
-
-	if attack_phase == AttackPhase.READY:
-		attack_phase_time_left = 0.0
-
-
 func _cancel_attack() -> void:
-	attack_phase = AttackPhase.READY
-	attack_phase_time_left = 0.0
 	if attack_hitbox:
 		attack_hitbox.cancel()
 
@@ -656,6 +640,10 @@ func _set_dead() -> void:
 	_clear_wall_stick()
 	if grapple_cursor:
 		grapple_cursor.visible = false
+	if movement_hsm:
+		movement_hsm.dispatch(EVENT_DIED)
+	if attack_hsm:
+		attack_hsm.dispatch(EVENT_ATTACK_CANCELLED)
 
 
 func _on_health_damaged(damage_instance: DamageInstance) -> void:

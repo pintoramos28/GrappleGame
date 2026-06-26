@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://u1u36ceuo8uj"]
+[gd_scene load_steps=22 format=3 uid="uid://u1u36ceuo8uj"]
 
 [ext_resource type="Script" uid="uid://wamp3knx1owk" path="res://scripts/player_controller.gd" id="1_cvnsp"]
 [ext_resource type="Material" uid="uid://n7sp4rkyhn5o" path="res://materials/player_mat.tres" id="2_6t5aa"]
@@ -8,6 +8,16 @@
 [ext_resource type="Script" path="res://scripts/combat/combat_hitbox_3d.gd" id="6_o5f7t"]
 [ext_resource type="Resource" path="res://resources/attacks/player_basic_attack.tres" id="7_b7t7y"]
 [ext_resource type="Resource" path="res://resources/stats/player_base_stats.tres" id="8_3ra4k"]
+[ext_resource type="Script" path="res://scripts/player_grounded_state.gd" id="9_grounded"]
+[ext_resource type="Script" path="res://scripts/player_airborne_state.gd" id="10_airborne"]
+[ext_resource type="Script" path="res://scripts/player_grappling_state.gd" id="11_grapple"]
+[ext_resource type="Script" path="res://scripts/player_wall_run_state.gd" id="12_wallrun"]
+[ext_resource type="Script" path="res://scripts/player_wall_stick_state.gd" id="13_wallstick"]
+[ext_resource type="Script" path="res://scripts/player_dead_state.gd" id="14_dead"]
+[ext_resource type="Script" path="res://scripts/player_attack_ready_state.gd" id="15_attackready"]
+[ext_resource type="Script" path="res://scripts/player_attack_windup_state.gd" id="16_attackwindup"]
+[ext_resource type="Script" path="res://scripts/player_attack_active_state.gd" id="17_attackactive"]
+[ext_resource type="Script" path="res://scripts/player_attack_recovery_state.gd" id="18_attackrecovery"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5vw27"]
 radius = 0.45
@@ -84,3 +94,37 @@ source_path = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackHitbox"]
 shape = SubResource("BoxShape3D_attack")
+
+[node name="MovementHSM" type="LimboHSM" parent="."]
+
+[node name="GroundedState" type="LimboState" parent="MovementHSM"]
+script = ExtResource("9_grounded")
+
+[node name="AirborneState" type="LimboState" parent="MovementHSM"]
+script = ExtResource("10_airborne")
+
+[node name="GrapplingState" type="LimboState" parent="MovementHSM"]
+script = ExtResource("11_grapple")
+
+[node name="WallRunState" type="LimboState" parent="MovementHSM"]
+script = ExtResource("12_wallrun")
+
+[node name="WallStickState" type="LimboState" parent="MovementHSM"]
+script = ExtResource("13_wallstick")
+
+[node name="DeadState" type="LimboState" parent="MovementHSM"]
+script = ExtResource("14_dead")
+
+[node name="AttackHSM" type="LimboHSM" parent="."]
+
+[node name="AttackReadyState" type="LimboState" parent="AttackHSM"]
+script = ExtResource("15_attackready")
+
+[node name="AttackWindupState" type="LimboState" parent="AttackHSM"]
+script = ExtResource("16_attackwindup")
+
+[node name="AttackActiveState" type="LimboState" parent="AttackHSM"]
+script = ExtResource("17_attackactive")
+
+[node name="AttackRecoveryState" type="LimboState" parent="AttackHSM"]
+script = ExtResource("18_attackrecovery")
