@@ -87,6 +87,7 @@ extends CharacterBody3D
 @onready var player_mesh: MeshInstance3D = $MeshInstance3D
 @onready var health: CombatHealth = get_node_or_null("Health")
 @onready var attack_hitbox: CombatHitbox3D = get_node_or_null("AttackHitbox")
+@onready var attack_visual: AttackArcVisual3D = get_node_or_null("AttackVisual")
 @onready var movement_hsm: LimboHSM = $MovementHSM
 @onready var grounded_state: LimboState = $MovementHSM/GroundedState
 @onready var airborne_state: LimboState = $MovementHSM/AirborneState

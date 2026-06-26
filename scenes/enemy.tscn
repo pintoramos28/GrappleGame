@@ -9,6 +9,7 @@
 [ext_resource type="Resource" path="res://resources/attacks/enemy_basic_attack.tres" id="7_0g118"]
 [ext_resource type="BehaviorTree" path="res://ai/trees/enemy_behavior.tres" id="8_5x4by"]
 [ext_resource type="Resource" path="res://resources/stats/enemy_base_stats.tres" id="9_c7dm2"]
+[ext_resource type="Script" path="res://scripts/visuals/attack_arc_visual_3d.gd" id="10_attackarc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f1xei"]
 radius = 0.45
@@ -68,6 +69,18 @@ owner_team = "enemy"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackHitbox" unique_id=212504393]
 shape = SubResource("BoxShape3D_xghq7")
+
+[node name="AttackVisual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -1)
+script = ExtResource("10_attackarc")
+inner_radius = 0.28
+outer_radius = 0.8
+arc_angle_degrees = 115.0
+mesh_rotation_degrees = Vector3(0, 0, 24)
+arc_color = Color(1, 0.22, 0.08, 0.85)
+emission_energy = 2.0
+default_duration = 0.2
+sweep_rotation_degrees = Vector3(0, 0, -30)
 
 [node name="AttackRange" type="Area3D" parent="." unique_id=1703794022]
 collision_layer = 0

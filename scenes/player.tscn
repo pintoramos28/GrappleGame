@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://u1u36ceuo8uj"]
+[gd_scene load_steps=23 format=3 uid="uid://u1u36ceuo8uj"]
 
 [ext_resource type="Script" uid="uid://wamp3knx1owk" path="res://scripts/player_controller.gd" id="1_cvnsp"]
 [ext_resource type="Material" uid="uid://n7sp4rkyhn5o" path="res://materials/player_mat.tres" id="2_6t5aa"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://scripts/player_attack_windup_state.gd" id="16_attackwindup"]
 [ext_resource type="Script" path="res://scripts/player_attack_active_state.gd" id="17_attackactive"]
 [ext_resource type="Script" path="res://scripts/player_attack_recovery_state.gd" id="18_attackrecovery"]
+[ext_resource type="Script" path="res://scripts/visuals/attack_arc_visual_3d.gd" id="19_attackarc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5vw27"]
 radius = 0.45
@@ -94,6 +95,18 @@ source_path = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackHitbox"]
 shape = SubResource("BoxShape3D_attack")
+
+[node name="AttackVisual" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -1)
+script = ExtResource("19_attackarc")
+inner_radius = 0.32
+outer_radius = 0.95
+arc_angle_degrees = 135.0
+mesh_rotation_degrees = Vector3(0, 0, -28)
+arc_color = Color(0.35, 0.95, 1, 0.85)
+emission_energy = 2.5
+default_duration = 0.16
+sweep_rotation_degrees = Vector3(0, 0, 36)
 
 [node name="MovementHSM" type="LimboHSM" parent="."]
 

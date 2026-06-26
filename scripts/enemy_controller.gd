@@ -8,6 +8,7 @@ extends CharacterBody3D
 
 @onready var health: CombatHealth = $Health
 @onready var attack_hitbox: CombatHitbox3D = $AttackHitbox
+@onready var attack_visual: AttackArcVisual3D = $AttackVisual
 @onready var attack_range: Area3D = $AttackRange
 @onready var bt_player: BTPlayer = $BTPlayer
 
@@ -38,6 +39,7 @@ func _physics_process(delta: float) -> void:
 func _set_ai_blackboard_defaults() -> void:
 	bt_player.blackboard.set_var(&"target", null)
 	bt_player.blackboard.set_var(&"attack_hitbox", attack_hitbox)
+	bt_player.blackboard.set_var(&"attack_visual", attack_visual)
 	bt_player.blackboard.set_var(&"attack_active_time", attack_active_time)
 
 

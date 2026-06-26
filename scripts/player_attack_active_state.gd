@@ -5,6 +5,8 @@ var time_left := 0.0
 
 func _enter() -> void:
 	time_left = maxf(agent.attack_active_time, 0.0)
+	if agent.attack_visual:
+		agent.attack_visual.play(time_left)
 	if agent.attack_hitbox:
 		agent.attack_hitbox.activate()
 
