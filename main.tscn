@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://u1u36ceuo8uj" path="res://scenes/player.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://bnms6xq4xg8yi" path="res://scenes/building.tscn" id="3_hf4db"]
 [ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="4_ukvp0"]
+[ext_resource type="Resource" path="res://resources/enemies/ranged_enemy_definition.tres" id="5_iycu1"]
+[ext_resource type="Resource" path="res://resources/enemies/direct_ranged_enemy_definition.tres" id="6_nqqwa"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_7mycd"]
 size = Vector3(300, 0.2, 300)
@@ -82,6 +84,14 @@ grapple_gravity_scale = 0.0
 
 [node name="Enemy" parent="World" instance=ExtResource("4_ukvp0")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.1, -3)
+
+[node name="ArcRangedEnemy" parent="World" instance=ExtResource("4_ukvp0")]
+transform = Transform3D(-0.7808688, 0, 0.62469506, 0, 1, 0, -0.62469506, 0, -0.7808688, -8, 0.1, -10)
+enemy_definition = ExtResource("5_iycu1")
+
+[node name="DirectRangedEnemy" parent="World" instance=ExtResource("4_ukvp0")]
+transform = Transform3D(0.5881717, 0, -0.8087361, 0, 1, 0, 0.8087361, 0, 0.5881717, 11, 0.1, 8)
+enemy_definition = ExtResource("6_nqqwa")
 
 [node name="SunLight" type="DirectionalLight3D" parent="." unique_id=1231637837]
 transform = Transform3D(0.8660254, -0.3830222, 0.32139382, 0, 0.64278764, 0.7660444, -0.5, -0.6634139, 0.5566704, 0, 0, 0)

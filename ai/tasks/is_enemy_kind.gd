@@ -2,7 +2,7 @@
 extends BTCondition
 
 @export var enemy_definition_var: StringName = &"enemy_definition"
-@export_enum("Melee", "Ranged") var enemy_kind := 0
+@export_enum("Melee", "Ranged") var enemy_kind: int = EnemyDefinition.EnemyKind.MELEE
 
 
 func _generate_name() -> String:

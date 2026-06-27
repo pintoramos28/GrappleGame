@@ -27,5 +27,5 @@ attack_damage = 6.0
 projectile_scene = ExtResource("3_projectile")
 projectile_speed = 13.5
 projectile_lifetime = 4.0
-projectile_arc_height = 3.0
-projectile_path_type = 1
+projectile_arc_height = 0.0
+projectile_path_type = 0
