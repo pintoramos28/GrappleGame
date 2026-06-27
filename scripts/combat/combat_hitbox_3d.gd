@@ -26,6 +26,7 @@ func activate() -> void:
 	_activation_id += 1
 	_already_hit.clear()
 	monitoring = true
+	call_deferred("_hit_overlapping_areas", _activation_id)
 
 
 func activate_for(duration: float) -> void:
@@ -51,6 +52,18 @@ func _deactivate_after(duration: float, activation_id: int) -> void:
 
 
 func _on_area_entered(area: Area3D) -> void:
+	_hit_area(area)
+
+
+func _hit_overlapping_areas(activation_id: int) -> void:
+	if activation_id != _activation_id or not monitoring:
+		return
+
+	for area in get_overlapping_areas():
+		_hit_area(area)
+
+
+func _hit_area(area: Area3D) -> void:
 	var hurtbox := area as CombatHurtbox3D
 	if hurtbox == null:
 		return

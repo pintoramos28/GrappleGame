@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/attack_data.gd" id="1_attack_data"]
+
+[resource]
+script = ExtResource("1_attack_data")
+display_name = "Enemy Bolt"
+damage_by_type = {
+"physical": 6.0
+}
+attack_power_scale = 1.0
+poise_damage = 2.0
+tags = PackedStringArray("ranged", "enemy", "projectile")

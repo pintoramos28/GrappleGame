@@ -2,42 +2,120 @@
 
 [ext_resource type="Script" uid="uid://dugs6nivxuv08" path="res://ai/tasks/has_valid_target.gd" id="1_has_target"]
 [ext_resource type="Script" uid="uid://gkoei0kmo6pc" path="res://ai/tasks/face_target_3d.gd" id="2_face_target"]
-[ext_resource type="Script" uid="uid://bf2i8qmfrfj0v" path="res://ai/tasks/activate_attack_hitbox.gd" id="3_activate_attack"]
-[ext_resource type="Script" uid="uid://dvmreawluno2p" path="res://ai/tasks/stop_horizontal_movement.gd" id="4_stop_horizontal"]
+[ext_resource type="Script" uid="uid://dvmreawluno2p" path="res://ai/tasks/stop_horizontal_movement.gd" id="3_stop_horizontal"]
+[ext_resource type="Script" uid="uid://du0c2qt8xb425" path="res://ai/tasks/is_enemy_kind.gd" id="4_is_kind"]
+[ext_resource type="Script" uid="uid://n2uycxbgj81h" path="res://ai/tasks/is_target_in_attack_range.gd" id="5_in_attack_range"]
+[ext_resource type="Script" uid="uid://cqrpikhwafp2j" path="res://ai/tasks/is_target_too_close.gd" id="6_too_close"]
+[ext_resource type="Script" uid="uid://dy2jsxfuxouso" path="res://ai/tasks/is_target_too_far.gd" id="7_too_far"]
+[ext_resource type="Script" uid="uid://c81lk5ofx2aat" path="res://ai/tasks/has_line_of_sight_to_target.gd" id="8_has_los"]
+[ext_resource type="Script" uid="uid://kbxcg4pd4dlp" path="res://ai/tasks/move_toward_target.gd" id="9_move_toward"]
+[ext_resource type="Script" uid="uid://watcdpdls82e" path="res://ai/tasks/move_away_from_target.gd" id="10_move_away"]
+[ext_resource type="Script" uid="uid://c3qt24o0givn5" path="res://ai/tasks/request_enemy_attack.gd" id="11_request_attack"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_sasvj"]
 
-[sub_resource type="BTCondition" id="BTCondition_has_target"]
+[sub_resource type="BTCondition" id="BTCondition_has_target_ranged"]
 script = ExtResource("1_has_target")
 
-[sub_resource type="BTAction" id="BTAction_face_target"]
+[sub_resource type="BTCondition" id="BTCondition_is_ranged"]
+script = ExtResource("4_is_kind")
+enemy_kind = 1
+
+[sub_resource type="BTAction" id="BTAction_face_ranged"]
 script = ExtResource("2_face_target")
 
-[sub_resource type="BTAction" id="BTAction_activate_attack"]
-script = ExtResource("3_activate_attack")
+[sub_resource type="BTCondition" id="BTCondition_too_close"]
+script = ExtResource("6_too_close")
 
-[sub_resource type="BTCooldown" id="BTCooldown_attack"]
-duration = 1.25
-start_cooled = true
-custom_name = "Attack cooldown"
-children = [SubResource("BTAction_activate_attack")]
+[sub_resource type="BTAction" id="BTAction_move_away"]
+script = ExtResource("10_move_away")
 
-[sub_resource type="BTSequence" id="BTSequence_attack_target"]
-custom_name = "Attack target"
-children = [SubResource("BTCondition_has_target"), SubResource("BTAction_face_target"), SubResource("BTCooldown_attack")]
+[sub_resource type="BTSequence" id="BTSequence_ranged_retreat"]
+custom_name = "Retreat from target"
+children = [SubResource("BTCondition_too_close"), SubResource("BTAction_move_away")]
 
-[sub_resource type="BTAction" id="BTAction_stop_horizontal"]
-script = ExtResource("4_stop_horizontal")
+[sub_resource type="BTCondition" id="BTCondition_too_far"]
+script = ExtResource("7_too_far")
+
+[sub_resource type="BTAction" id="BTAction_move_toward_ranged"]
+script = ExtResource("9_move_toward")
+
+[sub_resource type="BTSequence" id="BTSequence_ranged_approach"]
+custom_name = "Approach ranged distance"
+children = [SubResource("BTCondition_too_far"), SubResource("BTAction_move_toward_ranged")]
+
+[sub_resource type="BTCondition" id="BTCondition_has_los_ranged"]
+script = ExtResource("8_has_los")
+
+[sub_resource type="BTCondition" id="BTCondition_in_range_ranged"]
+script = ExtResource("5_in_attack_range")
+
+[sub_resource type="BTAction" id="BTAction_stop_ranged_attack"]
+script = ExtResource("3_stop_horizontal")
+
+[sub_resource type="BTAction" id="BTAction_request_ranged_attack"]
+script = ExtResource("11_request_attack")
+
+[sub_resource type="BTSequence" id="BTSequence_ranged_attack"]
+custom_name = "Ranged attack"
+children = [SubResource("BTCondition_has_los_ranged"), SubResource("BTCondition_in_range_ranged"), SubResource("BTAction_stop_ranged_attack"), SubResource("BTAction_request_ranged_attack")]
+
+[sub_resource type="BTAction" id="BTAction_stop_ranged"]
+script = ExtResource("3_stop_horizontal")
+
+[sub_resource type="BTSelector" id="BTSelector_ranged_position"]
+custom_name = "Ranged positioning"
+children = [SubResource("BTSequence_ranged_retreat"), SubResource("BTSequence_ranged_approach"), SubResource("BTSequence_ranged_attack"), SubResource("BTAction_stop_ranged")]
+
+[sub_resource type="BTSequence" id="BTSequence_ranged_behavior"]
+custom_name = "Ranged behavior"
+children = [SubResource("BTCondition_has_target_ranged"), SubResource("BTCondition_is_ranged"), SubResource("BTAction_face_ranged"), SubResource("BTSelector_ranged_position")]
+
+[sub_resource type="BTCondition" id="BTCondition_has_target_melee"]
+script = ExtResource("1_has_target")
+
+[sub_resource type="BTCondition" id="BTCondition_is_melee"]
+script = ExtResource("4_is_kind")
+
+[sub_resource type="BTAction" id="BTAction_face_melee"]
+script = ExtResource("2_face_target")
+
+[sub_resource type="BTCondition" id="BTCondition_in_range_melee"]
+script = ExtResource("5_in_attack_range")
+
+[sub_resource type="BTAction" id="BTAction_stop_melee_attack"]
+script = ExtResource("3_stop_horizontal")
+
+[sub_resource type="BTAction" id="BTAction_request_melee_attack"]
+script = ExtResource("11_request_attack")
+
+[sub_resource type="BTSequence" id="BTSequence_melee_attack"]
+custom_name = "Melee attack"
+children = [SubResource("BTCondition_in_range_melee"), SubResource("BTAction_stop_melee_attack"), SubResource("BTAction_request_melee_attack")]
+
+[sub_resource type="BTAction" id="BTAction_move_toward_melee"]
+script = ExtResource("9_move_toward")
+
+[sub_resource type="BTSelector" id="BTSelector_melee_position"]
+custom_name = "Melee positioning"
+children = [SubResource("BTSequence_melee_attack"), SubResource("BTAction_move_toward_melee")]
+
+[sub_resource type="BTSequence" id="BTSequence_melee_behavior"]
+custom_name = "Melee behavior"
+children = [SubResource("BTCondition_has_target_melee"), SubResource("BTCondition_is_melee"), SubResource("BTAction_face_melee"), SubResource("BTSelector_melee_position")]
+
+[sub_resource type="BTAction" id="BTAction_stop_idle"]
+script = ExtResource("3_stop_horizontal")
 
 [sub_resource type="BTSequence" id="BTSequence_idle"]
 custom_name = "Idle"
-children = [SubResource("BTAction_stop_horizontal")]
+children = [SubResource("BTAction_stop_idle")]
 
 [sub_resource type="BTSelector" id="BTSelector_root"]
 custom_name = "Enemy behavior"
-children = [SubResource("BTSequence_attack_target"), SubResource("BTSequence_idle")]
+children = [SubResource("BTSequence_ranged_behavior"), SubResource("BTSequence_melee_behavior"), SubResource("BTSequence_idle")]
 
 [resource]
-description = "Stationary enemy behavior. If a valid target is present, face it and activate the melee hitbox on cooldown; otherwise idle."
+description = "Vision-driven enemy behavior. Melee enemies chase and attack in range; ranged enemies maintain distance and fire through the attack HSM."
 blackboard_plan = SubResource("BlackboardPlan_sasvj")
 root_task = SubResource("BTSelector_root")

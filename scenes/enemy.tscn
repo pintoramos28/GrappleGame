@@ -1,78 +1,88 @@
 [gd_scene format=3 uid="uid://gsrflqnw4a31"]
 
-[ext_resource type="Script" uid="uid://ddqtgimj7tr3l" path="res://scripts/enemy_controller.gd" id="1_5jygy"]
-[ext_resource type="Material" path="res://materials/enemy_mat.tres" id="2_7ok8x"]
-[ext_resource type="Script" uid="uid://bm8a7gc0qsvck" path="res://scripts/combat/combat_health.gd" id="3_k16yf"]
-[ext_resource type="Script" uid="uid://bm6eh2e3vdaoa" path="res://scripts/combat/combat_stats.gd" id="4_6r4wn"]
-[ext_resource type="Script" uid="uid://inorlce8tl56" path="res://scripts/combat/combat_hurtbox_3d.gd" id="5_y0g12"]
-[ext_resource type="Script" uid="uid://cv3kfuqrhhox" path="res://scripts/combat/combat_hitbox_3d.gd" id="6_ecmxs"]
-[ext_resource type="Resource" path="res://resources/attacks/enemy_basic_attack.tres" id="7_0g118"]
-[ext_resource type="BehaviorTree" path="res://ai/trees/enemy_behavior.tres" id="8_5x4by"]
-[ext_resource type="Resource" path="res://resources/stats/enemy_base_stats.tres" id="9_c7dm2"]
-[ext_resource type="Script" path="res://scripts/visuals/attack_arc_visual_3d.gd" id="10_attackarc"]
+[ext_resource type="Script" uid="uid://ddqtgimj7tr3l" path="res://scripts/enemy_controller.gd" id="1_controller"]
+[ext_resource type="Material" path="res://materials/enemy_mat.tres" id="2_material"]
+[ext_resource type="Script" uid="uid://bm8a7gc0qsvck" path="res://scripts/combat/combat_health.gd" id="3_health"]
+[ext_resource type="Script" uid="uid://bm6eh2e3vdaoa" path="res://scripts/combat/combat_stats.gd" id="4_stats"]
+[ext_resource type="Script" uid="uid://inorlce8tl56" path="res://scripts/combat/combat_hurtbox_3d.gd" id="5_hurtbox"]
+[ext_resource type="Script" uid="uid://cv3kfuqrhhox" path="res://scripts/combat/combat_hitbox_3d.gd" id="6_hitbox"]
+[ext_resource type="Resource" path="res://resources/attacks/enemy_basic_attack.tres" id="7_attack"]
+[ext_resource type="BehaviorTree" path="res://ai/trees/enemy_behavior.tres" id="8_behavior"]
+[ext_resource type="Resource" path="res://resources/stats/enemy_base_stats.tres" id="9_stats_data"]
+[ext_resource type="Script" path="res://scripts/visuals/attack_arc_visual_3d.gd" id="10_attack_arc"]
+[ext_resource type="Resource" path="res://resources/enemies/melee_enemy_definition.tres" id="11_definition"]
+[ext_resource type="Script" path="res://scripts/enemy/enemy_vision_3d.gd" id="12_vision"]
+[ext_resource type="Script" path="res://scripts/enemy/enemy_movement_3d.gd" id="13_movement"]
+[ext_resource type="Script" path="res://scripts/enemy/states/enemy_ready_state.gd" id="14_ready"]
+[ext_resource type="Script" path="res://scripts/enemy/states/enemy_attack_windup_state.gd" id="15_windup"]
+[ext_resource type="Script" path="res://scripts/enemy/states/enemy_attack_active_state.gd" id="16_active"]
+[ext_resource type="Script" path="res://scripts/enemy/states/enemy_attack_recovery_state.gd" id="17_recovery"]
+[ext_resource type="Script" path="res://scripts/enemy/states/enemy_dead_state.gd" id="18_dead"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f1xei"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.45
 height = 1.8
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_8t3gb"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_body"]
 radius = 0.45
 height = 1.8
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xghq7"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_attack"]
 size = Vector3(1.2, 1.2, 1.1)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_55lg1"]
-radius = 2.1
+[sub_resource type="SphereShape3D" id="SphereShape3D_vision"]
+radius = 13.0
 
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_md484"]
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_enemy"]
 
 [node name="Enemy" type="CharacterBody3D" unique_id=1778176160]
 collision_layer = 4
-script = ExtResource("1_5jygy")
+script = ExtResource("1_controller")
+enemy_definition = ExtResource("11_definition")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1184173551]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = SubResource("CapsuleShape3D_f1xei")
+shape = SubResource("CapsuleShape3D_body")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=381978479]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-material_override = ExtResource("2_7ok8x")
-mesh = SubResource("CapsuleMesh_8t3gb")
+material_override = ExtResource("2_material")
+mesh = SubResource("CapsuleMesh_body")
 
 [node name="Health" type="Node" parent="." unique_id=884736540]
-script = ExtResource("3_k16yf")
+script = ExtResource("3_health")
 max_health = 60.0
 
 [node name="CombatStats" type="Node" parent="." unique_id=249299975]
-script = ExtResource("4_6r4wn")
-base_stats = ExtResource("9_c7dm2")
+script = ExtResource("4_stats")
+base_stats = ExtResource("9_stats_data")
 
 [node name="Hurtbox" type="Area3D" parent="." unique_id=1347569357 node_paths=PackedStringArray("health")]
 collision_layer = 16
 collision_mask = 0
-script = ExtResource("5_y0g12")
+script = ExtResource("5_hurtbox")
 health = NodePath("../Health")
 team = "enemy"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=2136719621]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = SubResource("CapsuleShape3D_f1xei")
+shape = SubResource("CapsuleShape3D_body")
 
-[node name="AttackHitbox" type="Area3D" parent="." unique_id=1356933738]
+[node name="AttackHitbox" type="Area3D" parent="." unique_id=1356933738 node_paths=PackedStringArray("source_path")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -1)
 collision_layer = 0
 collision_mask = 8
-script = ExtResource("6_ecmxs")
-attack_data = ExtResource("7_0g118")
+script = ExtResource("6_hitbox")
+attack_data = ExtResource("7_attack")
 owner_team = "enemy"
+source_path = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackHitbox" unique_id=212504393]
-shape = SubResource("BoxShape3D_xghq7")
+shape = SubResource("BoxShape3D_attack")
 
 [node name="AttackVisual" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -1)
-script = ExtResource("10_attackarc")
+script = ExtResource("10_attack_arc")
 inner_radius = 0.28
 outer_radius = 0.8
 arc_angle_degrees = 115.0
@@ -82,14 +92,40 @@ emission_energy = 2.0
 default_duration = 0.2
 sweep_rotation_degrees = Vector3(0, 0, -30)
 
-[node name="AttackRange" type="Area3D" parent="." unique_id=1703794022]
+[node name="ProjectileSpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.75)
+
+[node name="EnemyVision3D" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 2
+script = ExtResource("12_vision")
+vision_range = 13.0
+vision_angle_degrees = 120.0
+lose_target_after_seconds = 1.75
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackRange" unique_id=998406659]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = SubResource("SphereShape3D_55lg1")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyVision3D"]
+shape = SubResource("SphereShape3D_vision")
+
+[node name="EnemyMovement3D" type="Node" parent="."]
+script = ExtResource("13_movement")
+
+[node name="EnemyHSM" type="LimboHSM" parent="."]
+
+[node name="ReadyState" type="LimboState" parent="EnemyHSM"]
+script = ExtResource("14_ready")
+
+[node name="AttackWindupState" type="LimboState" parent="EnemyHSM"]
+script = ExtResource("15_windup")
+
+[node name="AttackActiveState" type="LimboState" parent="EnemyHSM"]
+script = ExtResource("16_active")
+
+[node name="AttackRecoveryState" type="LimboState" parent="EnemyHSM"]
+script = ExtResource("17_recovery")
+
+[node name="DeadState" type="LimboState" parent="EnemyHSM"]
+script = ExtResource("18_dead")
 
 [node name="BTPlayer" type="BTPlayer" parent="." unique_id=785765036]
-behavior_tree = ExtResource("8_5x4by")
-blackboard_plan = SubResource("BlackboardPlan_md484")
+behavior_tree = ExtResource("8_behavior")
+blackboard_plan = SubResource("BlackboardPlan_enemy")
