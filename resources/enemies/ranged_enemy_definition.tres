@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="EnemyDefinition" format=3 uid="uid://xt2r0mnrlmf6"]
 
-[ext_resource type="Script" path="res://scripts/enemy/enemy_definition.gd" id="1_definition"]
+[ext_resource type="Script" uid="uid://mb4qbrfrjl0f" path="res://scripts/enemy/enemy_definition.gd" id="1_definition"]
 [ext_resource type="Resource" path="res://resources/attacks/enemy_ranged_attack.tres" id="2_attack"]
 [ext_resource type="PackedScene" path="res://scenes/projectile.tscn" id="3_projectile"]
 
@@ -12,11 +12,7 @@ vision_angle_degrees = 140.0
 lose_target_after_seconds = 2.0
 move_speed = 3.6
 acceleration = 12.0
-deceleration = 18.0
 stopping_distance = 0.35
-ranged_min_distance = 5.0
-ranged_ideal_distance = 8.0
-ranged_max_distance = 11.0
 attack_data = ExtResource("2_attack")
 attack_speed = 0.65
 attack_windup_time = 0.28
@@ -26,6 +22,4 @@ attack_range = 12.0
 attack_damage = 6.0
 projectile_scene = ExtResource("3_projectile")
 projectile_speed = 13.5
-projectile_lifetime = 4.0
-projectile_arc_height = 3.0
 projectile_path_type = 1

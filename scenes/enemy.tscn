@@ -7,17 +7,17 @@
 [ext_resource type="Script" uid="uid://inorlce8tl56" path="res://scripts/combat/combat_hurtbox_3d.gd" id="5_hurtbox"]
 [ext_resource type="Script" uid="uid://cv3kfuqrhhox" path="res://scripts/combat/combat_hitbox_3d.gd" id="6_hitbox"]
 [ext_resource type="Resource" path="res://resources/attacks/enemy_basic_attack.tres" id="7_attack"]
-[ext_resource type="BehaviorTree" path="res://ai/trees/enemy_behavior.tres" id="8_behavior"]
+[ext_resource type="BehaviorTree" uid="uid://x5dt6r1lm8wc" path="res://ai/trees/enemy_behavior.tres" id="8_behavior"]
 [ext_resource type="Resource" path="res://resources/stats/enemy_base_stats.tres" id="9_stats_data"]
-[ext_resource type="Script" path="res://scripts/visuals/attack_arc_visual_3d.gd" id="10_attack_arc"]
+[ext_resource type="Script" uid="uid://ctp8c3maf0y66" path="res://scripts/visuals/attack_arc_visual_3d.gd" id="10_attack_arc"]
 [ext_resource type="Resource" path="res://resources/enemies/melee_enemy_definition.tres" id="11_definition"]
-[ext_resource type="Script" path="res://scripts/enemy/enemy_vision_3d.gd" id="12_vision"]
-[ext_resource type="Script" path="res://scripts/enemy/enemy_movement_3d.gd" id="13_movement"]
-[ext_resource type="Script" path="res://scripts/enemy/states/enemy_ready_state.gd" id="14_ready"]
-[ext_resource type="Script" path="res://scripts/enemy/states/enemy_attack_windup_state.gd" id="15_windup"]
-[ext_resource type="Script" path="res://scripts/enemy/states/enemy_attack_active_state.gd" id="16_active"]
-[ext_resource type="Script" path="res://scripts/enemy/states/enemy_attack_recovery_state.gd" id="17_recovery"]
-[ext_resource type="Script" path="res://scripts/enemy/states/enemy_dead_state.gd" id="18_dead"]
+[ext_resource type="Script" uid="uid://dkjyha8nxg5yj" path="res://scripts/enemy/enemy_vision_3d.gd" id="12_vision"]
+[ext_resource type="Script" uid="uid://svf6ncrgcwcu" path="res://scripts/enemy/enemy_movement_3d.gd" id="13_movement"]
+[ext_resource type="Script" uid="uid://cisyc430bjn33" path="res://scripts/enemy/states/enemy_ready_state.gd" id="14_ready"]
+[ext_resource type="Script" uid="uid://dj7e63taxgh6i" path="res://scripts/enemy/states/enemy_attack_windup_state.gd" id="15_windup"]
+[ext_resource type="Script" uid="uid://bc3ivyq3735t3" path="res://scripts/enemy/states/enemy_attack_active_state.gd" id="16_active"]
+[ext_resource type="Script" uid="uid://vwhfpigcqylk" path="res://scripts/enemy/states/enemy_attack_recovery_state.gd" id="17_recovery"]
+[ext_resource type="Script" uid="uid://dsvxq0y7e41to" path="res://scripts/enemy/states/enemy_dead_state.gd" id="18_dead"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
 radius = 0.45
@@ -68,19 +68,18 @@ team = "enemy"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_body")
 
-[node name="AttackHitbox" type="Area3D" parent="." unique_id=1356933738 node_paths=PackedStringArray("source_path")]
+[node name="AttackHitbox" type="Area3D" parent="." unique_id=1356933738]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -1)
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("6_hitbox")
 attack_data = ExtResource("7_attack")
 owner_team = "enemy"
-source_path = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackHitbox" unique_id=212504393]
 shape = SubResource("BoxShape3D_attack")
 
-[node name="AttackVisual" type="Node3D" parent="."]
+[node name="AttackVisual" type="Node3D" parent="." unique_id=1917065364]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -1)
 script = ExtResource("10_attack_arc")
 inner_radius = 0.28
@@ -88,14 +87,13 @@ outer_radius = 0.8
 arc_angle_degrees = 115.0
 mesh_rotation_degrees = Vector3(0, 0, 24)
 arc_color = Color(1, 0.22, 0.08, 0.85)
-emission_energy = 2.0
 default_duration = 0.2
 sweep_rotation_degrees = Vector3(0, 0, -30)
 
-[node name="ProjectileSpawnPoint" type="Node3D" parent="."]
+[node name="ProjectileSpawnPoint" type="Node3D" parent="." unique_id=2144488183]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.75)
 
-[node name="EnemyVision3D" type="Area3D" parent="."]
+[node name="EnemyVision3D" type="Area3D" parent="." unique_id=194879272]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("12_vision")
@@ -103,27 +101,27 @@ vision_range = 13.0
 vision_angle_degrees = 120.0
 lose_target_after_seconds = 1.75
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyVision3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyVision3D" unique_id=1291660163]
 shape = SubResource("SphereShape3D_vision")
 
-[node name="EnemyMovement3D" type="Node" parent="."]
+[node name="EnemyMovement3D" type="Node" parent="." unique_id=1074525628]
 script = ExtResource("13_movement")
 
-[node name="EnemyHSM" type="LimboHSM" parent="."]
+[node name="EnemyHSM" type="LimboHSM" parent="." unique_id=2004202481]
 
-[node name="ReadyState" type="LimboState" parent="EnemyHSM"]
+[node name="ReadyState" type="LimboState" parent="EnemyHSM" unique_id=1292826314]
 script = ExtResource("14_ready")
 
-[node name="AttackWindupState" type="LimboState" parent="EnemyHSM"]
+[node name="AttackWindupState" type="LimboState" parent="EnemyHSM" unique_id=1103050178]
 script = ExtResource("15_windup")
 
-[node name="AttackActiveState" type="LimboState" parent="EnemyHSM"]
+[node name="AttackActiveState" type="LimboState" parent="EnemyHSM" unique_id=1068555335]
 script = ExtResource("16_active")
 
-[node name="AttackRecoveryState" type="LimboState" parent="EnemyHSM"]
+[node name="AttackRecoveryState" type="LimboState" parent="EnemyHSM" unique_id=1038265027]
 script = ExtResource("17_recovery")
 
-[node name="DeadState" type="LimboState" parent="EnemyHSM"]
+[node name="DeadState" type="LimboState" parent="EnemyHSM" unique_id=845073382]
 script = ExtResource("18_dead")
 
 [node name="BTPlayer" type="BTPlayer" parent="." unique_id=785765036]

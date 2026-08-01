@@ -1,24 +1,24 @@
-[gd_scene load_steps=23 format=3 uid="uid://u1u36ceuo8uj"]
+[gd_scene format=3 uid="uid://u1u36ceuo8uj"]
 
 [ext_resource type="Script" uid="uid://wamp3knx1owk" path="res://scripts/player_controller.gd" id="1_cvnsp"]
 [ext_resource type="Material" uid="uid://n7sp4rkyhn5o" path="res://materials/player_mat.tres" id="2_6t5aa"]
-[ext_resource type="Script" path="res://scripts/combat/combat_health.gd" id="3_8agwv"]
-[ext_resource type="Script" path="res://scripts/combat/combat_stats.gd" id="4_vnv48"]
-[ext_resource type="Script" path="res://scripts/combat/combat_hurtbox_3d.gd" id="5_2kfp0"]
-[ext_resource type="Script" path="res://scripts/combat/combat_hitbox_3d.gd" id="6_o5f7t"]
+[ext_resource type="Script" uid="uid://bm8a7gc0qsvck" path="res://scripts/combat/combat_health.gd" id="3_8agwv"]
+[ext_resource type="Script" uid="uid://bm6eh2e3vdaoa" path="res://scripts/combat/combat_stats.gd" id="4_vnv48"]
+[ext_resource type="Script" uid="uid://inorlce8tl56" path="res://scripts/combat/combat_hurtbox_3d.gd" id="5_2kfp0"]
+[ext_resource type="Script" uid="uid://cv3kfuqrhhox" path="res://scripts/combat/combat_hitbox_3d.gd" id="6_o5f7t"]
 [ext_resource type="Resource" path="res://resources/attacks/player_basic_attack.tres" id="7_b7t7y"]
 [ext_resource type="Resource" path="res://resources/stats/player_base_stats.tres" id="8_3ra4k"]
-[ext_resource type="Script" path="res://scripts/player_grounded_state.gd" id="9_grounded"]
-[ext_resource type="Script" path="res://scripts/player_airborne_state.gd" id="10_airborne"]
-[ext_resource type="Script" path="res://scripts/player_grappling_state.gd" id="11_grapple"]
-[ext_resource type="Script" path="res://scripts/player_wall_run_state.gd" id="12_wallrun"]
-[ext_resource type="Script" path="res://scripts/player_wall_stick_state.gd" id="13_wallstick"]
-[ext_resource type="Script" path="res://scripts/player_dead_state.gd" id="14_dead"]
-[ext_resource type="Script" path="res://scripts/player_attack_ready_state.gd" id="15_attackready"]
-[ext_resource type="Script" path="res://scripts/player_attack_windup_state.gd" id="16_attackwindup"]
-[ext_resource type="Script" path="res://scripts/player_attack_active_state.gd" id="17_attackactive"]
-[ext_resource type="Script" path="res://scripts/player_attack_recovery_state.gd" id="18_attackrecovery"]
-[ext_resource type="Script" path="res://scripts/visuals/attack_arc_visual_3d.gd" id="19_attackarc"]
+[ext_resource type="Script" uid="uid://ivwfxo6nyrrr" path="res://scripts/player_grounded_state.gd" id="9_grounded"]
+[ext_resource type="Script" uid="uid://ckygby6s11idw" path="res://scripts/player_airborne_state.gd" id="10_airborne"]
+[ext_resource type="Script" uid="uid://cjlui8t4vv7ha" path="res://scripts/player_grappling_state.gd" id="11_grapple"]
+[ext_resource type="Script" uid="uid://bitg3b01b6o2p" path="res://scripts/player_wall_run_state.gd" id="12_wallrun"]
+[ext_resource type="Script" uid="uid://d2bpuyrnvtfv7" path="res://scripts/player_wall_stick_state.gd" id="13_wallstick"]
+[ext_resource type="Script" uid="uid://dtrmrnnnysj0s" path="res://scripts/player_dead_state.gd" id="14_dead"]
+[ext_resource type="Script" uid="uid://dajok5xf84xlw" path="res://scripts/player_attack_ready_state.gd" id="15_attackready"]
+[ext_resource type="Script" uid="uid://6vif81ni3mr2" path="res://scripts/player_attack_windup_state.gd" id="16_attackwindup"]
+[ext_resource type="Script" uid="uid://dldhgr0ynm12e" path="res://scripts/player_attack_active_state.gd" id="17_attackactive"]
+[ext_resource type="Script" uid="uid://ca8jcl3jv6gnx" path="res://scripts/player_attack_recovery_state.gd" id="18_attackrecovery"]
+[ext_resource type="Script" uid="uid://ctp8c3maf0y66" path="res://scripts/visuals/attack_arc_visual_3d.gd" id="19_attackarc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5vw27"]
 radius = 0.45
@@ -37,12 +37,12 @@ size = Vector3(1.25, 1.3, 1.25)
 
 [node name="Player" type="CharacterBody3D" unique_id=467031457]
 collision_layer = 2
-collision_mask = 1
 script = ExtResource("1_cvnsp")
 max_ground_speed = 10.0
 air_deceleration = 5.0
 wall_run_acceleration = 4.0
 wall_run_gravity_scale = 0.0
+pitch_max = 70.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1730981838]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -64,80 +64,75 @@ spring_length = 3.0
 current = true
 fov = 70.0
 
-[node name="Health" type="Node" parent="."]
+[node name="Health" type="Node" parent="." unique_id=1561324531]
 script = ExtResource("3_8agwv")
-max_health = 100.0
 
-[node name="CombatStats" type="Node" parent="."]
+[node name="CombatStats" type="Node" parent="." unique_id=1388015017]
 script = ExtResource("4_vnv48")
 base_stats = ExtResource("8_3ra4k")
 
-[node name="Hurtbox" type="Area3D" parent="." node_paths=PackedStringArray("health", "combatant_path")]
+[node name="Hurtbox" type="Area3D" parent="." unique_id=157167583 node_paths=PackedStringArray("health")]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("5_2kfp0")
 health = NodePath("../Health")
 team = "player"
-combatant_path = NodePath("..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=1145746204]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_hurtbox")
 
-[node name="AttackHitbox" type="Area3D" parent="." node_paths=PackedStringArray("source_path")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -1.0)
+[node name="AttackHitbox" type="Area3D" parent="." unique_id=430914092]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -1)
 collision_layer = 0
 collision_mask = 16
 script = ExtResource("6_o5f7t")
 attack_data = ExtResource("7_b7t7y")
 owner_team = "player"
-source_path = NodePath("..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackHitbox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackHitbox" unique_id=434321894]
 shape = SubResource("BoxShape3D_attack")
 
-[node name="AttackVisual" type="Node3D" parent="."]
+[node name="AttackVisual" type="Node3D" parent="." unique_id=1709616801]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -1)
 script = ExtResource("19_attackarc")
 inner_radius = 0.32
 outer_radius = 0.95
 arc_angle_degrees = 135.0
 mesh_rotation_degrees = Vector3(0, 0, -28)
-arc_color = Color(0.35, 0.95, 1, 0.85)
 emission_energy = 2.5
-default_duration = 0.16
 sweep_rotation_degrees = Vector3(0, 0, 36)
 
-[node name="MovementHSM" type="LimboHSM" parent="."]
+[node name="MovementHSM" type="LimboHSM" parent="." unique_id=917859255]
 
-[node name="GroundedState" type="LimboState" parent="MovementHSM"]
+[node name="GroundedState" type="LimboState" parent="MovementHSM" unique_id=1982580687]
 script = ExtResource("9_grounded")
 
-[node name="AirborneState" type="LimboState" parent="MovementHSM"]
+[node name="AirborneState" type="LimboState" parent="MovementHSM" unique_id=763667532]
 script = ExtResource("10_airborne")
 
-[node name="GrapplingState" type="LimboState" parent="MovementHSM"]
+[node name="GrapplingState" type="LimboState" parent="MovementHSM" unique_id=45815279]
 script = ExtResource("11_grapple")
 
-[node name="WallRunState" type="LimboState" parent="MovementHSM"]
+[node name="WallRunState" type="LimboState" parent="MovementHSM" unique_id=2006118726]
 script = ExtResource("12_wallrun")
 
-[node name="WallStickState" type="LimboState" parent="MovementHSM"]
+[node name="WallStickState" type="LimboState" parent="MovementHSM" unique_id=601267855]
 script = ExtResource("13_wallstick")
 
-[node name="DeadState" type="LimboState" parent="MovementHSM"]
+[node name="DeadState" type="LimboState" parent="MovementHSM" unique_id=1312823426]
 script = ExtResource("14_dead")
 
-[node name="AttackHSM" type="LimboHSM" parent="."]
+[node name="AttackHSM" type="LimboHSM" parent="." unique_id=1591208290]
 
-[node name="AttackReadyState" type="LimboState" parent="AttackHSM"]
+[node name="AttackReadyState" type="LimboState" parent="AttackHSM" unique_id=720859356]
 script = ExtResource("15_attackready")
 
-[node name="AttackWindupState" type="LimboState" parent="AttackHSM"]
+[node name="AttackWindupState" type="LimboState" parent="AttackHSM" unique_id=447909524]
 script = ExtResource("16_attackwindup")
 
-[node name="AttackActiveState" type="LimboState" parent="AttackHSM"]
+[node name="AttackActiveState" type="LimboState" parent="AttackHSM" unique_id=1967019001]
 script = ExtResource("17_attackactive")
 
-[node name="AttackRecoveryState" type="LimboState" parent="AttackHSM"]
+[node name="AttackRecoveryState" type="LimboState" parent="AttackHSM" unique_id=1631786710]
 script = ExtResource("18_attackrecovery")
