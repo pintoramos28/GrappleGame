@@ -55,8 +55,12 @@ extends CharacterBody3D
 @export_group("Grapple")
 ## Maximum distance for the grapple targeting ray.
 @export var grapple_length := 35.0
-## Pull acceleration applied toward the grapple point.
-@export var grapple_acceleration := 35.0
+## Initial pull acceleration applied when a grapple starts, in meters per second squared.
+@export var grapple_initial_acceleration := 48.0
+## Lowest pull acceleration maintained while the grapple remains active, in meters per second squared.
+@export var grapple_min_acceleration := 8.0
+## Rate at which pull acceleration decreases, in meters per second cubed.
+@export var grapple_acceleration_jerk := 53.333333
 ## Maximum total velocity allowed while grapple acceleration is applied.
 @export var grapple_max_velocity := 22.0
 ## Gravity multiplier applied while grappling.
@@ -118,6 +122,8 @@ const EVENT_ATTACK_CANCELLED := &"attack_cancelled"
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var camera_pitch := 0.0
 var is_grappling := false
+var grapple_elapsed := 0.0
+var grapple_applied_acceleration := 0.0
 var grapple_point := Vector3.ZERO
 var grapple_target: StaticBody3D
 var grapple_visual: MeshInstance3D
@@ -515,6 +521,8 @@ func try_start_grapple() -> bool:
 	var collider: Object = hit["collider"]
 	if collider is StaticBody3D:
 		is_grappling = true
+		grapple_elapsed = 0.0
+		grapple_applied_acceleration = grapple_initial_acceleration
 		grapple_point = hit["position"]
 		grapple_target = collider as StaticBody3D
 		return true
@@ -524,6 +532,46 @@ func try_start_grapple() -> bool:
 
 func has_valid_grapple() -> bool:
 	return is_grappling and is_instance_valid(grapple_target)
+
+
+func get_grapple_telemetry() -> Dictionary:
+	var target_distance := 0.0
+	var pull_direction := Vector3.ZERO
+	var pull_speed := 0.0
+	if is_grappling and is_instance_valid(player_mesh):
+		var player_center := _get_player_mesh_center()
+		target_distance = player_center.distance_to(grapple_point)
+		pull_direction = player_center.direction_to(grapple_point)
+		if pull_direction != Vector3.ZERO:
+			pull_speed = velocity.dot(pull_direction)
+
+	var speed_gate_passed := _can_start_wall_run(velocity)
+	var speed_gate_reason := "pass"
+	if Vector3(velocity.x, 0.0, velocity.z).length() < wall_run_min_horizontal_speed:
+		speed_gate_reason = "horizontal speed below %.1f" % wall_run_min_horizontal_speed
+	elif velocity.length() > wall_run_max_entry_speed:
+		speed_gate_reason = "total speed above %.1f" % wall_run_max_entry_speed
+
+	return {
+		"active": is_grappling,
+		"target_valid": is_instance_valid(grapple_target),
+		"elapsed": grapple_elapsed,
+		"acceleration": grapple_applied_acceleration if is_grappling else 0.0,
+		"initial_acceleration": grapple_initial_acceleration,
+		"min_acceleration": grapple_min_acceleration,
+		"jerk": grapple_acceleration_jerk,
+		"max_velocity": grapple_max_velocity,
+		"target_distance": target_distance,
+		"pull_speed": pull_speed,
+		"speed": velocity.length(),
+		"velocity": velocity,
+		"cap_reached": grapple_max_velocity > 0.0 and velocity.length() >= grapple_max_velocity - 0.01,
+		"on_floor": is_on_floor(),
+		"wall_running": is_wall_running,
+		"wall_sticking": is_wall_sticking,
+		"wall_stick_speed_gate": speed_gate_passed,
+		"wall_stick_speed_gate_reason": speed_gate_reason,
+	}
 
 
 func _get_grapple_ray_hit() -> Dictionary:
@@ -591,16 +639,26 @@ func _get_player_mesh_center() -> Vector3:
 	return player_mesh.to_global(bounds.get_center())
 
 
+func _get_grapple_acceleration() -> float:
+	return max(
+		grapple_min_acceleration,
+		grapple_initial_acceleration - max(grapple_acceleration_jerk, 0.0) * grapple_elapsed
+	)
+
+
 func _apply_grapple_acceleration(delta: float) -> void:
 	if not is_instance_valid(grapple_target):
 		_clear_grapple()
 		return
 
+	var current_acceleration := _get_grapple_acceleration()
+	grapple_applied_acceleration = current_acceleration
+	grapple_elapsed += delta
 	var pull_direction := _get_player_mesh_center().direction_to(grapple_point)
 	if pull_direction == Vector3.ZERO:
 		return
 
-	velocity += pull_direction * grapple_acceleration * delta
+	velocity += pull_direction * current_acceleration * delta
 
 	if grapple_max_velocity > 0.0 and velocity.length() > grapple_max_velocity:
 		velocity = velocity.normalized() * grapple_max_velocity
@@ -608,6 +666,8 @@ func _apply_grapple_acceleration(delta: float) -> void:
 
 func _clear_grapple() -> void:
 	is_grappling = false
+	grapple_elapsed = 0.0
+	grapple_applied_acceleration = 0.0
 	grapple_point = Vector3.ZERO
 	grapple_target = null
 	_clear_wall_stick()

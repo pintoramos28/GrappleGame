@@ -80,7 +80,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
 
 [node name="Player" parent="World" unique_id=467031457 instance=ExtResource("2_0xm2m")]
 ground_deceleration = 30.0
-grapple_acceleration = 20.0
 grapple_gravity_scale = 0.0
 
 [node name="Enemy" parent="World" unique_id=2119643210 instance=ExtResource("4_ukvp0")]
