@@ -2051,3 +2051,711 @@ The protagonist and friend are caught in a collapsing portal and land on the Con
 And by the time the player chooses, they should have **personally known good people who would support every one of those options**.
 
 That's the condition I'd use to judge whether the worldbuilding is successfully expressing the core thesis. The player shouldn't be asking, *"Which faction was actually the good one?"* They should be thinking, *"I understand exactly why each of them believed they were right—and I've seen what each belief can do to people."*
+
+# VII. Gameplay World and Enemy Ecology
+
+This section translates the world history and the three philosophies into a gameplay-facing roster of environments, native species, enemy roles and combat abilities.
+
+The roster is a starting point rather than a final canon list. The first seven worlds extend the existing world stories. The final three are additional world types that broaden the traversal and combat vocabulary while remaining compatible with the portal, fungal and interworld history.
+
+The central gameplay rule is:
+
+> **Every enemy should create a movement question, not merely deal damage.**
+
+The player should be deciding whether to grapple upward, cross a line of fire, wall-run around danger, release momentum early, attack from above, preserve a recovery route or deliberately enter a dangerous space to reach a weak point.
+
+## 1. Universal Grapple Assumption
+
+Almost all surfaces and targets are grapple-able by default.
+
+The player should not normally search for a small set of approved anchor points. Buildings, floors, walls, branches, fungal growths, ice, machinery, debris, platforms, enemy bodies and moving targets can all be grapple-able when their target contract permits it.
+
+The important distinction is:
+
+> **A surface can remain grapple-able while being dangerous, obstructed, slow, moving or contested.**
+
+An enemy or world feature should usually change the value or behavior of a grapple target rather than remove access to it entirely.
+
+### Default grapple behavior
+
+* Ordinary world geometry is grapple-able unless explicitly marked otherwise.
+* Enemy-created roots, crystals, walls, webs, pillars and barricades are grapple-able by default.
+* Moving enemies can be grapple-able when their `Grappleable` contract supports a moving hit point and target invalidation.
+* A grapple-able target may be heavy, elastic, unstable, adhesive, hazardous or resistant without becoming invalid.
+* Glowing knots, relay nodes and other visual markers should communicate especially useful routes, not basic eligibility.
+* Floors and other broad surfaces may remain grapple-able, but hazards should make the player consider whether pulling toward them is worthwhile.
+
+### Explicit exceptions
+
+Truly invalid surfaces should be rare, intentional and readable. Possible exceptions include:
+
+* a portal surface that has collapsed;
+* a temporary Severance device that suppresses resonance;
+* a world substance that actively rejects the harness;
+* a destructible surface that cannot support the player;
+* a story-specific transition where the target is disappearing.
+
+An invalid target should visibly change state, produce a clear audio cue and update the grapple cursor. It should not silently fail.
+
+### Anchor ecology
+
+Each level should contain an ecology of grapple targets rather than a collection of isolated anchor points:
+
+* **Permanent structural targets:** walls, trunks, cliffs, towers and large ruins that remain available throughout the encounter.
+* **Modified targets:** surfaces that enemies make sticky, burning, electrified, unstable or difficult to approach.
+* **Temporary targets:** obstacles or growths created during combat that can also become useful routes.
+* **Moving targets:** enemies, creatures, platforms or vehicles that provide advanced, optional routes.
+* **Recovery targets:** nearby surfaces that allow the player to recover from a missed jump, knockback or poor release.
+
+Every major combat space should preserve a low route, a high route and a lateral route. An enemy may make one route dangerous or inefficient, but the fight should not normally remove the entire movement vocabulary.
+
+## 2. Combat Role Framework
+
+The existing game design defines melee mobs, ranged mobs, elite enemies and bosses. The following sub-roles make those categories more useful during encounter design.
+
+| Role | Movement question | Typical tools |
+|---|---|---|
+| Melee pursuer | Can I keep changing position instead of fighting passively on the ground? | Pounces, charges, sweeps, grabs and short-range cones |
+| Bruiser | Can I preserve momentum while avoiding a high-impact attack? | Armor, knockback, large melee attacks and destructible cover |
+| Direct ranged | Where can I cross the enemy's line of sight safely? | Bolts, beams, spears and rail shots |
+| Artillery / lobber | Where will I be when the delayed attack lands? | Arcing shots, ground circles and falling debris |
+| Space controller | Which route is still available? | Sticky surfaces, gas, temporary walls and surface states |
+| Disruptor | Can I recover when my velocity or position changes? | Tethers, pulls, knockback and anchor modification |
+| Anti-wall / aerial | Is my wall or high position actually safe? | Wall climbing, dive attacks, air mines and vertical beams |
+| Support / network | Which enemy must I interrupt before attacking the damage dealer? | Healing links, shields, buffs and target marks |
+| Scout / marker | Can I break the enemy's planned attack before it begins? | Tracking, alarms and predicted-position marks |
+| Elite hybrid | Can I answer two kinds of pressure without losing flow? | Combined melee, ranged, control and defensive tools |
+| Boss | Can I learn the arena's pattern and create a high-value opening? | Phase changes, route changes, weak points and large AOE |
+
+Intelligent species should not be enemies by default. An uncorrupted species can be neutral or friendly, while a factional combatant, territorial guardian, corrupted individual or defensive construct can use the same species silhouette as an enemy. This distinction is important to the setting's argument that hostile behavior is not proof that an entire species is evil.
+
+## 3. Reusable Enemy Ability Mechanics
+
+The following mechanics can be reused across worlds with different visual, biological and cultural explanations.
+
+### 3.1 Adhesive surfaces
+
+Resin, webs, frost, sap, fungal mucus or mineral sludge can reduce acceleration and air control, prevent wall-running or make landings slide.
+
+The surface remains grapple-able by default. Its danger comes from how it changes the player's movement after contact. The player can grapple to it as an emergency choice, escape to a clean surface or attack the creature producing it.
+
+### 3.2 Temporary obstacle growth
+
+Roots, crystal ridges, ice walls, obsidian columns and fungal barricades rise from visibly marked locations.
+
+The obstacle should usually be destructible, avoidable, climbable or grapple-able once it forms. Its purpose is to block a line of sight, split one route into two, force a different attack angle or create a new vertical surface.
+
+### 3.3 Harpoon or tether
+
+A projectile or melee attack attaches a line to the player. It can slow horizontal movement, pull the player toward the enemy, disturb a release or force the player to move around an obstacle to break line of sight.
+
+The player should be able to escape by grappling behind cover, attacking the tether head, breaking the line or using a wall jump. A tether should not automatically cancel an active grapple without warning.
+
+### 3.4 Knockback and displacement
+
+Large melee attacks, shockwaves, charges and explosions alter the player's velocity.
+
+Displacement should create a new movement problem rather than a stun-lock sequence. Nearby recovery surfaces and preserved player control make the resulting scramble part of the game's skill expression.
+
+### 3.5 Predictive mark
+
+An enemy marks the player's current position, intended landing position or likely grapple release point. After a delay, the marked location receives an attack.
+
+This punishes predictable movement without punishing movement itself. Changing direction, releasing early, crossing to another surface or using a different altitude should defeat the prediction.
+
+### 3.6 Direct lane shot
+
+A bolt, beam, spear or rail shot travels in a straight line. The attack requires line of sight and has a visible aiming line, charging sound or emissive weapon state.
+
+The player can cross the lane, use cover, grapple around the enemy or attack during the firing recovery.
+
+### 3.7 Arcing bombardment
+
+An enemy fires over cover or toward a future position. The projectile creates a ground or surface AOE when it lands.
+
+Arcing attacks prevent the player from treating the nearest wall as a complete solution. The player must continue moving, change altitude or leave the predicted landing area.
+
+### 3.8 Rotating plane or line sweep
+
+A beam, wind blade, fungal wave or electrical plane sweeps through part of the arena.
+
+The player can move with the sweep, cross behind it, grapple around it or use a wall-stick pause to wait for an opening. This is especially effective for bosses because the danger remains spatially understandable in a large arena.
+
+### 3.9 Visibility obstruction
+
+Smoke, spores, snow, dust, ash or mist reduces long-range visibility.
+
+This should not become a full-screen blind effect. Silhouettes, attack flashes, sound direction, nearby geometry and grapple feedback should remain readable. The purpose is to make route reading harder, not to hide the answer from the player.
+
+### 3.10 Damage gas or drifting hazard
+
+A gas cloud, spore field, volcanic vapor or corrosive mist deals damage over time and drifts according to wind or enemy movement.
+
+The cloud should have a readable boundary and a ramp-up period. The player can cross briefly to preserve momentum, grapple over it or eliminate the source before proceeding.
+
+### 3.11 Airburst and aerial mine lattice
+
+Floating spores, lightning seeds, crystal mines, expanding airburst rings and rotating projectile clusters place danger above the floor.
+
+This prevents grappling upward from becoming a universal answer. The player must choose another altitude, move sideways or use a wall as cover.
+
+### 3.12 Anti-wall reach
+
+Some enemies can challenge a wall-sticking player by climbing, leaping to the wall, throwing a short-range harpoon, firing a vertical attack or changing the wall's movement response.
+
+Anti-wall attacks should be highly readable and committed. If every enemy can instantly reach any wall, wall interaction stops being useful.
+
+### 3.13 Anchor modification
+
+An enemy can change the response of one or more grapple targets without necessarily making them invalid. A surface may pull toward a dangerous point, create sideways drag, conduct electricity or become unstable after prolonged contact.
+
+Full anchor blackout should be rare and reserved for explicit technology or ecology, such as a Severance device or a portal guardian. It should affect a small local area, be telegraphed and leave other routes available.
+
+### 3.14 Support tether
+
+A support enemy links itself to another enemy, providing healing, armor, faster recovery, stagger resistance or shared damage reduction.
+
+The player can break the link by moving behind cover, attacking the support enemy, destroying an intermediate relay or forcing the linked enemy away.
+
+### 3.15 Decoy or echo
+
+The enemy creates false bodies, false grapple targets, delayed afterimages or copies of the player's previous position.
+
+The deception should have a consistent tell: a different color, sound, shadow, outline or movement response. The mechanic should reward observation rather than make targeting arbitrary.
+
+### 3.16 Wind, suction and directional vectors
+
+An enemy changes the direction of the player's velocity instead of simply slowing it. A storm creature may create crosswinds, a giant may inhale toward a cavern and a fungal bloom may push the player away from its core.
+
+The player can counter with a lateral grapple, wall-run, angled jump or early release that preserves the desired vector.
+
+### 3.17 Surface state changes
+
+A surface can temporarily become burning, freezing, electrified, brittle, slippery or resonant.
+
+The player should be able to recognize the state and choose whether to cross quickly, grapple over it, use it briefly for momentum or wait for it to expire. Surface states should change the value of a route without permanently removing the route.
+
+## 4. Corruption and Intelligent Factions
+
+Corruption should modify a familiar animal or person rather than turning every infected creature into the same generic monster.
+
+A shared corruption system can use several modifiers:
+
+* **Overgrowth:** roots, additional limbs, barriers or fungal armor.
+* **Spore:** visibility clouds, poison, delayed bursts or drifting hazards.
+* **Resonance:** pulses, repeated attacks and network links.
+* **Neural distortion:** decoys, false targets and unstable movement.
+* **Fungal regeneration:** healing tethers, recoverable armor or re-growing body parts.
+* **Portal instability:** short phase shifts between marked surfaces or anchor points.
+
+An uncorrupted animal can remain visible in the environment as ordinary wildlife. A corrupted version should retain its original silhouette and behavior while gaining one or two fungal modifiers.
+
+Examples:
+
+* An uncorrupted Hushhorn is a harmless grazer; a corrupted Hushhorn becomes a root-charging melee enemy.
+* An uncorrupted Giant is a cautious NPC; a corrupted Giant becomes an anti-wall elite.
+* An uncorrupted Naru maintains a peaceful network; a defensive Naru construct becomes a support or controller enemy.
+
+Intelligent species can occupy several narrative states:
+
+* **Neutral:** willing to trade information or allow passage but not yet committed to the player.
+* **Friendly:** provides routes, samples, equipment, dialogue or combat assistance.
+* **Factional enemy:** fights because of ideology, territorial defense, fear or political allegiance rather than biological evil.
+* **Corrupted:** retains fragments of identity while fungal changes alter its abilities and judgment.
+* **Defensive construct:** a non-personal guardian created by a community, research site or portal system.
+
+This allows the player to fight a species in one encounter, speak with another member of the same species later and understand why the difference exists.
+
+## 5. Ten World Roster
+
+The following worlds are organized around distinct terrain and combat identities. Each world should have a recognizable anchor ecology and a primary movement problem before its enemies are combined with mechanics from earlier worlds.
+
+| World | Setting | Lore lens | Primary combat identity |
+|---|---|---|---|
+| The Last Garden | Fungal jungle and ruined agriculture | Severance | Overgrowth, visibility and adaptive infection |
+| The Hero of the Wall | Vertical basalt fortress | Continuity | Crossfire, ledges and anti-wall pressure |
+| The Severed World | Salt basin and collapsed portal region | Cost of Severance | Ambushes, cover and route denial |
+| The Giant's Memory | Monsoon highlands and Giant ruins | Collapse of idealism | Scale, displacement and vertical combat |
+| The Joined | Symbiotic wetland and living canopy | Concord | Synchronization, support and network control |
+| The Gentle Mind | Underground research caverns | Concord's curiosity | Occlusion, containment and sentient ecology |
+| The Lifeline | Magma extraction world | Continuity | Heat, terrain destruction and industrial hazards |
+| The Crown of Branches | Native treetop civilization | Natural vertical coexistence | Air routes, webs and moving anchors |
+| The Blue Silence | Glacier and frozen portal ruins | Isolation and memory | Traction, temperature and preserved routes |
+| The Thunder Shelf | Floating storm islands | Engineered environment and reconnection | Wind, electricity and aerial vectors |
+
+### World 1 — The Last Garden
+
+**Setting and philosophy:**
+
+The glowing fungal jungle and ruined agricultural settlement described in the existing World 1 story. It is a Severance world where burning and removing danger has protected a small settlement, but may also destroy the only organisms capable of adapting to the new ecology.
+
+The Keeper, her partially infected son and the Hunter remain important human characters. The son should not automatically become a boss; his uncertain condition is more effective as a moral relationship than as a required combat encounter.
+
+**Terrain and grapple ecology:**
+
+* Giant fungal trunks and ridges.
+* Hanging roots and canopy branches.
+* Ruined greenhouse towers and irrigation structures.
+* Burn-cleared ground surrounded by dense growth.
+* Temporary fungal walls and hardened growths.
+
+All of these are grapple-able by default. Living surfaces may pull unevenly, release spores on contact or become sticky after a Weaver modifies them. The player should move between low clearings, mid-height roots and upper canopy routes.
+
+**Native species and NPC potential:**
+
+* **Lumenari:** intelligent fungal-symbiotic garden caretakers. They can be neutral or friendly, defensive of their gardens, or corrupted.
+* **Hushhorns:** deer-like grazers with glowing fungal antlers. Corrupted individuals become chargers or spore carriers.
+* **Thornmantises:** large climbing predators.
+* **Spore Kites:** flying scavengers that drift above the canopy.
+* **Rootbacks:** slow armored herbivores that create paths through dense growth.
+
+**Enemy roster:**
+
+* **Rootstalker — melee skirmisher / anti-wall.** A corrupted Thornmantis circles around trunks, produces a bright leaf-flare telegraph and pounces. A successful hit briefly creates a root ring around the player. It can climb toward a wall-sticking player, but a missed pounce leaves it exposed. The player should re-grapple to the side or overhead and punish the recovery.
+* **Spore Kite — aerial ranged enemy.** It fires a three-shot arcing spore volley and drops a pollen cloud at the predicted landing area. The player can move behind a trunk, change altitude or grapple to a side branch. The Kite is vulnerable immediately after the volley.
+* **Mycelial Weaver — controller / support.** It sprays sticky resin over one landing surface, grows a temporary wall across a common route and tethers nearby corrupted creatures to restore health. Interrupting the growth exposes it. The finished wall remains grapple-able and may create an alternate route.
+* **Bloombound Hunter — elite melee/ranged hybrid.** A corrupted Lumenari or human hunter uses a thorn spear at close range and tracking spores at longer range. The mark detonates at the player's likely release point. The elite is strongest when the player repeats the same grapple arc and weakest after two prediction failures.
+
+**Boss — The Garden Heart:**
+
+The boss is the runaway central bloom rather than the partially infected son.
+
+* Phase one uses root sweeps and circular ground growth.
+* Phase two adds spore rain and elevated sacs that must be reached through the canopy.
+* Phase three creates a limited number of safe approach routes while the lower arena fills with expanding fungal growth.
+
+The core becomes vulnerable after the player causes the bloom to overextend a root limb. The encounter teaches that dangerous growth can also be used as grapple-able terrain.
+
+### World 2 — The Hero of the Wall
+
+**Setting and philosophy:**
+
+A fortified human settlement built into a gigantic basalt canyon. Its legendary commander has repeatedly defended the population from fungal-mutated creatures, embodying the strongest emotional argument for Continuity.
+
+The settlement should have combat spaces on the exterior wall, inside defensive corridors and above the artillery platforms. The Talari can be part of the local population or an indigenous group whose cooperation has been strained by the fortress's expansion.
+
+**Terrain and grapple ecology:**
+
+* Crenellations and buttresses.
+* Siege towers and wall windows.
+* Hanging maintenance cables and banners.
+* Vertical basalt faces.
+* Broken bridges and artillery platforms.
+
+The wall itself is a continuous grapple surface. The tactical challenge is not finding a legal anchor but deciding whether the next grapple crosses a firing lane, lands on a weak ledge or places the player within reach of an anti-wall defender.
+
+**Native species and NPC potential:**
+
+* **Talari:** intelligent cliff-dwellers with gliding membranes. They can be neutral or friendly scouts, messengers and guides, or factional enemies if the fortress has mistreated them.
+* **Wallhorns:** heavy cliff herbivores.
+* **Bellwings:** small aerial predators that coordinate through sound.
+* **Stone mites:** swarming insects that live in basalt.
+* **Canyon eels:** long gliding predators that travel through thermal currents.
+
+**Enemy roster:**
+
+* **Wall Lancer — melee bruiser.** A shielded soldier or corrupted Talari charges along a ledge, then performs a sweeping hook designed to knock the player away from the wall. The player can grapple across the ledge or jump the sweep. The Lancer is vulnerable after striking a wall or barricade.
+* **Bolt Emplacer — direct ranged enemy.** It occupies a crenellation and charges a straight-line bolt. A visible aiming line gives the player time to cross the lane, move behind a buttress or attack from a higher wall face.
+* **Spore Mortar — artillery / controller.** It fires over the wall and creates a sticky resin patch or short-lived smoke cloud. The attack makes passive ground routes unsafe without making the upper wall inaccessible.
+* **Bellwing Spotter — aerial scout / support.** It circles above the player and marks them with a distinctive chime. Marked players are targeted by delayed bolts from wall emplacements. The Spotter can be killed, hidden from or interrupted before the mark completes.
+* **Infected Wallguard — elite anti-wall enemy.** A human or Talari defender with fungal growth in its armor uses a shield bash, short harpoon and anti-wall leap. Its fungal node is exposed when the shield bash hits a solid surface.
+
+**Boss — The Last Commander:**
+
+This is the infected commander from the existing world concept.
+
+* Phase one is a shield-and-spear duel on a broad wall face.
+* Phase two activates mortar batteries and introduces a harpoon that can reach wall-sticking players.
+* Phase three is an overdrive chase where the commander breaks sections of cover but exposes coolant and fungal weak points.
+
+The commander should still move like a skilled protector. The tragedy comes from seeing a heroic defensive pattern continue after the infection has begun to replace judgment with survival instinct.
+
+### World 3 — The Severed World
+
+**Setting and philosophy:**
+
+A salt basin and canyon region damaged by the closing of its portal. The world expresses the cost of Severance: destroying the connection prevented a fungal catastrophe but also cut off medicine, ecological technology and family members who could not escape.
+
+The Archivist and Farmer should represent opposing memories of the same decision. Neither needs to be lying, and neither should be reduced to a simple faction quest.
+
+**Terrain and grapple ecology:**
+
+* Tall salt arches and mineral spires.
+* Exposed portal pylons.
+* Broken aqueducts and archive platforms.
+* Canyon walls and sinkhole rims.
+* Suspended pieces of collapsed infrastructure.
+
+The player can grapple almost everything, but many surfaces are fragile, resonant or exposed to line-of-sight attacks. The key movement decision is whether to cross open ground quickly or use a longer route through vertical cover.
+
+**Native species and NPC potential:**
+
+* **Serrak:** intelligent burrowing people who preserve memories in mineral structures. They can be neutral or friendly archivists, or hostile Null Scribes who believe all resonance technology must be suppressed.
+* **Glassback skitters:** fast crystalline insects.
+* **Dune rays:** broad-winged creatures that surf thermal currents.
+* **Salt eels:** burrowing ambush predators.
+* **Vault tortoises:** slow herbivores with mineral shells.
+
+**Enemy roster:**
+
+* **Burrowjaw — melee ambusher.** It disappears beneath the ground, producing a moving dust ridge before emerging under the player's predicted landing point. Grappling to a canyon wall is often safer than remaining on the marked ground.
+* **Prism Stalker — direct ranged enemy.** It fires a narrow beam that can refract once through a salt crystal. The player must read both the enemy and the crystal geometry. Breaking or moving around the crystal changes the firing lane.
+* **Dune Lobber — artillery / controller.** It fires arcing globs that create temporary sink zones. These zones reduce acceleration and slowly pull the player toward their center. The Lobber is vulnerable while reloading.
+* **Null Scribe — intelligent controller.** It marks one or two portal anchors with dead resonance, temporarily changing them into invalid grapple targets. The affected surfaces darken and pulse before the effect begins. Other surfaces remain available, and the Scribe is vulnerable while maintaining the mark.
+* **Saltback Colossus — elite bruiser.** It rolls through the arena, breaks salt cover and creates a crystal ridge when it stops. Its belly is exposed after it misses a charge, rewarding the player for baiting its path.
+
+**Boss — The Empty Archive:**
+
+An ancient portal guardian fused with salt, mineral deposits and unstable fungal material.
+
+* It alternates between underground movement and exposed archive chambers.
+* Its surface phase creates fissures and refracted beam lanes.
+* Its second phase adds suction toward a sinkhole and short anchor blackouts.
+* The core becomes vulnerable when the player baits a charge into the correct ancient relay.
+
+The boss represents a decision that was simultaneously salvation and catastrophe depending on whose family is remembered.
+
+### World 4 — The Giant's Memory
+
+**Setting and philosophy:**
+
+A highland world of waterfalls, Giant ruins and monsoon cliffs. It is the clearest encounter with the Golden Age of Human-Giant exploration and the collapse of the original ideal.
+
+Scale should be a mechanical feature. Human-sized ledges, Giant stairs, broken bridges and enormous relics should all be viable routes, but each should create different sightlines and attack angles.
+
+**Terrain and grapple ecology:**
+
+* Giant staircases and bridge ribs.
+* Waterfall chains and cliffside platforms.
+* Stone rings and hanging ruins.
+* Large moving creatures crossing the valleys.
+* Relic structures designed for the original Pathfinder harness.
+
+The world should provide many permanent grapple surfaces. Moving wildlife can be optional advanced targets rather than a requirement for normal traversal.
+
+**Native species and NPC potential:**
+
+* **Giants:** intelligent and culturally diverse. They can be cautious, neutral, friendly, hostile or corrupted. Most Giants should be NPCs rather than enemies.
+* **Thunderhorns:** large mountain herbivores.
+* **Cliff mantas:** gliding creatures that move between waterfalls.
+* **Rain serpents:** long aerial predators.
+* **Stoneback crawlers:** armored animals that nest in ruined architecture.
+
+**Enemy roster:**
+
+* **Thunderhorn — melee bruiser.** It telegraphs a charge with a deep call and ground vibration. The charge destroys light cover and ends in a vulnerable recovery if it hits a wall or bridge support.
+* **Rain Manta — aerial harrier.** It dives through the player's route and releases a fan of water blades. It can be grappled as an advanced moving target, but doing so may expose the player to a second aerial creature.
+* **Boulder Slinger — ranged artillery.** A corrupted Giant or hostile Giant combatant throws arcing stones. Impacts create temporary obstructions or shockwaves rather than simply dealing damage.
+* **Anchor Caller — support / controller.** It uses a resonant horn to strengthen corrupted creatures and create directional wind along a bridge. Interrupting the horn cancels both effects.
+* **Mossbound Giant — elite anti-wall enemy.** This infected Giant climbs vertical surfaces, performs a long arm sweep and releases spores from its shoulder. Its weak point is exposed after the player causes it to strike an ancient relay.
+
+**Boss — The Cloudbreaker:**
+
+A corrupted Giant protector who still follows fragments of an old defensive command.
+
+* Phase one uses stomps, arm sweeps and thrown stone.
+* Phase two covers parts of the mountain in rain curtains and forces the player onto upper rings.
+* Phase three adds a resonant roar that collapses the lower route.
+
+The Giant becomes vulnerable after repeatedly attacking a relay used by the player as a grapple target. This makes the fight about redirecting a protector's strength rather than simply overpowering it.
+
+### World 5 — The Joined
+
+**Setting and philosophy:**
+
+A symbiotic wetland and canopy society that represents the strongest argument for Concord. The world appears safe and beautiful, but social life depends on a fungal network that makes disconnection physically and socially costly.
+
+The Dissenter, the Caretaker and the Dissenter's Partner should remain central. Combat in this world can involve defensive constructs, factional disputes and network-driven creatures rather than treating the entire society as corrupted.
+
+**Terrain and grapple ecology:**
+
+* Braided root bridges.
+* Fungal columns and floating garden islands.
+* Elastic living pads and suspended pods.
+* Network relay nodes and shallow water channels.
+* Living walls and roots that change response when the network is disturbed.
+
+The living environment is almost universally grapple-able. Some surfaces can pull gently toward the network, become adhesive or create a pulse when the player releases from them.
+
+**Native species and NPC potential:**
+
+* **Naru:** intelligent amphibious or semi-aquatic people who participate in a fungal social network. They can be friendly, neutral, dissenting or defensive.
+* **Chorus frogs:** small wildlife whose calls synchronize.
+* **Ribbon grazers:** long-bodied wetland herbivores.
+* **Lantern mantas:** slow flying filter-feeders.
+* **Root crabs:** armored scavengers that maintain fungal structures.
+
+**Enemy roster:**
+
+* **Chorus Stalker — synchronized melee pack.** Several creatures attack on a repeating rhythm. Their attacks become less coordinated when separated or when one member is staggered. The behavior can use authored timing markers rather than advanced free-form group AI.
+* **Pulse Weaver — ranged disruptor.** It fires resonance needles that add momentum drag rather than a hard stun. The player can keep moving, but direction changes become more difficult for a short time.
+* **Tendril Custodian — controller.** It grows living walls and adhesive root pads. Finished roots remain grapple-able and can become alternate routes, allowing the enemy to reshape the level in both harmful and useful ways.
+* **Linkbearer — support enemy.** It creates healing or shielding tethers between nearby enemies. The player can break the line by moving around a root pillar or attacking the Linkbearer.
+* **Consensus Guardian — elite hybrid.** This defensive construct records the player's most-used route and places a pulse hazard at the last grapple endpoint. It encourages route variation without making any route permanently wrong.
+
+**Boss — The Living Consensus:**
+
+A network defense body created by the local fungal society.
+
+* Phase one uses synchronized pulses and support links.
+* Phase two changes the shape of root bridges and grows barriers across the most obvious route.
+* Phase three creates a repeating wave pattern across the entire arena.
+
+The player must reach and disconnect several relays before the central body becomes vulnerable. A non-lethal shutdown or dialogue resolution can remain possible, reinforcing that the encounter is about autonomy rather than exterminating Concord life.
+
+### World 6 — The Gentle Mind
+
+**Setting and philosophy:**
+
+Underground caverns and an abandoned Concord research site built around a fungal organism with clear individual consciousness. This world explores Concord's temptation to treat understanding as ownership.
+
+The Gentle Mind should not automatically be the villain. The Researcher, Guardian and Fungal Being can create conflicting objectives, while containment organisms and failed experiments provide the combat encounters.
+
+**Terrain and grapple ecology:**
+
+* Large vertical sinkholes.
+* Stalactites, stalagmites and deep shaft walls.
+* Laboratory gantries and magnetic rails.
+* Luminous roots and suspended containment structures.
+* Open research chambers connected by narrow side routes.
+
+Rock, metal, roots and containment structures are grapple-able. Some targets can be unstable, move under the Gentle Mind's influence or create a dangerous resonance response when used repeatedly.
+
+**Native species and NPC potential:**
+
+* **The Gentle Mind:** a sentient fungal organism with individual consciousness. It can be neutral or friendly and should not automatically be treated as an enemy.
+* **Cave striders:** large wall-climbing predators.
+* **Echo bats:** aerial creatures that navigate through sound.
+* **Gas leeches:** parasitic organisms that attach to hosts.
+* **Crystal moths:** harmless wildlife that can become corrupted.
+* Human researchers and Guardians can be allies, neutral NPCs or factional enemies.
+
+**Enemy roster:**
+
+* **Cave Strider — melee anti-wall enemy.** It climbs toward wall-sticking players and attacks with a two-stage pincer strike. If the second strike misses, it hangs briefly from the wall and can be attacked.
+* **Echo Bat — aerial visibility disruptor.** It releases a sonic pulse that reveals the player's position to other enemies and then creates a small spore haze. The player can move behind rock, attack during the charge or change altitude.
+* **Gas Leech — close-range control enemy.** It attaches to the player, adds movement drag and deals mild damage over time. The player can shake it off through a traversal action, attack it directly or grapple away before the drain completes.
+* **Resonance Turret — direct ranged enemy.** An old research device projects a rotating beam across a chamber. The player can move around the beam, use pillars as cover or reach the turret from above.
+* **Prototype Host — elite hybrid.** A failed experiment creates a decoy body at the player's previous position and then attacks with tendrils. The real body has a different sound and shadow, preserving fair identification.
+
+**Boss — The Containment Crown:**
+
+A protective fungal body grown by the Gentle Mind to prevent further experimentation.
+
+* Its early attacks restrain rather than kill: root cages, slow fields and gas curtains.
+* Its second phase adds airburst spores and false grapple responses.
+* Its final phase drops the containment shell and exposes the central biological core.
+
+The boss can be disabled rather than destroyed. This preserves the ethical theme while still providing a complete boss encounter.
+
+### World 7 — The Lifeline
+
+**Setting and philosophy:**
+
+A magma world operated as a Continuity resource site. It contains a functioning human extraction facility, a native civilization around geothermal zones and the immediate pressures that make the human administrator's decisions understandable.
+
+The resource operation should include workers who were born on the world and have never seen the Human Homeworld. The player should be able to understand both the native resistance and the human fear of missed quotas.
+
+**Terrain and grapple ecology:**
+
+* Basalt columns and obsidian shelves.
+* Cooling towers, mine cranes and drilling rigs.
+* Cable spans and hanging industrial platforms.
+* Geothermal vents and lava channels.
+* Portal machinery built into volcanic chambers.
+
+Basalt, machinery, cables and cooling structures are grapple-able. Lava may remain grapple-able but should be a hazardous or unstable target rather than a universally invalid one. The player can use a dangerous surface briefly to preserve momentum.
+
+**Native species and NPC potential:**
+
+* **Cindrel:** intelligent heat-adapted people who live around volcanic vents. They can be neutral, friendly, resistant to extraction or corrupted.
+* **Ember drakes:** aggressive flying predators.
+* **Magma eels:** creatures that travel through lava channels.
+* **Ash moths:** harmless in small numbers but dangerous in clouds.
+* **Basalt tortoises:** slow armored herbivores that tolerate extreme heat.
+
+**Enemy roster:**
+
+* **Ember Drake — melee / aerial skirmisher.** It dives toward the player and leaves a burning trail on the surface. The player can grapple to a cool structure, cross the trail quickly or attack after the dive.
+* **Magma Spitter — ranged artillery.** It fires molten projectiles that create temporary hazard pools. Direct shots are faster; arcing shots are slower but reshape the route.
+* **Vent Burrower — controller / ambusher.** It erupts from marked vents and launches the player upward or sideways. Its eruptions create obsidian columns that remain grapple-able.
+* **Drill Sentry — human industrial ranged enemy.** It fires a direct beam and deploys delayed marker mines around the player's likely landing point. The player can reach its control housing or use the mining structure as cover.
+* **Breachworker — elite corrupted human.** The corrupted expeditioner wears a heavy drilling rig, uses a harpoon pull and performs a close-range spinning drill attack. Heat buildup eventually exposes coolant lines and creates an attack window.
+
+**Boss — The Quota Engine:**
+
+This can be the corrupted Breachworker amplified by the extraction rig or a giant fungal-industrial organism created during the release.
+
+* Phase one uses drill charges and direct industrial weapons.
+* Phase two activates lava vents and forces the player across cranes and cooling towers.
+* Phase three overheats the rig, making coolant valves and the fungal core vulnerable from different grapple angles.
+
+The boss should make the disaster personal rather than presenting extraction as an abstract evil machine.
+
+### World 8 — The Crown of Branches
+
+**Setting and philosophy:**
+
+A true treetop world above an endless forest. Unlike The Last Garden, this is not a fungal ecological takeover. The world has always supported a native civilization whose homes, routes and social boundaries exist in the upper canopy.
+
+It can be placed early in Act 1 as a world that teaches the player how much freedom the grapple system offers when the ecology itself is vertical.
+
+**Terrain and grapple ecology:**
+
+* Enormous branch collars and hollow trunks.
+* Hanging seed pods and rope bridges.
+* Canopy towers and wind gaps.
+* Thick vines used as recovery surfaces.
+* Open sky beneath the canopy.
+
+Branches, pods, vines, trunks and platforms are all grapple-able. The challenge is selecting a stable route through a three-dimensional branch network while enemies contest the player’s most direct lines.
+
+**Native species and NPC potential:**
+
+* **Aeral:** intelligent gliding people who build settlements in the upper canopy. They can be neutral or friendly, while local hunters may become hostile if the player violates their boundaries.
+* **Vine raptors:** large branch predators.
+* **Needlewings:** aerial flock creatures.
+* **Webspinners:** territorial arachnid-like wildlife.
+* **Canopy hoppers:** small herbivores that leap between branches.
+* **Sky rays:** slow flying filter-feeders.
+
+**Enemy roster:**
+
+* **Vine Raptor — melee pouncer.** It moves around a branch rather than approaching directly, then launches a diagonal pounce. A missed attack leaves it hanging from a vine.
+* **Needlewing Flock — aerial ranged enemy.** The flock forms a line and fires a crossing volley. The player can move beneath a branch, pass between the shots or attack the flock's roost.
+* **Webspinner — controller.** It creates sticky web curtains between branches and under platforms. Webs make the direct route slower while leaving a side route open.
+* **Canopy Caller — scout / support.** It marks a branch or seed pod, then causes nearby creatures to fire seed bombs at that location. It can be interrupted before the mark completes.
+* **Boughbreaker — elite bruiser.** A corrupted large herbivore tears through branch segments and creates falling debris. Destruction reveals thicker trunk surfaces that become new grapple routes.
+
+**Boss — The Crown Predator:**
+
+An apex glider or corrupted canopy matriarch.
+
+* Phase one is a pursuit around the outer crown.
+* Phase two adds falling seed bombs, wind gusts and web storms.
+* Phase three causes the creature to dive through the canopy and exposes an underside weak point.
+
+Grappling to the boss can be an advanced option, but the reliable strategy remains using the tree geometry to make it miss.
+
+### World 9 — The Blue Silence
+
+**Setting and philosophy:**
+
+A glacier world of frozen cliffs, buried portal infrastructure and isolated communities. It can express the emotional cost of preserving a world by cutting it off from the wider network.
+
+The glacier should not be a flat snowy landscape. The player should move through vertical ice faces, crevasses, hanging frozen waterfalls, geothermal pockets and research structures embedded in the ice.
+
+**Terrain and grapple ecology:**
+
+* Exposed rock and ice hooks.
+* Frozen cables and research towers.
+* Geothermal pylons and blue resonance crystals.
+* Glacier walls and suspended platforms.
+* Ice caves with multiple vertical shafts.
+
+Ice and rock are grapple-able by default. Some ice surfaces increase sliding or reduce turning precision, while resonance crystals provide more stable pull behavior. Surfaces should not become universally invalid simply because they are frozen.
+
+**Native species and NPC potential:**
+
+* **Nivek:** intelligent cold-adapted people who travel between ice settlements. They can be neutral or friendly and may know which structures are stable.
+* **Frost elk:** large herbivores.
+* **Ice worms:** burrowing predators.
+* **Mirror owls:** aerial hunters that blend into aurora light.
+* **Floe seals:** aquatic or semi-aquatic wildlife around meltwater.
+* **Rimebacks:** armored creatures with ice-plated shells.
+
+**Enemy roster:**
+
+* **Frostclaw — melee skirmisher.** It applies a short-lived frost mark that reduces air-control response rather than stopping movement. Repeated hits make the player brittle, so avoiding a second contact matters.
+* **Rimeback — bruiser / controller.** It rolls across the arena and creates an ice ridge when it stops. The ridge blocks a direct route but remains grapple-able as a new surface.
+* **Snowveil Owl — aerial visibility enemy.** It releases a snow cloud, then attacks from a different angle. Its silhouette and wing sound remain readable inside the cloud.
+* **Cryospire Caster — ranged / controller.** It fires a direct crystal lance and freezes strips of surface in a line. Frozen surfaces increase sliding and reduce turning precision without completely removing movement.
+* **Icebound Giant — elite anti-wall enemy.** A corrupted Giant climbs ice faces, shatters platforms and uses a long-range frost breath. Its chest node is exposed after it breaks a marked ice pillar.
+
+**Boss — The Blue Warden:**
+
+An ancient guardian near a buried portal anchor.
+
+* Phase one uses charges, frost breath and ground freeze.
+* Phase two introduces an aurora beam sweeping through a vertical plane.
+* Phase three shatters portions of the arena and forces the player between geothermal anchors.
+
+The weak point opens when the Warden is lured near a thermal relay. The player is rewarded for preserving warm routes rather than attacking whenever possible.
+
+### World 10 — The Thunder Shelf
+
+**Setting and philosophy:**
+
+A world of floating basalt islands, storm systems, old electromagnetic infrastructure and native glider settlements. This is an additional world focused on aerial movement, directional forces and the ancient Human technology that made the portal network possible.
+
+The Kesh can explain how a society adapted to a dangerous environment without needing to control every part of it. Human or fungal attempts to regulate the storms can provide the world’s historical conflict.
+
+**Terrain and grapple ecology:**
+
+* Lightning pylons and suspended mass-driver rings.
+* Hanging cables and basalt arches.
+* Floating platforms and storm towers.
+* Wrecked electromagnetic machinery.
+* Large moving cloud fauna.
+
+Pylons, cables, rings, machinery and floating rock are grapple-able. Wind and electricity modify the movement response. Some moving creatures are optional high-skill targets for experienced players.
+
+**Native species and NPC potential:**
+
+* **Kesh:** intelligent glider people who maintain storm routes and weather structures. They can be neutral or friendly, while militant groups or corrupted individuals may become enemies.
+* **Cloud rays:** large floating animals.
+* **Coil serpents:** flexible aerial predators.
+* **Bolt beetles:** small creatures that accumulate electrical charge.
+* **Storm gulls:** aggressive flocking birds.
+* **Rain spiders:** creatures that build suspended web nests between islands.
+
+**Enemy roster:**
+
+* **Coil Serpent — melee disruptor.** It wraps around a cable, pylon or occasionally the player's tether and constricts. The player can change anchors, attack the body or use an obstruction to break the line.
+* **Bolt Manta — aerial direct ranged enemy.** It charges a lightning line and fires through the player's current flight path. After firing, it performs a dive that can be avoided or used as an optional moving grapple target.
+* **Thunder Nest — controller.** It activates electrical links between several pylons. The danger forms a visible triangle or corridor rather than an invisible damage field. Disabling one nest opens a different route.
+* **Wind Herder — support / controller.** It creates gust lanes that push both the player and nearby enemies. It can shield allies while the wind is active, making it a priority target.
+* **Stormbound Kesh — elite hybrid.** A corrupted or militant glider uses a harpoon tether, short-range chain lightning and aerial repositioning. It is vulnerable immediately after the tether misses.
+
+**Boss — The Tempest Conductor:**
+
+A weather regulator fused with fungal growth and old electromagnetic machinery.
+
+* Phase one activates lightning pylons and direct electrical shots.
+* Phase two introduces rotating wind fields, suction and air mines.
+* Phase three requires the player to disable the final pylons while the boss moves between floating islands.
+
+The core appears once the electrical network is interrupted in the correct sequence. This is a late-game test of grappling to changing targets, preserving momentum through wind and choosing when to release.
+
+## 6. Encounter Progression and Implementation Notes
+
+Each world should introduce one primary movement pressure and then remix it with mechanics learned earlier.
+
+A basic world progression can be:
+
+1. A melee enemy teaches the world’s primary movement pressure.
+2. A ranged enemy forces the player to read cover and altitude.
+3. A controller changes the route without removing the grapple system.
+4. A support enemy introduces target priority.
+5. An elite combines two previously learned pressures.
+6. The boss combines the world’s central mechanic with one earlier world mechanic.
+
+The first gameplay slice should use The Last Garden with Rootstalker, Spore Kite, Mycelial Weaver and Garden Heart. This tests melee pursuit, direct and arcing ranged pressure, visibility reduction, sticky movement, temporary obstacle growth, support tethers, grapple-compatible arena reshaping and a boss with both ground and air AOE.
+
+The initial enemy data should remain compatible with the planned architecture. An `EnemyDefinition` should eventually identify:
+
+* role tags;
+* preferred distance and altitude;
+* allowed movement surfaces;
+* attack abilities;
+* telegraph duration and active window;
+* hit shape or projectile path;
+* status and movement effects;
+* grapple interaction;
+* weak-point or recovery conditions;
+* corruption modifiers;
+* intended encounter and world usage.
+
+An `AttackAbility` should describe the behavior of the attack separately from its damage values. The ability may specify whether it is melee, close-range, direct ranged, arcing ranged, ground AOE or air AOE; how it affects player velocity; how it modifies surfaces; and how it responds to grappling.
+
+The most important implementation rule is that enemy abilities should usually alter the player's decisions while preserving the movement system. The world is allowed to become dangerous, but it should remain interactive.
