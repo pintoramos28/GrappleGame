@@ -9,13 +9,22 @@ windows_wsl_setup_acknowledged = true
 max_depth = 3
 
 [mcp_servers."godot-ai"]
-url = "http://127.0.0.1:8000/mcp"
+command = "C:\\Python314/pythonw.exe"
+args = [
+  "-c",
+  "import subprocess,sys; raise SystemExit(subprocess.call(sys.argv[1:], stdin=sys.stdin, stdout=sys.stdout, stderr=sys.stderr, creationflags=0x08000000))",
+  "C:\\Users\\pinto/.local/bin/uvx.exe",
+  "--link-mode",
+  "copy",
+  "--from",
+  "godot-ai==3.2.4",
+  "godot-ai",
+  "attach",
+  "--port",
+  "8000",
+  "--ws-port",
+  "9500",
+]
 enabled = true
-
-[otel]
-environment = "dev"
-log_user_prompt = false
-
-[otel.exporter.otlp-http]
-endpoint = "http://us2e105397222.li.lumentuminc.net:4318/v1/logs"
-protocol = "binary"
+startup_timeout_sec = 60
+tool_timeout_sec = 360

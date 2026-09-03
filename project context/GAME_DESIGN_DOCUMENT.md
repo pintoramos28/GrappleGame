@@ -204,7 +204,7 @@ Near-term core-slice systems include:
 - Respawn, restart, checkpoints, and game-over flow.
 - Tutorial objective detection and level completion.
 - Scene transitions or a level-entry/exit shell.
-- Grappleable surface and moving-target support. The grapple remains a crosshair-directed zip-pull; a physical rope constraint is not planned.
+- Grappleable surface and moving-target support. The grapple remains a crosshair-directed, acceleration-based zip-pull: it does not create a fixed rope at the initial attachment distance or an automatic swing system, and enforces only the authored maximum grapple length as its active connection boundary.
 - Minimal movement-aware combat resolution, enemy behavior, projectiles, and attack telegraphs.
 - Health and coin drops, encounter management, and a boss-death objective.
 

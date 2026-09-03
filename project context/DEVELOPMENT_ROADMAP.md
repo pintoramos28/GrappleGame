@@ -50,11 +50,11 @@ These files are planned supporting documents; they are not created by this roadm
 
 **Minimum scope:**
 
-- Shared baseline traversal tuning through `PlayerTraversalTuning`, while retaining exported scene overrides for rapid prototyping.
+- Shared baseline traversal tuning through immutable `PlayerTraversalTuning` Resources; deliberate challenge variants reference an alternate Resource instead of duplicating scalar scene overrides.
 - Ground movement, air movement, jumping, coyote time, and jump buffering where needed for reliable control.
 - Crosshair-directed grapple targeting with first-hit behavior and no target priority or aim snapping.
 - Grappleable surface and moving-target support using a reusable target contract.
-- Zip-pull physics that preserves release velocity and does not use a physical rope constraint.
+- Acceleration-based zip-pull physics that preserves release velocity, does not create a fixed rope at the initial attachment distance or an automatic swing system, and enforces only the authored maximum grapple length as its active connection boundary.
 - Wall-run fluidity checks based on wall-relative velocity and approach angle.
 - High-speed wall contact braking that preserves useful tangential travel while reducing the selected normal or thresholded component.
 - Wall-run handling for curved, faceted, and changing-normal surfaces.
@@ -98,29 +98,76 @@ These files are planned supporting documents; they are not created by this roadm
 
 **Not required:** A complete damage-type system, a large attack roster, bosses, or RPG statistics.
 
-### M2 - Ranged pressure
+### M2 - Combat pressure and ability vocabulary
 
-**Purpose:** Make enemy attacks shape traversal routes rather than simply adding damage to the existing melee loop.
+**Purpose:** Prove that the combat system can express the full documented enemy-pressure vocabulary while preserving movement, readability, counterplay and recovery.
+
+M2 is **capability-complete rather than content-complete**. Every reusable mechanic in [GAMEPLAY_SYSTEMS.md](GAMEPLAY_SYSTEMS.md) receives a minimal playable prototype and counterplay test. M2 does not require a production-ready enemy, final presentation or world-specific variant for every mechanic.
 
 **Minimum scope:**
 
-- One readable direct or arcing projectile attack.
-- Projectile timing, target-lock behavior, world collision, lifetime, and removal rules.
-- Basic projectile trajectory and impact feedback.
-- One ranged enemy that creates a meaningful line-of-fire or area-denial problem.
-- Level geometry that supports cover, height changes, wall movement, and route crossing.
-- Player ranged attack support through the same attack-ability structure when the player ranged design is ready.
+#### M2A - Direct and spatial threats
 
-**Dependencies:** M0 movement and M1 health, damage, attack, and telegraph contracts.
+- Direct lane shot.
+- Arcing bombardment.
+- Rotating plane or line sweep.
+- Damage gas or drifting hazard.
+- Airburst and aerial mine lattice.
+- Consistent projectile or hazard timing, collision, lifetime, removal and impact feedback where applicable.
+
+#### M2B - Displacement and movement disruption
+
+- Harpoon or tether.
+- Knockback and displacement.
+- Wind, suction and directional vectors.
+- Anti-wall reach.
+- Recovery behavior that avoids unavoidable control chains and preserves meaningful player response.
+
+#### M2C - Route, surface and anchor manipulation
+
+- Adhesive surfaces.
+- Temporary obstacle growth.
+- Anchor modification.
+- Surface state changes.
+- Route changes that remain readable, avoidable, temporary, destructible or grapple-compatible as defined by the gameplay rules.
+
+#### M2D - Prediction, visibility and deception
+
+- Predictive mark.
+- Visibility obstruction.
+- Decoy or echo.
+- Consistent tells and enough audiovisual or spatial information for informed counterplay.
+
+#### M2E - Support and target-priority pressure
+
+- Support tether.
+- Healing, armor, recovery or resistance support behavior.
+- Interruption and line-breaking counterplay.
+- At least one multi-enemy target-priority test.
+
+#### M2F - Ability interaction tests
+
+- Representative two-ability combinations across pressure families.
+- Telegraph overlap and visual-readability checks.
+- Effect cancellation, source-death cleanup and encounter-reset behavior.
+- Combination rules that preserve at least one viable response and recovery path.
+
+Every ability prototype must define the movement or combat question it asks, telegraph, active effect, affected space or target, duration, player-facing feedback, primary counter, recovery option, grapple interaction, wall-run and wall-stick interaction, cancellation behavior, reset behavior and tunable values.
+
+**Dependencies:** M0 movement and M1 health, damage, attack, telegraph and reset contracts.
 
 **Exit criteria:**
 
-- The player can identify the threat, choose a movement response, and understand whether cover or speed was effective.
-- Projectiles behave consistently against world geometry and player hurtboxes.
-- Wall sticking remains targetable and does not become an unintended safe state.
-- The ranged enemy changes the value of at least two traversal routes.
+- Every documented reusable enemy ability mechanic has a runnable minimal prototype.
+- Every mechanic creates a distinct movement, positioning, route, observation or target-priority question rather than only dealing damage.
+- Every mechanic has readable telegraphing and demonstrated counterplay.
+- No common ability arbitrarily removes the complete movement vocabulary.
+- Grappling, wall running and wall sticking remain useful but not universally safe.
+- Ability effects reset reliably when their source dies or the encounter restarts.
+- Representative two-ability combinations remain readable and survivable.
+- The first-level production subset has been selected from the validated vocabulary.
 
-**Not required:** Multiple projectile families, coordinated groups, complex navigation, or final presentation.
+**Not required:** Final presentation, final numerical balance, a unique production enemy for every mechanic, every world-specific variant, coordinated group AI, final bosses, or the full player RPG ability roster.
 
 ### M3 - Encounter and level shell
 
@@ -137,7 +184,7 @@ These files are planned supporting documents; they are not created by this roadm
 - Authored route choices that include exposed, safe, fast, and movement-intensive options.
 - A non-boss encounter sequence that can be completed from entry to reward.
 
-**Dependencies:** M0 through M2 minimum system contracts.
+**Dependencies:** M0 and M1 core contracts plus the validated M2 ability vocabulary and selected first-level production subset.
 
 **Exit criteria:**
 
@@ -162,7 +209,7 @@ These files are planned supporting documents; they are not created by this roadm
 - A boss reward using the current health/coin system or a simple prototype reward.
 - A complete restart and reward/exit flow.
 
-**Dependencies:** M1 through M3, plus the first versions of the enemy, combat, projectile, and level specifications.
+**Dependencies:** M1 through M3, plus the selected production-ready subset of the enemy, combat, ability and level specifications.
 
 **Exit criteria:**
 

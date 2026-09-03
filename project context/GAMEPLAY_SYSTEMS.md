@@ -195,7 +195,7 @@ Releasing the button or losing the target clears the grapple. The player’s cur
 
 ### 2.4 Grapple physics
 
-The current implementation is an acceleration-based pull, not a physical rope constraint. Grapple acceleration starts high and decreases linearly over time using a configured jerk value until it reaches a minimum floor:
+The current implementation is an acceleration-based pull and does not yet enforce an active connection boundary. The target architecture retains the direct zip-pull and adds only a maximum-range constraint using the same authored 35 m value as target acquisition. It does not create a fixed rope at the initial attachment distance or an automatic general-purpose swing system. Grapple acceleration starts high and decreases linearly over time using a configured jerk value until it reaches a minimum floor:
 
 1. Apply gravity using the scene’s grapple gravity scale.
 2. Apply normal ground/air movement input.
@@ -203,7 +203,7 @@ The current implementation is an acceleration-based pull, not a physical rope co
 4. Clamp total velocity to the grapple maximum speed.
 5. Move with `move_and_slide()` and check for wall-stick collisions.
 
-The player traversal tuning should provide shared defaults for all levels. Level-specific overrides remain available for experimentation or deliberately authored challenges, but they should not be required for the player to relearn the basic grapple behavior.
+The player traversal tuning should provide shared immutable defaults for all levels. A deliberately authored challenge may reference an alternate tuning Resource, but levels do not duplicate scalar overrides and should not require the player to relearn the basic grapple behavior.
 
 Current prototype tuning values use a shared acceleration profile with context-specific gravity:
 
@@ -228,7 +228,7 @@ The player receives immediate 3D feedback:
 - A cyan emissive cylinder is drawn between the player mesh center and the grapple point.
 - The rope and cursor disappear when grappling is cleared or the player dies.
 
-The cursor communicates the result of the crosshair ray. It does not select or pull the player’s aim toward another target. The grapple is a direct zip-pull and is not intended to become a physical rope or automatic swing constraint.
+The cursor communicates the result of the crosshair ray. It does not select or pull the player’s aim toward another target. The grapple remains an acceleration-based direct zip-pull. It does not create a fixed rope at the initial attachment distance or an automatic general-purpose swing system; while active, it enforces only the authored maximum grapple length as its connection boundary.
 
 ## 3. Player Combat System
 
