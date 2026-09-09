@@ -47,6 +47,7 @@ The protagonist crosses unstable portals while trying to reunite with his friend
 | Protagonist, friend, acts, branching and endings | [STORY_AND_CHARACTER_ARCS.md](STORY_AND_CHARACTER_ARCS.md) |
 | Portal behavior, fungal biology, corruption and compatibility | [PORTAL_AND_FUNGAL_ECOLOGY.md](PORTAL_AND_FUNGAL_ECOLOGY.md) |
 | World-specific lore, species, environments, enemies and bosses | [WORLD_ATLAS.md](WORLD_ATLAS.md) |
+| Character visual designs, costume anatomy and equipment specs | [CHARACTER_DESIGNS.md](CHARACTER_DESIGNS.md) |
 | Generic gameplay rules | [GAMEPLAY_SYSTEMS.md](GAMEPLAY_SYSTEMS.md) |
 | Level and encounter assembly | [LEVEL_AND_ENCOUNTER_DESIGN.md](LEVEL_AND_ENCOUNTER_DESIGN.md) |
 
