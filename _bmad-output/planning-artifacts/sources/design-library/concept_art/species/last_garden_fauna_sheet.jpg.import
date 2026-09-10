@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bh2g8ut5g2jbt"
-path="res://.godot/imported/last_garden_fauna_sheet.jpg-42a0e1882a4d81956c585f064614b67b.ctex"
+path="res://.godot/imported/last_garden_fauna_sheet.jpg-035dff90ad3bf41c6799132e4cc5b957.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://_bmad-output/planning-artifacts/sources/design-library/concept_art/species/last_garden_fauna_sheet.jpg"
-dest_files=["res://.godot/imported/last_garden_fauna_sheet.jpg-42a0e1882a4d81956c585f064614b67b.ctex"]
+dest_files=["res://.godot/imported/last_garden_fauna_sheet.jpg-035dff90ad3bf41c6799132e4cc5b957.ctex"]
 
 [params]
 

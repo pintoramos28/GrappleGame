@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cpo736abt6soy"
-path="res://.godot/imported/world_09_the_blue_silence.png-117b82613899a9718dba161d793b62dd.ctex"
+path="res://.godot/imported/world_09_the_blue_silence.png-b94f5196ebb553d24bf333d26cc1de96.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://_bmad-output/planning-artifacts/sources/design-library/concept_art/worlds/world_09_the_blue_silence.png"
-dest_files=["res://.godot/imported/world_09_the_blue_silence.png-117b82613899a9718dba161d793b62dd.ctex"]
+dest_files=["res://.godot/imported/world_09_the_blue_silence.png-b94f5196ebb553d24bf333d26cc1de96.ctex"]
 
 [params]
 

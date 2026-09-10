@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d146vxeg2p0t4"
-path="res://.godot/imported/lumenari_species_sheet.jpg-e5b504ad6cda6b6ee47e60a5900f4bb3.ctex"
+path="res://.godot/imported/lumenari_species_sheet.jpg-32f3f395eef1ca23de50aca75e5ca485.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://_bmad-output/planning-artifacts/sources/design-library/concept_art/species/lumenari_species_sheet.jpg"
-dest_files=["res://.godot/imported/lumenari_species_sheet.jpg-e5b504ad6cda6b6ee47e60a5900f4bb3.ctex"]
+dest_files=["res://.godot/imported/lumenari_species_sheet.jpg-32f3f395eef1ca23de50aca75e5ca485.ctex"]
 
 [params]
 

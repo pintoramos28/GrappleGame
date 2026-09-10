@@ -1,0 +1,65 @@
+{
+  "captured_at": "2026-09-09T21:45:20.1199670-04:00",
+  "algorithm": "SHA-256 over sorted UTF-8 records: relative_path\\0byte_count\\0file_sha256\\n",
+  "excluded": [
+    ".godot/**"
+  ],
+  "targets": [
+    {
+      "target": "project.godot",
+      "exists": true,
+      "file_count": 1,
+      "sha256": "1bad45297e0e93aa8114042cb952727e101a338a40ba276181f3a67b4fc674e6"
+    },
+    {
+      "target": "main.tscn",
+      "exists": true,
+      "file_count": 1,
+      "sha256": "1601657340f03b85da407c220049ebd6b1ecf7efdde5eab49b7d28f9aaf13dfa"
+    },
+    {
+      "target": ".gitignore",
+      "exists": true,
+      "file_count": 1,
+      "sha256": "62c39a40bc1c88ef9298dced1cd3f53a1698978b5521a1426c791cf5b32ef9f9"
+    },
+    {
+      "target": "scenes",
+      "exists": true,
+      "file_count": 5,
+      "sha256": "7f0e740e6eb4cadebe57f8e2659eb61ccd27caa147bcd84043db43049a533440"
+    },
+    {
+      "target": "scripts",
+      "exists": true,
+      "file_count": 68,
+      "sha256": "d597d40f18934380ca5a6e22f6e66c49d34c4cc96d964107fc2c7811bf97e9d3"
+    },
+    {
+      "target": "resources",
+      "exists": true,
+      "file_count": 8,
+      "sha256": "082394087b903733de0887914e84aa66aac721b0ec7e9ca2a47589f14d340c32"
+    },
+    {
+      "target": "materials",
+      "exists": true,
+      "file_count": 4,
+      "sha256": "eb5698cd62c80e733401433ffc34e93b643fc400cfb80c9508e2cdac11961e3a"
+    },
+    {
+      "target": "ai",
+      "exists": true,
+      "file_count": 25,
+      "sha256": "9d8fc1643ad1f0f753fa7d6b79ba3297739e95ad3e3bc3772459ba219fbd154c"
+    },
+    {
+      "target": "addons",
+      "exists": true,
+      "file_count": 1360,
+      "sha256": "f81c76dbe9a005afb877623a92557ef03669a12136e0c245431cec36faca6301"
+    }
+  ],
+  "overall_file_count": 1473,
+  "overall_sha256": "83cb9880b908e06dfa24737db3e4349d58ee5b6e81ab080a239b40ae43cb36ce"
+}

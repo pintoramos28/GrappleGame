@@ -1,0 +1,112 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd remapped: res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd
+Completed load for: 'res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd' remapped 'res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd' at thread -1
+Loading resource: res://addons/godot_ai/runtime/game_helper.gd remapped: res://addons/godot_ai/runtime/game_helper.gd
+Completed load for: 'res://addons/godot_ai/runtime/game_helper.gd' remapped 'res://addons/godot_ai/runtime/game_helper.gd' at thread -1
+Loaded system CA certificates
+Loading resource: res://main.tscn remapped: res://main.tscn
+Loading resource: res://materials/floor_mat.tres remapped: res://materials/floor_mat.tres
+Completed load for: 'res://materials/floor_mat.tres' remapped 'res://materials/floor_mat.tres' at thread -1
+Loading resource: res://scenes/player.tscn remapped: res://scenes/player.tscn
+Loading resource: res://scripts/player_controller.gd remapped: res://scripts/player_controller.gd
+Completed load for: 'res://scripts/player_controller.gd' remapped 'res://scripts/player_controller.gd' at thread -1
+Loading resource: res://materials/player_mat.tres remapped: res://materials/player_mat.tres
+Completed load for: 'res://materials/player_mat.tres' remapped 'res://materials/player_mat.tres' at thread -1
+Loading resource: res://resources/attacks/player_basic_attack.tres remapped: res://resources/attacks/player_basic_attack.tres
+Completed load for: 'res://resources/attacks/player_basic_attack.tres' remapped 'res://resources/attacks/player_basic_attack.tres' at thread -1
+Loading resource: res://resources/stats/player_base_stats.tres remapped: res://resources/stats/player_base_stats.tres
+Completed load for: 'res://resources/stats/player_base_stats.tres' remapped 'res://resources/stats/player_base_stats.tres' at thread -1
+Loading resource: res://scripts/player_grounded_state.gd remapped: res://scripts/player_grounded_state.gd
+Completed load for: 'res://scripts/player_grounded_state.gd' remapped 'res://scripts/player_grounded_state.gd' at thread -1
+Loading resource: res://scripts/player_airborne_state.gd remapped: res://scripts/player_airborne_state.gd
+Completed load for: 'res://scripts/player_airborne_state.gd' remapped 'res://scripts/player_airborne_state.gd' at thread -1
+Loading resource: res://scripts/player_grappling_state.gd remapped: res://scripts/player_grappling_state.gd
+Completed load for: 'res://scripts/player_grappling_state.gd' remapped 'res://scripts/player_grappling_state.gd' at thread -1
+Loading resource: res://scripts/player_wall_run_state.gd remapped: res://scripts/player_wall_run_state.gd
+Completed load for: 'res://scripts/player_wall_run_state.gd' remapped 'res://scripts/player_wall_run_state.gd' at thread -1
+Loading resource: res://scripts/player_wall_stick_state.gd remapped: res://scripts/player_wall_stick_state.gd
+Completed load for: 'res://scripts/player_wall_stick_state.gd' remapped 'res://scripts/player_wall_stick_state.gd' at thread -1
+Loading resource: res://scripts/player_dead_state.gd remapped: res://scripts/player_dead_state.gd
+Completed load for: 'res://scripts/player_dead_state.gd' remapped 'res://scripts/player_dead_state.gd' at thread -1
+Loading resource: res://scripts/player_attack_ready_state.gd remapped: res://scripts/player_attack_ready_state.gd
+Completed load for: 'res://scripts/player_attack_ready_state.gd' remapped 'res://scripts/player_attack_ready_state.gd' at thread -1
+Loading resource: res://scripts/player_attack_windup_state.gd remapped: res://scripts/player_attack_windup_state.gd
+Completed load for: 'res://scripts/player_attack_windup_state.gd' remapped 'res://scripts/player_attack_windup_state.gd' at thread -1
+Loading resource: res://scripts/player_attack_active_state.gd remapped: res://scripts/player_attack_active_state.gd
+Completed load for: 'res://scripts/player_attack_active_state.gd' remapped 'res://scripts/player_attack_active_state.gd' at thread -1
+Loading resource: res://scripts/player_attack_recovery_state.gd remapped: res://scripts/player_attack_recovery_state.gd
+Completed load for: 'res://scripts/player_attack_recovery_state.gd' remapped 'res://scripts/player_attack_recovery_state.gd' at thread -1
+Loading resource: res://scripts/debug_grapple_telemetry.gd remapped: res://scripts/debug_grapple_telemetry.gd
+Completed load for: 'res://scripts/debug_grapple_telemetry.gd' remapped 'res://scripts/debug_grapple_telemetry.gd' at thread -1
+Completed load for: 'res://scenes/player.tscn' remapped 'res://scenes/player.tscn' at thread -1
+Loading resource: res://scenes/building.tscn remapped: res://scenes/building.tscn
+Loading resource: res://scripts/building.gd remapped: res://scripts/building.gd
+Completed load for: 'res://scripts/building.gd' remapped 'res://scripts/building.gd' at thread -1
+Loading resource: res://materials/building_mat.tres remapped: res://materials/building_mat.tres
+Completed load for: 'res://materials/building_mat.tres' remapped 'res://materials/building_mat.tres' at thread -1
+Completed load for: 'res://scenes/building.tscn' remapped 'res://scenes/building.tscn' at thread -1
+Loading resource: res://scenes/enemy.tscn remapped: res://scenes/enemy.tscn
+Loading resource: res://scripts/enemy_controller.gd remapped: res://scripts/enemy_controller.gd
+Completed load for: 'res://scripts/enemy_controller.gd' remapped 'res://scripts/enemy_controller.gd' at thread -1
+Loading resource: res://materials/enemy_mat.tres remapped: res://materials/enemy_mat.tres
+Completed load for: 'res://materials/enemy_mat.tres' remapped 'res://materials/enemy_mat.tres' at thread -1
+Loading resource: res://resources/attacks/enemy_basic_attack.tres remapped: res://resources/attacks/enemy_basic_attack.tres
+Completed load for: 'res://resources/attacks/enemy_basic_attack.tres' remapped 'res://resources/attacks/enemy_basic_attack.tres' at thread -1
+Loading resource: res://ai/trees/enemy_behavior.tres remapped: res://ai/trees/enemy_behavior.tres
+Loading resource: res://ai/tasks/has_valid_target.gd remapped: res://ai/tasks/has_valid_target.gd
+Completed load for: 'res://ai/tasks/has_valid_target.gd' remapped 'res://ai/tasks/has_valid_target.gd' at thread -1
+Loading resource: res://ai/tasks/face_target_3d.gd remapped: res://ai/tasks/face_target_3d.gd
+Completed load for: 'res://ai/tasks/face_target_3d.gd' remapped 'res://ai/tasks/face_target_3d.gd' at thread -1
+Loading resource: res://ai/tasks/stop_horizontal_movement.gd remapped: res://ai/tasks/stop_horizontal_movement.gd
+Completed load for: 'res://ai/tasks/stop_horizontal_movement.gd' remapped 'res://ai/tasks/stop_horizontal_movement.gd' at thread -1
+Loading resource: res://ai/tasks/is_enemy_kind.gd remapped: res://ai/tasks/is_enemy_kind.gd
+Completed load for: 'res://ai/tasks/is_enemy_kind.gd' remapped 'res://ai/tasks/is_enemy_kind.gd' at thread -1
+Loading resource: res://ai/tasks/is_target_in_attack_range.gd remapped: res://ai/tasks/is_target_in_attack_range.gd
+Completed load for: 'res://ai/tasks/is_target_in_attack_range.gd' remapped 'res://ai/tasks/is_target_in_attack_range.gd' at thread -1
+Loading resource: res://ai/tasks/is_target_too_close.gd remapped: res://ai/tasks/is_target_too_close.gd
+Completed load for: 'res://ai/tasks/is_target_too_close.gd' remapped 'res://ai/tasks/is_target_too_close.gd' at thread -1
+Loading resource: res://ai/tasks/is_target_too_far.gd remapped: res://ai/tasks/is_target_too_far.gd
+Completed load for: 'res://ai/tasks/is_target_too_far.gd' remapped 'res://ai/tasks/is_target_too_far.gd' at thread -1
+Loading resource: res://ai/tasks/has_line_of_sight_to_target.gd remapped: res://ai/tasks/has_line_of_sight_to_target.gd
+Completed load for: 'res://ai/tasks/has_line_of_sight_to_target.gd' remapped 'res://ai/tasks/has_line_of_sight_to_target.gd' at thread -1
+Loading resource: res://ai/tasks/move_toward_target.gd remapped: res://ai/tasks/move_toward_target.gd
+Completed load for: 'res://ai/tasks/move_toward_target.gd' remapped 'res://ai/tasks/move_toward_target.gd' at thread -1
+Loading resource: res://ai/tasks/move_away_from_target.gd remapped: res://ai/tasks/move_away_from_target.gd
+Completed load for: 'res://ai/tasks/move_away_from_target.gd' remapped 'res://ai/tasks/move_away_from_target.gd' at thread -1
+Loading resource: res://ai/tasks/request_enemy_attack.gd remapped: res://ai/tasks/request_enemy_attack.gd
+Completed load for: 'res://ai/tasks/request_enemy_attack.gd' remapped 'res://ai/tasks/request_enemy_attack.gd' at thread -1
+Completed load for: 'res://ai/trees/enemy_behavior.tres' remapped 'res://ai/trees/enemy_behavior.tres' at thread -1
+Loading resource: res://resources/stats/enemy_base_stats.tres remapped: res://resources/stats/enemy_base_stats.tres
+Completed load for: 'res://resources/stats/enemy_base_stats.tres' remapped 'res://resources/stats/enemy_base_stats.tres' at thread -1
+Loading resource: res://resources/enemies/melee_enemy_definition.tres remapped: res://resources/enemies/melee_enemy_definition.tres
+Completed load for: 'res://resources/enemies/melee_enemy_definition.tres' remapped 'res://resources/enemies/melee_enemy_definition.tres' at thread -1
+Loading resource: res://scripts/enemy/states/enemy_ready_state.gd remapped: res://scripts/enemy/states/enemy_ready_state.gd
+Completed load for: 'res://scripts/enemy/states/enemy_ready_state.gd' remapped 'res://scripts/enemy/states/enemy_ready_state.gd' at thread -1
+Loading resource: res://scripts/enemy/states/enemy_attack_windup_state.gd remapped: res://scripts/enemy/states/enemy_attack_windup_state.gd
+Completed load for: 'res://scripts/enemy/states/enemy_attack_windup_state.gd' remapped 'res://scripts/enemy/states/enemy_attack_windup_state.gd' at thread -1
+Loading resource: res://scripts/enemy/states/enemy_attack_active_state.gd remapped: res://scripts/enemy/states/enemy_attack_active_state.gd
+Completed load for: 'res://scripts/enemy/states/enemy_attack_active_state.gd' remapped 'res://scripts/enemy/states/enemy_attack_active_state.gd' at thread -1
+Loading resource: res://scripts/enemy/states/enemy_attack_recovery_state.gd remapped: res://scripts/enemy/states/enemy_attack_recovery_state.gd
+Completed load for: 'res://scripts/enemy/states/enemy_attack_recovery_state.gd' remapped 'res://scripts/enemy/states/enemy_attack_recovery_state.gd' at thread -1
+Loading resource: res://scripts/enemy/states/enemy_dead_state.gd remapped: res://scripts/enemy/states/enemy_dead_state.gd
+Completed load for: 'res://scripts/enemy/states/enemy_dead_state.gd' remapped 'res://scripts/enemy/states/enemy_dead_state.gd' at thread -1
+Completed load for: 'res://scenes/enemy.tscn' remapped 'res://scenes/enemy.tscn' at thread -1
+Loading resource: res://resources/enemies/ranged_enemy_definition.tres remapped: res://resources/enemies/ranged_enemy_definition.tres
+Loading resource: res://resources/attacks/enemy_ranged_attack.tres remapped: res://resources/attacks/enemy_ranged_attack.tres
+Completed load for: 'res://resources/attacks/enemy_ranged_attack.tres' remapped 'res://resources/attacks/enemy_ranged_attack.tres' at thread -1
+Loading resource: res://scenes/projectile.tscn remapped: res://scenes/projectile.tscn
+Completed load for: 'res://scenes/projectile.tscn' remapped 'res://scenes/projectile.tscn' at thread -1
+Completed load for: 'res://resources/enemies/ranged_enemy_definition.tres' remapped 'res://resources/enemies/ranged_enemy_definition.tres' at thread -1
+Loading resource: res://resources/enemies/direct_ranged_enemy_definition.tres remapped: res://resources/enemies/direct_ranged_enemy_definition.tres
+Completed load for: 'res://resources/enemies/direct_ranged_enemy_definition.tres' remapped 'res://resources/enemies/direct_ranged_enemy_definition.tres' at thread -1
+Completed load for: 'res://main.tscn' remapped 'res://main.tscn' at thread -1
+[godot_ai game_helper] registered mcp capture (debugger active=false, logger=true)
+Player took 6.6 physical damage. HP: 93.3/100.0

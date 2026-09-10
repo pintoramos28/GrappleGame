@@ -1,0 +1,1335 @@
+{
+  "session_id": "testgame@261be4f67d0c9a18",
+  "launch": {
+    "autosave": false,
+    "current_run_errors": [],
+    "game_status": {
+      "active": true,
+      "editor_log_cursor": 0,
+      "elapsed_msec": 1289,
+      "helper_expected": true,
+      "helper_live": true,
+      "ready": true,
+      "ready_wait_msec": 3000,
+      "run_started_msec": 565097,
+      "run_token": 3,
+      "session_active": true,
+      "status": "live"
+    },
+    "helper_live": true,
+    "mode": "main",
+    "reason": "Game launched and the Godot AI game helper is live.",
+    "recent_errors": [],
+    "recent_errors_may_predate_run": false,
+    "recent_errors_scope": "none",
+    "recent_errors_truncated": false,
+    "retained_errors": [],
+    "scene": "",
+    "session_active": true,
+    "undoable": false,
+    "was_already_running": false
+  },
+  "setup": {
+    "result": {
+      "health": 100,
+      "is_dead": false,
+      "position": {
+        "x": 0,
+        "y": 0.100000001490116,
+        "z": 40
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    "source": "game"
+  },
+  "settle": {
+    "actions_pressed_at_end": [],
+    "applied": [
+      {
+        "action": "move_forward",
+        "at_frame": 0,
+        "pressed": false
+      }
+    ],
+    "completed": true,
+    "frames_elapsed": 5,
+    "op": "input_sequence",
+    "source": "game",
+    "steps_applied": 1
+  },
+  "snapshot": {
+    "result": {
+      "grapple": {
+        "acceleration": 0,
+        "active": false,
+        "cap_reached": false,
+        "elapsed": 0,
+        "initial_acceleration": 48,
+        "jerk": 53.333333,
+        "max_velocity": 22,
+        "min_acceleration": 8,
+        "on_floor": true,
+        "pull_speed": 0,
+        "speed": 0,
+        "target_distance": 0,
+        "target_valid": false,
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "wall_running": false,
+        "wall_stick_speed_gate": false,
+        "wall_stick_speed_gate_reason": "horizontal speed below 1.0",
+        "wall_sticking": false
+      },
+      "health": 100,
+      "is_dead": false,
+      "on_floor": true,
+      "position": {
+        "x": 0,
+        "y": 0.100000001490116,
+        "z": 40
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    "source": "game"
+  },
+  "observations": {
+    "ground_movement": {
+      "move_forward": {
+        "reset": {
+          "result": {
+            "position": {
+              "x": 0,
+              "y": 0.100000001490116,
+              "z": 40
+            },
+            "velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "source": "game"
+        },
+        "input": {
+          "actions_pressed_at_end": [],
+          "applied": [
+            {
+              "action": "move_forward",
+              "at_frame": 0,
+              "pressed": true
+            },
+            {
+              "action": "move_forward",
+              "at_frame": 30,
+              "pressed": false
+            }
+          ],
+          "completed": true,
+          "frames_elapsed": 32,
+          "op": "input_sequence",
+          "source": "game",
+          "steps_applied": 2
+        },
+        "after": {
+          "result": {
+            "is_dead": false,
+            "on_floor": true,
+            "position": {
+              "x": 0,
+              "y": 0.100000001490116,
+              "z": 32.1255264282227
+            },
+            "velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "source": "game"
+        }
+      },
+      "move_back": {
+        "reset": {
+          "result": {
+            "position": {
+              "x": 0,
+              "y": 0.100000001490116,
+              "z": 40
+            },
+            "velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "source": "game"
+        },
+        "input": {
+          "actions_pressed_at_end": [],
+          "applied": [
+            {
+              "action": "move_back",
+              "at_frame": 0,
+              "pressed": true
+            },
+            {
+              "action": "move_back",
+              "at_frame": 30,
+              "pressed": false
+            }
+          ],
+          "completed": true,
+          "frames_elapsed": 32,
+          "op": "input_sequence",
+          "source": "game",
+          "steps_applied": 2
+        },
+        "after": {
+          "result": {
+            "is_dead": false,
+            "on_floor": true,
+            "position": {
+              "x": 0,
+              "y": 0.100000001490116,
+              "z": 47.8744735717773
+            },
+            "velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "source": "game"
+        }
+      },
+      "move_left": {
+        "reset": {
+          "result": {
+            "position": {
+              "x": 0,
+              "y": 0.100000001490116,
+              "z": 40
+            },
+            "velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "source": "game"
+        },
+        "input": {
+          "actions_pressed_at_end": [],
+          "applied": [
+            {
+              "action": "move_left",
+              "at_frame": 0,
+              "pressed": true
+            },
+            {
+              "action": "move_left",
+              "at_frame": 30,
+              "pressed": false
+            }
+          ],
+          "completed": true,
+          "frames_elapsed": 32,
+          "op": "input_sequence",
+          "source": "game",
+          "steps_applied": 2
+        },
+        "after": {
+          "result": {
+            "is_dead": false,
+            "on_floor": true,
+            "position": {
+              "x": -7.87444353103638,
+              "y": 0.100000001490116,
+              "z": 40
+            },
+            "velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "source": "game"
+        }
+      },
+      "move_right": {
+        "reset": {
+          "result": {
+            "position": {
+              "x": 0,
+              "y": 0.100000001490116,
+              "z": 40
+            },
+            "velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "source": "game"
+        },
+        "input": {
+          "actions_pressed_at_end": [],
+          "applied": [
+            {
+              "action": "move_right",
+              "at_frame": 0,
+              "pressed": true
+            },
+            {
+              "action": "move_right",
+              "at_frame": 30,
+              "pressed": false
+            }
+          ],
+          "completed": true,
+          "frames_elapsed": 32,
+          "op": "input_sequence",
+          "source": "game",
+          "steps_applied": 2
+        },
+        "after": {
+          "result": {
+            "is_dead": false,
+            "on_floor": true,
+            "position": {
+              "x": 7.87444353103638,
+              "y": 0.100000001490116,
+              "z": 40
+            },
+            "velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "source": "game"
+        }
+      }
+    },
+    "jump": {
+      "input": "Space via jump action (1 physics-frame pulse)",
+      "airborne_observation": {
+        "is_dead": false,
+        "on_floor": false,
+        "position": {
+          "x": 0,
+          "y": 0.62464827299118,
+          "z": 40
+        },
+        "velocity": {
+          "x": 0,
+          "y": 3.35666608810425,
+          "z": 0
+        }
+      }
+    },
+    "landing_recovery": {
+      "landed": {
+        "is_dead": false,
+        "on_floor": true,
+        "position": {
+          "x": 0,
+          "y": 0.10017666220665,
+          "z": 40
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "recovery_input": "D via move_right action (15 physics frames)",
+      "after_recovery": {
+        "is_dead": false,
+        "on_floor": true,
+        "position": {
+          "x": 0.641666769981384,
+          "y": 0.10017666220665,
+          "z": 40
+        },
+        "velocity": {
+          "x": 3,
+          "y": 0,
+          "z": 0
+        }
+      }
+    },
+    "air_steering": {
+      "result": {
+        "input": "Space pulse, then W/move_forward held 22 physics frames",
+        "is_dead": false,
+        "on_floor": false,
+        "position": {
+          "x": 0,
+          "y": 1.13714492321014,
+          "z": 39.5546646118164
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0.906665623188019,
+          "z": -1.76666700839996
+        }
+      },
+      "source": "game"
+    },
+    "grapple": {
+      "result": {
+        "acquired": {
+          "active": true,
+          "point": {
+            "x": 8.75,
+            "y": 2.1000018119812,
+            "z": -17.5
+          },
+          "position": {
+            "x": 0,
+            "y": 0.100000001490116,
+            "z": 0
+          },
+          "target": "/root/Main/World/Buildings/TallTowerA",
+          "telemetry": {
+            "acceleration": 48,
+            "active": true,
+            "cap_reached": false,
+            "elapsed": 0,
+            "initial_acceleration": 48,
+            "jerk": 53.333333,
+            "max_velocity": 22,
+            "min_acceleration": 8,
+            "on_floor": true,
+            "pull_speed": 0,
+            "speed": 0,
+            "target_distance": 19.596492767334,
+            "target_valid": true,
+            "velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "wall_running": false,
+            "wall_stick_speed_gate": false,
+            "wall_stick_speed_gate_reason": "horizontal speed below 1.0",
+            "wall_sticking": false
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "held_after_20_frames": {
+          "active": true,
+          "position": {
+            "x": 0.841561734676361,
+            "y": 0.238398283720016,
+            "z": -1.94245529174805
+          },
+          "target": "/root/Main/World/Buildings/TallTowerA",
+          "telemetry": {
+            "acceleration": 31.1111112166667,
+            "active": true,
+            "cap_reached": false,
+            "elapsed": 0.333333333333333,
+            "initial_acceleration": 48,
+            "jerk": 53.333333,
+            "max_velocity": 22,
+            "min_acceleration": 8,
+            "on_floor": false,
+            "pull_speed": 11.0593004226685,
+            "speed": 11.0860710144043,
+            "target_distance": 17.4787101745605,
+            "target_valid": true,
+            "velocity": {
+              "x": 4.32391548156738,
+              "y": 0.736380279064178,
+              "z": -10.1814765930176
+            },
+            "wall_running": false,
+            "wall_stick_speed_gate": true,
+            "wall_stick_speed_gate_reason": "pass",
+            "wall_sticking": false
+          },
+          "velocity": {
+            "x": 4.32391548156738,
+            "y": 0.736380279064178,
+            "z": -10.1814765930176
+          }
+        },
+        "released_after_2_frames": {
+          "active": false,
+          "position": {
+            "x": 0.916036546230316,
+            "y": 0.251133143901825,
+            "z": -2.11823010444641
+          },
+          "telemetry": {
+            "acceleration": 0,
+            "active": false,
+            "cap_reached": false,
+            "elapsed": 0,
+            "initial_acceleration": 48,
+            "jerk": 53.333333,
+            "max_velocity": 22,
+            "min_acceleration": 8,
+            "on_floor": false,
+            "pull_speed": 0,
+            "speed": 11.4795265197754,
+            "target_distance": 0,
+            "target_valid": false,
+            "velocity": {
+              "x": 4.46848821640015,
+              "y": 0.764091908931732,
+              "z": -10.546483039856
+            },
+            "wall_running": false,
+            "wall_stick_speed_gate": true,
+            "wall_stick_speed_gate_reason": "pass",
+            "wall_sticking": false
+          },
+          "velocity": {
+            "x": 4.46848821640015,
+            "y": 0.764091908931732,
+            "z": -10.546483039856
+          }
+        },
+        "setup": {
+          "camera_forward": {
+            "x": 0.447213619947433,
+            "y": 8.588973088e-8,
+            "z": -0.894427239894867
+          },
+          "hit_position": {
+            "x": 8.75,
+            "y": 2.1000018119812,
+            "z": -17.5
+          },
+          "position": {
+            "x": 0,
+            "y": 0.100000001490116,
+            "z": 0
+          },
+          "target": "/root/Main/World/Buildings/TallTowerA"
+        }
+      },
+      "source": "game"
+    },
+    "wall_run_and_jump": {
+      "result": {
+        "setup": {
+          "entry_velocity": {
+            "x": 6,
+            "y": 0,
+            "z": 0
+          },
+          "player_position": {
+            "x": 10,
+            "y": 4,
+            "z": -0.25
+          },
+          "target_geometry": "/root/Main/World/Buildings/WideBlockA north face (z=-1, y=0.1..10.1)",
+          "transient_only": true
+        },
+        "wall_jump": {
+          "input": "Space/jump pulse while D held",
+          "is_wall_running": false,
+          "on_floor": false,
+          "position": {
+            "x": 10.5322217941284,
+            "y": 4.09166669845581,
+            "z": -0.116666659712791
+          },
+          "velocity": {
+            "x": 6.46666669845581,
+            "y": 5.5,
+            "z": 8
+          },
+          "wall_normal": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "wall_run": {
+          "input": "D/move_right held",
+          "is_wall_running": true,
+          "on_floor": false,
+          "position": {
+            "x": 10.3166666030884,
+            "y": 4,
+            "z": -0.25
+          },
+          "velocity": {
+            "x": 6.40000009536743,
+            "y": 0,
+            "z": 0
+          },
+          "wall_normal": {
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          "wall_run_direction": {
+            "x": 1,
+            "y": 0,
+            "z": 0
+          }
+        }
+      },
+      "source": "game"
+    },
+    "wall_stick": {
+      "result": {
+        "jump_exit": {
+          "grappling": false,
+          "position": {
+            "x": 11.2277202606201,
+            "y": 4.63211965560913,
+            "z": -0.415758669376373
+          },
+          "velocity": {
+            "x": 10,
+            "y": 5.5,
+            "z": 8
+          },
+          "wall_sticking": false
+        },
+        "samples": [
+          {
+            "frame": 1,
+            "grappling": false,
+            "position": {
+              "x": 10.1044445037842,
+              "y": 4,
+              "z": -0.25
+            },
+            "velocity": {
+              "x": 6.26666688919067,
+              "y": 0,
+              "z": 0
+            },
+            "wall_sticking": false
+          },
+          {
+            "frame": 2,
+            "grappling": true,
+            "position": {
+              "x": 10.1044445037842,
+              "y": 4,
+              "z": -0.25
+            },
+            "velocity": {
+              "x": 6.26666688919067,
+              "y": 0,
+              "z": 0
+            },
+            "wall_sticking": false
+          },
+          {
+            "frame": 3,
+            "grappling": true,
+            "position": {
+              "x": 10.210277557373,
+              "y": 4.01101636886597,
+              "z": -0.257511168718338
+            },
+            "velocity": {
+              "x": 6.35000038146973,
+              "y": 0.660981953144073,
+              "z": -0.450669378042221
+            },
+            "wall_sticking": false
+          },
+          {
+            "frame": 4,
+            "grappling": true,
+            "position": {
+              "x": 10.3164520263672,
+              "y": 4.03281021118164,
+              "z": -0.270981848239899
+            },
+            "velocity": {
+              "x": 6.37048816680908,
+              "y": 1.30764222145081,
+              "z": -0.808240592479706
+            },
+            "wall_sticking": false
+          },
+          {
+            "frame": 5,
+            "grappling": true,
+            "position": {
+              "x": 10.4219369888306,
+              "y": 4.06506633758545,
+              "z": -0.290210485458374
+            },
+            "velocity": {
+              "x": 6.32911777496338,
+              "y": 1.93536829948425,
+              "z": -1.15371894836426
+            },
+            "wall_sticking": false
+          },
+          {
+            "frame": 6,
+            "grappling": true,
+            "position": {
+              "x": 10.5257225036621,
+              "y": 4.10739040374756,
+              "z": -0.314954996109009
+            },
+            "velocity": {
+              "x": 6.22713947296143,
+              "y": 2.53943109512329,
+              "z": -1.48467040061951
+            },
+            "wall_sticking": false
+          },
+          {
+            "frame": 7,
+            "grappling": true,
+            "position": {
+              "x": 10.6268262863159,
+              "y": 4.15930652618408,
+              "z": -0.344930797815323
+            },
+            "velocity": {
+              "x": 6.06620311737061,
+              "y": 3.11497688293457,
+              "z": -1.79854726791382
+            },
+            "wall_sticking": false
+          },
+          {
+            "frame": 8,
+            "grappling": true,
+            "position": {
+              "x": 10.7243013381958,
+              "y": 4.22025775909424,
+              "z": -0.37980917096138
+            },
+            "velocity": {
+              "x": 5.84850978851318,
+              "y": 3.65705943107605,
+              "z": -2.09270286560059
+            },
+            "wall_sticking": false
+          },
+          {
+            "frame": 9,
+            "grappling": true,
+            "position": {
+              "x": 10.8172512054443,
+              "y": 4.2896032333374,
+              "z": -0.419216394424438
+            },
+            "velocity": {
+              "x": 5.57697010040283,
+              "y": 4.16071939468384,
+              "z": -2.36443400382996
+            },
+            "wall_sticking": false
+          },
+          {
+            "frame": 10,
+            "grappling": true,
+            "position": {
+              "x": 10.9048404693604,
+              "y": 4.36662197113037,
+              "z": -0.462733954191208
+            },
+            "velocity": {
+              "x": 5.25534582138062,
+              "y": 4.6211199760437,
+              "z": -2.61105394363403
+            },
+            "wall_sticking": false
+          },
+          {
+            "frame": 11,
+            "grappling": true,
+            "position": {
+              "x": 10.9863128662109,
+              "y": 4.45051765441895,
+              "z": -0.509900629520416
+            },
+            "velocity": {
+              "x": 4.88835620880127,
+              "y": 5.03373718261719,
+              "z": -2.83000040054321
+            },
+            "wall_sticking": false
+          },
+          {
+            "frame": 12,
+            "grappling": true,
+            "position": {
+              "x": 11.0610074996948,
+              "y": 4.54042768478394,
+              "z": -0.549129068851471
+            },
+            "velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "wall_sticking": true
+          }
+        ],
+        "setup": {
+          "camera_forward": {
+            "x": 0,
+            "y": 1.192481136e-7,
+            "z": -1
+          },
+          "entry_velocity": {
+            "x": 6,
+            "y": 0,
+            "z": 0
+          },
+          "player_position": {
+            "x": 10,
+            "y": 4,
+            "z": -0.25
+          },
+          "ray_hit_position": {
+            "x": 10,
+            "y": 6.00000047683716,
+            "z": -1.00000023841858
+          },
+          "ray_target": "/root/Main/World/Buildings/WideBlockA",
+          "target_geometry": "/root/Main/World/Buildings/WideBlockA north face"
+        },
+        "stuck": {
+          "grappling": true,
+          "input_grapple_held": true,
+          "input_move_right_held": true,
+          "position": {
+            "x": 11.0610074996948,
+            "y": 4.54042768478394,
+            "z": -0.549129068851471
+          },
+          "run_direction": {
+            "x": 1,
+            "y": 0,
+            "z": 0
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "wall_normal": {
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          "wall_sticking": true
+        }
+      },
+      "source": "game"
+    },
+    "fall_recovery": {
+      "result": {
+        "health": 100,
+        "input": "none for 180 physics frames",
+        "is_dead": false,
+        "on_floor": false,
+        "position": {
+          "x": 151.737442016602,
+          "y": -40.3677253723145,
+          "z": 0
+        },
+        "recovery_node_or_api_found": false,
+        "setup": "transient runtime placement beyond the 300 m floor's +X edge",
+        "velocity": {
+          "x": 0,
+          "y": -29.0733623504639,
+          "z": 0
+        }
+      },
+      "source": "game"
+    },
+    "death_recovery": {
+      "launch": {
+        "autosave": false,
+        "current_run_errors": [],
+        "game_status": {
+          "active": true,
+          "editor_log_cursor": 0,
+          "elapsed_msec": 1388,
+          "helper_expected": true,
+          "helper_live": true,
+          "ready": true,
+          "ready_wait_msec": 3000,
+          "run_started_msec": 1125578,
+          "run_token": 5,
+          "session_active": true,
+          "status": "live"
+        },
+        "helper_live": true,
+        "mode": "main",
+        "reason": "Game launched and the Godot AI game helper is live.",
+        "recent_errors": [],
+        "recent_errors_may_predate_run": false,
+        "recent_errors_scope": "none",
+        "recent_errors_truncated": false,
+        "retained_errors": [],
+        "scene": "",
+        "session_active": true,
+        "undoable": false,
+        "was_already_running": false
+      },
+      "wait_chunks": [
+        {
+          "advance": {
+            "actions_pressed_at_end": [],
+            "applied": [
+              {
+                "action": "move_forward",
+                "at_frame": 0,
+                "pressed": false
+              }
+            ],
+            "completed": true,
+            "frames_elapsed": 180,
+            "op": "input_sequence",
+            "source": "game",
+            "steps_applied": 1
+          },
+          "snapshot": {
+            "result": {
+              "health": 60.1,
+              "is_dead": false,
+              "position": {
+                "x": 0,
+                "y": 0.099303625524044,
+                "z": 0
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            "source": "game"
+          }
+        },
+        {
+          "advance": {
+            "actions_pressed_at_end": [],
+            "applied": [
+              {
+                "action": "move_forward",
+                "at_frame": 0,
+                "pressed": false
+              }
+            ],
+            "completed": true,
+            "frames_elapsed": 180,
+            "op": "input_sequence",
+            "source": "game",
+            "steps_applied": 1
+          },
+          "snapshot": {
+            "result": {
+              "health": 26.85,
+              "is_dead": false,
+              "position": {
+                "x": 0,
+                "y": 0.099303625524044,
+                "z": 0
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            "source": "game"
+          }
+        },
+        {
+          "advance": {
+            "actions_pressed_at_end": [],
+            "applied": [
+              {
+                "action": "move_forward",
+                "at_frame": 0,
+                "pressed": false
+              }
+            ],
+            "completed": true,
+            "frames_elapsed": 180,
+            "op": "input_sequence",
+            "source": "game",
+            "steps_applied": 1
+          },
+          "snapshot": {
+            "result": {
+              "health": 0,
+              "is_dead": true,
+              "position": {
+                "x": 0,
+                "y": 0.099303625524044,
+                "z": 0
+              },
+              "velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            "source": "game"
+          }
+        }
+      ],
+      "at_dead": {
+        "result": {
+          "health": 0,
+          "is_dead": true,
+          "position": {
+            "x": 0,
+            "y": 0.099303625524044,
+            "z": 0
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "source": "game"
+      },
+      "recovery_input": {
+        "actions_pressed_at_end": [],
+        "applied": [
+          {
+            "action": "move_right",
+            "at_frame": 0,
+            "pressed": true
+          },
+          {
+            "action": "jump",
+            "at_frame": 0,
+            "pressed": true
+          },
+          {
+            "action": "fire_grapple",
+            "at_frame": 0,
+            "pressed": true
+          },
+          {
+            "action": "move_right",
+            "at_frame": 60,
+            "pressed": false
+          },
+          {
+            "action": "jump",
+            "at_frame": 60,
+            "pressed": false
+          },
+          {
+            "action": "fire_grapple",
+            "at_frame": 60,
+            "pressed": false
+          }
+        ],
+        "completed": true,
+        "frames_elapsed": 62,
+        "op": "input_sequence",
+        "source": "game",
+        "steps_applied": 6
+      },
+      "after_inputs": {
+        "result": {
+          "grappling": false,
+          "health": 0,
+          "is_dead": true,
+          "position": {
+            "x": 0,
+            "y": 0.099303625524044,
+            "z": 0
+          },
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "source": "game"
+      },
+      "game_logs": {
+        "source": "game",
+        "lines": [
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "[godot_ai game_helper] registered mcp capture (debugger active=true, logger=true)\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 1\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 2\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 3\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 4\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 5\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 6\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 7\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 1\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 2\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 3\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 4\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 5\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 6\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Loading cache for shader SceneForwardClusteredShaderRD, variant 7\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "MultiUmaBuffer 'RENDER_LIST_OPAQUE' used a total of 0 buffers. A large number may indicate a waste of VRAM and can be brought down by tweaking MAX_EXTRA_BUFFERS for this buffer.\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 93.3/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 86.7/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 80.0/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 73.4/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 66.7/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 60.1/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 53.4/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 46.8/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 40.1/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 33.5/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 26.8/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 20.2/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 13.5/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 6.9/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 0.2/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player took 6.6 physical damage. HP: 0.0/100.0\n"
+          },
+          {
+            "level": "info",
+            "run_id": "r1125579-5",
+            "source": "game",
+            "text": "Player died\n"
+          }
+        ],
+        "total_count": 35,
+        "returned_count": 35,
+        "offset": 0,
+        "limit": 2000,
+        "has_more": false,
+        "run_id": "r1125579-5",
+        "is_running": true,
+        "dropped_count": 0,
+        "stale_run_id": false,
+        "current_run_id": "r1125579-5",
+        "helper_live": true,
+        "session_active": true,
+        "game_status": {
+          "active": true,
+          "editor_log_cursor": 0,
+          "elapsed_msec": 26453,
+          "helper_expected": true,
+          "helper_live": true,
+          "ready": true,
+          "ready_wait_msec": 20000,
+          "run_started_msec": 1125578,
+          "run_token": 5,
+          "session_active": true,
+          "status": "live"
+        }
+      },
+      "editor_logs": {
+        "source": "editor",
+        "lines": [],
+        "total_count": 0,
+        "returned_count": 0,
+        "offset": 0,
+        "limit": 500,
+        "has_more": false,
+        "run_id": "",
+        "is_running": false,
+        "dropped_count": 0,
+        "stale_run_id": false,
+        "next_cursor": 0,
+        "appended_total": 0
+      }
+    }
+  }
+}
+

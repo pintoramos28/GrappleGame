@@ -1,6 +1,10 @@
+---
+baseline_commit: 317590fe882831fb7dc8117447313d733462e1f9
+---
+
 # Story 1.1: Verify and Protect the Playable Traversal Baseline
 
-Status: ready-for-dev
+Status: review
 
 <!-- Validation is required for this baseline-protection Story before implementation begins. -->
 
@@ -68,42 +72,42 @@ so that I can distinguish pre-existing behavior from regressions introduced duri
 
 ## Tasks / Subtasks
 
-- [ ] 1. Capture the preflight and starting state (AC: 1, 2, 3)
-  - [ ] Record an ISO-8601 capture timestamp, full `HEAD`, branch or detached state, and the complete `git status --porcelain=v1 --untracked-files=all` output. A clean worktree is not required; preserve all pre-existing user changes.
-  - [ ] Resolve the explicit Godot editor and console executables, capture the console executable's complete raw version string, and verify it is the approved 4.7.2 stable build before opening the project.
-  - [ ] Capture Git and `uv` versions without installing, upgrading, or altering configuration.
-  - [ ] Verify actual local add-on versions from their own metadata or version files and record where each value came from: LimboAI, Godot AI, GUT, Terrain3D, Phantom Camera, and GDQuest GDScript Formatter.
-  - [ ] Record whether each required dependency is tracked, ignored, or otherwise reproducible from the repository. Do not call an ignored local add-on “repository-vendored” without evidence.
-  - [ ] Capture a start-state manifest or equivalent repeatable snapshot for the protected runtime surface: `project.godot`, `main.tscn`, `.gitignore`, `scenes/`, `scripts/`, `resources/`, `materials/`, `ai/`, and `addons/`. Exclude generated `.godot/` cache files from the no-mutation assertion.
-  - [ ] Record `run/main_scene`, renderer/method, Windows rendering driver, physics backend, effective physics ticks per second, and effective physics interpolation. Distinguish serialized settings from engine defaults or runtime-reported values; use the pinned editor's read-only Project Settings view for effective values when they are absent from `project.godot`, and do not apply or save changes.
+- [x] 1. Capture the preflight and starting state (AC: 1, 2, 3)
+  - [x] Record an ISO-8601 capture timestamp, full `HEAD`, branch or detached state, and the complete `git status --porcelain=v1 --untracked-files=all` output. A clean worktree is not required; preserve all pre-existing user changes.
+  - [x] Resolve the explicit Godot editor and console executables, capture the console executable's complete raw version string, and verify it is the approved 4.7.2 stable build before opening the project.
+  - [x] Capture Git and `uv` versions without installing, upgrading, or altering configuration.
+  - [x] Verify actual local add-on versions from their own metadata or version files and record where each value came from: LimboAI, Godot AI, GUT, Terrain3D, Phantom Camera, and GDQuest GDScript Formatter.
+  - [x] Record whether each required dependency is tracked, ignored, or otherwise reproducible from the repository. Do not call an ignored local add-on “repository-vendored” without evidence.
+  - [x] Capture a start-state manifest or equivalent repeatable snapshot for the protected runtime surface: `project.godot`, `main.tscn`, `.gitignore`, `scenes/`, `scripts/`, `resources/`, `materials/`, `ai/`, and `addons/`. Exclude generated `.godot/` cache files from the no-mutation assertion.
+  - [x] Record `run/main_scene`, renderer/method, Windows rendering driver, physics backend, effective physics ticks per second, and effective physics interpolation. Distinguish serialized settings from engine defaults or runtime-reported values; use the pinned editor's read-only Project Settings view for effective values when they are absent from `project.godot`, and do not apply or save changes.
 
-- [ ] 2. Complete pinned-engine import and launch verification (AC: 2, 4)
-  - [ ] Create the evidence directory, then run the pinned console build's explicit `--import` path with verbose output and `--log-file` so initial import/class-registration output is retained before interactive testing.
-  - [ ] Launch the project with the explicit Godot 4.7.2 editor executable. Do not use the stale editor path recorded in ignored `.godot` metadata and do not save or resave project content.
-  - [ ] Treat initial imports as complete only after the editor's import/progress work is idle and required script/extension classes have either registered successfully or produced a captured blocking error.
-  - [ ] Capture a fresh verbose headless load of `res://main.tscn` as a parse/resource/scene-load smoke check; do not treat headless loading as a gameplay or traversal pass.
-  - [ ] Launch `res://main.tscn` interactively with the same pinned console build and capture the complete fresh output while determining whether the player is controllable.
-  - [ ] Classify import, parse, missing-resource, scene-load, runtime-error, and relevant-warning results in the evidence record, with links to the full raw logs. Do not silently filter output during capture.
-  - [ ] If the required runtime cannot load, stop runtime execution, record the blocker and proposed separately scoped remediation, and proceed only with the non-mutating evidence and diff audit that remain possible. Keep AC 4 and Story 1.1 incomplete; after remediation, rerun the pinned import, launch, and smoke procedure before claiming completion.
+- [x] 2. Complete pinned-engine import and launch verification (AC: 2, 4)
+  - [x] Create the evidence directory, then run the pinned console build's explicit `--import` path with verbose output and `--log-file` so initial import/class-registration output is retained before interactive testing.
+  - [x] Launch the project with the explicit Godot 4.7.2 editor executable. Do not use the stale editor path recorded in ignored `.godot` metadata and do not save or resave project content.
+  - [x] Treat initial imports as complete only after the editor's import/progress work is idle and required script/extension classes have either registered successfully or produced a captured blocking error.
+  - [x] Capture a fresh verbose headless load of `res://main.tscn` as a parse/resource/scene-load smoke check; do not treat headless loading as a gameplay or traversal pass.
+  - [x] Launch `res://main.tscn` interactively with the same pinned console build and capture the complete fresh output while determining whether the player is controllable.
+  - [x] Classify import, parse, missing-resource, scene-load, runtime-error, and relevant-warning results in the evidence record, with links to the full raw logs. Do not silently filter output during capture.
+  - [x] If the required runtime cannot load, stop runtime execution, record the blocker and proposed separately scoped remediation, and proceed only with the non-mutating evidence and diff audit that remain possible. Keep AC 4 and Story 1.1 incomplete; after remediation, rerun the pinned import, launch, and smoke procedure before claiming completion.
 
-- [ ] 3. Execute the traversal smoke procedure (AC: 5, 6)
-  - [ ] Read the current InputMap and controller behavior before testing; use the actual current bindings rather than future target bindings or assumptions.
-  - [ ] In `res://main.tscn`, record ground `W/A/S/D`, air steering, `Space` jump, right-mouse grapple acquisition/hold/release, momentum after release, wall run, grapple-assisted wall stick, wall jump, landing recovery, fall recovery, and death recovery as separate matrix rows where applicable.
-  - [ ] For every row, record the exact scene, setup or target geometry, input sequence, result enum, and concise observation. Use only `pass`, `fail`, or `not-currently-exercisable` for the result.
-  - [ ] Use `res://scenes/tree_grapple_tutorial.tscn` only if it supplies geometry needed for an observation. Label its results separately because it has different grapple-gravity and movement overrides, and do not save its generated editor preview.
-  - [ ] Record a blocking issue or change candidate for any behavior required by the next migration Story that fails or cannot be exercised. Do not repair gameplay, content, controls, or architecture in Story 1.1.
+- [x] 3. Execute the traversal smoke procedure (AC: 5, 6)
+  - [x] Read the current InputMap and controller behavior before testing; use the actual current bindings rather than future target bindings or assumptions.
+  - [x] In `res://main.tscn`, record ground `W/A/S/D`, air steering, `Space` jump, right-mouse grapple acquisition/hold/release, momentum after release, wall run, grapple-assisted wall stick, wall jump, landing recovery, fall recovery, and death recovery as separate matrix rows where applicable.
+  - [x] For every row, record the exact scene, setup or target geometry, input sequence, result enum, and concise observation. Use only `pass`, `fail`, or `not-currently-exercisable` for the result.
+  - [x] Use `res://scenes/tree_grapple_tutorial.tscn` only if it supplies geometry needed for an observation. Label its results separately because it has different grapple-gravity and movement overrides, and do not save its generated editor preview.
+  - [x] Record a blocking issue or change candidate for any behavior required by the next migration Story that fails or cannot be exercised. Do not repair gameplay, content, controls, or architecture in Story 1.1.
 
-- [ ] 4. Complete the Baseline Evidence Record (AC: 7)
-  - [ ] Replace every `TBD` field in the Baseline Evidence Record below with observed evidence or an explicit `not available` plus reason.
-  - [ ] Reference full raw logs under `_bmad-output/implementation-artifacts/evidence/1-1/`; keep the Story summary concise while preserving the original output needed to reproduce or diagnose the result.
-  - [ ] State explicitly that no automated suite was run unless a separately established suite actually exists at implementation time. Presence of the GUT add-on alone is not an automated-test pass.
-  - [ ] Separate facts observed during this execution from preflight intelligence recorded when the Story was authored.
+- [x] 4. Complete the Baseline Evidence Record (AC: 7)
+  - [x] Replace every `TBD` field in the Baseline Evidence Record below with observed evidence or an explicit `not available` plus reason.
+  - [x] Reference full raw logs under `_bmad-output/implementation-artifacts/evidence/1-1/`; keep the Story summary concise while preserving the original output needed to reproduce or diagnose the result.
+  - [x] State explicitly that no automated suite was run unless a separately established suite actually exists at implementation time. Presence of the GUT add-on alone is not an automated-test pass.
+  - [x] Separate facts observed during this execution from preflight intelligence recorded when the Story was authored.
 
-- [ ] 5. Audit the ending state and prove repeatability (AC: 8)
-  - [ ] Capture the complete unscoped ending `git status --porcelain=v1 --untracked-files=all`, the ending protected-surface snapshot, and the additional scoped Git status/diffs.
-  - [ ] Compare starting and ending snapshots so pre-existing dirty files are not mistaken for Story changes and changes made during this Story are not hidden by a dirty worktree.
-  - [ ] Confirm that only the implementation Story/evidence, retained raw logs, and sprint metadata changed. If a protected runtime file changed, restore nothing destructively: preserve user work, record the exact delta, and leave the Story incomplete pending separately scoped remediation.
-  - [ ] Have another developer or agent repeat the documented launch/smoke steps from the record, or perform a dry-run review proving all paths, commands, setup, inputs, and expected observations are present.
+- [x] 5. Audit the ending state and prove repeatability (AC: 8)
+  - [x] Capture the complete unscoped ending `git status --porcelain=v1 --untracked-files=all`, the ending protected-surface snapshot, and the additional scoped Git status/diffs.
+  - [x] Compare starting and ending snapshots so pre-existing dirty files are not mistaken for Story changes and changes made during this Story are not hidden by a dirty worktree.
+  - [x] Confirm that only the implementation Story/evidence, retained raw logs, and sprint metadata changed. If a protected runtime file changed, restore nothing destructively: preserve user work, record the exact delta, and leave the Story incomplete pending separately scoped remediation.
+  - [x] Have another developer or agent repeat the documented launch/smoke steps from the record, or perform a dry-run review proving all paths, commands, setup, inputs, and expected observations are present.
 
 ## Dev Notes
 
@@ -243,106 +247,179 @@ rtk git diff --cached --exit-code -- project.godot main.tscn scenes scripts reso
 
 ### Capture Identity
 
-- Capture date/time (ISO-8601 with timezone): TBD
-- Full repository commit: TBD
-- Branch or detached state: TBD
-- Starting working-tree snapshot: TBD
-- Ending working-tree snapshot: TBD
-- Start/end comparison artifact or method: TBD
+- Capture date/time (ISO-8601 with timezone): `2026-09-09T21:45:20.1199670-04:00`
+- Full repository commit: `317590fe882831fb7dc8117447313d733462e1f9`
+- Branch or detached state: branch `main`, tracking `origin/main`, capture-time divergence `+10/-0`
+- Starting working-tree snapshot: [`evidence/1-1/start-git-status.txt`](evidence/1-1/start-git-status.txt) (complete unscoped porcelain-v1 output; pre-existing changes preserved)
+- Ending working-tree snapshot: [`evidence/1-1/end-git-status.txt`](evidence/1-1/end-git-status.txt) (complete unscoped porcelain-v1 output captured after the editor/game stopped)
+- Start/end comparison artifact or method: deterministic protected-surface SHA-256 manifests, complete unscoped status comparison, and scoped staged/unstaged Git checks; see [`evidence/1-1/preservation-audit.md`](evidence/1-1/preservation-audit.md)
 
 ### Toolchain and Dependency Versions
 
 | Item | Resolved command/metadata source (redact user-specific path) | Raw observed version | Git tracking/reproducibility note |
 |---|---|---|---|
-| Godot editor | TBD | TBD | TBD |
-| Godot console | TBD | TBD | TBD |
-| Git | TBD | TBD | N/A |
-| `uv` | TBD | TBD | N/A |
-| LimboAI | TBD | TBD | TBD |
-| Godot AI | TBD | TBD | TBD |
-| GUT | TBD | TBD | TBD |
-| Terrain3D | TBD | TBD | TBD |
-| Phantom Camera | TBD | TBD | TBD |
-| GDQuest GDScript Formatter | TBD | TBD | TBD |
+| Godot editor | Explicit operator-local `Godot_v4.7.2-stable_win64.exe`; live-session metadata and process inspection | `4.7.2-stable (official)` | External tool, not tracked in this repository; explicit path intentionally redacted. |
+| Godot console | Explicit operator-local `Godot_v4.7.2-stable_win64_console.exe --version` | `4.7.2.stable.official.ed1daf0bf` | External tool, not tracked in this repository; paired Windows console/GUI build. |
+| Git | `git --version` | `git version 2.51.2.windows.1` | N/A |
+| `uv` | `uv --version` | `uv 0.11.16 (135a36367 2026-05-21 x86_64-pc-windows-msvc)` | N/A |
+| LimboAI | `addons/limboai/version.txt` | `v1.8.1` | Ignored by `/addons/`; no tracked file/submodule; not reproducible from Git alone (`BASE-001`). |
+| Godot AI | `addons/godot_ai/plugin.cfg:6` | `4.0.4` | Ignored/untracked; differs from planning-context `3.2.4`; not changed (`BASE-001`). |
+| GUT | `addons/gut/plugin.cfg:6` | `9.7.1` | Ignored/untracked; presence does not establish a test suite (`BASE-001`). |
+| Terrain3D | `addons/terrain_3d/plugin.cfg:6` | `1.0.2` | Ignored/untracked; not reproducible from Git alone (`BASE-001`). |
+| Phantom Camera | `addons/phantom_camera/plugin.cfg:6` | `0.11.0.2` | Ignored/untracked; not reproducible from Git alone (`BASE-001`). |
+| GDQuest GDScript Formatter | `addons/GDQuest_GDScript_formatter/plugin.cfg:6` | `0.1.0` | Ignored/untracked; not reproducible from Git alone (`BASE-001`). |
 
 ### Engine and Launch Configuration
 
 | Setting | Serialized source | Effective observed value | Match / issue reference |
 |---|---|---|---|
-| Main scene | TBD | TBD | TBD |
-| Renderer | TBD | TBD | TBD |
-| Windows rendering driver | TBD | TBD | TBD |
-| 3D physics backend | TBD | TBD | TBD |
-| Physics ticks per second | TBD | TBD | TBD |
-| Physics interpolation | TBD | TBD | TBD |
+| Main scene | `project.godot:14`, `run/main_scene="res://main.tscn"` | `res://main.tscn` | Matches observed baseline and remained unchanged. |
+| Renderer | `config/features` contains `Forward Plus`; method not explicitly serialized | `forward_plus` from pinned editor Project Settings | Forward+ baseline; unchanged. |
+| Windows rendering driver | `rendering/rendering_device/driver.windows="d3d12"` | `d3d12` | Matches Windows baseline; unchanged. |
+| 3D physics backend | `physics/3d/physics_engine="Jolt Physics"` | `Jolt Physics` | Matches approved backend; unchanged. |
+| Physics ticks per second | Not serialized | `60` from pinned editor Project Settings (effective engine default) | Matches architecture target; unchanged. |
+| Physics interpolation | Not serialized | `false` from pinned editor Project Settings (effective engine default) | Differs from architecture target `true`; report-only `BASE-002`. |
 
 ### Import and Launch Result
 
-- Exact editor import procedure and completion signal: TBD
-- Exact headless load command/result: TBD
-- Exact interactive launch command/result: TBD
-- Scene exercised: TBD
-- Player controllable: TBD
-- Automated tests: TBD
+- Exact editor import procedure and completion signal: `<Godot-4.7.2-console> --path . --import --verbose --log-file _bmad-output/implementation-artifacts/evidence/1-1/editor-import-single-process.log`; exit `0`, followed by editor `readiness=ready`, empty editor error buffer, and instantiable `LimboHSM` ClassDB result
+- Exact headless load command/result: `<Godot-4.7.2-console> --headless --path . --quit-after 120 --verbose --log-file _bmad-output/implementation-artifacts/evidence/1-1/main-headless.log`; exit `0`; `res://main.tscn` completed resource/script load with no error/warning matches
+- Final regression load/result: repeated the same pinned 120-frame headless command after interactive capture; exit `0`, `res://main.tscn` completed load, and no error/warning patterns matched in [`final-headless.log`](evidence/1-1/final-headless.log)
+- Exact interactive launch command/result: `<Godot-4.7.2-console> --editor --path . --verbose --log-file .../editor-console-session.log`, then Godot AI `project_run(mode=main, autosave=false)`; game helper reached `live`, current-run errors `[]`, editor errors `[]`; the Windows console launcher used its paired same-build GUI engine process
+- Scene exercised: `res://main.tscn`; `tree_grapple_tutorial.tscn` was not needed, opened, run, or saved
+- Player controllable: yes — `D` / `move_right` for 30 physics frames moved the live player from `x=0.000` to `x=7.874` while alive
+- Automated tests: **not run: no established `tests/` or `test/` suite exists.** A fresh repository file search also found no CI workflow or `export_presets.cfg`; the GUT add-on alone is not an automated-test pass.
 
 | Output category | Observed summary | Raw log reference | Pre-existing issue / remediation reference |
 |---|---|---|---|
-| Import | TBD | TBD | TBD |
-| Parse / script classes | TBD | TBD | TBD |
-| Missing resources | TBD | TBD | TBD |
-| Scene load | TBD | TBD | TBD |
-| Runtime errors | TBD | TBD | TBD |
-| Relevant warnings | TBD | TBD | TBD |
+| Import | Single-process pinned import exited `0`; editor subsequently became idle/ready. | [`editor-import-single-process.log`](evidence/1-1/editor-import-single-process.log) | First concurrent attempt hit locked temporary extension DLLs/server socket; stopped safely and passed after closing the other editor. Procedure hazard only. |
+| Parse / script classes | Main player/enemy scripts loaded; `LimboHSM` registered/instantiable; authoritative editor error buffer empty. | [`main-headless.log`](evidence/1-1/main-headless.log), [`import-and-launch-classification.md`](evidence/1-1/import-and-launch-classification.md) | none |
+| Missing resources | No missing-resource output in successful import, headless load, or authoritative interactive launch. | Successful import/headless/interactive logs | none |
+| Scene load | `res://main.tscn` completed headless load and produced a live 130-node runtime tree with player/HSMs/enemies. | [`main-headless.log`](evidence/1-1/main-headless.log), [`main-interactive-observation.json`](evidence/1-1/main-interactive-observation.json) | none |
+| Runtime errors | No runtime/debugger errors in authoritative launch or final natural-death run. Two abandoned MCP eval snippets produced transient generated-script errors; subsequent clean runs passed and no project script was involved. | [`editor-console-session-stdout.log`](evidence/1-1/editor-console-session-stdout.log), [`traversal-smoke-observations.json`](evidence/1-1/traversal-smoke-observations.json) | Capture-harness attempts classified separately; no remediation to runtime files. |
+| Relevant warnings | Interactive stderr repeats RGB8-to-RGBA8 conversion warnings; import-only Godot AI shutdown emitted three `HTTPRequest ERR_UNCONFIGURED` messages. Neither blocked import/load/play. | [`editor-console-session-stderr.log`](evidence/1-1/editor-console-session-stderr.log), [`editor-import-single-process.log`](evidence/1-1/editor-import-single-process.log) | `BASE-003`; separately investigate only if later tooling/asset evidence shows impact. |
 
 ### Traversal Smoke Matrix
 
 | Scene | Behavior | Setup / target | Actual input | Expected baseline observation | Result | Observed result | Issue / remediation reference |
 |---|---|---|---|---|---|---|---|
-| TBD | Ground movement | TBD | TBD | Controllable ground movement | TBD | TBD | TBD |
-| TBD | Air steering | TBD | TBD | Controllable aerial correction with carried commitment | TBD | TBD | TBD |
-| TBD | Jump | TBD | TBD | Ground jump launches the player | TBD | TBD | TBD |
-| TBD | Grapple acquisition | TBD | TBD | First eligible crosshair hit within current range attaches | TBD | TBD | TBD |
-| TBD | Grapple hold | TBD | TBD | Held grapple pulls toward the current attachment | TBD | TBD | TBD |
-| TBD | Grapple release | TBD | TBD | Release ends the grapple | TBD | TBD | TBD |
-| TBD | Momentum after release | TBD | TBD | Useful velocity is retained after release | TBD | TBD | TBD |
-| TBD | Wall run | TBD | TBD | Valid side-wall approach enters current wall-run behavior | TBD | TBD | TBD |
-| TBD | Wall stick | TBD | TBD | Grapple-assisted wall collision can enter current stick behavior | TBD | TBD | TBD |
-| TBD | Wall jump | TBD | TBD | Jump exits wall interaction up and away | TBD | TBD | TBD |
-| TBD | Landing recovery | TBD | TBD | Ordinary missed movement can continue after landing | TBD | TBD | TBD |
-| TBD | Fall recovery | TBD | TBD | Current fall/recovery behavior is observable or unavailable | TBD | TBD | TBD |
-| TBD | Death recovery | TBD | TBD | Current death/recovery behavior is observable or unavailable | TBD | TBD | TBD |
+| `res://main.tscn` | Ground movement | Flat floor reset `(0,0.1,40)`; enemies transiently disabled | `W/S/A/D`, each held 30 physics frames | Controllable ground movement | `pass` | Ended `7.874 m` in each expected cardinal direction; grounded/alive. | none |
+| `res://main.tscn` | Air steering | Same isolated floor setup | `Space` pulse, then `W` held 22 frames | Controllable aerial correction with carried commitment | `pass` | Airborne at `y=1.137`; `z=39.555`, velocity `z=-1.767 m/s`. | none |
+| `res://main.tscn` | Jump | Same isolated floor setup | `Space` one-frame action pulse | Ground jump launches the player | `pass` | Airborne at `y=0.625`, vertical velocity `3.357 m/s` after 10 frames. | none |
+| `res://main.tscn` | Grapple acquisition | Origin; camera aimed at `TallTowerA` hit `(8.75,2.10,-17.5)` | Press/hold right mouse | First eligible crosshair hit within current range attaches | `pass` | Active valid target `/Main/World/Buildings/TallTowerA`. | none |
+| `res://main.tscn` | Grapple hold | Continue same attachment | Hold right mouse 20 frames | Held grapple pulls toward the current attachment | `pass` | Distance fell `19.596→17.479 m`; pull speed `11.059 m/s`. | none |
+| `res://main.tscn` | Grapple release | Same active grapple | Release right mouse | Release ends the grapple | `pass` | Grapple and target validity cleared within 2 frames. | none |
+| `res://main.tscn` | Momentum after release | Same pull/release sequence | Release after 20-frame pull | Useful velocity is retained after release | `pass` | Velocity `(4.468,0.764,-10.546)`, speed `11.480 m/s`, after release. | none |
+| `res://main.tscn` | Wall run | Beside `WideBlockA` north face; entry `(6,0,0)` | Hold `D` 5 frames | Valid side-wall approach enters current wall-run behavior | `pass` | Running true; normal `+Z`, direction `+X`, vertical velocity `0`. | none |
+| `res://main.tscn` | Wall stick | Same wall; horizontal grapple ray hits face | Hold `D` + right mouse | Grapple-assisted wall collision can enter current stick behavior | `pass` | By frame 12: grapple/stick true, held inputs true, velocity frozen to zero. | none |
+| `res://main.tscn` | Wall jump | Active run and separately active stick | Pulse `Space` while `D` held | Jump exits wall interaction up and away | `pass` | Run exit `(6.467,5.5,8)`; stick exit `(10,5.5,8)`, grapple/stick cleared. | none |
+| `res://main.tscn` | Landing recovery | Normal isolated jump | Wait 60 frames, then hold `D` 15 | Ordinary missed movement can continue after landing | `pass` | Grounded/alive; follow-up movement changed `x=0→0.642`. | none |
+| `res://main.tscn` | Fall recovery | Runtime-only placement beyond floor edge `(151.5,3,0)` | No input 180 frames | Current fall/recovery behavior is observable or unavailable | `not-currently-exercisable` | No reset; at `y=-40.368`, falling `-29.073 m/s`, alive. | `BASE-004`; future checkpoint/recovery scope |
+| `res://main.tscn` | Death recovery | Fresh unisolated launch; natural enemy damage | Wait 540 frames, then hold `D+Space+RMB` 60 | Current death/recovery behavior is observable or unavailable | `not-currently-exercisable` | Health `0`, dead state persisted; position/velocity unchanged, grapple inactive. | `BASE-005`; future death/encounter-reset scope |
 
 ### Known Pre-existing Issues and Separately Scoped Remediation
 
 | Issue ID / candidate | Evidence | Impact on later Story | Required next action | Owner / status |
 |---|---|---|---|---|
-| TBD | TBD | TBD | TBD | TBD |
+| `BASE-001` | Every inspected add-on is ignored/untracked with no submodule; Godot AI is locally `4.0.4` versus planning-context `3.2.4`. | Dependency provenance and another checkout's reproducibility are not guaranteed. | Separately define/install-lock dependency provenance; reconcile planning context before relying on the newer tooling version. | Unassigned / open, non-blocking for Story 1.2 on this machine |
+| `BASE-002` | Effective `physics/common/physics_interpolation=false`; setting absent from `project.godot`. | Differs from approved target and must not be mistaken for a regression introduced later. | Change only in a separately scoped migration Story with before/after validation. | Unassigned / open, report-only |
+| `BASE-003` | Three Godot AI import-shutdown `HTTPRequest ERR_UNCONFIGURED` messages and repeated RGB8 conversion warnings. | Adds noise to clean-log comparisons; no observed load/play failure. | Investigate tooling/asset source separately only if warnings persist as actionable migration noise. | Unassigned / open, non-blocking |
+| `BASE-004` | Beyond-floor observation fell below `y=-40` without reset. | No current fall/checkpoint recovery behavior to preserve or compare. | Address in later level/checkpoint/recovery scope; do not repair in Epic 1.1. | Unassigned / deferred |
+| `BASE-005` | Natural death persisted after movement/jump/grapple inputs. | No current player death/restart behavior to preserve or compare. | Address in later health/encounter reset scope; do not repair in Epic 1.1. | Unassigned / deferred |
 
 ### Preservation Audit
 
-- Protected-surface starting manifest/reference: TBD
-- Protected-surface ending manifest/reference: TBD
-- Scoped Git diff result: TBD
-- Generated `.godot/` activity excluded and classified: TBD
-- Runtime/source/add-on changes introduced by Story 1.1: TBD
-- Evidence/workflow artifacts introduced by Story 1.1: TBD
-- Repeatability review result: TBD
+- Protected-surface starting manifest/reference: [`evidence/1-1/start-protected-surface-manifest.json`](evidence/1-1/start-protected-surface-manifest.json), 1,473 files, aggregate `83cb9880b908e06dfa24737db3e4349d58ee5b6e81ab080a239b40ae43cb36ce`
+- Protected-surface ending manifest/reference: [`evidence/1-1/end-protected-surface-manifest.json`](evidence/1-1/end-protected-surface-manifest.json), 1,473 raw files; eight of nine targets match start exactly, while `addons/` differs only by the process-state names of two pre-existing GDExtension loader shadows
+- Scoped Git diff result: [`evidence/1-1/end-scoped-git-checks.txt`](evidence/1-1/end-scoped-git-checks.txt) records empty scoped status, unstaged diff, and staged diff, all exit `0`
+- Generated `.godot/` activity excluded and classified: `.godot/**` contained 997 ignored cache files at the terminal capture; newest was `.godot/editor/project_metadata.cfg` at `2026-09-09T22:38:23.1314862-04:00`
+- Runtime/source/add-on changes introduced by Story 1.1: none. The stable 1,358-file add-on source digest is `1e39b0cd01bc935573508f7154f8e7f7c6584557180771b14e3a8b4f54871f87`; a controlled live loader-equivalent snapshot reproduced the exact starting add-on digest. Full classification is in [`evidence/1-1/preservation-audit.md`](evidence/1-1/preservation-audit.md)
+- Evidence/workflow artifacts introduced by Story 1.1: this Story file, sprint-status metadata, and the 22 retained files under `_bmad-output/implementation-artifacts/evidence/1-1/`. Eight concurrent `character_reference_views/*-fingers-separated.png` files were preserved and classified separately; generated sidecars from the final load were removed without touching those PNGs
+- Repeatability review result: `pass`; [`evidence/1-1/repeatability-review.md`](evidence/1-1/repeatability-review.md) confirms all paths, commands, setup, inputs, expected observations, and result evidence are present
+
+### Evidence Provenance
+
+All values above were observed during this implementation execution from commands, local metadata, the pinned editor, or live runtime state. Authoring-time intelligence in Dev Notes was used only to choose what to reverify; none of its version, worktree, configuration, launch, or traversal statements was counted as execution evidence without recapture.
 
 ## Dev Agent Record
 
 ### Agent Model Used
 
-TBD by implementation agent
+OpenAI Codex (GPT-5)
+
+### Implementation Plan
+
+- RED: treat every missing baseline datum, raw log, smoke observation, and preservation comparison as an unsatisfied verification check; do not create an automated suite where none exists.
+- GREEN: capture each requirement with pinned-engine, read-only commands and interactive observations, retaining raw output under `evidence/1-1/`.
+- REFACTOR: consolidate observed facts into the Baseline Evidence Record, classify issues separately, and prove the protected runtime surface is byte-identical at the end.
 
 ### Debug Log References
 
-- TBD during implementation
+- `_bmad-output/implementation-artifacts/evidence/1-1/preflight.md`
+- `_bmad-output/implementation-artifacts/evidence/1-1/start-git-status.txt`
+- `_bmad-output/implementation-artifacts/evidence/1-1/start-protected-surface-manifest.json`
+- `_bmad-output/implementation-artifacts/evidence/1-1/editor-import.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/editor-import-single-process.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/main-headless.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/editor-console-session.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/editor-console-session-stdout.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/editor-console-session-stderr.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/main-interactive-observation.json`
+- `_bmad-output/implementation-artifacts/evidence/1-1/import-and-launch-classification.md`
+- `_bmad-output/implementation-artifacts/evidence/1-1/traversal-smoke.md`
+- `_bmad-output/implementation-artifacts/evidence/1-1/traversal-smoke-observations.json`
+- `_bmad-output/implementation-artifacts/evidence/1-1/final-headless.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/end-git-status.txt`
+- `_bmad-output/implementation-artifacts/evidence/1-1/end-scoped-git-checks.txt`
+- `_bmad-output/implementation-artifacts/evidence/1-1/end-protected-surface-manifest.json`
+- `_bmad-output/implementation-artifacts/evidence/1-1/preservation-audit.md`
+- `_bmad-output/implementation-artifacts/evidence/1-1/repeatability-review.md`
 
 ### Completion Notes List
 
 - Story context created from the bounded Epic 1.1 context pack and validated for non-mutating baseline work.
-- No runtime implementation or baseline execution has been performed by create-story.
+- Create-story performed no runtime implementation; this implementation execution likewise made no runtime/source changes.
+- Task 1 complete: captured repository identity, full dirty state, pinned Godot/Git/uv versions, actual add-on metadata and ignored/untracked status, protected-surface hashes, and effective launch/physics settings without changing the runtime surface.
+- Recorded `BASE-001` for the locally observed Godot AI `4.0.4` versus planning-context `3.2.4`, and `BASE-002` for effective physics interpolation `false` versus the architecture target `true`; neither was corrected in this baseline Story.
+- Task 2 complete: the single-process pinned import and fresh headless main-scene load exited successfully, LimboAI registered, the authoritative interactive run had no debugger/runtime errors, and injected current input moved the live player 7.874 m.
+- The initial concurrent import lock and a standalone remote-debug diagnostic failure are retained and classified separately; both were stopped safely, followed by successful pinned runs, and required no runtime-file remediation.
+- Task 3 complete: all four ground bindings plus air steering, jump, grapple acquisition/hold/release, retained momentum, wall run, wall stick, wall jumps, and landing recovery passed in `main.tscn` with exact frame/state evidence.
+- Fall and death recovery are recorded as `not-currently-exercisable` (`BASE-004`, `BASE-005`) because the current prototype exposes no recovery path; neither blocks Story 1.2 and neither was repaired here. The tutorial scene was not needed or saved.
+- Task 4 complete: every Baseline Evidence Record field now contains execution evidence, full raw logs are linked, no automated suite exists or ran, and recaptured facts are separated from authoring-time intelligence.
+- Task 5 complete: final scoped staged/unstaged checks are empty, protected runtime/source bytes are unchanged, the final pinned headless regression load is clean, and the dry-run repeatability audit passes.
+- All 25 starting dirty paths remain preserved. Eight reference PNGs appeared concurrently during execution and remain untouched; eight Godot-generated sidecars for those new PNGs were removed before the terminal capture and are regenerable.
 
 ### File List
 
-- TBD during implementation; runtime file changes are prohibited by this Story.
+- `_bmad-output/implementation-artifacts/1-1-verify-and-protect-the-playable-traversal-baseline.md`
+- `_bmad-output/implementation-artifacts/sprint-status.yaml`
+- `_bmad-output/implementation-artifacts/evidence/1-1/preflight.md`
+- `_bmad-output/implementation-artifacts/evidence/1-1/start-git-status.txt`
+- `_bmad-output/implementation-artifacts/evidence/1-1/start-protected-surface-manifest.json`
+- `_bmad-output/implementation-artifacts/evidence/1-1/editor-import.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/editor-import-single-process.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/main-headless.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/main-interactive.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/main-interactive-stdout.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/main-interactive-stderr.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/editor-console-session.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/editor-console-session-stdout.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/editor-console-session-stderr.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/main-interactive-observation.json`
+- `_bmad-output/implementation-artifacts/evidence/1-1/import-and-launch-classification.md`
+- `_bmad-output/implementation-artifacts/evidence/1-1/traversal-smoke.md`
+- `_bmad-output/implementation-artifacts/evidence/1-1/traversal-smoke-observations.json`
+- `_bmad-output/implementation-artifacts/evidence/1-1/final-headless.log`
+- `_bmad-output/implementation-artifacts/evidence/1-1/end-git-status.txt`
+- `_bmad-output/implementation-artifacts/evidence/1-1/end-scoped-git-checks.txt`
+- `_bmad-output/implementation-artifacts/evidence/1-1/end-protected-surface-manifest.json`
+- `_bmad-output/implementation-artifacts/evidence/1-1/preservation-audit.md`
+- `_bmad-output/implementation-artifacts/evidence/1-1/repeatability-review.md`
+
+## Change Log
+
+- 2026-09-09: Began implementation and completed non-mutating preflight/start-state capture.
+- 2026-09-09: Completed pinned import, headless load, interactive launch, controllability proof, and output classification.
+- 2026-09-09: Completed the `main.tscn` traversal smoke matrix and recorded unavailable fall/death recovery without gameplay changes.
+- 2026-09-09: Consolidated the reproducible Baseline Evidence Record and classified all observed launch/smoke outcomes and pre-existing issues.
+- 2026-09-09: Completed the terminal mutation guard, final headless regression load, concurrent-change classification, and repeatability review; moved Story 1.1 to review.

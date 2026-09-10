@@ -1,0 +1,34 @@
+{
+  "procedure": {
+    "editor_launcher": "operator-local Godot_v4.7.2-stable_win64_console.exe --editor --path . --verbose",
+    "windows_wrapper_note": "The Windows console launcher started its paired Godot_v4.7.2-stable_win64.exe engine process; both report build 4.7.2.stable.official.ed1daf0bf.",
+    "launch": "Godot AI project_run(mode=main, autosave=false)",
+    "scene": "res://main.tscn",
+    "input": "move_right pressed at physics frame 0, released at frame 30, then 2 settle frames"
+  },
+  "launch_result": {
+    "status": "live",
+    "helper_live": true,
+    "current_run_errors": [],
+    "editor_error_lines": [],
+    "run_id": "r68615-1"
+  },
+  "before": {
+    "position": {"x": 0.0, "y": 0.099303625524044, "z": 0.0},
+    "velocity": {"x": 0.0, "y": 0.0, "z": 0.0},
+    "is_dead": false,
+    "health": 93.35
+  },
+  "after": {
+    "position": {"x": 7.87444353103638, "y": 0.100389644503593, "z": 0.0},
+    "velocity": {"x": 0.0, "y": 0.0, "z": 0.0},
+    "is_dead": false,
+    "health": 93.35
+  },
+  "assessment": "pass: the player responded to the current move_right action and traversed 7.874 m while remaining alive",
+  "raw_logs": [
+    "editor-console-session.log",
+    "editor-console-session-stdout.log",
+    "editor-console-session-stderr.log"
+  ]
+}

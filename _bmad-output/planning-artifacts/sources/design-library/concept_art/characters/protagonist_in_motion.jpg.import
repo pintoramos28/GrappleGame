@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://6xujlrw384vb"
-path="res://.godot/imported/protagonist_in_motion.jpg-c93684484787d14e6b40992fd07a1684.ctex"
+path="res://.godot/imported/protagonist_in_motion.jpg-0d52795c54b3e9d458eeeadce01364e7.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://_bmad-output/planning-artifacts/sources/design-library/concept_art/characters/protagonist_in_motion.jpg"
-dest_files=["res://.godot/imported/protagonist_in_motion.jpg-c93684484787d14e6b40992fd07a1684.ctex"]
+dest_files=["res://.godot/imported/protagonist_in_motion.jpg-0d52795c54b3e9d458eeeadce01364e7.ctex"]
 
 [params]
 

@@ -1,0 +1,1979 @@
+WorkerThreadPool: 12 threads, 9 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Accessibility: AccessKit driver loaded.
+Accessibility: window 0 adapter created.
+Devices:
+  #0: AMD AMD Radeon RX 6800 - Supported, Discrete
+  #1: Microsoft Microsoft Basic Render Driver - Supported, CPU
+  #2: AMD AMD Radeon RX 6800 - Supported, Discrete
+- Shader:
+  model: 6.6
+- D3D12 Variable Rate Shading supported:
+  Draw call
+  Primitive
+  Screen-space image (tile size: 8)
+- D3D12 multiview supported:
+  max view count: 4
+- Relaxed casting supported (but disabled for now)
+- D3D12 16-bit ops supported: yes
+- Depth bounds test supported
+D3D12: Device supports GPU UPLOAD heap.
+D3D12 12_0 - Forward+ - Using Device #0: AMD - AMD Radeon RX 6800
+SDL: Init OK!
+Accessibility: window 0 adapter activated.
+Using "winink" pen tablet driver...
+Shader 'CanvasSdfShaderRD' (group 0) SHA256: a4f6d732dba9a4cc0c37a1ca52936369e2ee148e9d03efe1b81bfed822adb1eb
+Loading cache for shader CanvasSdfShaderRD, variant 0
+Loading cache for shader CanvasSdfShaderRD, variant 1
+Loading cache for shader CanvasSdfShaderRD, variant 2
+Loading cache for shader CanvasSdfShaderRD, variant 3
+Loading cache for shader CanvasSdfShaderRD, variant 4
+Loading cache for shader CanvasSdfShaderRD, variant 5
+Shader 'SkeletonShaderRD' (group 0) SHA256: e6bc641e2a094416c99b1294ac5e453c55d24e0b62c1da47c8f7f93ae7877bfa
+Loading cache for shader SkeletonShaderRD, variant 0
+Loading cache for shader SkeletonShaderRD, variant 1
+Shader 'SortShaderRD' (group 0) SHA256: d8d77897b86870d358bf870233e14233981c2db9ff06641cd8f405379ac8872f
+Loading cache for shader SortShaderRD, variant 0
+Loading cache for shader SortShaderRD, variant 1
+Loading cache for shader SortShaderRD, variant 2
+Shader 'ParticlesShaderRD' (group 0) SHA256: f645828ab356b17f1478c77373935ecd2417e1c227a96b62417396293d13970e
+Loading cache for shader ParticlesShaderRD, variant 0
+Shader 'ParticlesCopyShaderRD' (group 0) SHA256: ce2b95c8a6b9e21f14c989c3ca095de77d9bb5e86213ae4180fb97cbd2c02a10
+Loading cache for shader ParticlesCopyShaderRD, variant 0
+Loading cache for shader ParticlesCopyShaderRD, variant 1
+Loading cache for shader ParticlesCopyShaderRD, variant 2
+Loading cache for shader ParticlesCopyShaderRD, variant 3
+Loading cache for shader ParticlesCopyShaderRD, variant 4
+Loading cache for shader ParticlesCopyShaderRD, variant 5
+Loading cache for shader ParticlesCopyShaderRD, variant 6
+Loading cache for shader ParticlesCopyShaderRD, variant 7
+Loading cache for shader ParticlesCopyShaderRD, variant 8
+Loading cache for shader ParticlesCopyShaderRD, variant 9
+Loading cache for shader ParticlesCopyShaderRD, variant 10
+Loading cache for shader ParticlesCopyShaderRD, variant 11
+Loading cache for shader ParticlesCopyShaderRD, variant 12
+Loading cache for shader ParticlesCopyShaderRD, variant 13
+Loading cache for shader ParticlesCopyShaderRD, variant 14
+Loading cache for shader ParticlesCopyShaderRD, variant 15
+Loading cache for shader ParticlesCopyShaderRD, variant 16
+Loading cache for shader ParticlesCopyShaderRD, variant 17
+Loading cache for shader ParticlesCopyShaderRD, variant 18
+Loading cache for shader ParticlesCopyShaderRD, variant 19
+Loading cache for shader ParticlesCopyShaderRD, variant 20
+Shader 'CanvasShaderRD' (group 0) SHA256: 5454ca85157b6953b76bf324ebe90594c466e36301bf1b3e6adcce117d705c79
+Loading cache for shader CanvasShaderRD, variant 0
+Loading cache for shader CanvasShaderRD, variant 1
+Loading cache for shader CanvasShaderRD, variant 2
+Loading cache for shader CanvasShaderRD, variant 3
+Loading cache for shader CanvasShaderRD, variant 4
+Loading cache for shader CanvasShaderRD, variant 5
+Shader 'CanvasOcclusionShaderRD' (group 0) SHA256: 606df5c981910bc4bc719cf497719273e80d1f314f65e68820bf8e2111368cdb
+Loading cache for shader CanvasOcclusionShaderRD, variant 0
+Loading cache for shader CanvasOcclusionShaderRD, variant 1
+Loading cache for shader CanvasOcclusionShaderRD, variant 2
+Loading cache for shader CanvasShaderRD, variant 0
+Loading cache for shader CanvasShaderRD, variant 1
+Loading cache for shader CanvasShaderRD, variant 2
+Loading cache for shader CanvasShaderRD, variant 3
+Loading cache for shader CanvasShaderRD, variant 4
+Loading cache for shader CanvasShaderRD, variant 5
+Loading cache for shader CanvasShaderRD, variant 0
+Loading cache for shader CanvasShaderRD, variant 1
+Loading cache for shader CanvasShaderRD, variant 2
+Loading cache for shader CanvasShaderRD, variant 3
+Loading cache for shader CanvasShaderRD, variant 4
+Loading cache for shader CanvasShaderRD, variant 5
+Shader 'TexBlitShaderRD' (group 0) SHA256: fd9c885eab1da0d330a04ebfd7796019cde57f82208202f3bfc96cae74155212
+Loading cache for shader TexBlitShaderRD, variant 0
+Loading cache for shader TexBlitShaderRD, variant 1
+Loading cache for shader TexBlitShaderRD, variant 2
+Loading cache for shader TexBlitShaderRD, variant 3
+Shader 'ClusterRenderShaderRD' (group 0) SHA256: 092c9f39b8c42523662d45db394a8d4f7f068d617876866d55d9fd69e5afb357
+Loading cache for shader ClusterRenderShaderRD, variant 0
+Loading cache for shader ClusterRenderShaderRD, variant 1
+Shader 'ClusterStoreShaderRD' (group 0) SHA256: 77e74456f71eccced2f4bd06086f33d4ae56a013ce717690f960759226272eb4
+Loading cache for shader ClusterStoreShaderRD, variant 0
+Shader 'ClusterDebugShaderRD' (group 0) SHA256: 25eb5280da03a5dfefcf122ab21c9f6184c2a0d8edfb398d0b9e784c99ede8d6
+Loading cache for shader ClusterDebugShaderRD, variant 0
+Shader 'SceneForwardClusteredShaderRD' (group 0) SHA256: cdfe2a8d86deff48154b1cd0d6e857301f5e37f0d8930754f63ff9c2c85045a6
+Shader 'SceneForwardClusteredShaderRD' (group 1) SHA256: 073f74b951c9d31091a21a83f7ed2a449ca9faa4f0b5a7052db58dd352175ef7
+Shader 'SceneForwardClusteredShaderRD' (group 2) SHA256: 0e2560bbe3adf526b738f6b3c67897e10ea21a0e17c56f7a5ecbf6797f8e6991
+Shader 'SceneForwardClusteredShaderRD' (group 3) SHA256: 6cb1159e6a2acf7ea3d926a7f1b088c77adebfa34de42d2b2b3c59641632a4d3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Shader 'BestFitNormalShaderRD' (group 0) SHA256: c4b1d2e5a1d6f84559f49734aae94706b402e2be89eae7753b8b413800d96d42
+Loading cache for shader BestFitNormalShaderRD, variant 0
+Shader 'IntegrateDfgShaderRD' (group 0) SHA256: 4d699e26d43b88b86cb33c2b829767ea8e935055bb48dea880f66eb29760577a
+Loading cache for shader IntegrateDfgShaderRD, variant 0
+Shader 'TaaResolveShaderRD' (group 0) SHA256: a1ca2d745847530de0720910ad5bfa2466e0ab33647b7a631f2900d7b4617a60
+Loading cache for shader TaaResolveShaderRD, variant 0
+Shader 'Fsr2DepthClipPassShaderRD' (group 0) SHA256: 4a735c315dc3644fbdbbe70afdfe9bce327e4a10441982ebb38e87c22d502c41
+Shader 'Fsr2ReconstructPreviousDepthPassShaderRD' (group 0) SHA256: c41c89f4fe2f3dc313a48a2ae22a3c88e6ce5e90f5f660b5484d53a3360ab28d
+Shader 'Fsr2LockPassShaderRD' (group 0) SHA256: ba10724396561abfafe1196b0531eeb403087c1e05c5656de71d642bab4d8d3b
+Shader 'Fsr2AccumulatePassShaderRD' (group 0) SHA256: cb0552a6babfc28ea4bdf33f963848da4261ac9b71b063ca392b2e970b4e0680
+Shader 'Fsr2RcasPassShaderRD' (group 0) SHA256: f03d67b5589dcb7ff3abc9fb2a85d5345f179d8e38be7157a9ea142344aa89b1
+Shader 'Fsr2ComputeLuminancePyramidPassShaderRD' (group 0) SHA256: 57b9d245efe60faebf93a8eee4616627480b31f632f2022b12f9fa7b9cf988af
+Shader 'Fsr2AutogenReactivePassShaderRD' (group 0) SHA256: 5aebe0a8d7f2d8328a9a028998145d3b09c1e863870f7b14623d7b876278e897
+Shader 'Fsr2TcrAutogenPassShaderRD' (group 0) SHA256: 5e552f2c8d02cc61ac623cb99ef41218c906a66d96895d32e0e33d953ec53436
+Shader 'SsEffectsDownsampleShaderRD' (group 0) SHA256: d2ccd37f99a0b00eca4ba6f53cddf8d03f02119a69a0b02dc777026129561703
+Loading cache for shader SsEffectsDownsampleShaderRD, variant 0
+Loading cache for shader SsEffectsDownsampleShaderRD, variant 1
+Loading cache for shader SsEffectsDownsampleShaderRD, variant 2
+Loading cache for shader SsEffectsDownsampleShaderRD, variant 3
+Loading cache for shader SsEffectsDownsampleShaderRD, variant 4
+Loading cache for shader SsEffectsDownsampleShaderRD, variant 5
+Loading cache for shader SsEffectsDownsampleShaderRD, variant 6
+Shader 'SsilShaderRD' (group 0) SHA256: 17c51ec55574b54c0834b41688f478d19599eb3f90a1230981e06d74d89473e1
+Loading cache for shader SsilShaderRD, variant 0
+Loading cache for shader SsilShaderRD, variant 1
+Loading cache for shader SsilShaderRD, variant 2
+Shader 'SsilImportanceMapShaderRD' (group 0) SHA256: bf370911d6b5be81e5fbf6014d236deb74697ee1b3e2eeb870f5140913d9bee6
+Loading cache for shader SsilImportanceMapShaderRD, variant 0
+Loading cache for shader SsilImportanceMapShaderRD, variant 1
+Loading cache for shader SsilImportanceMapShaderRD, variant 2
+Shader 'SsilBlurShaderRD' (group 0) SHA256: 4f0d60ba5581090f5efc9941b040e46832bf6864d77d52e8631cea227b5d8279
+Loading cache for shader SsilBlurShaderRD, variant 0
+Loading cache for shader SsilBlurShaderRD, variant 1
+Loading cache for shader SsilBlurShaderRD, variant 2
+Shader 'SsilInterleaveShaderRD' (group 0) SHA256: 0f78dde6bc33a0264706f9a466ae77f41b24641381aa171c2b1ee40923f6547c
+Loading cache for shader SsilInterleaveShaderRD, variant 0
+Loading cache for shader SsilInterleaveShaderRD, variant 1
+Loading cache for shader SsilInterleaveShaderRD, variant 2
+Shader 'SsaoShaderRD' (group 0) SHA256: 40091d5cef6924b0632dfb92dbf5a6c61f97edd6dd653d20e2c7662009912eed
+Loading cache for shader SsaoShaderRD, variant 0
+Loading cache for shader SsaoShaderRD, variant 1
+Loading cache for shader SsaoShaderRD, variant 2
+Shader 'SsaoImportanceMapShaderRD' (group 0) SHA256: 72382d26e5b22e99ee9ed29670565e78ff7ee01c960072119a5be86db2ee0fc8
+Loading cache for shader SsaoImportanceMapShaderRD, variant 0
+Loading cache for shader SsaoImportanceMapShaderRD, variant 1
+Loading cache for shader SsaoImportanceMapShaderRD, variant 2
+Shader 'SsaoBlurShaderRD' (group 0) SHA256: 379e714dbee2f412e6657f0557a56dd9f4a00c93ed1aef7af78b047b59ef4bcb
+Loading cache for shader SsaoBlurShaderRD, variant 0
+Loading cache for shader SsaoBlurShaderRD, variant 1
+Loading cache for shader SsaoBlurShaderRD, variant 2
+Shader 'SsaoInterleaveShaderRD' (group 0) SHA256: cb27e637ffea15e2c6c4ae1b2c90deac962dae9481ef866601d8ecb863d6a9b6
+Loading cache for shader SsaoInterleaveShaderRD, variant 0
+Loading cache for shader SsaoInterleaveShaderRD, variant 1
+Loading cache for shader SsaoInterleaveShaderRD, variant 2
+Shader 'ScreenSpaceReflectionDownsampleShaderRD' (group 0) SHA256: f6b46656954490c0153a8a5200455cc0834ec5881821ec7bf328b4c688fc4f6f
+Loading cache for shader ScreenSpaceReflectionDownsampleShaderRD, variant 0
+Loading cache for shader ScreenSpaceReflectionDownsampleShaderRD, variant 1
+Loading cache for shader ScreenSpaceReflectionDownsampleShaderRD, variant 2
+Loading cache for shader ScreenSpaceReflectionDownsampleShaderRD, variant 3
+Shader 'ScreenSpaceReflectionHizShaderRD' (group 0) SHA256: 4c407c9b5cd4f954c012a0de78629e18a5e9268536eb1d78853c8a247ef0a772
+Loading cache for shader ScreenSpaceReflectionHizShaderRD, variant 0
+Loading cache for shader ScreenSpaceReflectionHizShaderRD, variant 1
+Loading cache for shader ScreenSpaceReflectionHizShaderRD, variant 2
+Loading cache for shader ScreenSpaceReflectionHizShaderRD, variant 3
+Shader 'ScreenSpaceReflectionShaderRD' (group 0) SHA256: a2d0cb08973e8562ed3b82d74b6f0f1ecf1dbd2ac788049eaa06925ad6c28bed
+Loading cache for shader ScreenSpaceReflectionShaderRD, variant 0
+Shader 'ScreenSpaceReflectionFilterShaderRD' (group 0) SHA256: fda60a18cb83e7ff26ce7ee2f43dce1d37326b2767d06922b0e5f9356abd1a1e
+Loading cache for shader ScreenSpaceReflectionFilterShaderRD, variant 0
+Shader 'ScreenSpaceReflectionResolveShaderRD' (group 0) SHA256: b29422945b4d1600883d0fcf89124633e34efb678505e5bcb9fdb6623fbfb8d4
+Loading cache for shader ScreenSpaceReflectionResolveShaderRD, variant 0
+Shader 'SubsurfaceScatteringShaderRD' (group 0) SHA256: 4870fb4fc36514a7031473d566046fc2841628db992f9421056a8dfbc0830d97
+Loading cache for shader SubsurfaceScatteringShaderRD, variant 0
+Loading cache for shader SubsurfaceScatteringShaderRD, variant 1
+Loading cache for shader SubsurfaceScatteringShaderRD, variant 2
+Shader 'SkyShaderRD' (group 0) SHA256: 25c4162ba5ed1f15e722f73bf07201837a6ae7b301288dd32ff9f71634118d9c
+Loading cache for shader SkyShaderRD, variant 0
+Loading cache for shader SkyShaderRD, variant 1
+Loading cache for shader SkyShaderRD, variant 2
+Loading cache for shader SkyShaderRD, variant 3
+Loading cache for shader SkyShaderRD, variant 4
+Loading cache for shader SkyShaderRD, variant 5
+Loading cache for shader SkyShaderRD, variant 0
+Loading cache for shader SkyShaderRD, variant 1
+Loading cache for shader SkyShaderRD, variant 2
+Loading cache for shader SkyShaderRD, variant 3
+Loading cache for shader SkyShaderRD, variant 4
+Loading cache for shader SkyShaderRD, variant 5
+Shader 'VoxelGiShaderRD' (group 0) SHA256: cf478b2dd85c8c4b0519274ac94659b26ee34e27a1714122915056a7010b4b7c
+Loading cache for shader VoxelGiShaderRD, variant 0
+Loading cache for shader VoxelGiShaderRD, variant 1
+Loading cache for shader VoxelGiShaderRD, variant 2
+Loading cache for shader VoxelGiShaderRD, variant 3
+Loading cache for shader VoxelGiShaderRD, variant 4
+Loading cache for shader VoxelGiShaderRD, variant 5
+Loading cache for shader VoxelGiShaderRD, variant 6
+Loading cache for shader VoxelGiShaderRD, variant 7
+Shader 'VoxelGiDebugShaderRD' (group 0) SHA256: e7afc074bea566006e261dd7312ae8e5c1a6a22e1eab6aa29b590ca925df679b
+Loading cache for shader VoxelGiDebugShaderRD, variant 0
+Loading cache for shader VoxelGiDebugShaderRD, variant 1
+Loading cache for shader VoxelGiDebugShaderRD, variant 2
+Loading cache for shader VoxelGiDebugShaderRD, variant 3
+Shader 'SdfgiPreprocessShaderRD' (group 0) SHA256: 548b5bca0563ad9662e1e9577ac4921dfc156154487ba331733b0283ce26fcb9
+Loading cache for shader SdfgiPreprocessShaderRD, variant 0
+Loading cache for shader SdfgiPreprocessShaderRD, variant 1
+Loading cache for shader SdfgiPreprocessShaderRD, variant 2
+Loading cache for shader SdfgiPreprocessShaderRD, variant 3
+Loading cache for shader SdfgiPreprocessShaderRD, variant 4
+Loading cache for shader SdfgiPreprocessShaderRD, variant 5
+Loading cache for shader SdfgiPreprocessShaderRD, variant 6
+Loading cache for shader SdfgiPreprocessShaderRD, variant 7
+Loading cache for shader SdfgiPreprocessShaderRD, variant 8
+Shader 'SdfgiDirectLightShaderRD' (group 0) SHA256: 59245d18d90efd79551ef5eda25bbda9867cb893341a1d23b0f75db5d4490716
+Loading cache for shader SdfgiDirectLightShaderRD, variant 0
+Loading cache for shader SdfgiDirectLightShaderRD, variant 1
+Shader 'SdfgiIntegrateShaderRD' (group 0) SHA256: f20a6d93247c8e2db82979d4e6477fa070ed91e03db2b1320e32dffabdb4ff23
+Loading cache for shader SdfgiIntegrateShaderRD, variant 0
+Loading cache for shader SdfgiIntegrateShaderRD, variant 1
+Loading cache for shader SdfgiIntegrateShaderRD, variant 2
+Loading cache for shader SdfgiIntegrateShaderRD, variant 3
+Shader 'GiShaderRD' (group 0) SHA256: 3fa2391092c717dea4bdf7f4f65ccf42ffd4018c158c431a4e234d9fa17737a6
+Shader 'GiShaderRD' (group 1) SHA256: 87dc8f2e3eb0653ed625d759392e8a08fcd79fe90d61dcc8f6ce34a8cfe35f7f
+Loading cache for shader GiShaderRD, variant 0
+Loading cache for shader GiShaderRD, variant 1
+Loading cache for shader GiShaderRD, variant 2
+Loading cache for shader GiShaderRD, variant 3
+Loading cache for shader GiShaderRD, variant 4
+Loading cache for shader GiShaderRD, variant 0
+Loading cache for shader GiShaderRD, variant 1
+Loading cache for shader GiShaderRD, variant 2
+Loading cache for shader GiShaderRD, variant 3
+Loading cache for shader GiShaderRD, variant 4
+Shader 'SdfgiDebugShaderRD' (group 0) SHA256: 365142e07e83cbbda433d4ed971a1c8413d3a400e8646e2ed2a0f7dda127068a
+Loading cache for shader SdfgiDebugShaderRD, variant 0
+Shader 'SdfgiDebugProbesShaderRD' (group 0) SHA256: 05e9a03efe957bf14f0a60730a97ab25e037f5a3f347b3427feb9723fd82fb1c
+Loading cache for shader SdfgiDebugProbesShaderRD, variant 0
+Loading cache for shader SdfgiDebugProbesShaderRD, variant 1
+Loading cache for shader SdfgiDebugProbesShaderRD, variant 2
+Loading cache for shader SdfgiDebugProbesShaderRD, variant 3
+Shader 'VolumetricFogShaderRD' (group 0) SHA256: 69e78fd970058cf62da4f8df24a6d7f3acd2d0effbade0dc171226be830ee241
+Shader 'VolumetricFogShaderRD' (group 1) SHA256: fa6cfa14ca66356dd4818ce06073abdefc4058f2531727ea90fe9ea340cc66e5
+Shader 'VolumetricFogShaderRD' (group 2) SHA256: 8454dc7c2a5c9574b6123e01388a4c83969bb236ab7422fd0eb06b91dd9f7449
+Shader 'VolumetricFogShaderRD' (group 3) SHA256: d5ef183ef6e53033bfb50eb7047a431514f4d6533e95530b67e06839ff9676a1
+Loading cache for shader VolumetricFogShaderRD, variant 0
+Shader 'VolumetricFogProcessShaderRD' (group 0) SHA256: ee9496dfb3b0e489158503ab6e3539129bf5f78706cdb7c9ed4d8701f17f14ec
+Shader 'VolumetricFogProcessShaderRD' (group 1) SHA256: 9828e14ae2e94efc4823f8b077ba661a03ef3ba9726264ff7e359144a9b1214b
+Shader 'VolumetricFogProcessShaderRD' (group 2) SHA256: 7ac17802c709a8ec8fb2d47fade023ddd95a3c675451c8e53ce81469b4ce8b5d
+Shader 'VolumetricFogProcessShaderRD' (group 3) SHA256: c75a607ad6ee761bd49d7318ec8f4a39798fcc3822b7360641394f5dc36f0c2a
+Loading cache for shader VolumetricFogProcessShaderRD, variant 0
+Loading cache for shader VolumetricFogProcessShaderRD, variant 1
+Loading cache for shader VolumetricFogProcessShaderRD, variant 2
+Loading cache for shader VolumetricFogProcessShaderRD, variant 3
+Loading cache for shader VolumetricFogProcessShaderRD, variant 4
+Shader 'BokehDofShaderRD' (group 0) SHA256: 8c692c9cd2f46f54f2c82d9a4a12be5f889d873a3c9698546a6eb5ec0c263647
+Loading cache for shader BokehDofShaderRD, variant 0
+Loading cache for shader BokehDofShaderRD, variant 1
+Loading cache for shader BokehDofShaderRD, variant 3
+Loading cache for shader BokehDofShaderRD, variant 5
+Loading cache for shader BokehDofShaderRD, variant 6
+Shader 'CopyShaderRD' (group 0) SHA256: c374588e7ae9bf64919d0186bea3104b4f721cc0691d284a9998e1e7d06c5eb8
+Loading cache for shader CopyShaderRD, variant 0
+Loading cache for shader CopyShaderRD, variant 1
+Loading cache for shader CopyShaderRD, variant 2
+Loading cache for shader CopyShaderRD, variant 3
+Loading cache for shader CopyShaderRD, variant 4
+Loading cache for shader CopyShaderRD, variant 5
+Loading cache for shader CopyShaderRD, variant 6
+Loading cache for shader CopyShaderRD, variant 7
+Loading cache for shader CopyShaderRD, variant 8
+Loading cache for shader CopyShaderRD, variant 9
+Loading cache for shader CopyShaderRD, variant 10
+Loading cache for shader CopyShaderRD, variant 11
+Loading cache for shader CopyShaderRD, variant 12
+Shader 'CopyToFbShaderRD' (group 0) SHA256: 72456b3a82af4da12c412275d4c8ffa4a6a5447d9daffeeef86bc16965803813
+Loading cache for shader CopyToFbShaderRD, variant 0
+Loading cache for shader CopyToFbShaderRD, variant 1
+Loading cache for shader CopyToFbShaderRD, variant 2
+Loading cache for shader CopyToFbShaderRD, variant 3
+Shader 'CubeToDpShaderRD' (group 0) SHA256: da14e2c9b701a4bd7336b87667bf4f3b4f645de09781824763d2bbceead56c83
+Loading cache for shader CubeToDpShaderRD, variant 0
+Shader 'CubeToOctmapShaderRD' (group 0) SHA256: 7a5a6871c4fae131d3fef2e125ac23cbe81a1a042028f8c294461282de463c9a
+Loading cache for shader CubeToOctmapShaderRD, variant 0
+Shader 'OctmapDownsamplerShaderRD' (group 0) SHA256: 17404978f453a0a0388dfb81b2d08f173476d2c3b680e2e6aa35bcf438e24f11
+Loading cache for shader OctmapDownsamplerShaderRD, variant 0
+Loading cache for shader OctmapDownsamplerShaderRD, variant 1
+Shader 'OctmapFilterShaderRD' (group 0) SHA256: cd03c4ea34362e2724f4d4536156039ee5ca21c31167b8840dfc65dad2d6bb11
+Loading cache for shader OctmapFilterShaderRD, variant 0
+Loading cache for shader OctmapFilterShaderRD, variant 1
+Loading cache for shader OctmapFilterShaderRD, variant 2
+Loading cache for shader OctmapFilterShaderRD, variant 3
+Loading cache for shader OctmapFilterShaderRD, variant 4
+Loading cache for shader OctmapFilterShaderRD, variant 5
+Loading cache for shader OctmapFilterShaderRD, variant 6
+Loading cache for shader OctmapFilterShaderRD, variant 7
+Shader 'OctmapRoughnessShaderRD' (group 0) SHA256: 8470960c68b74292e24251e3b7e41d28e9a5054dce0cd1d77c2a2a865a10af43
+Loading cache for shader OctmapRoughnessShaderRD, variant 0
+Loading cache for shader OctmapRoughnessShaderRD, variant 1
+Shader 'SpecularMergeShaderRD' (group 0) SHA256: 70920fc883de48dd253fbc2503dd8f4e65941df0da07e074541df12df090de98
+Loading cache for shader SpecularMergeShaderRD, variant 0
+Loading cache for shader SpecularMergeShaderRD, variant 1
+Loading cache for shader SpecularMergeShaderRD, variant 2
+Loading cache for shader SpecularMergeShaderRD, variant 3
+Shader 'ShadowFrustumShaderRD' (group 0) SHA256: 248bc9deb54d10af912f2da1bd4b006bc43cfe08659a206fa573baf48e4050e0
+Loading cache for shader ShadowFrustumShaderRD, variant 0
+Shader 'MotionVectorsShaderRD' (group 0) SHA256: 4d3ba0c01e8b64c74a0f2f0fd20ddc8099d56cfbb3ee9e7dbe6dc3c54c174725
+Loading cache for shader MotionVectorsShaderRD, variant 0
+Shader 'LuminanceReduceShaderRD' (group 0) SHA256: c759f2761a12e9ff1fa625818963f94aa0ff511eb314a313ea89c615c37dd078
+Loading cache for shader LuminanceReduceShaderRD, variant 0
+Loading cache for shader LuminanceReduceShaderRD, variant 1
+Loading cache for shader LuminanceReduceShaderRD, variant 2
+Shader 'SmaaEdgeDetectionShaderRD' (group 0) SHA256: 8879d099a2601bd01d4582b1e86a091c5f89a7bc46aecc9e805410f75bcda245
+Loading cache for shader SmaaEdgeDetectionShaderRD, variant 0
+Shader 'SmaaWeightCalculationShaderRD' (group 0) SHA256: de1d49d5ff947e8b8382f43a79f57c4cceb02eed6f86d5175093ca63e94052bf
+Loading cache for shader SmaaWeightCalculationShaderRD, variant 0
+Shader 'SmaaBlendingShaderRD' (group 0) SHA256: d7b7c8cec00f24f9aa8db356b4df88c5fe032d38ce38673bd520c280c936fb80
+Loading cache for shader SmaaBlendingShaderRD, variant 0
+Shader 'TonemapShaderRD' (group 0) SHA256: 1b9049fef136690ef56085339cc9ad699de6d63e5d3afa1677201c6dedd6f2a8
+Loading cache for shader TonemapShaderRD, variant 0
+Loading cache for shader TonemapShaderRD, variant 1
+Loading cache for shader TonemapShaderRD, variant 2
+Loading cache for shader TonemapShaderRD, variant 3
+Shader 'VrsShaderRD' (group 0) SHA256: fa59a74699f8241cd3f8174eaef045dc8d40f3b29bf36af5414713c289f82717
+Loading cache for shader VrsShaderRD, variant 0
+Loading cache for shader VrsShaderRD, variant 2
+Loading cache for shader VrsShaderRD, variant 3
+Shader 'FsrUpscaleShaderRD' (group 0) SHA256: a8da3dfed3e309742ca78c4162d15f2ab08af4f694a51407089ecec1d1be54be
+Loading cache for shader FsrUpscaleShaderRD, variant 0
+Loading cache for shader FsrUpscaleShaderRD, variant 1
+Shader 'ResolveShaderRD' (group 0) SHA256: 58e536c56eaff31a31ef93f224579af7b242a06469b7b0a7736cdeb7e16898b6
+Loading cache for shader ResolveShaderRD, variant 0
+Loading cache for shader ResolveShaderRD, variant 1
+Loading cache for shader ResolveShaderRD, variant 2
+Shader 'BlitShaderRD' (group 0) SHA256: ae4daaa7a60bb17ebd7e9de5db9422fb448b52ad89776ae7aa53fee442f7cc60
+WASAPI: Activated output_device using IAudioClient3 interface
+WASAPI: wFormatTag = 65534
+WASAPI: nChannels = 2
+WASAPI: nSamplesPerSec = 44100
+WASAPI: nAvgBytesPerSec = 352800
+WASAPI: nBlockAlign = 8
+WASAPI: wBitsPerSample = 32
+WASAPI: cbSize = 22
+WASAPI: mix_rate = 44100
+WASAPI: fundamental_period_frames = 441
+WASAPI: min_period_frames = 441
+WASAPI: max_period_frames = 441
+WASAPI: selected a period frame size of 441
+WASAPI: detected 2 channels
+WASAPI: audio buffer frames: 441 calculated latency: 10ms
+
+Loading cache for shader BlitShaderRD, variant 0
+Loading cache for shader BlitShaderRD, variant 1
+Loading cache for shader BlitShaderRD, variant 2
+Loading cache for shader BlitShaderRD, variant 3
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+Loading cache for shader CanvasShaderRD, variant 0
+Loading cache for shader CanvasShaderRD, variant 1
+Loading cache for shader CanvasShaderRD, variant 2
+Loading cache for shader CanvasShaderRD, variant 3
+Loading cache for shader CanvasShaderRD, variant 4
+Loading cache for shader CanvasShaderRD, variant 5
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: C:/Users/pinto/AppData/Roaming/Godot/editor_settings-4.7.tres remapped: C:/Users/pinto/AppData/Roaming/Godot/editor_settings-4.7.tres
+Completed load for: 'C:/Users/pinto/AppData/Roaming/Godot/editor_settings-4.7.tres' remapped 'C:/Users/pinto/AppData/Roaming/Godot/editor_settings-4.7.tres' at thread -1
+EditorSettings: Load OK!
+EditorTheme: Generating new theme for the config '3810048042'.
+EditorTheme: Generating new icons.
+EditorTheme: Generating new fonts.
+EditorTheme: Generating new styles.
+Loading cache for shader SkyShaderRD, variant 0
+Loading cache for shader SkyShaderRD, variant 1
+Loading cache for shader SkyShaderRD, variant 2
+Loading cache for shader SkyShaderRD, variant 3
+Loading cache for shader SkyShaderRD, variant 4
+Loading cache for shader SkyShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader CanvasShaderRD, variant 0
+Loading cache for shader CanvasShaderRD, variant 1
+Loading cache for shader CanvasShaderRD, variant 2
+Loading cache for shader CanvasShaderRD, variant 3
+Loading cache for shader CanvasShaderRD, variant 4
+Loading cache for shader CanvasShaderRD, variant 5
+Loading cache for shader CanvasShaderRD, variant 0
+Loading cache for shader CanvasShaderRD, variant 1
+Loading cache for shader CanvasShaderRD, variant 2
+Loading cache for shader CanvasShaderRD, variant 3
+Loading cache for shader CanvasShaderRD, variant 4
+Loading cache for shader CanvasShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading resource: res://addons/limboai/icons/LimboAI.svg remapped: res://addons/limboai/icons/LimboAI.svg
+Loading resource: res://.godot/imported/LimboAI.svg-06efe3b51f2fc280e33c37672e174b5e.editor.ctex remapped: res://.godot/imported/LimboAI.svg-06efe3b51f2fc280e33c37672e174b5e.editor.ctex
+Completed load for: 'res://addons/limboai/icons/LimboAI.svg' remapped 'res://addons/limboai/icons/LimboAI.svg' at thread -1
+Loading resource: C:/Users/pinto/AppData/Local/Godot/editor_doc_cache-4.7.res remapped: C:/Users/pinto/AppData/Local/Godot/editor_doc_cache-4.7.res
+Loaded system CA certificates
+Completed load for: 'C:/Users/pinto/AppData/Local/Godot/editor_doc_cache-4.7.res' remapped 'C:/Users/pinto/AppData/Local/Godot/editor_doc_cache-4.7.res' at thread -1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading resource: res://addons/limboai/icons/BehaviorTree.svg remapped: res://addons/limboai/icons/BehaviorTree.svg
+Loading resource: res://.godot/imported/BehaviorTree.svg-9b40a8b5e1feb368d9f11b0fb1785cca.editor.ctex remapped: res://.godot/imported/BehaviorTree.svg-9b40a8b5e1feb368d9f11b0fb1785cca.editor.ctex
+Completed load for: 'res://addons/limboai/icons/BehaviorTree.svg' remapped 'res://addons/limboai/icons/BehaviorTree.svg' at thread -1
+Loading resource: res://addons/limboai/icons/LimboPercent.svg remapped: res://addons/limboai/icons/LimboPercent.svg
+Loading resource: res://.godot/imported/LimboPercent.svg-00733fc19fb3bbe7f8396b1f07a89da0.editor.ctex remapped: res://.godot/imported/LimboPercent.svg-00733fc19fb3bbe7f8396b1f07a89da0.editor.ctex
+Completed load for: 'res://addons/limboai/icons/LimboPercent.svg' remapped 'res://addons/limboai/icons/LimboPercent.svg' at thread -1
+Loading resource: res://addons/limboai/icons/LimboExtractSubtree.svg remapped: res://addons/limboai/icons/LimboExtractSubtree.svg
+Loading resource: res://.godot/imported/LimboExtractSubtree.svg-84e8d198d3be4b2b8d625d3621368079.editor.ctex remapped: res://.godot/imported/LimboExtractSubtree.svg-84e8d198d3be4b2b8d625d3621368079.editor.ctex
+Completed load for: 'res://addons/limboai/icons/LimboExtractSubtree.svg' remapped 'res://addons/limboai/icons/LimboExtractSubtree.svg' at thread -1
+Loading resource: res://addons/limboai/icons/LimboSelectAll.svg remapped: res://addons/limboai/icons/LimboSelectAll.svg
+Loading resource: res://.godot/imported/LimboSelectAll.svg-db7b91d0d0b530b8e41c9d3772e60fab.editor.ctex remapped: res://.godot/imported/LimboSelectAll.svg-db7b91d0d0b530b8e41c9d3772e60fab.editor.ctex
+Completed load for: 'res://addons/limboai/icons/LimboSelectAll.svg' remapped 'res://addons/limboai/icons/LimboSelectAll.svg' at thread -1
+Loading resource: res://addons/limboai/icons/LimboDeselectAll.svg remapped: res://addons/limboai/icons/LimboDeselectAll.svg
+Loading resource: res://.godot/imported/LimboDeselectAll.svg-72ebb41c0238cae163a7bf3fc821e6ad.editor.ctex remapped: res://.godot/imported/LimboDeselectAll.svg-72ebb41c0238cae163a7bf3fc821e6ad.editor.ctex
+Completed load for: 'res://addons/limboai/icons/LimboDeselectAll.svg' remapped 'res://addons/limboai/icons/LimboDeselectAll.svg' at thread -1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading resource: res://addons/limboai/icons/LimboExtraClock.svg remapped: res://addons/limboai/icons/LimboExtraClock.svg
+Loading resource: res://.godot/imported/LimboExtraClock.svg-840321103249948265bce58e6fb69483.editor.ctex remapped: res://.godot/imported/LimboExtraClock.svg-840321103249948265bce58e6fb69483.editor.ctex
+Completed load for: 'res://addons/limboai/icons/LimboExtraClock.svg' remapped 'res://addons/limboai/icons/LimboExtraClock.svg' at thread -1
+Loading resource: res://addons/limboai/icons/BTAlwaysSucceed.svg remapped: res://addons/limboai/icons/BTAlwaysSucceed.svg
+Loading resource: res://.godot/imported/BTAlwaysSucceed.svg-c8181e2fd85d1e2ad00a6c8e813e7a94.editor.ctex remapped: res://.godot/imported/BTAlwaysSucceed.svg-c8181e2fd85d1e2ad00a6c8e813e7a94.editor.ctex
+Completed load for: 'res://addons/limboai/icons/BTAlwaysSucceed.svg' remapped 'res://addons/limboai/icons/BTAlwaysSucceed.svg' at thread -1
+Loading resource: res://addons/limboai/icons/BTAlwaysFail.svg remapped: res://addons/limboai/icons/BTAlwaysFail.svg
+Loading resource: res://.godot/imported/BTAlwaysFail.svg-9a4e083bd8ff0d6d8240b50ae0d4cea0.editor.ctex remapped: res://.godot/imported/BTAlwaysFail.svg-9a4e083bd8ff0d6d8240b50ae0d4cea0.editor.ctex
+Completed load for: 'res://addons/limboai/icons/BTAlwaysFail.svg' remapped 'res://addons/limboai/icons/BTAlwaysFail.svg' at thread -1
+Class 'ActionBanner' is not exposed, skipping.
+Class 'BlackboardPlanEditor' is not exposed, skipping.
+Class 'CompatScreenSelect' is not exposed, skipping.
+Class 'CompatShortcutBin' is not exposed, skipping.
+Class 'CompatWindowWrapper' is not exposed, skipping.
+Class 'EditorInspectorPluginBBParam' is not exposed, skipping.
+Class 'EditorInspectorPluginBBPlan' is not exposed, skipping.
+Class 'EditorInspectorPluginPropertyPath' is not exposed, skipping.
+Class 'EditorInspectorPluginVariableName' is not exposed, skipping.
+Class 'EditorPropertyBBParam' is not exposed, skipping.
+Class 'EditorPropertyPropertyPath' is not exposed, skipping.
+Class 'EditorPropertyVariableName' is not exposed, skipping.
+Class 'LimboAIEditor' is not exposed, skipping.
+Class 'LimboAIEditorPlugin' is not exposed, skipping.
+Class 'LimboDebuggerPlugin' is not exposed, skipping.
+Class 'LimboDebuggerTab' is not exposed, skipping.
+Class 'ModeSwitchButton' is not exposed, skipping.
+Class 'OwnerPicker' is not exposed, skipping.
+Class 'TaskButton' is not exposed, skipping.
+Class 'TaskPalette' is not exposed, skipping.
+Class 'TaskPaletteSection' is not exposed, skipping.
+Class 'TaskTree' is not exposed, skipping.
+Class 'TreeSearch' is not exposed, skipping.
+Class 'TreeSearchPanel' is not exposed, skipping.
+MultiUmaBuffer 'RENDER_LIST_ALPHA' used a total of 0 buffers. A large number may indicate a waste of VRAM and can be brought down by tweaking MAX_EXTRA_BUFFERS for this buffer.
+Loading resource: res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd remapped: res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd
+Completed load for: 'res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd' remapped 'res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd' at thread -1
+Loading resource: res://addons/godot_ai/runtime/game_helper.gd remapped: res://addons/godot_ai/runtime/game_helper.gd
+Completed load for: 'res://addons/godot_ai/runtime/game_helper.gd' remapped 'res://addons/godot_ai/runtime/game_helper.gd' at thread -1
+Loading resource: res://addons/godot_ai/plugin.gd remapped: res://addons/godot_ai/plugin.gd
+Completed load for: 'res://addons/godot_ai/plugin.gd' remapped 'res://addons/godot_ai/plugin.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/claude_code.gd remapped: res://addons/godot_ai/clients/claude_code.gd
+Completed load for: 'res://addons/godot_ai/clients/claude_code.gd' remapped 'res://addons/godot_ai/clients/claude_code.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/claude_desktop.gd remapped: res://addons/godot_ai/clients/claude_desktop.gd
+Completed load for: 'res://addons/godot_ai/clients/claude_desktop.gd' remapped 'res://addons/godot_ai/clients/claude_desktop.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/codex.gd remapped: res://addons/godot_ai/clients/codex.gd
+Completed load for: 'res://addons/godot_ai/clients/codex.gd' remapped 'res://addons/godot_ai/clients/codex.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/codebuddy.gd remapped: res://addons/godot_ai/clients/codebuddy.gd
+Completed load for: 'res://addons/godot_ai/clients/codebuddy.gd' remapped 'res://addons/godot_ai/clients/codebuddy.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/grok.gd remapped: res://addons/godot_ai/clients/grok.gd
+Completed load for: 'res://addons/godot_ai/clients/grok.gd' remapped 'res://addons/godot_ai/clients/grok.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/antigravity.gd remapped: res://addons/godot_ai/clients/antigravity.gd
+Completed load for: 'res://addons/godot_ai/clients/antigravity.gd' remapped 'res://addons/godot_ai/clients/antigravity.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/cursor.gd remapped: res://addons/godot_ai/clients/cursor.gd
+Completed load for: 'res://addons/godot_ai/clients/cursor.gd' remapped 'res://addons/godot_ai/clients/cursor.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/windsurf.gd remapped: res://addons/godot_ai/clients/windsurf.gd
+Completed load for: 'res://addons/godot_ai/clients/windsurf.gd' remapped 'res://addons/godot_ai/clients/windsurf.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/vscode.gd remapped: res://addons/godot_ai/clients/vscode.gd
+Completed load for: 'res://addons/godot_ai/clients/vscode.gd' remapped 'res://addons/godot_ai/clients/vscode.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/vscode_insiders.gd remapped: res://addons/godot_ai/clients/vscode_insiders.gd
+Completed load for: 'res://addons/godot_ai/clients/vscode_insiders.gd' remapped 'res://addons/godot_ai/clients/vscode_insiders.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/zed.gd remapped: res://addons/godot_ai/clients/zed.gd
+Completed load for: 'res://addons/godot_ai/clients/zed.gd' remapped 'res://addons/godot_ai/clients/zed.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/gemini_cli.gd remapped: res://addons/godot_ai/clients/gemini_cli.gd
+Completed load for: 'res://addons/godot_ai/clients/gemini_cli.gd' remapped 'res://addons/godot_ai/clients/gemini_cli.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/cline.gd remapped: res://addons/godot_ai/clients/cline.gd
+Completed load for: 'res://addons/godot_ai/clients/cline.gd' remapped 'res://addons/godot_ai/clients/cline.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/kilo_code.gd remapped: res://addons/godot_ai/clients/kilo_code.gd
+Completed load for: 'res://addons/godot_ai/clients/kilo_code.gd' remapped 'res://addons/godot_ai/clients/kilo_code.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/roo_code.gd remapped: res://addons/godot_ai/clients/roo_code.gd
+Completed load for: 'res://addons/godot_ai/clients/roo_code.gd' remapped 'res://addons/godot_ai/clients/roo_code.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/zoo_code.gd remapped: res://addons/godot_ai/clients/zoo_code.gd
+Completed load for: 'res://addons/godot_ai/clients/zoo_code.gd' remapped 'res://addons/godot_ai/clients/zoo_code.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/kiro.gd remapped: res://addons/godot_ai/clients/kiro.gd
+Completed load for: 'res://addons/godot_ai/clients/kiro.gd' remapped 'res://addons/godot_ai/clients/kiro.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/trae.gd remapped: res://addons/godot_ai/clients/trae.gd
+Completed load for: 'res://addons/godot_ai/clients/trae.gd' remapped 'res://addons/godot_ai/clients/trae.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/opencode.gd remapped: res://addons/godot_ai/clients/opencode.gd
+Completed load for: 'res://addons/godot_ai/clients/opencode.gd' remapped 'res://addons/godot_ai/clients/opencode.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/qwen_code.gd remapped: res://addons/godot_ai/clients/qwen_code.gd
+Completed load for: 'res://addons/godot_ai/clients/qwen_code.gd' remapped 'res://addons/godot_ai/clients/qwen_code.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/kimi_code.gd remapped: res://addons/godot_ai/clients/kimi_code.gd
+Completed load for: 'res://addons/godot_ai/clients/kimi_code.gd' remapped 'res://addons/godot_ai/clients/kimi_code.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/hermes.gd remapped: res://addons/godot_ai/clients/hermes.gd
+Completed load for: 'res://addons/godot_ai/clients/hermes.gd' remapped 'res://addons/godot_ai/clients/hermes.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/pi.gd remapped: res://addons/godot_ai/clients/pi.gd
+Completed load for: 'res://addons/godot_ai/clients/pi.gd' remapped 'res://addons/godot_ai/clients/pi.gd' at thread -1
+Loading resource: res://addons/godot_ai/clients/deepseek_harness.gd remapped: res://addons/godot_ai/clients/deepseek_harness.gd
+Completed load for: 'res://addons/godot_ai/clients/deepseek_harness.gd' remapped 'res://addons/godot_ai/clients/deepseek_harness.gd' at thread -1
+MCP | using uvx (godot-ai==4.0.4)
+MCP | plugin loaded
+MCP | Probing the configured server endpoint.
+Loading resource: res://addons/terrain_3d/src/editor_plugin.gd remapped: res://addons/terrain_3d/src/editor_plugin.gd
+Loading resource: res://addons/terrain_3d/menu/bake_lod_dialog.tscn remapped: res://addons/terrain_3d/menu/bake_lod_dialog.tscn
+Loading resource: res://addons/terrain_3d/menu/bake_lod_dialog.gd remapped: res://addons/terrain_3d/menu/bake_lod_dialog.gd
+Completed load for: 'res://addons/terrain_3d/menu/bake_lod_dialog.gd' remapped 'res://addons/terrain_3d/menu/bake_lod_dialog.gd' at thread -1
+Completed load for: 'res://addons/terrain_3d/menu/bake_lod_dialog.tscn' remapped 'res://addons/terrain_3d/menu/bake_lod_dialog.tscn' at thread -1
+Completed load for: 'res://addons/terrain_3d/src/editor_plugin.gd' remapped 'res://addons/terrain_3d/src/editor_plugin.gd' at thread -1
+Loading resource: res://addons/terrain_3d/icons/region_add.svg remapped: res://addons/terrain_3d/icons/region_add.svg
+Loading resource: res://.godot/imported/region_add.svg-a05dc161a452dd3e024f9835a737d9f0.editor.ctex remapped: res://.godot/imported/region_add.svg-a05dc161a452dd3e024f9835a737d9f0.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/region_add.svg' remapped 'res://addons/terrain_3d/icons/region_add.svg' at thread -1
+Loading resource: res://addons/terrain_3d/icons/region_remove.svg remapped: res://addons/terrain_3d/icons/region_remove.svg
+Loading resource: res://.godot/imported/region_remove.svg-5710e8aeb34f1eaa06e637634f4a7d16.editor.ctex remapped: res://.godot/imported/region_remove.svg-5710e8aeb34f1eaa06e637634f4a7d16.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/region_remove.svg' remapped 'res://addons/terrain_3d/icons/region_remove.svg' at thread -1
+Loading resource: res://addons/terrain_3d/icons/height_add.svg remapped: res://addons/terrain_3d/icons/height_add.svg
+Loading resource: res://.godot/imported/height_add.svg-9e680ce71fa4c541748e081b99167369.editor.ctex remapped: res://.godot/imported/height_add.svg-9e680ce71fa4c541748e081b99167369.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/height_add.svg' remapped 'res://addons/terrain_3d/icons/height_add.svg' at thread -1
+Loading resource: res://addons/terrain_3d/icons/height_sub.svg remapped: res://addons/terrain_3d/icons/height_sub.svg
+Loading resource: res://.godot/imported/height_sub.svg-1a14a9bb856f3db0faa02dba3c807b50.editor.ctex remapped: res://.godot/imported/height_sub.svg-1a14a9bb856f3db0faa02dba3c807b50.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/height_sub.svg' remapped 'res://addons/terrain_3d/icons/height_sub.svg' at thread -1
+Loading resource: res://addons/terrain_3d/icons/height_smooth.svg remapped: res://addons/terrain_3d/icons/height_smooth.svg
+Loading resource: res://.godot/imported/height_smooth.svg-d8fc43572f5984eef64c886a49988c06.editor.ctex remapped: res://.godot/imported/height_smooth.svg-d8fc43572f5984eef64c886a49988c06.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/height_smooth.svg' remapped 'res://addons/terrain_3d/icons/height_smooth.svg' at thread -1
+Loading resource: res://addons/terrain_3d/icons/height_flat.svg remapped: res://addons/terrain_3d/icons/height_flat.svg
+Loading resource: res://.godot/imported/height_flat.svg-be726a006bf06e05a7a8867510f3996e.editor.ctex remapped: res://.godot/imported/height_flat.svg-be726a006bf06e05a7a8867510f3996e.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/height_flat.svg' remapped 'res://addons/terrain_3d/icons/height_flat.svg' at thread -1
+Loading resource: res://addons/terrain_3d/icons/height_slope.svg remapped: res://addons/terrain_3d/icons/height_slope.svg
+Loading resource: res://.godot/imported/height_slope.svg-e20540c5538d0c57a9d229a772b3d1b3.editor.ctex remapped: res://.godot/imported/height_slope.svg-e20540c5538d0c57a9d229a772b3d1b3.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/height_slope.svg' remapped 'res://addons/terrain_3d/icons/height_slope.svg' at thread -1
+Loading resource: res://addons/terrain_3d/icons/texture_paint.svg remapped: res://addons/terrain_3d/icons/texture_paint.svg
+Loading resource: res://.godot/imported/texture_paint.svg-72da4fd2096377e625a8fe09cdacb0e4.editor.ctex remapped: res://.godot/imported/texture_paint.svg-72da4fd2096377e625a8fe09cdacb0e4.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/texture_paint.svg' remapped 'res://addons/terrain_3d/icons/texture_paint.svg' at thread -1
+Loading resource: res://addons/terrain_3d/icons/texture_spray.svg remapped: res://addons/terrain_3d/icons/texture_spray.svg
+Loading resource: res://.godot/imported/texture_spray.svg-326fee11cf418653e621bc222a470861.editor.ctex remapped: res://.godot/imported/texture_spray.svg-326fee11cf418653e621bc222a470861.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/texture_spray.svg' remapped 'res://addons/terrain_3d/icons/texture_spray.svg' at thread -1
+Loading resource: res://addons/terrain_3d/icons/autoshader.svg remapped: res://addons/terrain_3d/icons/autoshader.svg
+Loading resource: res://.godot/imported/autoshader.svg-9998e61bbc6afd5b134b767acd17a425.editor.ctex remapped: res://.godot/imported/autoshader.svg-9998e61bbc6afd5b134b767acd17a425.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/autoshader.svg' remapped 'res://addons/terrain_3d/icons/autoshader.svg' at thread -1
+Loading resource: res://addons/terrain_3d/icons/color_paint.svg remapped: res://addons/terrain_3d/icons/color_paint.svg
+Loading resource: res://.godot/imported/color_paint.svg-2a416ebf35da04135017e5c6ef53ea57.editor.ctex remapped: res://.godot/imported/color_paint.svg-2a416ebf35da04135017e5c6ef53ea57.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/color_paint.svg' remapped 'res://addons/terrain_3d/icons/color_paint.svg' at thread -1
+Loading resource: res://addons/terrain_3d/icons/wetness.svg remapped: res://addons/terrain_3d/icons/wetness.svg
+Loading resource: res://.godot/imported/wetness.svg-9b2ddec096ab7734492b77b20c75c82b.editor.ctex remapped: res://.godot/imported/wetness.svg-9b2ddec096ab7734492b77b20c75c82b.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/wetness.svg' remapped 'res://addons/terrain_3d/icons/wetness.svg' at thread -1
+Loading resource: res://addons/terrain_3d/icons/holes.svg remapped: res://addons/terrain_3d/icons/holes.svg
+Loading resource: res://.godot/imported/holes.svg-a7cb97bb50d7879cd274646e207b9213.editor.ctex remapped: res://.godot/imported/holes.svg-a7cb97bb50d7879cd274646e207b9213.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/holes.svg' remapped 'res://addons/terrain_3d/icons/holes.svg' at thread -1
+Loading resource: res://addons/terrain_3d/icons/navigation.svg remapped: res://addons/terrain_3d/icons/navigation.svg
+Loading resource: res://.godot/imported/navigation.svg-1e4cf210c589be8d2911c522d4a17d78.editor.ctex remapped: res://.godot/imported/navigation.svg-1e4cf210c589be8d2911c522d4a17d78.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/navigation.svg' remapped 'res://addons/terrain_3d/icons/navigation.svg' at thread -1
+Loading resource: res://addons/terrain_3d/icons/multimesh.svg remapped: res://addons/terrain_3d/icons/multimesh.svg
+Loading resource: res://.godot/imported/multimesh.svg-5487b93b04ddbaae37b5d3e91f10750b.editor.ctex remapped: res://.godot/imported/multimesh.svg-5487b93b04ddbaae37b5d3e91f10750b.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/multimesh.svg' remapped 'res://addons/terrain_3d/icons/multimesh.svg' at thread -1
+Loading cache for shader CanvasShaderRD, variant 0
+Loading cache for shader CanvasShaderRD, variant 1
+Loading cache for shader CanvasShaderRD, variant 2
+Loading cache for shader CanvasShaderRD, variant 3
+Loading cache for shader CanvasShaderRD, variant 4
+Loading cache for shader CanvasShaderRD, variant 5
+Loading resource: res://addons/terrain_3d/icons/picker_checked.svg remapped: res://addons/terrain_3d/icons/picker_checked.svg
+Loading resource: res://.godot/imported/picker_checked.svg-81f35b6ae38bccc8aa9e7ae22b530168.editor.ctex remapped: res://.godot/imported/picker_checked.svg-81f35b6ae38bccc8aa9e7ae22b530168.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/picker_checked.svg' remapped 'res://addons/terrain_3d/icons/picker_checked.svg' at thread -1
+Loading resource: res://addons/terrain_3d/src/asset_dock.tscn remapped: res://addons/terrain_3d/src/asset_dock.tscn
+Loading resource: res://addons/terrain_3d/src/asset_dock.gd remapped: res://addons/terrain_3d/src/asset_dock.gd
+Loading resource: res://addons/terrain_3d/icons/terrain3d.svg remapped: res://addons/terrain_3d/icons/terrain3d.svg
+Loading resource: res://.godot/imported/terrain3d.svg-eb45756f1a003759fda81eaa1db10769.editor.ctex remapped: res://.godot/imported/terrain3d.svg-eb45756f1a003759fda81eaa1db10769.editor.ctex
+Completed load for: 'res://addons/terrain_3d/icons/terrain3d.svg' remapped 'res://addons/terrain_3d/icons/terrain3d.svg' at thread -1
+Completed load for: 'res://addons/terrain_3d/src/asset_dock.gd' remapped 'res://addons/terrain_3d/src/asset_dock.gd' at thread -1
+Completed load for: 'res://addons/terrain_3d/src/asset_dock.tscn' remapped 'res://addons/terrain_3d/src/asset_dock.tscn' at thread -1
+MCP | adopted external server
+MCP | connecting to server (attempt 1)
+MCP | connected to server; authenticating
+MCP | authenticated with server
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FEE4B96A0: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FEE4B96A0: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FEE4B96A0: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FEE4B96A0: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FEE4B96A0: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FEE4B96A0: Switch to application keys for outbound traffic
+Loading resource: res://addons/phantom_camera/icons/phantom_camera_tween.svg remapped: res://addons/phantom_camera/icons/phantom_camera_tween.svg
+Loading resource: res://.godot/imported/phantom_camera_tween.svg-16faced08ef4a5f3458264d894230dbd.editor.ctex remapped: res://.godot/imported/phantom_camera_tween.svg-16faced08ef4a5f3458264d894230dbd.editor.ctex
+Completed load for: 'res://addons/phantom_camera/icons/phantom_camera_tween.svg' remapped 'res://addons/phantom_camera/icons/phantom_camera_tween.svg' at thread -1
+Loading resource: res://addons/phantom_camera/icons/phantom_camera_tween.svg remapped: res://addons/phantom_camera/icons/phantom_camera_tween.svg
+Loading resource: res://.godot/imported/phantom_camera_tween.svg-16faced08ef4a5f3458264d894230dbd.editor.ctex remapped: res://.godot/imported/phantom_camera_tween.svg-16faced08ef4a5f3458264d894230dbd.editor.ctex
+Completed load for: 'res://addons/phantom_camera/icons/phantom_camera_tween.svg' remapped 'res://addons/phantom_camera/icons/phantom_camera_tween.svg' at thread -1
+Loading resource: res://main.tscn remapped: res://main.tscn
+Loading resource: res://materials/floor_mat.tres remapped: res://materials/floor_mat.tres
+Completed load for: 'res://materials/floor_mat.tres' remapped 'res://materials/floor_mat.tres' at thread -1
+Loading resource: res://scenes/player.tscn remapped: res://scenes/player.tscn
+Loading resource: res://scripts/player_controller.gd remapped: res://scripts/player_controller.gd
+Completed load for: 'res://scripts/player_controller.gd' remapped 'res://scripts/player_controller.gd' at thread -1
+Loading resource: res://materials/player_mat.tres remapped: res://materials/player_mat.tres
+Completed load for: 'res://materials/player_mat.tres' remapped 'res://materials/player_mat.tres' at thread -1
+Loading resource: res://resources/attacks/player_basic_attack.tres remapped: res://resources/attacks/player_basic_attack.tres
+Completed load for: 'res://resources/attacks/player_basic_attack.tres' remapped 'res://resources/attacks/player_basic_attack.tres' at thread -1
+Loading resource: res://resources/stats/player_base_stats.tres remapped: res://resources/stats/player_base_stats.tres
+Completed load for: 'res://resources/stats/player_base_stats.tres' remapped 'res://resources/stats/player_base_stats.tres' at thread -1
+Loading resource: res://scripts/player_grounded_state.gd remapped: res://scripts/player_grounded_state.gd
+Completed load for: 'res://scripts/player_grounded_state.gd' remapped 'res://scripts/player_grounded_state.gd' at thread -1
+Loading resource: res://scripts/player_airborne_state.gd remapped: res://scripts/player_airborne_state.gd
+Completed load for: 'res://scripts/player_airborne_state.gd' remapped 'res://scripts/player_airborne_state.gd' at thread -1
+Loading resource: res://scripts/player_grappling_state.gd remapped: res://scripts/player_grappling_state.gd
+Completed load for: 'res://scripts/player_grappling_state.gd' remapped 'res://scripts/player_grappling_state.gd' at thread -1
+Loading resource: res://scripts/player_wall_run_state.gd remapped: res://scripts/player_wall_run_state.gd
+Completed load for: 'res://scripts/player_wall_run_state.gd' remapped 'res://scripts/player_wall_run_state.gd' at thread -1
+Loading resource: res://scripts/player_wall_stick_state.gd remapped: res://scripts/player_wall_stick_state.gd
+Completed load for: 'res://scripts/player_wall_stick_state.gd' remapped 'res://scripts/player_wall_stick_state.gd' at thread -1
+Loading resource: res://scripts/player_dead_state.gd remapped: res://scripts/player_dead_state.gd
+Completed load for: 'res://scripts/player_dead_state.gd' remapped 'res://scripts/player_dead_state.gd' at thread -1
+Loading resource: res://scripts/player_attack_ready_state.gd remapped: res://scripts/player_attack_ready_state.gd
+Completed load for: 'res://scripts/player_attack_ready_state.gd' remapped 'res://scripts/player_attack_ready_state.gd' at thread -1
+Loading resource: res://scripts/player_attack_windup_state.gd remapped: res://scripts/player_attack_windup_state.gd
+Completed load for: 'res://scripts/player_attack_windup_state.gd' remapped 'res://scripts/player_attack_windup_state.gd' at thread -1
+Loading resource: res://scripts/player_attack_active_state.gd remapped: res://scripts/player_attack_active_state.gd
+Completed load for: 'res://scripts/player_attack_active_state.gd' remapped 'res://scripts/player_attack_active_state.gd' at thread -1
+Loading resource: res://scripts/player_attack_recovery_state.gd remapped: res://scripts/player_attack_recovery_state.gd
+Completed load for: 'res://scripts/player_attack_recovery_state.gd' remapped 'res://scripts/player_attack_recovery_state.gd' at thread -1
+Loading resource: res://scripts/debug_grapple_telemetry.gd remapped: res://scripts/debug_grapple_telemetry.gd
+Completed load for: 'res://scripts/debug_grapple_telemetry.gd' remapped 'res://scripts/debug_grapple_telemetry.gd' at thread -1
+Completed load for: 'res://scenes/player.tscn' remapped 'res://scenes/player.tscn' at thread -1
+Loading resource: res://scenes/building.tscn remapped: res://scenes/building.tscn
+Loading resource: res://scripts/building.gd remapped: res://scripts/building.gd
+Completed load for: 'res://scripts/building.gd' remapped 'res://scripts/building.gd' at thread -1
+Loading resource: res://materials/building_mat.tres remapped: res://materials/building_mat.tres
+Completed load for: 'res://materials/building_mat.tres' remapped 'res://materials/building_mat.tres' at thread -1
+Completed load for: 'res://scenes/building.tscn' remapped 'res://scenes/building.tscn' at thread -1
+Loading resource: res://scenes/enemy.tscn remapped: res://scenes/enemy.tscn
+Loading resource: res://scripts/enemy_controller.gd remapped: res://scripts/enemy_controller.gd
+Completed load for: 'res://scripts/enemy_controller.gd' remapped 'res://scripts/enemy_controller.gd' at thread -1
+Loading resource: res://materials/enemy_mat.tres remapped: res://materials/enemy_mat.tres
+Completed load for: 'res://materials/enemy_mat.tres' remapped 'res://materials/enemy_mat.tres' at thread -1
+Loading resource: res://resources/attacks/enemy_basic_attack.tres remapped: res://resources/attacks/enemy_basic_attack.tres
+Completed load for: 'res://resources/attacks/enemy_basic_attack.tres' remapped 'res://resources/attacks/enemy_basic_attack.tres' at thread -1
+Loading resource: res://ai/trees/enemy_behavior.tres remapped: res://ai/trees/enemy_behavior.tres
+Loading resource: res://ai/tasks/has_valid_target.gd remapped: res://ai/tasks/has_valid_target.gd
+Completed load for: 'res://ai/tasks/has_valid_target.gd' remapped 'res://ai/tasks/has_valid_target.gd' at thread -1
+Loading resource: res://ai/tasks/face_target_3d.gd remapped: res://ai/tasks/face_target_3d.gd
+Completed load for: 'res://ai/tasks/face_target_3d.gd' remapped 'res://ai/tasks/face_target_3d.gd' at thread -1
+Loading resource: res://ai/tasks/stop_horizontal_movement.gd remapped: res://ai/tasks/stop_horizontal_movement.gd
+Completed load for: 'res://ai/tasks/stop_horizontal_movement.gd' remapped 'res://ai/tasks/stop_horizontal_movement.gd' at thread -1
+Loading resource: res://ai/tasks/is_enemy_kind.gd remapped: res://ai/tasks/is_enemy_kind.gd
+Completed load for: 'res://ai/tasks/is_enemy_kind.gd' remapped 'res://ai/tasks/is_enemy_kind.gd' at thread -1
+Loading resource: res://ai/tasks/is_target_in_attack_range.gd remapped: res://ai/tasks/is_target_in_attack_range.gd
+Completed load for: 'res://ai/tasks/is_target_in_attack_range.gd' remapped 'res://ai/tasks/is_target_in_attack_range.gd' at thread -1
+Loading resource: res://ai/tasks/is_target_too_close.gd remapped: res://ai/tasks/is_target_too_close.gd
+Completed load for: 'res://ai/tasks/is_target_too_close.gd' remapped 'res://ai/tasks/is_target_too_close.gd' at thread -1
+Loading resource: res://ai/tasks/is_target_too_far.gd remapped: res://ai/tasks/is_target_too_far.gd
+Completed load for: 'res://ai/tasks/is_target_too_far.gd' remapped 'res://ai/tasks/is_target_too_far.gd' at thread -1
+Loading resource: res://ai/tasks/has_line_of_sight_to_target.gd remapped: res://ai/tasks/has_line_of_sight_to_target.gd
+Completed load for: 'res://ai/tasks/has_line_of_sight_to_target.gd' remapped 'res://ai/tasks/has_line_of_sight_to_target.gd' at thread -1
+Loading resource: res://ai/tasks/move_toward_target.gd remapped: res://ai/tasks/move_toward_target.gd
+Completed load for: 'res://ai/tasks/move_toward_target.gd' remapped 'res://ai/tasks/move_toward_target.gd' at thread -1
+Loading resource: res://ai/tasks/move_away_from_target.gd remapped: res://ai/tasks/move_away_from_target.gd
+Completed load for: 'res://ai/tasks/move_away_from_target.gd' remapped 'res://ai/tasks/move_away_from_target.gd' at thread -1
+Loading resource: res://ai/tasks/request_enemy_attack.gd remapped: res://ai/tasks/request_enemy_attack.gd
+Completed load for: 'res://ai/tasks/request_enemy_attack.gd' remapped 'res://ai/tasks/request_enemy_attack.gd' at thread -1
+Completed load for: 'res://ai/trees/enemy_behavior.tres' remapped 'res://ai/trees/enemy_behavior.tres' at thread -1
+Loading resource: res://resources/stats/enemy_base_stats.tres remapped: res://resources/stats/enemy_base_stats.tres
+Completed load for: 'res://resources/stats/enemy_base_stats.tres' remapped 'res://resources/stats/enemy_base_stats.tres' at thread -1
+Loading resource: res://resources/enemies/melee_enemy_definition.tres remapped: res://resources/enemies/melee_enemy_definition.tres
+Completed load for: 'res://resources/enemies/melee_enemy_definition.tres' remapped 'res://resources/enemies/melee_enemy_definition.tres' at thread -1
+Loading resource: res://scripts/enemy/states/enemy_ready_state.gd remapped: res://scripts/enemy/states/enemy_ready_state.gd
+Completed load for: 'res://scripts/enemy/states/enemy_ready_state.gd' remapped 'res://scripts/enemy/states/enemy_ready_state.gd' at thread -1
+Loading resource: res://scripts/enemy/states/enemy_attack_windup_state.gd remapped: res://scripts/enemy/states/enemy_attack_windup_state.gd
+Completed load for: 'res://scripts/enemy/states/enemy_attack_windup_state.gd' remapped 'res://scripts/enemy/states/enemy_attack_windup_state.gd' at thread -1
+Loading resource: res://scripts/enemy/states/enemy_attack_active_state.gd remapped: res://scripts/enemy/states/enemy_attack_active_state.gd
+Completed load for: 'res://scripts/enemy/states/enemy_attack_active_state.gd' remapped 'res://scripts/enemy/states/enemy_attack_active_state.gd' at thread -1
+Loading resource: res://scripts/enemy/states/enemy_attack_recovery_state.gd remapped: res://scripts/enemy/states/enemy_attack_recovery_state.gd
+Completed load for: 'res://scripts/enemy/states/enemy_attack_recovery_state.gd' remapped 'res://scripts/enemy/states/enemy_attack_recovery_state.gd' at thread -1
+Loading resource: res://scripts/enemy/states/enemy_dead_state.gd remapped: res://scripts/enemy/states/enemy_dead_state.gd
+Completed load for: 'res://scripts/enemy/states/enemy_dead_state.gd' remapped 'res://scripts/enemy/states/enemy_dead_state.gd' at thread -1
+Completed load for: 'res://scenes/enemy.tscn' remapped 'res://scenes/enemy.tscn' at thread -1
+Loading resource: res://resources/enemies/ranged_enemy_definition.tres remapped: res://resources/enemies/ranged_enemy_definition.tres
+Loading resource: res://resources/attacks/enemy_ranged_attack.tres remapped: res://resources/attacks/enemy_ranged_attack.tres
+Completed load for: 'res://resources/attacks/enemy_ranged_attack.tres' remapped 'res://resources/attacks/enemy_ranged_attack.tres' at thread -1
+Loading resource: res://scenes/projectile.tscn remapped: res://scenes/projectile.tscn
+Completed load for: 'res://scenes/projectile.tscn' remapped 'res://scenes/projectile.tscn' at thread -1
+Completed load for: 'res://resources/enemies/ranged_enemy_definition.tres' remapped 'res://resources/enemies/ranged_enemy_definition.tres' at thread -1
+Loading resource: res://resources/enemies/direct_ranged_enemy_definition.tres remapped: res://resources/enemies/direct_ranged_enemy_definition.tres
+Completed load for: 'res://resources/enemies/direct_ranged_enemy_definition.tres' remapped 'res://resources/enemies/direct_ranged_enemy_definition.tres' at thread -1
+Completed load for: 'res://main.tscn' remapped 'res://main.tscn' at thread -1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading resource: res://scenes/player.tscn remapped: res://scenes/player.tscn
+Completed load for: 'res://scenes/player.tscn' remapped 'res://scenes/player.tscn' at thread -1
+Loading resource: res://scenes/building.tscn remapped: res://scenes/building.tscn
+Completed load for: 'res://scenes/building.tscn' remapped 'res://scenes/building.tscn' at thread -1
+Loading resource: res://addons/limboai/icons/LimboHSM.svg remapped: res://addons/limboai/icons/LimboHSM.svg
+Loading resource: res://.godot/imported/LimboHSM.svg-28cca67d246d589dd15402abd78a1ec2.editor.ctex remapped: res://.godot/imported/LimboHSM.svg-28cca67d246d589dd15402abd78a1ec2.editor.ctex
+Completed load for: 'res://addons/limboai/icons/LimboHSM.svg' remapped 'res://addons/limboai/icons/LimboHSM.svg' at thread -1
+Loading resource: res://addons/limboai/icons/LimboState.svg remapped: res://addons/limboai/icons/LimboState.svg
+Loading resource: res://.godot/imported/LimboState.svg-b1db06d5ed3101ee6256deae4330f6b7.editor.ctex remapped: res://.godot/imported/LimboState.svg-b1db06d5ed3101ee6256deae4330f6b7.editor.ctex
+Completed load for: 'res://addons/limboai/icons/LimboState.svg' remapped 'res://addons/limboai/icons/LimboState.svg' at thread -1
+Loading resource: res://addons/limboai/icons/BTPlayer.svg remapped: res://addons/limboai/icons/BTPlayer.svg
+Loading resource: res://.godot/imported/BTPlayer.svg-ed7adc3cf4a0f3daa1e17a1a77e9a3a2.editor.ctex remapped: res://.godot/imported/BTPlayer.svg-ed7adc3cf4a0f3daa1e17a1a77e9a3a2.editor.ctex
+Completed load for: 'res://addons/limboai/icons/BTPlayer.svg' remapped 'res://addons/limboai/icons/BTPlayer.svg' at thread -1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+Loading cache for shader SceneForwardClusteredShaderRD, variant 0
+Loading cache for shader SceneForwardClusteredShaderRD, variant 1
+Loading cache for shader SceneForwardClusteredShaderRD, variant 2
+Loading cache for shader SceneForwardClusteredShaderRD, variant 3
+Loading cache for shader SceneForwardClusteredShaderRD, variant 4
+Loading cache for shader SceneForwardClusteredShaderRD, variant 5
+Loading cache for shader SceneForwardClusteredShaderRD, variant 6
+Loading cache for shader SceneForwardClusteredShaderRD, variant 7
+MCP | [event] scene_changed -> res://main.tscn
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FF7338840: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FF7338840: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FF7338840: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FF7338840: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FF7338840: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FF7338840: Switch to application keys for outbound traffic
+Loading resource: res://.godot/editor/editor_script_doc_cache.res remapped: res://.godot/editor/editor_script_doc_cache.res
+Generated 'res://_bmad/_config/bmad-help.args.translation' preview in 341 usec
+Generated 'res://_bmad/_config/bmad-help.csv' preview in 1131 usec
+Generated 'res://_bmad/_config/bmad-help.description.translation' preview in 424 usec
+Generated 'res://_bmad/_config/bmad-help.display.translation' preview in 296 usec
+Generated 'res://_bmad/_config/bmad-help.menu.translation' preview in 273 usec
+Generated 'res://_bmad/_config/bmad-help.output.translation' preview in 278 usec
+Generated 'res://_bmad/_config/bmad-help.outputs.translation' preview in 365 usec
+Generated 'res://_bmad/_config/bmad-help.phase.translation' preview in 339 usec
+Generated 'res://_bmad/_config/bmad-help.preceded.translation' preview in 333 usec
+Generated 'res://_bmad/_config/bmad-help.required.translation' preview in 357 usec
+Generated 'res://_bmad/_config/bmad-help.skill.translation' preview in 289 usec
+Generated 'res://_bmad/_config/files-manifest.csv' preview in 1252 usec
+Generated 'res://_bmad/_config/files-manifest.hash.translation' preview in 437 usec
+Generated 'res://_bmad/_config/files-manifest.module.translation' preview in 531 usec
+Generated 'res://_bmad/_config/files-manifest.name.translation' preview in 406 usec
+Generated 'res://_bmad/_config/files-manifest.path.translation' preview in 410 usec
+Generated 'res://_bmad/_config/manifest.yaml' preview in 588 usec
+Generated 'res://_bmad/_config/skill-manifest.csv' preview in 975 usec
+Generated 'res://_bmad/_config/skill-manifest.description.translation' preview in 485 usec
+Generated 'res://_bmad/_config/skill-manifest.module.translation' preview in 384 usec
+Generated 'res://_bmad/_config/skill-manifest.name.translation' preview in 542 usec
+Generated 'res://_bmad/_config/skill-manifest.path.translation' preview in 665 usec
+Generated 'res://_bmad/core/v6-shims/README.md' preview in 855 usec
+Generated 'res://_bmad/core/config.yaml' preview in 543 usec
+Generated 'res://_bmad/core/module-help.args.translation' preview in 327 usec
+Generated 'res://_bmad/core/module-help.csv' preview in 830 usec
+Generated 'res://_bmad/core/module-help.description.translation' preview in 403 usec
+Generated 'res://_bmad/core/module-help.display.translation' preview in 279 usec
+Generated 'res://_bmad/core/module-help.menu.translation' preview in 282 usec
+Generated 'res://_bmad/core/module-help.output.translation' preview in 281 usec
+Generated 'res://_bmad/core/module-help.outputs.translation' preview in 297 usec
+Generated 'res://_bmad/core/module-help.phase.translation' preview in 285 usec
+Generated 'res://_bmad/core/module-help.required.translation' preview in 281 usec
+Generated 'res://_bmad/core/module-help.skill.translation' preview in 275 usec
+Generated 'res://_bmad/custom/artifacts/protocols/bounded-epics.md' preview in 808 usec
+Generated 'res://_bmad/custom/artifacts/protocols/gds-check-implementation-readiness.md' preview in 795 usec
+Generated 'res://_bmad/custom/artifacts/protocols/gds-correct-course.md' preview in 698 usec
+Generated 'res://_bmad/custom/artifacts/protocols/gds-create-epics-and-stories.md' preview in 889 usec
+Generated 'res://_bmad/custom/artifacts/protocols/gds-create-story.md' preview in 647 usec
+Generated 'res://_bmad/custom/artifacts/protocols/gds-dev-story.md' preview in 623 usec
+Generated 'res://_bmad/custom/artifacts/protocols/gds-game-architecture.md' preview in 805 usec
+Completed load for: 'res://.godot/editor/editor_script_doc_cache.res' remapped 'res://.godot/editor/editor_script_doc_cache.res' at thread -1
+Generated 'res://_bmad/custom/artifacts/protocols/gds-gdd.md' preview in 791 usec
+Generated 'res://_bmad/custom/artifacts/protocols/gds-generate-project-context.md' preview in 638 usec
+Generated 'res://_bmad/custom/artifacts/protocols/gds-sprint-planning.md' preview in 706 usec
+Generated 'res://_bmad/custom/artifacts/protocols/gds-ux.md' preview in 1001 usec
+Generated 'res://_bmad/custom/artifacts/templates/canonical-gdd.md' preview in 1158 usec
+Generated 'res://_bmad/custom/artifacts/artifact-contract.toml' preview in 705 usec
+Generated 'res://_bmad/custom/artifacts/README.md' preview in 756 usec
+Generated 'res://_bmad/custom/config.toml' preview in 634 usec
+Generated 'res://_bmad/custom/config.user.toml' preview in 476 usec
+Generated 'res://_bmad/custom/gds-check-implementation-readiness.toml' preview in 612 usec
+Generated 'res://_bmad/custom/gds-correct-course.toml' preview in 649 usec
+Generated 'res://_bmad/custom/gds-create-epics-and-stories.toml' preview in 598 usec
+Generated 'res://_bmad/custom/gds-create-story.toml' preview in 590 usec
+Generated 'res://_bmad/custom/gds-dev-story.toml' preview in 449 usec
+Generated 'res://_bmad/custom/gds-game-architecture.toml' preview in 582 usec
+Generated 'res://_bmad/custom/gds-gdd.toml' preview in 598 usec
+Generated 'res://_bmad/custom/gds-generate-project-context.toml' preview in 578 usec
+Generated 'res://_bmad/custom/gds-sprint-planning.toml' preview in 453 usec
+Generated 'res://_bmad/custom/gds-ux.toml' preview in 459 usec
+Generated 'res://_bmad/gds/config.yaml' preview in 637 usec
+Generated 'res://_bmad/gds/module-help.csv' preview in 975 usec
+Generated 'res://_bmad/gds/module-help.description.translation' preview in 273 usec
+Generated 'res://_bmad/gds/module-help.display.translation' preview in 272 usec
+Generated 'res://_bmad/gds/module-help.menu.translation' preview in 265 usec
+Generated 'res://_bmad/gds/module-help.output.translation' preview in 263 usec
+Generated 'res://_bmad/gds/module-help.outputs.translation' preview in 281 usec
+Generated 'res://_bmad/gds/module-help.phase.translation' preview in 352 usec
+Generated 'res://_bmad/gds/module-help.preceded.translation' preview in 390 usec
+Generated 'res://_bmad/gds/module-help.required.translation' preview in 363 usec
+Generated 'res://_bmad/gds/module-help.skill.translation' preview in 286 usec
+Generated 'res://_bmad/config.toml' preview in 515 usec
+Generated 'res://_bmad/config.user.toml' preview in 500 usec
+Generated 'res://_bmad-output/archive/epics-monolith-2026-09-09-004427.md' preview in 799 usec
+Generated 'res://_bmad-output/archive/implementation-readiness-report-incomplete-2026-09-08.md' preview in 478 usec
+Generated 'res://_bmad-output/archive/retired-design-adapter-2026-09-09.md' preview in 742 usec
+Generated 'res://_bmad-output/implementation-artifacts/evidence/1-1/editor-console-session-stderr.log' preview in 575 usec
+Generated 'res://_bmad-output/implementation-artifacts/evidence/1-1/editor-console-session-stdout.log' preview in 567 usec
+Generated 'res://_bmad-output/implementation-artifacts/evidence/1-1/editor-console-session.log' preview in 668 usec
+Generated 'res://_bmad-output/implementation-artifacts/evidence/1-1/editor-import-single-process.log' preview in 747 usec
+Generated 'res://_bmad-output/implementation-artifacts/evidence/1-1/editor-import.log' preview in 589 usec
+Generated 'res://_bmad-output/implementation-artifacts/evidence/1-1/main-headless.log' preview in 588 usec
+Generated 'res://_bmad-output/implementation-artifacts/evidence/1-1/main-interactive-stderr.log' preview in 602 usec
+Generated 'res://_bmad-output/implementation-artifacts/evidence/1-1/main-interactive-stdout.log' preview in 597 usec
+Generated 'res://_bmad-output/implementation-artifacts/evidence/1-1/main-interactive.log' preview in 583 usec
+Generated 'res://_bmad-output/implementation-artifacts/evidence/1-1/preflight.md' preview in 594 usec
+Generated 'res://_bmad-output/implementation-artifacts/evidence/1-1/start-git-status.txt' preview in 588 usec
+Generated 'res://_bmad-output/implementation-artifacts/evidence/1-1/start-protected-surface-manifest.json' preview in 638 usec
+Generated 'res://_bmad-output/implementation-artifacts/investigations/adapter-auto-discovery-investigation.md' preview in 846 usec
+Generated 'res://_bmad-output/implementation-artifacts/1-1-verify-and-protect-the-playable-traversal-baseline.md' preview in 448 usec
+Generated 'res://_bmad-output/implementation-artifacts/sprint-status.yaml' preview in 429 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-01-overview.md' preview in 859 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-01-story-01.md' preview in 928 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-01-story-02.md' preview in 771 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-01-story-03.md' preview in 904 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-01-story-04.md' preview in 947 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-01-story-05.md' preview in 820 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-01-story-06.md' preview in 826 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-01-story-07.md' preview in 1006 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-01-story-08.md' preview in 847 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-01-story-09.md' preview in 824 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-01-story-10.md' preview in 835 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-02-overview.md' preview in 752 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-02-story-01.md' preview in 791 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-02-story-02.md' preview in 779 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-02-story-03.md' preview in 756 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-02-story-04.md' preview in 822 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-02-story-05.md' preview in 761 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-02-story-06.md' preview in 952 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-02-story-07.md' preview in 774 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-02-story-08.md' preview in 780 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-02-story-09.md' preview in 990 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-02-story-10.md' preview in 969 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-03-overview.md' preview in 723 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-03-story-01.md' preview in 820 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-03-story-02.md' preview in 810 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-03-story-03.md' preview in 850 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-03-story-04.md' preview in 842 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-03-story-05.md' preview in 902 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-03-story-06.md' preview in 810 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-03-story-07.md' preview in 799 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-03-story-08.md' preview in 809 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-03-story-09.md' preview in 837 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-03-story-10.md' preview in 846 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-04-overview.md' preview in 571 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-04-story-01.md' preview in 904 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-04-story-02.md' preview in 831 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-04-story-03.md' preview in 929 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-04-story-04.md' preview in 864 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-04-story-05.md' preview in 791 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-04-story-06.md' preview in 853 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-04-story-07.md' preview in 852 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-04-story-08.md' preview in 995 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-05-overview.md' preview in 583 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-05-story-01.md' preview in 917 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-05-story-02.md' preview in 977 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-05-story-03.md' preview in 1035 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-05-story-04.md' preview in 960 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-05-story-05.md' preview in 895 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-05-story-06.md' preview in 847 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-06-overview.md' preview in 551 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-06-story-01.md' preview in 837 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-06-story-02.md' preview in 884 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-06-story-03.md' preview in 782 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-06-story-04.md' preview in 904 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-06-story-05.md' preview in 818 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-06-story-06.md' preview in 946 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-06-story-07.md' preview in 808 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-06-story-08.md' preview in 747 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-overview.md' preview in 648 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-01.md' preview in 873 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-02.md' preview in 1022 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-03.md' preview in 859 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-04.md' preview in 852 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-05.md' preview in 897 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-06.md' preview in 868 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-07.md' preview in 804 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-08.md' preview in 813 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-09.md' preview in 931 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-10.md' preview in 758 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-11.md' preview in 823 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-12.md' preview in 823 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-13.md' preview in 854 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-14.md' preview in 718 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-15.md' preview in 802 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-16.md' preview in 794 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-07-story-17.md' preview in 861 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-08-overview.md' preview in 600 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-08-story-01.md' preview in 850 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-08-story-02.md' preview in 818 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-08-story-03.md' preview in 789 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-08-story-04.md' preview in 862 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-08-story-05.md' preview in 806 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-08-story-06.md' preview in 846 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-08-story-07.md' preview in 864 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-08-story-08.md' preview in 795 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-08-story-09.md' preview in 835 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-08-story-10.md' preview in 855 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-08-story-11.md' preview in 910 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/epic-08-story-12.md' preview in 842 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/index.md' preview in 889 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/manifest.json' preview in 856 usec
+Generated 'res://_bmad-output/planning-artifacts/epics/requirements.md' preview in 864 usec
+Generated 'res://_bmad-output/planning-artifacts/research/technical-3d-godot-solo-game-asset-pipeline-tools-2026-08-30/digests/01-generation-rigging-godot.md' preview in 991 usec
+Generated 'res://_bmad-output/planning-artifacts/research/technical-3d-godot-solo-game-asset-pipeline-tools-2026-08-30/digests/02-cleanup-animation-and-local.md' preview in 883 usec
+Generated 'res://_bmad-output/planning-artifacts/research/technical-3d-godot-solo-game-asset-pipeline-tools-2026-08-30/digests/03-asset-libraries-vfx-audio-licensing.md' preview in 1033 usec
+Generated 'res://_bmad-output/planning-artifacts/research/technical-3d-godot-solo-game-asset-pipeline-tools-2026-08-30/digests/04-free-first-costs-and-freeze.md' preview in 961 usec
+Generated 'res://_bmad-output/planning-artifacts/research/technical-3d-godot-solo-game-asset-pipeline-tools-2026-08-30/digests/05-baseline-candidates-hunyuan-kenney-mixamo.md' preview in 983 usec
+Generated 'res://_bmad-output/planning-artifacts/research/technical-3d-godot-solo-game-asset-pipeline-tools-2026-08-30/.memlog.md' preview in 899 usec
+Generated 'res://_bmad-output/planning-artifacts/research/technical-3d-godot-solo-game-asset-pipeline-tools-2026-08-30/claims.json' preview in 851 usec
+Generated 'res://_bmad-output/planning-artifacts/research/technical-3d-godot-solo-game-asset-pipeline-tools-2026-08-30/research.md' preview in 1021 usec
+Generated 'res://_bmad-output/planning-artifacts/sources/design-library/CHARACTER_DESIGNS.md' preview in 953 usec
+Generated 'res://_bmad-output/planning-artifacts/sources/design-library/DEVELOPMENT_ROADMAP.md' preview in 1043 usec
+Generated 'res://_bmad-output/planning-artifacts/sources/design-library/GAMEPLAY_SYSTEMS.md' preview in 1000 usec
+Generated 'res://_bmad-output/planning-artifacts/sources/design-library/GAME_DESIGN_DOCUMENT.md' preview in 1013 usec
+Generated 'res://_bmad-output/planning-artifacts/sources/design-library/HISTORY_AND_FACTIONS.md' preview in 952 usec
+Generated 'res://_bmad-output/planning-artifacts/sources/design-library/LEVEL_AND_ENCOUNTER_DESIGN.md' preview in 1013 usec
+Generated 'res://_bmad-output/planning-artifacts/sources/design-library/PORTAL_AND_FUNGAL_ECOLOGY.md' preview in 984 usec
+Generated 'res://_bmad-output/planning-artifacts/sources/design-library/STORY_AND_CHARACTER_ARCS.md' preview in 1046 usec
+Generated 'res://_bmad-output/planning-artifacts/sources/design-library/TECHNICAL_ARCHITECTURE.md' preview in 950 usec
+Generated 'res://_bmad-output/planning-artifacts/sources/design-library/WORLD_ATLAS.md' preview in 1072 usec
+Generated 'res://_bmad-output/planning-artifacts/sources/design-library/WORLD_BUILDING.md' preview in 964 usec
+Generated 'res://_bmad-output/planning-artifacts/sources/index.md' preview in 757 usec
+Generated 'res://_bmad-output/planning-artifacts/architecture.md' preview in 829 usec
+Generated 'res://_bmad-output/planning-artifacts/decision-log.md' preview in 698 usec
+Generated 'res://_bmad-output/planning-artifacts/gdd.md' preview in 825 usec
+Generated 'res://_bmad-output/planning-artifacts/implementation-readiness-report-2026-09-09.md' preview in 904 usec
+Generated 'res://_bmad-output/game-architecture.md' preview in 757 usec
+Generated 'res://_bmad-output/gdd-current.md' preview in 767 usec
+Generated 'res://_bmad-output/project-context.md' preview in 658 usec
+Generated 'res://addons/GDQuest_GDScript_formatter/plugin.cfg' preview in 480 usec
+Generated 'res://addons/godot_ai/plugin.cfg' preview in 462 usec
+Generated 'res://addons/godot_ai/README.md' preview in 696 usec
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF02670: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF062D0: Perform PSA-based ECDH/FFDH computation.
+Generated 'res://addons/gut/double_templates/double_data_template.txt' preview in 964 usec
+Generated 'res://addons/gut/double_templates/function_template.txt' preview in 620 usec
+Generated 'res://addons/gut/double_templates/init_template.txt' preview in 616 usec
+Generated 'res://addons/gut/double_templates/script_template.txt' preview in 743 usec
+Generated 'res://addons/gut/double_templates/singleton_template.txt' preview in 694 usec
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF02670: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF02670: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF02670: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF02670: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF02670: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF09F30: Perform PSA-based ECDH/FFDH computation.
+Generated 'res://addons/gut/fonts/OFL.txt' preview in 806 usec
+Generated 'res://addons/gut/gui/about.tscn' preview in 132 usec
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF062D0: Switch to handshake keys for inbound traffic
+Generated 'res://addons/gut/gui/check_for_update.tscn' preview in 108 usec
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF062D0: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF062D0: Switch to handshake traffic keys for outbound traffic
+Generated 'res://addons/gut/gui/EditorRadioButton.tres' preview in 335 usec
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF062D0: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF062D0: Switch to application keys for outbound traffic
+Generated 'res://addons/gut/gui/GutBottomPanel.tscn' preview in 125 usec
+Generated 'res://addons/gut/gui/GutControl.tscn' preview in 172 usec
+Generated 'res://addons/gut/gui/GutLogo.tscn' preview in 143 usec
+Generated 'res://addons/gut/gui/GutRunner.tscn' preview in 111 usec
+Generated 'res://addons/gut/gui/GutSceneTheme.tres' preview in 309 usec
+Generated 'res://addons/gut/gui/MinGui.tscn' preview in 103 usec
+Generated 'res://addons/gut/gui/NormalGui.tscn' preview in 114 usec
+Generated 'res://addons/gut/gui/OutputText.tscn' preview in 102 usec
+Generated 'res://addons/gut/gui/ResizeHandle.tscn' preview in 104 usec
+Generated 'res://addons/gut/gui/ResultsTree.tscn' preview in 98 usec
+Generated 'res://addons/gut/gui/RunAtCursor.tscn' preview in 98 usec
+Generated 'res://addons/gut/gui/RunExternally.tscn' preview in 98 usec
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF09F30: Switch to handshake keys for inbound traffic
+Generated 'res://addons/gut/gui/RunResults.tscn' preview in 105 usec
+Generated 'res://addons/gut/gui/run_from_editor.tscn' preview in 100 usec
+Generated 'res://addons/gut/gui/Settings.tscn' preview in 96 usec
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF09F30: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF09F30: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF09F30: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF09F30: Switch to application keys for outbound traffic
+Generated 'res://addons/gut/gui/ShellOutOptions.tscn' preview in 102 usec
+Generated 'res://addons/gut/gui/ShortcutButton.tscn' preview in 98 usec
+Generated 'res://addons/gut/gui/ShortcutDialog.tscn' preview in 98 usec
+Generated 'res://addons/gut/gui/update_required.tscn' preview in 134 usec
+Generated 'res://addons/gut/GutScene.tscn' preview in 126 usec
+Generated 'res://addons/gut/gut_loader_the_scene.tscn' preview in 159 usec
+Generated 'res://addons/gut/LICENSE.md' preview in 613 usec
+Generated 'res://addons/gut/plugin.cfg' preview in 472 usec
+Generated 'res://addons/gut/UserFileViewer.tscn' preview in 189 usec
+Generated 'res://addons/gut/versions.json' preview in 655 usec
+Generated 'res://addons/limboai/bin/limboai.gdextension' preview in 739 usec
+Generated 'res://addons/limboai/LICENSE.md' preview in 575 usec
+Generated 'res://addons/limboai/LOGO_LICENSE.md' preview in 464 usec
+Generated 'res://addons/limboai/README.md' preview in 733 usec
+Generated 'res://addons/limboai/version.txt' preview in 507 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/2D/sub_scenes/playable_character_2d.tscn' preview in 123 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/2D/2d_example_scene.tscn' preview in 113 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/2D/2d_follow_framed_example_scene.tscn' preview in 206 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/2D/2d_follow_group_example_scene.tscn' preview in 151 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/2D/2d_follow_path_example_scene.tscn' preview in 144 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/2D/2d_limit_example_scene.tscn' preview in 103 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/2D/2d_noise_example_scene.tscn' preview in 101 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/2D/2d_tweening_example_scene.tscn' preview in 108 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/3D/sub_scenes/playable_character_3d.tscn' preview in 99 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/3D/sub_scenes/playable_character_third_person_3d.tscn' preview in 99 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/3D/3d_example_scene.tscn' preview in 120 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/3D/3d_follow_framed_example_scene.tscn' preview in 105 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/3D/3d_follow_glued_example_scene.tscn' preview in 146 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/3D/3d_follow_group_example_scene.tscn' preview in 175 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/3D/3d_follow_path_example_scene.tscn' preview in 184 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/3D/3d_follow_simple_example_scene.tscn' preview in 107 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/3D/3d_follow_third_person_attribtues_example_scene.tscn' preview in 148 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/3D/3d_follow_third_person_example_scene.tscn' preview in 147 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/3D/3d_look_at_example_scene.tscn' preview in 102 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/3D/3d_noise_example_scene.tscn' preview in 102 usec
+Generated 'res://addons/phantom_camera/examples/example_scenes/3D/3d_tweening_example_scene.tscn' preview in 124 usec
+Generated 'res://addons/phantom_camera/examples/models/3d_cube_dark.tscn' preview in 100 usec
+Generated 'res://addons/phantom_camera/examples/resources/tween/fixed_camera_tween.tres' preview in 452 usec
+Generated 'res://addons/phantom_camera/examples/resources/tween/inventory_phantom_camera_2d_tween.tres' preview in 408 usec
+Generated 'res://addons/phantom_camera/examples/resources/tween/item_focus_phantom_camera_2d_tween.tres' preview in 404 usec
+Generated 'res://addons/phantom_camera/examples/resources/tween/player_phantom_camera_2d_tween.tres' preview in 419 usec
+Generated 'res://addons/phantom_camera/examples/resources/tween/player_phantom_camera_3d_tween.tres' preview in 425 usec
+Generated 'res://addons/phantom_camera/examples/ui/ui_inventory.tscn' preview in 111 usec
+Generated 'res://addons/phantom_camera/examples/ui/ui_sign.tscn' preview in 150 usec
+Generated 'res://addons/phantom_camera/examples/credits.txt' preview in 548 usec
+Generated 'res://addons/phantom_camera/panel/updater/download_update_panel.tscn' preview in 108 usec
+Generated 'res://addons/phantom_camera/panel/updater/update_button.tscn' preview in 117 usec
+Generated 'res://addons/phantom_camera/panel/viewfinder/host_list/host_list.tscn' preview in 103 usec
+Generated 'res://addons/phantom_camera/panel/viewfinder/host_list/host_list_item.tscn' preview in 100 usec
+Generated 'res://addons/phantom_camera/panel/viewfinder/host_list/host_list_item_group.tres' preview in 421 usec
+Generated 'res://addons/phantom_camera/panel/viewfinder/deadzone_style_box.tres' preview in 430 usec
+Generated 'res://addons/phantom_camera/panel/viewfinder/viewfinder_panel.tscn' preview in 132 usec
+Generated 'res://addons/phantom_camera/panel/editor.tscn' preview in 163 usec
+Generated 'res://addons/phantom_camera/themes/button_focus.tres' preview in 340 usec
+Generated 'res://addons/phantom_camera/themes/button_hover.tres' preview in 331 usec
+Generated 'res://addons/phantom_camera/themes/button_normal.tres' preview in 329 usec
+Generated 'res://addons/phantom_camera/themes/theme.tres' preview in 435 usec
+Generated 'res://addons/phantom_camera/plugin.cfg' preview in 458 usec
+Generated 'res://addons/terrain_3d/extras/particle_example/grass.gdshader' preview in 13 usec
+Generated 'res://addons/terrain_3d/extras/particle_example/particles.gdshader' preview in 19 usec
+Loading resource: res://addons/terrain_3d/extras/particle_example/process_material.tres remapped: res://addons/terrain_3d/extras/particle_example/process_material.tres
+Loading resource: res://addons/terrain_3d/extras/particle_example/particles.gdshader remapped: res://addons/terrain_3d/extras/particle_example/particles.gdshader
+Completed load for: 'res://addons/terrain_3d/extras/particle_example/particles.gdshader' remapped 'res://addons/terrain_3d/extras/particle_example/particles.gdshader' at thread -1
+Loading cache for shader ParticlesShaderRD, variant 0
+Completed load for: 'res://addons/terrain_3d/extras/particle_example/process_material.tres' remapped 'res://addons/terrain_3d/extras/particle_example/process_material.tres' at thread -1
+Generated 'res://addons/terrain_3d/extras/particle_example/process_material.tres' preview in 123554 usec
+Generated 'res://addons/terrain_3d/extras/particle_example/Terrain3DParticles.tscn' preview in 132 usec
+Generated 'res://addons/terrain_3d/extras/shaders/hex_grid.gdshaderinc' preview in 17 usec
+Generated 'res://addons/terrain_3d/extras/shaders/lightweight.gdshader' preview in 19 usec
+Generated 'res://addons/terrain_3d/extras/shaders/minimum.gdshader' preview in 12 usec
+Generated 'res://addons/terrain_3d/menu/bake_lod_dialog.tscn' preview in 119 usec
+Generated 'res://addons/terrain_3d/menu/channel_packer.tscn' preview in 110 usec
+Generated 'res://addons/terrain_3d/menu/channel_packer_import_template.txt' preview in 723 usec
+Generated 'res://addons/terrain_3d/menu/directory_setup.tscn' preview in 107 usec
+Generated 'res://addons/terrain_3d/src/asset_dock.tscn' preview in 105 usec
+Generated 'res://addons/terrain_3d/src/asset_dock_45.tscn' preview in 104 usec
+Generated 'res://addons/terrain_3d/tools/importer.tscn' preview in 105 usec
+Generated 'res://addons/terrain_3d/LICENSE.txt' preview in 578 usec
+Generated 'res://addons/terrain_3d/plugin.cfg' preview in 511 usec
+Generated 'res://addons/terrain_3d/README.md' preview in 595 usec
+Generated 'res://addons/terrain_3d/terrain.gdextension' preview in 453 usec
+Generated 'res://ai/trees/enemy_behavior.tres' preview in 265 usec
+Generated 'res://demo/agents/fireball/fireball.tscn' preview in 110 usec
+Generated 'res://demo/agents/ninja_star/ninja_star.tscn' preview in 120 usec
+Generated 'res://demo/agents/player/player.tscn' preview in 109 usec
+Generated 'res://demo/agents/tutorial/tutorial_01_welcome.tscn' preview in 105 usec
+Generated 'res://demo/agents/tutorial/tutorial_02_introduction.tscn' preview in 104 usec
+Generated 'res://demo/agents/tutorial/tutorial_03_types.tscn' preview in 103 usec
+Generated 'res://demo/agents/tutorial/tutorial_04_sequence.tscn' preview in 97 usec
+Generated 'res://demo/agents/tutorial/tutorial_05_selector.tscn' preview in 98 usec
+Generated 'res://demo/agents/tutorial/tutorial_06_decorators.tscn' preview in 95 usec
+Generated 'res://demo/agents/tutorial/tutorial_07_more_decorators.tscn' preview in 96 usec
+Generated 'res://demo/agents/tutorial/tutorial_08_final_touch.tscn' preview in 147 usec
+Generated 'res://demo/agents/01_agent_melee_simple.tscn' preview in 175 usec
+Generated 'res://demo/agents/02_agent_charger.tscn' preview in 112 usec
+Generated 'res://demo/agents/03_agent_imp.tscn' preview in 198 usec
+Generated 'res://demo/agents/04_agent_skirmisher.tscn' preview in 108 usec
+Generated 'res://demo/agents/05_agent_ranged.tscn' preview in 135 usec
+Generated 'res://demo/agents/06_agent_melee_combo.tscn' preview in 102 usec
+Generated 'res://demo/agents/07_agent_melee_nuanced.tscn' preview in 99 usec
+Generated 'res://demo/agents/08_agent_demon.tscn' preview in 101 usec
+Generated 'res://demo/agents/09_agent_summoner.tscn' preview in 103 usec
+Generated 'res://demo/agents/agent_base.tscn' preview in 110 usec
+Generated 'res://demo/ai/trees/tutorial/tutorial_01_welcome.tres' preview in 523 usec
+Generated 'res://demo/ai/trees/tutorial/tutorial_02_introduction.tres' preview in 497 usec
+Generated 'res://demo/ai/trees/tutorial/tutorial_03_types.tres' preview in 496 usec
+Generated 'res://demo/ai/trees/tutorial/tutorial_04_sequence.tres' preview in 546 usec
+Generated 'res://demo/ai/trees/tutorial/tutorial_05_selector.tres' preview in 557 usec
+Generated 'res://demo/ai/trees/tutorial/tutorial_06_decorators.tres' preview in 589 usec
+Generated 'res://demo/ai/trees/tutorial/tutorial_07_more_decorators.tres' preview in 555 usec
+Generated 'res://demo/ai/trees/tutorial/tutorial_08_final_touch.tres' preview in 553 usec
+Generated 'res://demo/ai/trees/01_agent_melee_simple.tres' preview in 443 usec
+Generated 'res://demo/ai/trees/02_agent_charger.tres' preview in 481 usec
+Generated 'res://demo/ai/trees/03_agent_imp.tres' preview in 490 usec
+Generated 'res://demo/ai/trees/04_agent_skirmisher.tres' preview in 505 usec
+Generated 'res://demo/ai/trees/05_agent_ranged.tres' preview in 504 usec
+Generated 'res://demo/ai/trees/06_agent_melee_combo.tres' preview in 559 usec
+Generated 'res://demo/ai/trees/07_agent_melee_nuanced.tres' preview in 495 usec
+Generated 'res://demo/ai/trees/08_agent_demon.tres' preview in 482 usec
+Generated 'res://demo/ai/trees/09_agent_summoner.tres' preview in 492 usec
+Generated 'res://demo/assets/models/CrystalC.tscn' preview in 106 usec
+Generated 'res://demo/assets/models/LODExample10.tscn' preview in 107 usec
+Generated 'res://demo/assets/models/LODExample.tscn' preview in 103 usec
+Generated 'res://demo/assets/models/RockA.tscn' preview in 111 usec
+Generated 'res://demo/assets/models/RockB.tscn' preview in 111 usec
+Generated 'res://demo/assets/models/RockC.tscn' preview in 103 usec
+Generated 'res://demo/assets/models/Tunnel.tscn' preview in 101 usec
+Generated 'res://demo/assets/textures/asset_licenses.txt' preview in 571 usec
+Generated 'res://demo/assets/ui.theme' preview in 845 usec
+Generated 'res://demo/components/Borders.tscn' preview in 104 usec
+Generated 'res://demo/components/DemoBenchmark.tscn' preview in 152 usec
+Generated 'res://demo/components/Enemy.tscn' preview in 152 usec
+Generated 'res://demo/components/Environment.tscn' preview in 111 usec
+Generated 'res://demo/components/Player.tscn' preview in 110 usec
+Generated 'res://demo/components/Tunnel.tscn' preview in 157 usec
+Generated 'res://demo/components/UI.tscn' preview in 107 usec
+Generated 'res://demo/data/assets.tres' preview in 433 usec
+Generated 'res://demo/data/nav_mesh.res' preview in 684 usec
+Generated 'res://demo/data/terrain3d_00-01.res' preview in 830 usec
+Generated 'res://demo/data/terrain3d_00-02.res' preview in 792 usec
+Generated 'res://demo/data/terrain3d_00_00.res' preview in 800 usec
+Generated 'res://demo/props/dummy.tscn' preview in 148 usec
+Generated 'res://demo/props/gong.tscn' preview in 126 usec
+Generated 'res://demo/scenes/base/arena.tscn' preview in 108 usec
+Generated 'res://demo/scenes/base/clouds.tscn' preview in 149 usec
+Generated 'res://demo/scenes/game.tscn' preview in 105 usec
+Generated 'res://demo/scenes/showcase.tscn' preview in 102 usec
+Generated 'res://demo/CodeGeneratedDemo.tscn' preview in 102 usec
+Generated 'res://demo/Demo.tscn' preview in 140 usec
+Generated 'res://demo/LICENSE_ASSETS.md' preview in 533 usec
+Generated 'res://demo/NavigationDemo.tscn' preview in 119 usec
+Generated 'res://docs/index.md' preview in 532 usec
+Generated 'res://resources/attacks/enemy_basic_attack.tres' preview in 285 usec
+Generated 'res://resources/attacks/enemy_ranged_attack.tres' preview in 263 usec
+Generated 'res://resources/attacks/player_basic_attack.tres' preview in 259 usec
+Generated 'res://resources/enemies/direct_ranged_enemy_definition.tres' preview in 352 usec
+Generated 'res://resources/enemies/melee_enemy_definition.tres' preview in 256 usec
+Generated 'res://resources/enemies/ranged_enemy_definition.tres' preview in 270 usec
+Generated 'res://resources/stats/enemy_base_stats.tres' preview in 374 usec
+Generated 'res://resources/stats/player_base_stats.tres' preview in 277 usec
+Generated 'res://scenes/building.tscn' preview in 106 usec
+Generated 'res://scenes/enemy.tscn' preview in 105 usec
+Generated 'res://scenes/projectile.tscn' preview in 106 usec
+Generated 'res://scenes/tree_grapple_tutorial.tscn' preview in 105 usec
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF30500: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF373B0: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF369A0: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF35F90: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF34160: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF37DC0: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF373B0: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF30500: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF373B0: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF30500: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF373B0: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF30500: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF373B0: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF373B0: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF30500: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF30500: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF35F90: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF369A0: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF35F90: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF369A0: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF35F90: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF369A0: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF35F90: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF35F90: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF369A0: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF369A0: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF37DC0: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF34160: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF37DC0: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF37DC0: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF34160: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF37DC0: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF37DC0: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF34160: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF34160: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF34160: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF30500: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF34160: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF37DC0: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF30500: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF30500: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF30500: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF30500: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF30500: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF37DC0: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF37DC0: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF37DC0: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF37DC0: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF37DC0: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF373B0: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF34160: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF34160: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF34160: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF34160: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF34160: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF35580: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF373B0: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF373B0: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF373B0: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF373B0: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF373B0: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF35580: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF35580: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF35580: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF35580: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF35580: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF30500: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF34B70: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF373B0: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF30500: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF30500: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF30500: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF30500: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF30500: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF34B70: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF34B70: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF34B70: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF34B70: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF34B70: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF369A0: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF373B0: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF373B0: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF373B0: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF373B0: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF373B0: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF369A0: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF369A0: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF369A0: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF369A0: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF369A0: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF30500: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF369A0: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF34B70: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF35580: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF30500: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF30500: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF30500: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF30500: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF30500: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF34B70: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF34B70: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF34B70: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF34B70: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF34B70: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF369A0: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF369A0: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF369A0: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF369A0: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF369A0: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF35F90: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF35580: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF35580: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF35580: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF35580: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF35580: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF35F90: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF35F90: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF35F90: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF35F90: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF35F90: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF30500: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF35F90: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF369A0: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1591: 0000024FFBF34160: Perform PSA-based ECDH/FFDH computation.
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF30500: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF30500: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF30500: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF30500: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF30500: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF35F90: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF35F90: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF35F90: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF35F90: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF35F90: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF369A0: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF369A0: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF369A0: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF369A0: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF369A0: Switch to application keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_client.c:1954: 0000024FFBF34160: Switch to handshake keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:0442: 0000024FFBF34160: mbedtls_ssl_tls13_process_certificate_verify() returned 0 (-0x0000)
+thirdparty/mbedtls/library/ssl_tls13_client.c:2659: 0000024FFBF34160: Switch to handshake traffic keys for outbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1274: 0000024FFBF34160: Switch to application keys for inbound traffic
+thirdparty/mbedtls/library/ssl_tls13_generic.c:1277: 0000024FFBF34160: Switch to application keys for outbound traffic
+MCP | [recv] clear_logs({})
+Loading resource: res://addons/godot_ai/handlers/editor_handler.gd remapped: res://addons/godot_ai/handlers/editor_handler.gd
+Completed load for: 'res://addons/godot_ai/handlers/editor_handler.gd' remapped 'res://addons/godot_ai/handlers/editor_handler.gd' at thread -1
+MCP | [send] clear_logs -> ok
+MCP | [recv] run_project({"autosave":false,"mode":"main"})
+Loading resource: res://addons/godot_ai/handlers/project_handler.gd remapped: res://addons/godot_ai/handlers/project_handler.gd
+Completed load for: 'res://addons/godot_ai/handlers/project_handler.gd' remapped 'res://addons/godot_ai/handlers/project_handler.gd' at thread -1
+MCP | [debug] game capture pending run token 1 (run r68615-1)
+Running: C:/Users/pinto/Documents/Godot Projects/Godot 4.7.2/Godot_v4.7.2-stable_win64.exe --verbose --path C:/Users/pinto/Documents/Godot%20Projects/testgame --remote-debug tcp://127.0.0.1:6007 --editor-pid 11748 --position 384,192 --scene res://main.tscn
+MCP | [defer] run_project (request a1b1d37e3905480ca526b0cdb56ad163)
+MCP | [event] play_state_changed -> playing
+MCP | [debug] <- mcp:hello from game_helper (run r68615-1)
+EditorSettings: Save OK!
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"is_dead\": player.is_dead, \"health\": player.health.current_health}"})
+MCP | [debug] -> mcp:eval_liveness (d919c0cc745b4d7eb18519a4522bd134)
+MCP | [defer] game_eval (request d919c0cc745b4d7eb18519a4522bd134)
+MCP | [debug] -> mcp:eval (d919c0cc745b4d7eb18519a4522bd134)
+MCP | [debug] <- mcp:eval_ack (d919c0cc745b4d7eb18519a4522bd134)
+MCP | [debug] <- mcp:eval_compiled (d919c0cc745b4d7eb18519a4522bd134)
+MCP | [debug] <- mcp:eval_response (d919c0cc745b4d7eb18519a4522bd134)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":2.0,"steps":[{"action":"move_right","at_frame":0.0,"pressed":true,"strength":1.0},{"action":"move_right","at_frame":30.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (b0a982e183b14728835cdd4e71d68b29)
+MCP | [defer] game_command (request b0a982e183b14728835cdd4e71d68b29)
+MCP | [debug] <- mcp:game_command_response (b0a982e183b14728835cdd4e71d68b29)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"is_dead\": player.is_dead, \"health\": player.health.current_health}"})
+MCP | [debug] -> mcp:eval_liveness (d378c8da76cc45cd917d24bd3d2db21c)
+MCP | [defer] game_eval (request d378c8da76cc45cd917d24bd3d2db21c)
+MCP | [debug] -> mcp:eval (d378c8da76cc45cd917d24bd3d2db21c)
+MCP | [debug] <- mcp:eval_ack (d378c8da76cc45cd917d24bd3d2db21c)
+MCP | [debug] <- mcp:eval_compiled (d378c8da76cc45cd917d24bd3d2db21c)
+MCP | [debug] <- mcp:eval_response (d378c8da76cc45cd917d24bd3d2db21c)
+MCP | [recv] get_logs({"count":2000.0,"include_details":true,"offset":0.0,"source":"game"})
+MCP | [send] get_logs -> ok
+MCP | [recv] get_logs({"count":500.0,"include_details":true,"offset":0.0,"source":"editor"})
+MCP | [send] get_logs -> ok
+MCP | [recv] stop_project({})
+MCP | [defer] stop_project (request a525f6b19595484b9cb7dd7e95cae393)
+MCP | [event] play_state_changed -> stopped
+MCP | [recv] list_actions({})
+Loading resource: res://addons/godot_ai/handlers/input_handler.gd remapped: res://addons/godot_ai/handlers/input_handler.gd
+Completed load for: 'res://addons/godot_ai/handlers/input_handler.gd' remapped 'res://addons/godot_ai/handlers/input_handler.gd' at thread -1
+MCP | [send] list_actions -> ok
+MCP | [recv] stop_project({})
+MCP | [send] stop_project -> ok
+MCP | [recv] clear_logs({})
+MCP | [send] clear_logs -> ok
+MCP | [recv] run_project({"autosave":false,"mode":"main"})
+MCP | [debug] game capture pending run token 2 (run r499961-2)
+Running: C:/Users/pinto/Documents/Godot Projects/Godot 4.7.2/Godot_v4.7.2-stable_win64.exe --verbose --path C:/Users/pinto/Documents/Godot%20Projects/testgame --remote-debug tcp://127.0.0.1:6007 --editor-pid 11748 --position 384,192 --scene res://main.tscn
+MCP | [defer] run_project (request 0767bf93e0a84ea2bab2d0ed81159d66)
+MCP | [event] play_state_changed -> playing
+MCP | [debug] <- mcp:hello from game_helper (run r499961-2)
+EditorSettings: Save OK!
+MCP | [recv] game_eval({"code":"for enemy_path in [\"/root/Main/World/Enemy\", \"/root/Main/World/ArcRangedEnemy\", \"/root/Main/World/DirectRangedEnemy\"]:\n    var enemy = get_node(enemy_path)\n    enemy.process_mode = Node.PROCESS_MODE_DISABLED\nvar player = get_node(\"/root/Main/World/Player\")\nplayer.health.current_health = player.health.max_health\nplayer.global_position = Vector3(0.0, 0.1, 40.0)\nplayer.velocity = Vector3.ZERO\nplayer.rotation = Vector3.ZERO\nplayer.camera_pivot.rotation = Vector3.ZERO\nplayer.camera_pitch = 0.0\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"health\": player.health.current_health, \"is_dead\": player.is_dead}"})
+MCP | [debug] -> mcp:eval_liveness (df09e2b2108848ac9ec61e6d38717848)
+MCP | [defer] game_eval (request df09e2b2108848ac9ec61e6d38717848)
+MCP | [debug] -> mcp:eval (df09e2b2108848ac9ec61e6d38717848)
+MCP | [debug] <- mcp:eval_ack (df09e2b2108848ac9ec61e6d38717848)
+MCP | [debug] debugger break (pre_live=false can_debug=false)
+Loading resource: gdscript://-9223371964091988212.gd remapped: gdscript://-9223371964091988212.gd
+Completed load for: 'gdscript://-9223371964091988212.gd' remapped 'gdscript://-9223371964091988212.gd' at thread -1
+Generated 'res://_bmad-output/implementation-artifacts/evidence/1-1/import-and-launch-classification.md' preview in 815 usec
+Generated 'res://_bmad-output/implementation-artifacts/evidence/1-1/main-interactive-observation.json' preview in 672 usec
+Loading resource: res://addons/phantom_camera/icons/phantom_camera_tween.svg remapped: res://addons/phantom_camera/icons/phantom_camera_tween.svg
+Loading resource: res://.godot/imported/phantom_camera_tween.svg-16faced08ef4a5f3458264d894230dbd.editor.ctex remapped: res://.godot/imported/phantom_camera_tween.svg-16faced08ef4a5f3458264d894230dbd.editor.ctex
+Completed load for: 'res://addons/phantom_camera/icons/phantom_camera_tween.svg' remapped 'res://addons/phantom_camera/icons/phantom_camera_tween.svg' at thread -1
+MCP | [debug] !! eval compile error (df09e2b2108848ac9ec61e6d38717848)
+MCP | [recv] game_eval({"code":"var enemy_paths = [\"/root/Main/World/Enemy\", \"/root/Main/World/ArcRangedEnemy\", \"/root/Main/World/DirectRangedEnemy\"]\nfor enemy_path in enemy_paths:\n    var enemy = get_node(enemy_path)\n    enemy.process_mode = Node.PROCESS_MODE_DISABLED\nvar player = get_node(\"/root/Main/World/Player\")\nplayer.health.current_health = player.health.max_health\nplayer.global_position = Vector3(0.0, 0.1, 40.0)\nplayer.velocity = Vector3.ZERO\nplayer.rotation = Vector3.ZERO\nplayer.camera_pivot.rotation = Vector3.ZERO\nplayer.camera_pitch = 0.0\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"health\": player.health.current_health, \"is_dead\": player.is_dead}"})
+MCP | [debug] -> mcp:eval_liveness (13e4fc03842a4e9c9f8cfdde26ac299e)
+MCP | [defer] game_eval (request 13e4fc03842a4e9c9f8cfdde26ac299e)
+MCP | [recv] get_editor_state({})
+MCP | [send] get_editor_state -> ok
+MCP | [recv] stop_project({})
+MCP | [defer] stop_project (request 68c2bc90aee84c1093eebc09fcb09069)
+MCP | [event] play_state_changed -> stopped
+MCP | [recv] clear_logs({})
+MCP | [send] clear_logs -> ok
+MCP | [recv] run_project({"autosave":false,"mode":"main"})
+MCP | [debug] game capture pending run token 3 (run r565097-3)
+Running: C:/Users/pinto/Documents/Godot Projects/Godot 4.7.2/Godot_v4.7.2-stable_win64.exe --verbose --path C:/Users/pinto/Documents/Godot%20Projects/testgame --remote-debug tcp://127.0.0.1:6007 --editor-pid 11748 --position 384,192 --scene res://main.tscn
+MCP | [defer] run_project (request dc3b93350be844fdb260c2e24b4d4760)
+MCP | [event] play_state_changed -> playing
+MCP | [debug] <- mcp:hello from game_helper (run r565097-3)
+EditorSettings: Save OK!
+MCP | [recv] game_eval({"code":"var enemy_paths = [\"/root/Main/World/Enemy\", \"/root/Main/World/ArcRangedEnemy\", \"/root/Main/World/DirectRangedEnemy\"]\nfor enemy_path in enemy_paths:\n\tvar enemy = get_node(enemy_path)\n\tenemy.process_mode = Node.PROCESS_MODE_DISABLED\nvar player = get_node(\"/root/Main/World/Player\")\nplayer.health.current_health = player.health.max_health\nplayer.global_position = Vector3(0.0, 0.1, 40.0)\nplayer.velocity = Vector3.ZERO\nplayer.rotation = Vector3.ZERO\nplayer.camera_pivot.rotation = Vector3.ZERO\nplayer.camera_pitch = 0.0\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"health\": player.health.current_health, \"is_dead\": player.is_dead}"})
+MCP | [debug] -> mcp:eval_liveness (28a3c75aeab24780b240bda41268f52d)
+MCP | [defer] game_eval (request 28a3c75aeab24780b240bda41268f52d)
+MCP | [debug] -> mcp:eval (28a3c75aeab24780b240bda41268f52d)
+MCP | [debug] <- mcp:eval_ack (28a3c75aeab24780b240bda41268f52d)
+MCP | [debug] <- mcp:eval_compiled (28a3c75aeab24780b240bda41268f52d)
+MCP | [debug] <- mcp:eval_response (28a3c75aeab24780b240bda41268f52d)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":5.0,"steps":[{"action":"move_forward","at_frame":0.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (10da1bcb835146a4b58c3d16f9af6604)
+MCP | [defer] game_command (request 10da1bcb835146a4b58c3d16f9af6604)
+MCP | [debug] <- mcp:game_command_response (10da1bcb835146a4b58c3d16f9af6604)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"health\": player.health.current_health, \"is_dead\": player.is_dead, \"on_floor\": player.is_on_floor(), \"grapple\": player.get_grapple_telemetry()}"})
+MCP | [debug] -> mcp:eval_liveness (4c61fcc3a7d844a8a24ff65ca1589e4d)
+MCP | [defer] game_eval (request 4c61fcc3a7d844a8a24ff65ca1589e4d)
+MCP | [debug] -> mcp:eval (4c61fcc3a7d844a8a24ff65ca1589e4d)
+MCP | [debug] <- mcp:eval_ack (4c61fcc3a7d844a8a24ff65ca1589e4d)
+MCP | [debug] <- mcp:eval_compiled (4c61fcc3a7d844a8a24ff65ca1589e4d)
+MCP | [debug] <- mcp:eval_response (4c61fcc3a7d844a8a24ff65ca1589e4d)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nplayer.global_position = Vector3(0.0, 0.1, 40.0)\nplayer.velocity = Vector3.ZERO\nplayer.rotation = Vector3.ZERO\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nreturn {\"position\": player.global_position, \"velocity\": player.velocity}"})
+MCP | [debug] -> mcp:eval_liveness (0e7313e81c5c489c8be863594cebb57c)
+MCP | [defer] game_eval (request 0e7313e81c5c489c8be863594cebb57c)
+MCP | [debug] -> mcp:eval (0e7313e81c5c489c8be863594cebb57c)
+MCP | [debug] <- mcp:eval_ack (0e7313e81c5c489c8be863594cebb57c)
+MCP | [debug] <- mcp:eval_compiled (0e7313e81c5c489c8be863594cebb57c)
+MCP | [debug] <- mcp:eval_response (0e7313e81c5c489c8be863594cebb57c)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":3.0,"steps":[{"action":"jump","at_frame":0.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (d4044a6031814c5cafab8103b0f083f1)
+MCP | [defer] game_command (request d4044a6031814c5cafab8103b0f083f1)
+MCP | [debug] <- mcp:game_command_response (d4044a6031814c5cafab8103b0f083f1)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":2.0,"steps":[{"action":"move_forward","at_frame":0.0,"pressed":true,"strength":1.0},{"action":"move_forward","at_frame":30.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (fff69b892686469e808109d7a1dc02ea)
+MCP | [defer] game_command (request fff69b892686469e808109d7a1dc02ea)
+MCP | [debug] <- mcp:game_command_response (fff69b892686469e808109d7a1dc02ea)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"is_dead\": player.is_dead}"})
+MCP | [debug] -> mcp:eval_liveness (65ed31c855c446838a269f89ff2841c5)
+MCP | [defer] game_eval (request 65ed31c855c446838a269f89ff2841c5)
+MCP | [debug] -> mcp:eval (65ed31c855c446838a269f89ff2841c5)
+MCP | [debug] <- mcp:eval_ack (65ed31c855c446838a269f89ff2841c5)
+MCP | [debug] <- mcp:eval_compiled (65ed31c855c446838a269f89ff2841c5)
+MCP | [debug] <- mcp:eval_response (65ed31c855c446838a269f89ff2841c5)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nplayer.global_position = Vector3(0.0, 0.1, 40.0)\nplayer.velocity = Vector3.ZERO\nplayer.rotation = Vector3.ZERO\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nreturn {\"position\": player.global_position, \"velocity\": player.velocity}"})
+MCP | [debug] -> mcp:eval_liveness (8f1880c80f5d4730976041bffda3744b)
+MCP | [defer] game_eval (request 8f1880c80f5d4730976041bffda3744b)
+MCP | [debug] -> mcp:eval (8f1880c80f5d4730976041bffda3744b)
+MCP | [debug] <- mcp:eval_ack (8f1880c80f5d4730976041bffda3744b)
+MCP | [debug] <- mcp:eval_compiled (8f1880c80f5d4730976041bffda3744b)
+MCP | [debug] <- mcp:eval_response (8f1880c80f5d4730976041bffda3744b)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":3.0,"steps":[{"action":"jump","at_frame":0.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (61395bce3e694f9e817fa2bd6b25eeca)
+MCP | [defer] game_command (request 61395bce3e694f9e817fa2bd6b25eeca)
+MCP | [debug] <- mcp:game_command_response (61395bce3e694f9e817fa2bd6b25eeca)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":2.0,"steps":[{"action":"move_back","at_frame":0.0,"pressed":true,"strength":1.0},{"action":"move_back","at_frame":30.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (f66e23a0e10d42ba86e98c65628f4adc)
+MCP | [defer] game_command (request f66e23a0e10d42ba86e98c65628f4adc)
+MCP | [debug] <- mcp:game_command_response (f66e23a0e10d42ba86e98c65628f4adc)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"is_dead\": player.is_dead}"})
+MCP | [debug] -> mcp:eval_liveness (6281235039304995a928d0419d1fbd0c)
+MCP | [defer] game_eval (request 6281235039304995a928d0419d1fbd0c)
+MCP | [debug] -> mcp:eval (6281235039304995a928d0419d1fbd0c)
+MCP | [debug] <- mcp:eval_ack (6281235039304995a928d0419d1fbd0c)
+MCP | [debug] <- mcp:eval_compiled (6281235039304995a928d0419d1fbd0c)
+MCP | [debug] <- mcp:eval_response (6281235039304995a928d0419d1fbd0c)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nplayer.global_position = Vector3(0.0, 0.1, 40.0)\nplayer.velocity = Vector3.ZERO\nplayer.rotation = Vector3.ZERO\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nreturn {\"position\": player.global_position, \"velocity\": player.velocity}"})
+MCP | [debug] -> mcp:eval_liveness (1142333276b94ebb833faf677f674ca9)
+MCP | [defer] game_eval (request 1142333276b94ebb833faf677f674ca9)
+MCP | [debug] -> mcp:eval (1142333276b94ebb833faf677f674ca9)
+MCP | [debug] <- mcp:eval_ack (1142333276b94ebb833faf677f674ca9)
+MCP | [debug] <- mcp:eval_compiled (1142333276b94ebb833faf677f674ca9)
+MCP | [debug] <- mcp:eval_response (1142333276b94ebb833faf677f674ca9)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":3.0,"steps":[{"action":"jump","at_frame":0.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (3536af09064b45518833c3a3a16ab417)
+MCP | [defer] game_command (request 3536af09064b45518833c3a3a16ab417)
+MCP | [debug] <- mcp:game_command_response (3536af09064b45518833c3a3a16ab417)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":2.0,"steps":[{"action":"move_left","at_frame":0.0,"pressed":true,"strength":1.0},{"action":"move_left","at_frame":30.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (38ac56f294aa4715b60b9efabe1763f9)
+MCP | [defer] game_command (request 38ac56f294aa4715b60b9efabe1763f9)
+MCP | [debug] <- mcp:game_command_response (38ac56f294aa4715b60b9efabe1763f9)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"is_dead\": player.is_dead}"})
+MCP | [debug] -> mcp:eval_liveness (47aeb5a3a79946cd93c383901f534234)
+MCP | [defer] game_eval (request 47aeb5a3a79946cd93c383901f534234)
+MCP | [debug] -> mcp:eval (47aeb5a3a79946cd93c383901f534234)
+MCP | [debug] <- mcp:eval_ack (47aeb5a3a79946cd93c383901f534234)
+MCP | [debug] <- mcp:eval_compiled (47aeb5a3a79946cd93c383901f534234)
+MCP | [debug] <- mcp:eval_response (47aeb5a3a79946cd93c383901f534234)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nplayer.global_position = Vector3(0.0, 0.1, 40.0)\nplayer.velocity = Vector3.ZERO\nplayer.rotation = Vector3.ZERO\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nreturn {\"position\": player.global_position, \"velocity\": player.velocity}"})
+MCP | [debug] -> mcp:eval_liveness (e3c4e3477bfb4614a633206a16f67bab)
+MCP | [defer] game_eval (request e3c4e3477bfb4614a633206a16f67bab)
+MCP | [debug] -> mcp:eval (e3c4e3477bfb4614a633206a16f67bab)
+MCP | [debug] <- mcp:eval_ack (e3c4e3477bfb4614a633206a16f67bab)
+MCP | [debug] <- mcp:eval_compiled (e3c4e3477bfb4614a633206a16f67bab)
+MCP | [debug] <- mcp:eval_response (e3c4e3477bfb4614a633206a16f67bab)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":3.0,"steps":[{"action":"jump","at_frame":0.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (7deeadd7534d484986938e4bccba0daa)
+MCP | [defer] game_command (request 7deeadd7534d484986938e4bccba0daa)
+MCP | [debug] <- mcp:game_command_response (7deeadd7534d484986938e4bccba0daa)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":2.0,"steps":[{"action":"move_right","at_frame":0.0,"pressed":true,"strength":1.0},{"action":"move_right","at_frame":30.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (6ce47dec7b844984b8a988bc97177012)
+MCP | [defer] game_command (request 6ce47dec7b844984b8a988bc97177012)
+MCP | [debug] <- mcp:game_command_response (6ce47dec7b844984b8a988bc97177012)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"is_dead\": player.is_dead}"})
+MCP | [debug] -> mcp:eval_liveness (efed84ad28f04a13b4d3aee7b04a7b22)
+MCP | [defer] game_eval (request efed84ad28f04a13b4d3aee7b04a7b22)
+MCP | [debug] -> mcp:eval (efed84ad28f04a13b4d3aee7b04a7b22)
+MCP | [debug] <- mcp:eval_ack (efed84ad28f04a13b4d3aee7b04a7b22)
+MCP | [debug] <- mcp:eval_compiled (efed84ad28f04a13b4d3aee7b04a7b22)
+MCP | [debug] <- mcp:eval_response (efed84ad28f04a13b4d3aee7b04a7b22)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nplayer.global_position = Vector3(0.0, 0.1, 40.0)\nplayer.velocity = Vector3.ZERO\nplayer.rotation = Vector3.ZERO\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nreturn {\"position\": player.global_position, \"velocity\": player.velocity}"})
+MCP | [debug] -> mcp:eval_liveness (a6b7fcc2fb984d8998732ccd3216b96c)
+MCP | [defer] game_eval (request a6b7fcc2fb984d8998732ccd3216b96c)
+MCP | [debug] -> mcp:eval (a6b7fcc2fb984d8998732ccd3216b96c)
+MCP | [debug] <- mcp:eval_ack (a6b7fcc2fb984d8998732ccd3216b96c)
+MCP | [debug] <- mcp:eval_compiled (a6b7fcc2fb984d8998732ccd3216b96c)
+MCP | [debug] <- mcp:eval_response (a6b7fcc2fb984d8998732ccd3216b96c)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":3.0,"steps":[{"action":"jump","at_frame":0.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (7895a6c7277c47248251ae16641c3c5e)
+MCP | [defer] game_command (request 7895a6c7277c47248251ae16641c3c5e)
+MCP | [debug] <- mcp:game_command_response (7895a6c7277c47248251ae16641c3c5e)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":10.0,"steps":[{"action":"jump","at_frame":0.0,"pressed":true,"strength":1.0},{"action":"jump","at_frame":1.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (112de3e9ecce4e20a90faf2502bd5b9c)
+MCP | [defer] game_command (request 112de3e9ecce4e20a90faf2502bd5b9c)
+MCP | [debug] <- mcp:game_command_response (112de3e9ecce4e20a90faf2502bd5b9c)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"is_dead\": player.is_dead}"})
+MCP | [debug] -> mcp:eval_liveness (a3f60852ad0c4ad8bbb1d817ac48cce3)
+MCP | [defer] game_eval (request a3f60852ad0c4ad8bbb1d817ac48cce3)
+MCP | [debug] -> mcp:eval (a3f60852ad0c4ad8bbb1d817ac48cce3)
+MCP | [debug] <- mcp:eval_ack (a3f60852ad0c4ad8bbb1d817ac48cce3)
+MCP | [debug] <- mcp:eval_compiled (a3f60852ad0c4ad8bbb1d817ac48cce3)
+MCP | [debug] <- mcp:eval_response (a3f60852ad0c4ad8bbb1d817ac48cce3)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":70.0,"steps":[{"action":"jump","at_frame":0.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (1af8585de09347aa99832fe2dce35e9c)
+MCP | [defer] game_command (request 1af8585de09347aa99832fe2dce35e9c)
+MCP | [debug] <- mcp:game_command_response (1af8585de09347aa99832fe2dce35e9c)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"is_dead\": player.is_dead}"})
+MCP | [debug] -> mcp:eval_liveness (290d53ef139f42e7a6c09db374095071)
+MCP | [defer] game_eval (request 290d53ef139f42e7a6c09db374095071)
+MCP | [debug] -> mcp:eval (290d53ef139f42e7a6c09db374095071)
+MCP | [debug] <- mcp:eval_ack (290d53ef139f42e7a6c09db374095071)
+MCP | [debug] <- mcp:eval_compiled (290d53ef139f42e7a6c09db374095071)
+MCP | [debug] <- mcp:eval_response (290d53ef139f42e7a6c09db374095071)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":2.0,"steps":[{"action":"move_right","at_frame":0.0,"pressed":true,"strength":1.0},{"action":"move_right","at_frame":15.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (2b323d2107bd47cc82de44ddcb98b44a)
+MCP | [defer] game_command (request 2b323d2107bd47cc82de44ddcb98b44a)
+MCP | [debug] <- mcp:game_command_response (2b323d2107bd47cc82de44ddcb98b44a)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"is_dead\": player.is_dead}"})
+MCP | [debug] -> mcp:eval_liveness (8366034f12b843c9a5b2289a04673037)
+MCP | [defer] game_eval (request 8366034f12b843c9a5b2289a04673037)
+MCP | [debug] -> mcp:eval (8366034f12b843c9a5b2289a04673037)
+MCP | [debug] <- mcp:eval_ack (8366034f12b843c9a5b2289a04673037)
+MCP | [debug] <- mcp:eval_compiled (8366034f12b843c9a5b2289a04673037)
+MCP | [debug] <- mcp:eval_response (8366034f12b843c9a5b2289a04673037)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nplayer.global_position = Vector3(0.0, 0.1, 40.0)\nplayer.velocity = Vector3.ZERO\nplayer.rotation = Vector3.ZERO\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nreturn {\"position\": player.global_position, \"velocity\": player.velocity}"})
+MCP | [debug] -> mcp:eval_liveness (a8d9538c278346ae95547359f121669d)
+MCP | [defer] game_eval (request a8d9538c278346ae95547359f121669d)
+MCP | [debug] -> mcp:eval (a8d9538c278346ae95547359f121669d)
+MCP | [debug] <- mcp:eval_ack (a8d9538c278346ae95547359f121669d)
+MCP | [debug] <- mcp:eval_compiled (a8d9538c278346ae95547359f121669d)
+MCP | [debug] <- mcp:eval_response (a8d9538c278346ae95547359f121669d)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":3.0,"steps":[{"action":"jump","at_frame":0.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (83d8a336b8bd4623a4b970a317d7d4eb)
+MCP | [defer] game_command (request 83d8a336b8bd4623a4b970a317d7d4eb)
+MCP | [debug] <- mcp:game_command_response (83d8a336b8bd4623a4b970a317d7d4eb)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":2.0,"steps":[{"action":"jump","at_frame":0.0,"pressed":true,"strength":1.0},{"action":"jump","at_frame":1.0,"pressed":false,"strength":0.0},{"action":"move_forward","at_frame":2.0,"pressed":true,"strength":1.0},{"action":"move_forward","at_frame":25.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (20ccb79bb3e043fbbd2fa42d96bf8ec2)
+MCP | [defer] game_command (request 20ccb79bb3e043fbbd2fa42d96bf8ec2)
+MCP | [debug] <- mcp:game_command_response (20ccb79bb3e043fbbd2fa42d96bf8ec2)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"is_dead\": player.is_dead}"})
+MCP | [debug] -> mcp:eval_liveness (fd1a2fb927fd4361ab4e6a7fdaa0cfbc)
+MCP | [defer] game_eval (request fd1a2fb927fd4361ab4e6a7fdaa0cfbc)
+MCP | [debug] -> mcp:eval (fd1a2fb927fd4361ab4e6a7fdaa0cfbc)
+MCP | [debug] <- mcp:eval_ack (fd1a2fb927fd4361ab4e6a7fdaa0cfbc)
+MCP | [debug] <- mcp:eval_compiled (fd1a2fb927fd4361ab4e6a7fdaa0cfbc)
+MCP | [debug] <- mcp:eval_response (fd1a2fb927fd4361ab4e6a7fdaa0cfbc)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nplayer.global_position = Vector3(0.0, 0.1, 40.0)\nplayer.velocity = Vector3.ZERO\nreturn {\"position\": player.global_position, \"on_floor\": player.is_on_floor()}"})
+MCP | [debug] -> mcp:eval_liveness (90acbe4a3e2345f3a7d58edde4f11f19)
+MCP | [defer] game_eval (request 90acbe4a3e2345f3a7d58edde4f11f19)
+MCP | [debug] -> mcp:eval (90acbe4a3e2345f3a7d58edde4f11f19)
+MCP | [debug] <- mcp:eval_ack (90acbe4a3e2345f3a7d58edde4f11f19)
+MCP | [debug] <- mcp:eval_compiled (90acbe4a3e2345f3a7d58edde4f11f19)
+MCP | [debug] <- mcp:eval_response (90acbe4a3e2345f3a7d58edde4f11f19)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":5.0,"steps":[{"action":"jump","at_frame":0.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (8e72ed5da9d84f8aab4b6d3a3ffd5db8)
+MCP | [defer] game_command (request 8e72ed5da9d84f8aab4b6d3a3ffd5db8)
+MCP | [debug] <- mcp:game_command_response (8e72ed5da9d84f8aab4b6d3a3ffd5db8)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":6.0,"steps":[{"action":"jump","at_frame":2.0,"pressed":true,"strength":1.0},{"action":"jump","at_frame":6.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (2bc45db7157048a69d40ef4b1f7865d4)
+MCP | [defer] game_command (request 2bc45db7157048a69d40ef4b1f7865d4)
+MCP | [debug] <- mcp:game_command_response (2bc45db7157048a69d40ef4b1f7865d4)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"input_jump\": Input.is_action_pressed(\"jump\")}"})
+MCP | [debug] -> mcp:eval_liveness (ab6a5e55a827467d9339c438d542163b)
+MCP | [defer] game_eval (request ab6a5e55a827467d9339c438d542163b)
+MCP | [debug] -> mcp:eval (ab6a5e55a827467d9339c438d542163b)
+MCP | [debug] <- mcp:eval_ack (ab6a5e55a827467d9339c438d542163b)
+MCP | [debug] <- mcp:eval_compiled (ab6a5e55a827467d9339c438d542163b)
+MCP | [debug] <- mcp:eval_response (ab6a5e55a827467d9339c438d542163b)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nplayer.global_position = Vector3(0.0, 0.1, 40.0)\nplayer.velocity = Vector3.ZERO\nreturn true"})
+MCP | [debug] -> mcp:eval_liveness (c7fc913e621c4d8db4b2fe2526920581)
+MCP | [defer] game_eval (request c7fc913e621c4d8db4b2fe2526920581)
+MCP | [debug] -> mcp:eval (c7fc913e621c4d8db4b2fe2526920581)
+MCP | [debug] <- mcp:eval_ack (c7fc913e621c4d8db4b2fe2526920581)
+MCP | [debug] <- mcp:eval_compiled (c7fc913e621c4d8db4b2fe2526920581)
+MCP | [debug] <- mcp:eval_response (c7fc913e621c4d8db4b2fe2526920581)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":5.0,"steps":[{"action":"jump","at_frame":0.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (8135164f72ea4f98a2f19775482de2ad)
+MCP | [defer] game_command (request 8135164f72ea4f98a2f19775482de2ad)
+MCP | [debug] <- mcp:game_command_response (8135164f72ea4f98a2f19775482de2ad)
+MCP | [recv] game_command({"op":"input_key","params":{"echo":false,"key":"Space","pressed":true}})
+MCP | [debug] -> mcp:game_command input_key (1c8496c347334a618b926f14b360d1e2)
+MCP | [defer] game_command (request 1c8496c347334a618b926f14b360d1e2)
+MCP | [debug] <- mcp:game_command_response (1c8496c347334a618b926f14b360d1e2)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":5.0,"steps":[{"action":"move_forward","at_frame":0.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (d5a9c58b57494ab5a7ebb1350980b36b)
+MCP | [defer] game_command (request d5a9c58b57494ab5a7ebb1350980b36b)
+MCP | [debug] <- mcp:game_command_response (d5a9c58b57494ab5a7ebb1350980b36b)
+MCP | [recv] game_command({"op":"input_key","params":{"echo":false,"key":"Space","pressed":false}})
+MCP | [debug] -> mcp:game_command input_key (64b4f92186034e3ea94251475cc835e8)
+MCP | [defer] game_command (request 64b4f92186034e3ea94251475cc835e8)
+MCP | [debug] <- mcp:game_command_response (64b4f92186034e3ea94251475cc835e8)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"input_jump\": Input.is_action_pressed(\"jump\")}"})
+MCP | [debug] -> mcp:eval_liveness (220e3f0d34ac484cb99c0080e7dfbbc8)
+MCP | [defer] game_eval (request 220e3f0d34ac484cb99c0080e7dfbbc8)
+MCP | [debug] -> mcp:eval (220e3f0d34ac484cb99c0080e7dfbbc8)
+MCP | [debug] <- mcp:eval_ack (220e3f0d34ac484cb99c0080e7dfbbc8)
+MCP | [debug] <- mcp:eval_compiled (220e3f0d34ac484cb99c0080e7dfbbc8)
+MCP | [debug] <- mcp:eval_response (220e3f0d34ac484cb99c0080e7dfbbc8)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nplayer.global_position = Vector3(0.0, 0.1, 40.0)\nplayer.velocity = Vector3.ZERO\nawait get_tree().physics_frame\nawait get_tree().physics_frame\nInput.action_press(\"jump\")\nawait get_tree().physics_frame\nawait get_tree().physics_frame\nvar observed = {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"pressed\": Input.is_action_pressed(\"jump\"), \"just_pressed\": Input.is_action_just_pressed(\"jump\")}\nInput.action_release(\"jump\")\nreturn observed"})
+MCP | [debug] -> mcp:eval_liveness (9646279550b64d028348e65160d23585)
+MCP | [defer] game_eval (request 9646279550b64d028348e65160d23585)
+MCP | [debug] -> mcp:eval (9646279550b64d028348e65160d23585)
+MCP | [debug] <- mcp:eval_ack (9646279550b64d028348e65160d23585)
+MCP | [debug] <- mcp:eval_compiled (9646279550b64d028348e65160d23585)
+MCP | [debug] <- mcp:eval_response (9646279550b64d028348e65160d23585)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nplayer.global_position = Vector3(0.0, 0.1, 40.0)\nplayer.velocity = Vector3.ZERO\nplayer.rotation = Vector3.ZERO\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nfor index in range(3):\n\tawait get_tree().physics_frame\nInput.action_press(\"jump\")\nawait get_tree().physics_frame\nInput.action_release(\"jump\")\nfor index in range(10):\n\tawait get_tree().physics_frame\nvar airborne = {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"is_dead\": player.is_dead}\nfor index in range(60):\n\tawait get_tree().physics_frame\nvar landed = {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"is_dead\": player.is_dead}\nInput.action_press(\"move_right\")\nfor index in range(15):\n\tawait get_tree().physics_frame\nInput.action_release(\"move_right\")\nfor index in range(2):\n\tawait get_tree().physics_frame\nvar recovered = {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"is_dead\": player.is_dead}\nreturn {\"input\": \"Space via jump action (1 physics-frame pulse)\", \"airborne\": airborne, \"landed_after_60_frames\": landed, \"recovery_input\": \"D via move_right action (15 physics frames)\", \"recovered\": recovered}"})
+MCP | [debug] -> mcp:eval_liveness (2dc40c5203bb42fe9e1ca93e135fb687)
+MCP | [defer] game_eval (request 2dc40c5203bb42fe9e1ca93e135fb687)
+MCP | [debug] -> mcp:eval (2dc40c5203bb42fe9e1ca93e135fb687)
+MCP | [debug] <- mcp:eval_ack (2dc40c5203bb42fe9e1ca93e135fb687)
+MCP | [debug] <- mcp:eval_compiled (2dc40c5203bb42fe9e1ca93e135fb687)
+MCP | [debug] <- mcp:eval_response (2dc40c5203bb42fe9e1ca93e135fb687)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nplayer.global_position = Vector3(0.0, 0.1, 40.0)\nplayer.velocity = Vector3.ZERO\nplayer.rotation = Vector3.ZERO\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nfor index in range(3):\n\tawait get_tree().physics_frame\nInput.action_press(\"jump\")\nawait get_tree().physics_frame\nInput.action_release(\"jump\")\nawait get_tree().physics_frame\nInput.action_press(\"move_forward\")\nfor index in range(22):\n\tawait get_tree().physics_frame\nInput.action_release(\"move_forward\")\nfor index in range(2):\n\tawait get_tree().physics_frame\nreturn {\"input\": \"Space pulse, then W/move_forward held 22 physics frames\", \"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"is_dead\": player.is_dead}"})
+MCP | [debug] -> mcp:eval_liveness (f475d974eba445658abcd844581e0078)
+MCP | [defer] game_eval (request f475d974eba445658abcd844581e0078)
+MCP | [debug] -> mcp:eval (f475d974eba445658abcd844581e0078)
+MCP | [debug] <- mcp:eval_ack (f475d974eba445658abcd844581e0078)
+MCP | [debug] <- mcp:eval_compiled (f475d974eba445658abcd844581e0078)
+MCP | [debug] <- mcp:eval_response (f475d974eba445658abcd844581e0078)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nInput.action_release(\"fire_grapple\")\nplayer.global_position = Vector3(0.0, 0.1, 0.0)\nplayer.velocity = Vector3.ZERO\nplayer.rotation = Vector3(0.0, -0.463647609, 0.0)\nplayer.camera_pivot.rotation = Vector3.ZERO\nplayer.camera_pitch = 0.0\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nfor index in range(3):\n\tawait get_tree().physics_frame\nvar hit = player._get_grapple_ray_hit()\nreturn {\"position\": player.global_position, \"aim_rotation_y_radians\": player.rotation.y, \"hit_empty\": hit.is_empty(), \"collider\": hit[\"collider\"].get_path() if not hit.is_empty() else \"\", \"hit_position\": hit[\"position\"] if not hit.is_empty() else Vector3.ZERO, \"distance\": player.camera.global_position.distance_to(hit[\"position\"]) if not hit.is_empty() else 0.0}"})
+MCP | [debug] -> mcp:eval_liveness (a52ecd33086647dcb6e230748233b757)
+MCP | [defer] game_eval (request a52ecd33086647dcb6e230748233b757)
+MCP | [debug] -> mcp:eval (a52ecd33086647dcb6e230748233b757)
+MCP | [debug] <- mcp:eval_ack (a52ecd33086647dcb6e230748233b757)
+MCP | [debug] <- mcp:eval_compiled (a52ecd33086647dcb6e230748233b757)
+MCP | [debug] <- mcp:eval_response (a52ecd33086647dcb6e230748233b757)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nplayer.camera_pitch = deg_to_rad(-20.0)\nplayer.camera_pivot.rotation.x = player.camera_pitch\nawait get_tree().physics_frame\nvar hit = player._get_grapple_ray_hit()\nreturn {\"camera_pitch_degrees\": rad_to_deg(player.camera_pitch), \"collider\": hit[\"collider\"].get_path() if not hit.is_empty() else \"\", \"hit_position\": hit[\"position\"] if not hit.is_empty() else Vector3.ZERO, \"distance\": player.camera.global_position.distance_to(hit[\"position\"]) if not hit.is_empty() else 0.0}"})
+MCP | [debug] -> mcp:eval_liveness (2f1548a7a2a7435585bdaa4cb23772b2)
+MCP | [defer] game_eval (request 2f1548a7a2a7435585bdaa4cb23772b2)
+MCP | [debug] -> mcp:eval (2f1548a7a2a7435585bdaa4cb23772b2)
+MCP | [debug] <- mcp:eval_ack (2f1548a7a2a7435585bdaa4cb23772b2)
+MCP | [debug] <- mcp:eval_compiled (2f1548a7a2a7435585bdaa4cb23772b2)
+MCP | [debug] <- mcp:eval_response (2f1548a7a2a7435585bdaa4cb23772b2)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"player_rotation\": player.rotation, \"pivot_rotation\": player.camera_pivot.rotation, \"camera_origin\": player.camera.global_position, \"camera_forward\": -player.camera.global_transform.basis.z}"})
+MCP | [debug] -> mcp:eval_liveness (c19e1d5755444ba6ae2c47a44a2e00b6)
+MCP | [defer] game_eval (request c19e1d5755444ba6ae2c47a44a2e00b6)
+MCP | [debug] -> mcp:eval (c19e1d5755444ba6ae2c47a44a2e00b6)
+MCP | [debug] <- mcp:eval_ack (c19e1d5755444ba6ae2c47a44a2e00b6)
+MCP | [debug] <- mcp:eval_compiled (c19e1d5755444ba6ae2c47a44a2e00b6)
+MCP | [debug] <- mcp:eval_response (c19e1d5755444ba6ae2c47a44a2e00b6)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nplayer.camera_pitch = deg_to_rad(20.0)\nplayer.camera_pivot.rotation.x = player.camera_pitch\nawait get_tree().physics_frame\nvar hit = player._get_grapple_ray_hit()\nreturn {\"camera_forward\": -player.camera.global_transform.basis.z, \"camera_origin\": player.camera.global_position, \"collider\": hit[\"collider\"].get_path() if not hit.is_empty() else \"\", \"hit_position\": hit[\"position\"] if not hit.is_empty() else Vector3.ZERO, \"distance\": player.camera.global_position.distance_to(hit[\"position\"]) if not hit.is_empty() else 0.0}"})
+MCP | [debug] -> mcp:eval_liveness (72f41c1c130b41569b200dfed49194bc)
+MCP | [defer] game_eval (request 72f41c1c130b41569b200dfed49194bc)
+MCP | [debug] -> mcp:eval (72f41c1c130b41569b200dfed49194bc)
+MCP | [debug] <- mcp:eval_ack (72f41c1c130b41569b200dfed49194bc)
+MCP | [debug] <- mcp:eval_compiled (72f41c1c130b41569b200dfed49194bc)
+MCP | [debug] <- mcp:eval_response (72f41c1c130b41569b200dfed49194bc)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nInput.action_release(\"fire_grapple\")\nplayer.global_position = Vector3(0.0, 0.1, 0.0)\nplayer.velocity = Vector3.ZERO\nplayer.rotation = Vector3(0.0, -0.463647609, 0.0)\nplayer.camera_pitch = deg_to_rad(20.0)\nplayer.camera_pivot.rotation.x = player.camera_pitch\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nfor index in range(3):\n\tawait get_tree().physics_frame\nvar initial_hit = player._get_grapple_ray_hit()\nvar setup = {\"position\": player.global_position, \"camera_forward\": -player.camera.global_transform.basis.z, \"target\": initial_hit[\"collider\"].get_path() if not initial_hit.is_empty() else \"\", \"hit_position\": initial_hit[\"position\"] if not initial_hit.is_empty() else Vector3.ZERO}\nInput.action_press(\"fire_grapple\")\nawait get_tree().physics_frame\nawait get_tree().physics_frame\nvar acquired = {\"active\": player.is_grappling, \"target\": player.grapple_target.get_path() if is_instance_valid(player.grapple_target) else \"\", \"point\": player.grapple_point, \"position\": player.global_position, \"velocity\": player.velocity, \"telemetry\": player.get_grapple_telemetry()}\nfor index in range(20):\n\tawait get_tree().physics_frame\nvar held = {\"active\": player.is_grappling, \"target\": player.grapple_target.get_path() if is_instance_valid(player.grapple_target) else \"\", \"position\": player.global_position, \"velocity\": player.velocity, \"telemetry\": player.get_grapple_telemetry()}\nInput.action_release(\"fire_grapple\")\nawait get_tree().physics_frame\nawait get_tree().physics_frame\nvar released = {\"active\": player.is_grappling, \"position\": player.global_position, \"velocity\": player.velocity, \"telemetry\": player.get_grapple_telemetry()}\nreturn {\"setup\": setup, \"acquired\": acquired, \"held_after_20_frames\": held, \"released_after_2_frames\": released}"})
+MCP | [debug] -> mcp:eval_liveness (2c816e4dd72c4bc39b851c31a97f0697)
+MCP | [defer] game_eval (request 2c816e4dd72c4bc39b851c31a97f0697)
+MCP | [debug] -> mcp:eval (2c816e4dd72c4bc39b851c31a97f0697)
+MCP | [debug] <- mcp:eval_ack (2c816e4dd72c4bc39b851c31a97f0697)
+MCP | [debug] <- mcp:eval_compiled (2c816e4dd72c4bc39b851c31a97f0697)
+MCP | [debug] <- mcp:eval_response (2c816e4dd72c4bc39b851c31a97f0697)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nInput.action_release(\"fire_grapple\")\nInput.action_release(\"jump\")\nInput.action_release(\"move_right\")\nplayer.global_position = Vector3(10.0, 4.0, -0.25)\nplayer.velocity = Vector3(6.0, 0.0, 0.0)\nplayer.rotation = Vector3.ZERO\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nInput.action_press(\"move_right\")\nfor index in range(5):\n\tawait get_tree().physics_frame\nvar running = {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"is_wall_running\": player.is_wall_running, \"wall_normal\": player.wall_normal, \"wall_run_direction\": player.wall_run_direction, \"input\": \"D/move_right held\"}\nInput.action_press(\"jump\")\nawait get_tree().physics_frame\nInput.action_release(\"jump\")\nawait get_tree().physics_frame\nvar jumped = {\"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"is_wall_running\": player.is_wall_running, \"wall_normal\": player.wall_normal, \"input\": \"Space/jump pulse while D held\"}\nInput.action_release(\"move_right\")\nreturn {\"setup\": {\"player_position\": Vector3(10.0, 4.0, -0.25), \"entry_velocity\": Vector3(6.0, 0.0, 0.0), \"target_geometry\": \"/root/Main/World/Buildings/WideBlockA north face (z=-1, y=0.1..10.1)\", \"transient_only\": true}, \"wall_run\": running, \"wall_jump\": jumped}"})
+MCP | [debug] -> mcp:eval_liveness (8fdd36b3e1bd402f978da96b26dd1c61)
+MCP | [defer] game_eval (request 8fdd36b3e1bd402f978da96b26dd1c61)
+MCP | [debug] -> mcp:eval (8fdd36b3e1bd402f978da96b26dd1c61)
+MCP | [debug] <- mcp:eval_ack (8fdd36b3e1bd402f978da96b26dd1c61)
+MCP | [debug] <- mcp:eval_compiled (8fdd36b3e1bd402f978da96b26dd1c61)
+MCP | [debug] <- mcp:eval_response (8fdd36b3e1bd402f978da96b26dd1c61)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nInput.action_release(\"fire_grapple\")\nInput.action_release(\"jump\")\nInput.action_release(\"move_right\")\nplayer.global_position = Vector3(10.0, 4.0, -0.25)\nplayer.velocity = Vector3(6.0, 0.0, 0.0)\nplayer.rotation = Vector3.ZERO\nplayer.camera_pitch = deg_to_rad(20.0)\nplayer.camera_pivot.rotation.x = player.camera_pitch\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nawait get_tree().physics_frame\nvar hit = player._get_grapple_ray_hit()\nvar setup = {\"player_position\": player.global_position, \"entry_velocity\": player.velocity, \"camera_forward\": -player.camera.global_transform.basis.z, \"ray_target\": hit[\"collider\"].get_path() if not hit.is_empty() else \"\", \"ray_hit_position\": hit[\"position\"] if not hit.is_empty() else Vector3.ZERO, \"target_geometry\": \"/root/Main/World/Buildings/WideBlockA north face\"}\nInput.action_press(\"move_right\")\nInput.action_press(\"fire_grapple\")\nvar samples = []\nfor index in range(20):\n\tawait get_tree().physics_frame\n\tsamples.append({\"frame\": index + 1, \"position\": player.global_position, \"velocity\": player.velocity, \"grappling\": player.is_grappling, \"wall_sticking\": player.is_wall_sticking})\n\tif player.is_wall_sticking:\n\t\tbreak\nvar stuck = {\"position\": player.global_position, \"velocity\": player.velocity, \"grappling\": player.is_grappling, \"wall_sticking\": player.is_wall_sticking, \"wall_normal\": player.wall_stick_normal, \"run_direction\": player.wall_stick_run_direction, \"input_grapple_held\": Input.is_action_pressed(\"fire_grapple\"), \"input_move_right_held\": Input.is_action_pressed(\"move_right\")}\nInput.action_press(\"jump\")\nawait get_tree().physics_frame\nInput.action_release(\"jump\")\nawait get_tree().physics_frame\nvar jump_exit = {\"position\": player.global_position, \"velocity\": player.velocity, \"grappling\": player.is_grappling, \"wall_sticking\": player.is_wall_sticking}\nInput.action_release(\"move_right\")\nInput.action_release(\"fire_grapple\")\nreturn {\"setup\": setup, \"samples\": samples, \"stuck\": stuck, \"jump_exit\": jump_exit}"})
+MCP | [debug] -> mcp:eval_liveness (5b4134eb67d14737985db5e8e5062171)
+MCP | [defer] game_eval (request 5b4134eb67d14737985db5e8e5062171)
+MCP | [debug] -> mcp:eval (5b4134eb67d14737985db5e8e5062171)
+MCP | [debug] <- mcp:eval_ack (5b4134eb67d14737985db5e8e5062171)
+MCP | [debug] <- mcp:eval_compiled (5b4134eb67d14737985db5e8e5062171)
+MCP | [debug] <- mcp:eval_response (5b4134eb67d14737985db5e8e5062171)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nInput.action_release(\"fire_grapple\")\nInput.action_release(\"jump\")\nInput.action_release(\"move_forward\")\nInput.action_release(\"move_back\")\nInput.action_release(\"move_left\")\nInput.action_release(\"move_right\")\nplayer.global_position = Vector3(151.5, 3.0, 0.0)\nplayer.velocity = Vector3(2.0, 0.0, 0.0)\nplayer.rotation = Vector3.ZERO\nplayer._clear_grapple()\nplayer._clear_wall_run()\nplayer._clear_wall_stick()\nfor index in range(180):\n\tawait get_tree().physics_frame\nreturn {\"setup\": \"transient runtime placement beyond the 300 m floor's +X edge\", \"input\": \"none for 180 physics frames\", \"position\": player.global_position, \"velocity\": player.velocity, \"on_floor\": player.is_on_floor(), \"is_dead\": player.is_dead, \"health\": player.health.current_health, \"recovery_node_or_api_found\": false}"})
+MCP | [debug] -> mcp:eval_liveness (c7d8efc6800241b08c1b6725af884d09)
+MCP | [defer] game_eval (request c7d8efc6800241b08c1b6725af884d09)
+MCP | [debug] -> mcp:eval (c7d8efc6800241b08c1b6725af884d09)
+MCP | [debug] <- mcp:eval_ack (c7d8efc6800241b08c1b6725af884d09)
+MCP | [debug] <- mcp:eval_compiled (c7d8efc6800241b08c1b6725af884d09)
+MCP | [debug] <- mcp:eval_response (c7d8efc6800241b08c1b6725af884d09)
+MCP | [recv] stop_project({})
+MCP | [defer] stop_project (request e2aa89e8ffc043deb6d6ae55d54273ea)
+MCP | [event] play_state_changed -> stopped
+MCP | [recv] clear_logs({})
+MCP | [send] clear_logs -> ok
+MCP | [recv] run_project({"autosave":false,"mode":"main"})
+MCP | [debug] game capture pending run token 4 (run r1065611-4)
+Running: C:/Users/pinto/Documents/Godot Projects/Godot 4.7.2/Godot_v4.7.2-stable_win64.exe --verbose --path C:/Users/pinto/Documents/Godot%20Projects/testgame --remote-debug tcp://127.0.0.1:6007 --editor-pid 11748 --position 384,192 --scene res://main.tscn
+MCP | [defer] run_project (request 0568219e6bf540c3a2afe05aa7269412)
+MCP | [event] play_state_changed -> playing
+MCP | [debug] <- mcp:hello from game_helper (run r1065611-4)
+EditorSettings: Save OK!
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nvar waited_frames = 0\nwhile not player.is_dead and waited_frames < 900:\n\tawait get_tree().physics_frame\n\twaited_frames += 1\nvar at_dead = {\"waited_frames\": waited_frames, \"position\": player.global_position, \"velocity\": player.velocity, \"is_dead\": player.is_dead, \"health\": player.health.current_health}\nInput.action_press(\"move_right\")\nInput.action_press(\"jump\")\nInput.action_press(\"fire_grapple\")\nfor index in range(60):\n\tawait get_tree().physics_frame\nInput.action_release(\"move_right\")\nInput.action_release(\"jump\")\nInput.action_release(\"fire_grapple\")\nvar after_inputs = {\"position\": player.global_position, \"velocity\": player.velocity, \"is_dead\": player.is_dead, \"health\": player.health.current_health, \"grappling\": player.is_grappling}\nreturn {\"setup\": \"fresh unmodified main scene with natural enemy damage\", \"at_dead\": at_dead, \"recovery_input\": \"D + Space + right-mouse actions held for 60 physics frames\", \"after_inputs\": after_inputs}"})
+MCP | [debug] -> mcp:eval_liveness (0214e6d1134a402087c14985aa2610a6)
+MCP | [defer] game_eval (request 0214e6d1134a402087c14985aa2610a6)
+MCP | [debug] -> mcp:eval (0214e6d1134a402087c14985aa2610a6)
+MCP | [debug] <- mcp:eval_ack (0214e6d1134a402087c14985aa2610a6)
+MCP | [debug] <- mcp:eval_compiled (0214e6d1134a402087c14985aa2610a6)
+MCP | [debug] <- mcp:eval_error (0214e6d1134a402087c14985aa2610a6): Eval exceeded 8s and was aborted — the code likely awaits something that never completes (a signal that never fires, a timer on a paused tree) or loops forever. Check logs_read(source='game').
+MCP | [debug] debugger break (pre_live=false can_debug=false)
+Loading resource: gdscript://-9223371964494641396.gd remapped: gdscript://-9223371964494641396.gd
+Completed load for: 'gdscript://-9223371964494641396.gd' remapped 'gdscript://-9223371964494641396.gd' at thread -1
+MCP | [recv] get_logs({"count":2000.0,"include_details":true,"offset":0.0,"source":"game"})
+MCP | [send] get_logs -> ok
+MCP | [recv] get_logs({"count":500.0,"include_details":true,"offset":0.0,"source":"editor"})
+MCP | [send] get_logs -> ok
+MCP | [recv] stop_project({})
+MCP | [defer] stop_project (request 764178febbf14b7e86cbfa922f401b04)
+MCP | [event] play_state_changed -> stopped
+MCP | [recv] clear_logs({})
+MCP | [send] clear_logs -> ok
+MCP | [recv] run_project({"autosave":false,"mode":"main"})
+MCP | [debug] game capture pending run token 5 (run r1125579-5)
+Running: C:/Users/pinto/Documents/Godot Projects/Godot 4.7.2/Godot_v4.7.2-stable_win64.exe --verbose --path C:/Users/pinto/Documents/Godot%20Projects/testgame --remote-debug tcp://127.0.0.1:6007 --editor-pid 11748 --position 384,192 --scene res://main.tscn
+MCP | [defer] run_project (request 2c182715e5e04bf2ae6b95025e4a4b13)
+MCP | [event] play_state_changed -> playing
+MCP | [debug] <- mcp:hello from game_helper (run r1125579-5)
+EditorSettings: Save OK!
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":180.0,"steps":[{"action":"move_forward","at_frame":0.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (aa2c55fab16f42ba9a41e52873ed1d47)
+MCP | [defer] game_command (request aa2c55fab16f42ba9a41e52873ed1d47)
+MCP | [debug] <- mcp:game_command_response (aa2c55fab16f42ba9a41e52873ed1d47)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"is_dead\": player.is_dead, \"health\": player.health.current_health}"})
+MCP | [debug] -> mcp:eval_liveness (532adfb76e144dfabaf3012a62fd5246)
+MCP | [defer] game_eval (request 532adfb76e144dfabaf3012a62fd5246)
+MCP | [debug] -> mcp:eval (532adfb76e144dfabaf3012a62fd5246)
+MCP | [debug] <- mcp:eval_ack (532adfb76e144dfabaf3012a62fd5246)
+MCP | [debug] <- mcp:eval_compiled (532adfb76e144dfabaf3012a62fd5246)
+MCP | [debug] <- mcp:eval_response (532adfb76e144dfabaf3012a62fd5246)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":180.0,"steps":[{"action":"move_forward","at_frame":0.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (f862837dd6924300a73b07a2b329993c)
+MCP | [defer] game_command (request f862837dd6924300a73b07a2b329993c)
+MCP | [debug] <- mcp:game_command_response (f862837dd6924300a73b07a2b329993c)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"is_dead\": player.is_dead, \"health\": player.health.current_health}"})
+MCP | [debug] -> mcp:eval_liveness (86a35728d92f40599b5049ee6e905ade)
+MCP | [defer] game_eval (request 86a35728d92f40599b5049ee6e905ade)
+MCP | [debug] -> mcp:eval (86a35728d92f40599b5049ee6e905ade)
+MCP | [debug] <- mcp:eval_ack (86a35728d92f40599b5049ee6e905ade)
+MCP | [debug] <- mcp:eval_compiled (86a35728d92f40599b5049ee6e905ade)
+MCP | [debug] <- mcp:eval_response (86a35728d92f40599b5049ee6e905ade)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":180.0,"steps":[{"action":"move_forward","at_frame":0.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (df4a696426804a84bf8bc346c23e94fa)
+MCP | [defer] game_command (request df4a696426804a84bf8bc346c23e94fa)
+MCP | [debug] <- mcp:game_command_response (df4a696426804a84bf8bc346c23e94fa)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"is_dead\": player.is_dead, \"health\": player.health.current_health}"})
+MCP | [debug] -> mcp:eval_liveness (40513d86129241ab950b0a5c612c1009)
+MCP | [defer] game_eval (request 40513d86129241ab950b0a5c612c1009)
+MCP | [debug] -> mcp:eval (40513d86129241ab950b0a5c612c1009)
+MCP | [debug] <- mcp:eval_ack (40513d86129241ab950b0a5c612c1009)
+MCP | [debug] <- mcp:eval_compiled (40513d86129241ab950b0a5c612c1009)
+MCP | [debug] <- mcp:eval_response (40513d86129241ab950b0a5c612c1009)
+MCP | [recv] game_command({"op":"input_sequence","params":{"settle_frames":2.0,"steps":[{"action":"move_right","at_frame":0.0,"pressed":true,"strength":1.0},{"action":"jump","at_frame":0.0,"pressed":true,"strength":1.0},{"action":"fire_grapple","at_frame":0.0,"pressed":true,"strength":1.0},{"action":"move_right","at_frame":60.0,"pressed":false,"strength":0.0},{"action":"jump","at_frame":60.0,"pressed":false,"strength":0.0},{"action":"fire_grapple","at_frame":60.0,"pressed":false,"strength":0.0}]}})
+MCP | [debug] -> mcp:game_command input_sequence (38645ef2c5f140ec98a225e9a9a65043)
+MCP | [defer] game_command (request 38645ef2c5f140ec98a225e9a9a65043)
+MCP | [debug] <- mcp:game_command_response (38645ef2c5f140ec98a225e9a9a65043)
+MCP | [recv] game_eval({"code":"var player = get_node(\"/root/Main/World/Player\")\nreturn {\"position\": player.global_position, \"velocity\": player.velocity, \"is_dead\": player.is_dead, \"health\": player.health.current_health, \"grappling\": player.is_grappling}"})
+MCP | [debug] -> mcp:eval_liveness (9b268b54be5944a2b130943546d1f6db)
+MCP | [defer] game_eval (request 9b268b54be5944a2b130943546d1f6db)
+MCP | [debug] -> mcp:eval (9b268b54be5944a2b130943546d1f6db)
+MCP | [debug] <- mcp:eval_ack (9b268b54be5944a2b130943546d1f6db)
+MCP | [debug] <- mcp:eval_compiled (9b268b54be5944a2b130943546d1f6db)
+MCP | [debug] <- mcp:eval_response (9b268b54be5944a2b130943546d1f6db)
+MCP | [recv] get_logs({"count":2000.0,"include_details":true,"offset":0.0,"source":"game"})
+MCP | [send] get_logs -> ok
+MCP | [recv] get_logs({"count":500.0,"include_details":true,"offset":0.0,"source":"editor"})
+MCP | [send] get_logs -> ok
+MCP | [recv] stop_project({})
+MCP | [defer] stop_project (request 7f82df9b403e4c2ea688fa3ca66b1369)
+MCP | [event] play_state_changed -> stopped
+MCP | [recv] quit_editor({})
+MCP | quit_editor requested, quitting next frame
+MCP | [send] quit_editor -> ok
+MCP | server start blocked: Authenticated server endpoint was lost. Re-probing in 1s (attempt 1 of 5).
+MCP | server endpoint lost (Authenticated server endpoint was lost.); re-probing in 1s (attempt 1 of 5)
+MCP | plugin unloaded
+EditorSettings: Save OK!
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+Freeing Default Tex_Blit Shader
+MultiUmaBuffer 'RENDER_LIST_OPAQUE' used a total of 1 buffers. A large number may indicate a waste of VRAM and can be brought down by tweaking MAX_EXTRA_BUFFERS for this buffer.
+MultiUmaBuffer 'RENDER_LIST_MOTION' used a total of 0 buffers. A large number may indicate a waste of VRAM and can be brought down by tweaking MAX_EXTRA_BUFFERS for this buffer.
+MultiUmaBuffer 'RENDER_LIST_ALPHA' used a total of 1 buffers. A large number may indicate a waste of VRAM and can be brought down by tweaking MAX_EXTRA_BUFFERS for this buffer.
+MultiUmaBuffer 'RENDER_LIST_SECONDARY' used a total of 1 buffers. A large number may indicate a waste of VRAM and can be brought down by tweaking MAX_EXTRA_BUFFERS for this buffer.
+MultiUmaBuffer 'CANVAS_INSTANCE_DATA' used a total of 2 buffers. A large number may indicate a waste of VRAM and can be brought down by tweaking MAX_EXTRA_BUFFERS for this buffer.
+ERROR: 1 RID allocations of type 'N10RendererRD14TextureStorage7TextureE' were leaked at exit.
+Accessibility: window 0 adapter destroyed.
+Leaked instance: CompressedTexture2D:9223373750899125835 - Reference count: 1
+Leaked instance: Object:1715252309580
+Leaked instance: EditorDock:1715235532365 - Node path: 
+Hint: Leaked instances typically happen when nodes are removed from the scene tree (with `remove_child()`) but not freed (with `free()` or `queue_free()`).
+Resource still in use: res://addons/terrain_3d/icons/terrain3d.svg (CompressedTexture2D)
+Orphan StringName: margin_bottom (static: 2, total: 3)
+Orphan StringName: margin_right (static: 4, total: 5)
+Orphan StringName: @EditorDock@21695 (static: 0, total: 1)
+Orphan StringName: godot.editor (static: 0, total: 1)
+Orphan StringName: margin_left (static: 5, total: 6)
+Orphan StringName: Node (static: 9, total: 10)
+Orphan StringName: margin_top (static: 2, total: 3)
+StringName: 7 unclaimed string names at exit.

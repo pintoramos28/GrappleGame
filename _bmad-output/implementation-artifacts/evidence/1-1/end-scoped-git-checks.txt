@@ -1,0 +1,23 @@
+Story 1.1 terminal scoped checks
+Captured: 2026-09-09T22:52:28.6675647-04:00
+HEAD: 317590fe882831fb7dc8117447313d733462e1f9
+Branch: main (origin/main +10/-0)
+Pinned Godot editor/game processes at capture: none
+
+Command: git status --porcelain=v1 --untracked-files=all -- project.godot main.tscn .gitignore scenes scripts resources materials ai addons export_presets.cfg tests test
+Exit: 0
+Output: empty
+
+Command: git diff --exit-code -- project.godot main.tscn .gitignore scenes scripts resources materials ai addons export_presets.cfg tests test
+Exit: 0
+Output: empty
+
+Command: git diff --cached --exit-code -- project.godot main.tscn .gitignore scenes scripts resources materials ai addons export_presets.cfg tests test
+Exit: 0
+Output: empty
+
+Command: rg -n -i "error:|warning:|parse error|missing resource|failed to|can't open|script error" evidence/1-1/final-headless.log
+Exit: 1
+Output: empty (no matching error/warning text)
+
+.godot cache classification: 997 files; newest path .godot/editor/project_metadata.cfg; newest write 2026-09-09T22:38:23.1314862-04:00. The directory is ignored generated editor/import state and excluded from protected hashes.

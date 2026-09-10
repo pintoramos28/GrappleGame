@@ -1,0 +1,98 @@
+{
+  "captured_at": "2026-09-09T22:53:20.422752-04:00",
+  "algorithm": "SHA-256 over sorted UTF-8 records: relative_path\\0byte_count\\0file_sha256\\n",
+  "excluded": [
+    ".godot/**"
+  ],
+  "targets": [
+    {
+      "target": "project.godot",
+      "exists": true,
+      "file_count": 1,
+      "sha256": "1bad45297e0e93aa8114042cb952727e101a338a40ba276181f3a67b4fc674e6"
+    },
+    {
+      "target": "main.tscn",
+      "exists": true,
+      "file_count": 1,
+      "sha256": "1601657340f03b85da407c220049ebd6b1ecf7efdde5eab49b7d28f9aaf13dfa"
+    },
+    {
+      "target": ".gitignore",
+      "exists": true,
+      "file_count": 1,
+      "sha256": "62c39a40bc1c88ef9298dced1cd3f53a1698978b5521a1426c791cf5b32ef9f9"
+    },
+    {
+      "target": "scenes",
+      "exists": true,
+      "file_count": 5,
+      "sha256": "7f0e740e6eb4cadebe57f8e2659eb61ccd27caa147bcd84043db43049a533440"
+    },
+    {
+      "target": "scripts",
+      "exists": true,
+      "file_count": 68,
+      "sha256": "d597d40f18934380ca5a6e22f6e66c49d34c4cc96d964107fc2c7811bf97e9d3"
+    },
+    {
+      "target": "resources",
+      "exists": true,
+      "file_count": 8,
+      "sha256": "082394087b903733de0887914e84aa66aac721b0ec7e9ca2a47589f14d340c32"
+    },
+    {
+      "target": "materials",
+      "exists": true,
+      "file_count": 4,
+      "sha256": "eb5698cd62c80e733401433ffc34e93b643fc400cfb80c9508e2cdac11961e3a"
+    },
+    {
+      "target": "ai",
+      "exists": true,
+      "file_count": 25,
+      "sha256": "9d8fc1643ad1f0f753fa7d6b79ba3297739e95ad3e3bc3772459ba219fbd154c"
+    },
+    {
+      "target": "addons",
+      "exists": true,
+      "file_count": 1360,
+      "sha256": "f0622aaceb443be884bb4537965956ded7155a3d9fcecf9b65e77d3ff648f026"
+    }
+  ],
+  "overall_file_count": 1473,
+  "overall_sha256": "e88034f93c2dfad3ba19e68d5bdf5c190bd64e2d17146f144bde05df17e028c5",
+  "addon_normalization": {
+    "rule": "exclude files whose base name starts with ~ (Godot/GDExtension loader shadows)",
+    "stable_file_count": 1358,
+    "stable_sha256": "1e39b0cd01bc935573508f7154f8e7f7c6584557180771b14e3a8b4f54871f87",
+    "excluded_shadow_files": [
+      {
+        "relative_path": "addons/limboai/bin/~liblimboai.windows.editor.x86_64.dll~RF2336994.TMP",
+        "byte_count": 5430784,
+        "sha256": "f9e758ebf088da12e71dbe330572fb55f186619bda8b144b4d8e822569161b97",
+        "created": "2026-08-31T01:37:18.058325-04:00",
+        "last_write": "2026-09-09T21:32:17.288394-04:00"
+      },
+      {
+        "relative_path": "addons/terrain_3d/bin/~libterrain.windows.debug.x86_64.dll~RF2336a31.TMP",
+        "byte_count": 4220416,
+        "sha256": "bf72686a7e1d8d8370ba9ba5eaa70c59375ee2cb5638d63b8942f1ad7d448cda",
+        "created": "2026-08-31T01:36:30.599325-04:00",
+        "last_write": "2026-09-09T21:32:17.509133-04:00"
+      }
+    ]
+  },
+  "comparison_to_start": {
+    "start_overall_file_count": 1473,
+    "start_overall_sha256": "83cb9880b908e06dfa24737db3e4349d58ee5b6e81ab080a239b40ae43cb36ce",
+    "raw_exact_targets": 8,
+    "raw_different_targets": [
+      "addons"
+    ],
+    "controlled_live_addons_excluding_rf_temp_file_count": 1360,
+    "controlled_live_addons_excluding_rf_temp_sha256": "f81c76dbe9a005afb877623a92557ef03669a12136e0c245431cec36faca6301",
+    "controlled_live_addons_matches_start": true,
+    "classification": "Raw closed-process difference is limited to two pre-existing Godot/GDExtension loader-shadow filenames; the post-work live loader-equivalent add-on snapshot matched the starting add-on digest exactly."
+  }
+}

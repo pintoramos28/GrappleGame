@@ -1,0 +1,57 @@
+ M .codex/config.toml
+ M _bmad-output/implementation-artifacts/1-1-verify-and-protect-the-playable-traversal-baseline.md
+ M _bmad-output/implementation-artifacts/sprint-status.yaml
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/characters/protagonist_concept_sheet.jpg.import
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/characters/protagonist_in_motion.jpg.import
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/species/last_garden_fauna_sheet.jpg.import
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/species/lumenari_species_sheet.jpg.import
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/worlds/world_01_environment_study.jpg.import
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/worlds/world_01_key_art.jpg.import
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/worlds/world_01_the_last_garden.png.import
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/worlds/world_02_the_hero_of_the_wall.png.import
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/worlds/world_03_the_severed_world.png.import
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/worlds/world_04_the_giants_memory.png.import
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/worlds/world_05_the_joined.png.import
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/worlds/world_06_the_gentle_mind.png.import
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/worlds/world_07_the_lifeline.png.import
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/worlds/world_08_the_crown_of_branches.png.import
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/worlds/world_09_the_blue_silence.png.import
+ M _bmad-output/planning-artifacts/sources/design-library/concept_art/worlds/world_10_the_thunder_shelf.png.import
+?? _bmad-output/implementation-artifacts/evidence/1-1/editor-console-session-stderr.log
+?? _bmad-output/implementation-artifacts/evidence/1-1/editor-console-session-stdout.log
+?? _bmad-output/implementation-artifacts/evidence/1-1/editor-console-session.log
+?? _bmad-output/implementation-artifacts/evidence/1-1/editor-import-single-process.log
+?? _bmad-output/implementation-artifacts/evidence/1-1/editor-import.log
+?? _bmad-output/implementation-artifacts/evidence/1-1/end-git-status.txt
+?? _bmad-output/implementation-artifacts/evidence/1-1/end-protected-surface-manifest.json
+?? _bmad-output/implementation-artifacts/evidence/1-1/end-scoped-git-checks.txt
+?? _bmad-output/implementation-artifacts/evidence/1-1/final-headless.log
+?? _bmad-output/implementation-artifacts/evidence/1-1/import-and-launch-classification.md
+?? _bmad-output/implementation-artifacts/evidence/1-1/main-headless.log
+?? _bmad-output/implementation-artifacts/evidence/1-1/main-interactive-observation.json
+?? _bmad-output/implementation-artifacts/evidence/1-1/main-interactive-stderr.log
+?? _bmad-output/implementation-artifacts/evidence/1-1/main-interactive-stdout.log
+?? _bmad-output/implementation-artifacts/evidence/1-1/main-interactive.log
+?? _bmad-output/implementation-artifacts/evidence/1-1/preflight.md
+?? _bmad-output/implementation-artifacts/evidence/1-1/preservation-audit.md
+?? _bmad-output/implementation-artifacts/evidence/1-1/repeatability-review.md
+?? _bmad-output/implementation-artifacts/evidence/1-1/start-git-status.txt
+?? _bmad-output/implementation-artifacts/evidence/1-1/start-protected-surface-manifest.json
+?? _bmad-output/implementation-artifacts/evidence/1-1/traversal-smoke-observations.json
+?? _bmad-output/implementation-artifacts/evidence/1-1/traversal-smoke.md
+?? character_reference_views/back-fingers-separated.png
+?? character_reference_views/back.png.import
+?? character_reference_views/bottom-fingers-separated.png
+?? character_reference_views/bottom.png.import
+?? character_reference_views/front-fingers-separated.png
+?? character_reference_views/front.png.import
+?? character_reference_views/left-45-fingers-separated.png
+?? character_reference_views/left-45.png.import
+?? character_reference_views/left-side-fingers-separated.png
+?? character_reference_views/left-side.png.import
+?? character_reference_views/right-45-fingers-separated.png
+?? character_reference_views/right-45.png.import
+?? character_reference_views/right-side-fingers-separated.png
+?? character_reference_views/right-side.png.import
+?? character_reference_views/top-fingers-separated.png
+?? character_reference_views/top.png.import
