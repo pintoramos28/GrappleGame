@@ -42,7 +42,7 @@ _Critical, project-specific rules for agents implementing game code. The complet
 - **Language:** Project-owned gameplay code is typed GDScript. Existing add-on C# files and the project's .NET setting do not authorize new C# gameplay code.
 - **LimboAI:** Repository-vendored build 1.8.1. It is a required gameplay dependency for HSM and behavior-tree assets; preserve the exact local build until a deliberate compatibility upgrade is approved.
 - **Development MCPs:** Godot AI 3.2.4 is enabled for project-aware editor work and its local service uses `uv`; Context7 supplies version-specific documentation. Personal configuration and credentials stay outside the repository.
-- **GUT:** Version 9.7.1, vendored as the selected test framework. No `res://tests` suite or established automated run exists yet.
+- **GUT:** Version 9.7.1, vendored as the selected test framework. The focused command-boundary suite lives under `res://tests/player/input/` and runs with the pinned recursive headless command recorded in Story 1.2; project-wide coverage is not established.
 - **Terrain3D:** Version 1.0.2, currently installed and enabled but optional. Gameplay code must not depend on Terrain3D types.
 - **Phantom Camera:** Version 0.11.0.2 is installed but deferred. Production camera work uses built-in `Camera3D` and `SpringArm3D`.
 - **Current checkout:** `res://main.tscn` remains the prototype launch scene. The approved `AppRoot`/replaceable `LevelRoot` structure is a target migration, not existing implementation.
@@ -100,7 +100,7 @@ _Critical, project-specific rules for agents implementing game code. The complet
 
 ### Testing Rules
 
-- GUT 9.7.1 is the selected framework. The target suite mirrors runtime domains under `res://tests/`, but no test directory or working automated suite exists yet; do not report automated tests as run until that infrastructure is created.
+- GUT 9.7.1 is the selected framework. The target suite mirrors runtime domains under `res://tests/`; the focused player-input contract suite is established at `res://tests/player/input/` and must be run with the pinned recursive headless command from Story 1.2. Do not imply project-wide coverage from this focused suite.
 - Layered verification is a toolbox, not a requirement that every feature receive unit, integration, scene, performance, and manual tests. Choose the smallest set that protects the risks introduced by the change.
 - Maintain a small mandatory contract suite covering motor commit and influence ordering, 60/120 Hz equivalence, one terminal ability result, idempotent cancellation, run-ID rejection, scoped cleanup, damage attribution, definition immutability, input-edge latching, and grapple/presentation agreement.
 - Use focused unit tests for pure timing, scoring, policy, and data logic. Use small real-Jolt integration scenes for movement, grapple, collision, and other physics-dependent behavior.

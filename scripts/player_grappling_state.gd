@@ -9,16 +9,19 @@ func _update(delta: float) -> void:
 	if agent.is_dead:
 		get_root().dispatch(agent.EVENT_DIED)
 		return
+	var command_frame: PlayerCommandFrame = agent.get_player_command_frame()
+	if command_frame == null:
+		return
 
-	if Input.is_action_just_released("fire_grapple") or not agent.has_valid_grapple():
+	if command_frame.was_released(PlayerCommandFrame.Action.GRAPPLE) or not agent.has_valid_grapple():
 		agent._clear_grapple()
 		agent.dispatch_locomotion_after_grapple_clear()
 		return
 
-	var input_dir: Vector2 = agent.get_movement_input()
+	var input_dir: Vector2 = command_frame.movement_axis
 	agent.apply_default_gravity(delta)
 
-	if Input.is_action_just_pressed("jump") and agent.is_on_floor():
+	if command_frame.was_pressed(PlayerCommandFrame.Action.JUMP) and agent.is_on_floor():
 		agent.apply_ground_jump()
 
 	agent._apply_horizontal_movement(input_dir, delta)

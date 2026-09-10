@@ -51,6 +51,8 @@ extends CharacterBody3D
 @export var pitch_max := 45.0
 ## If enabled, captures the mouse when the player becomes ready.
 @export var capture_mouse_on_start := true
+## If enabled, inverts the vertical mouse-look axis at the player input boundary.
+@export var invert_mouse_y := false
 
 @export_group("Grapple")
 ## Maximum distance for the grapple targeting ray.
@@ -88,6 +90,7 @@ extends CharacterBody3D
 
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var camera: Camera3D = $CameraPivot/SpringArm3D/Camera3D
+@onready var input_source: PlayerInputSource = $PlayerInputSource
 @onready var player_mesh: MeshInstance3D = $MeshInstance3D
 @onready var health: CombatHealth = get_node_or_null("Health")
 @onready var attack_hitbox: CombatHitbox3D = get_node_or_null("AttackHitbox")
@@ -139,6 +142,9 @@ var wall_stick_position := Vector3.ZERO
 var wall_stick_normal := Vector3.ZERO
 var wall_stick_run_direction := Vector3.ZERO
 var is_dead := false
+var _player_physics_step := 0
+var _current_command_frame: PlayerCommandFrame
+var _input_initialized := false
 
 
 func _ready() -> void:
@@ -153,8 +159,22 @@ func _ready() -> void:
 	camera_pitch = clamp(camera_pivot.rotation.x, deg_to_rad(pitch_min), deg_to_rad(pitch_max))
 	camera_pivot.rotation.x = camera_pitch
 
+	if input_source == null:
+		push_error("PlayerController requires its PlayerInputSource child.")
+		return
+	input_source.mouse_sensitivity = mouse_sensitivity
+	input_source.trackpad_pan_sensitivity = trackpad_pan_sensitivity
+	input_source.pitch_min_radians = deg_to_rad(pitch_min)
+	input_source.pitch_max_radians = deg_to_rad(pitch_max)
+	input_source.invert_mouse_y = invert_mouse_y
+	var input_initialization := input_source.initialize(self, camera_pivot)
+	if input_initialization != PlayerInputSource.InitializationStatus.SUCCESS:
+		push_error("PlayerController input initialization failed: %s" % input_source.initialization_error)
+		return
+	_input_initialized = true
+
 	if capture_mouse_on_start:
-		call_deferred("_capture_mouse")
+		input_source.request_mouse_capture()
 
 	_init_player_state_machines()
 
@@ -177,6 +197,8 @@ func _init_player_state_machines() -> void:
 	movement_hsm.add_transition(movement_hsm.ANYSTATE, dead_state, EVENT_DIED)
 	movement_hsm.initialize(self)
 	movement_hsm.set_active(true)
+	movement_hsm.set_process(false)
+	movement_hsm.set_physics_process(false)
 
 	attack_hsm.add_transition(attack_ready_state, attack_windup_state, EVENT_ATTACK_STARTED)
 	attack_hsm.add_transition(attack_windup_state, attack_active_state, EVENT_ATTACK_PHASE_FINISHED)
@@ -185,42 +207,42 @@ func _init_player_state_machines() -> void:
 	attack_hsm.add_transition(attack_hsm.ANYSTATE, attack_ready_state, EVENT_ATTACK_CANCELLED)
 	attack_hsm.initialize(self)
 	attack_hsm.set_active(true)
+	attack_hsm.set_process(false)
+	attack_hsm.set_physics_process(false)
 
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+func _physics_process(delta: float) -> void:
+	if not _input_initialized:
 		return
 
-	if is_dead:
-		return
+	if not is_dead:
+		_player_physics_step += 1
+		var frame := input_source.capture_command_frame(_player_physics_step)
+		if frame == null:
+			push_error("PlayerController could not commit its command frame.")
+			_input_initialized = false
+			return
+		_current_command_frame = frame
+		_apply_canonical_presentation(frame)
 
-	if event is InputEventMouseButton and event.pressed:
-		_capture_mouse()
-		return
-
-	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		_apply_mouse_look(event.relative)
-
-	if event is InputEventPanGesture and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		_apply_mouse_look(event.delta * trackpad_pan_sensitivity / mouse_sensitivity)
-
-
-func _capture_mouse() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if movement_hsm and movement_hsm.is_active():
+		movement_hsm.update(delta)
+	if attack_hsm and attack_hsm.is_active():
+		attack_hsm.update(delta)
 
 
-func _apply_mouse_look(relative_motion: Vector2) -> void:
-	if relative_motion == Vector2.ZERO:
-		return
-
-	rotate_y(-relative_motion.x * mouse_sensitivity)
-	camera_pitch = clamp(
-		camera_pitch - relative_motion.y * mouse_sensitivity,
-		deg_to_rad(pitch_min),
-		deg_to_rad(pitch_max)
-	)
+func _apply_canonical_presentation(frame: PlayerCommandFrame) -> void:
+	var body_rotation := global_rotation
+	body_rotation.y = frame.view_yaw_radians
+	global_rotation = body_rotation
+	camera_pitch = frame.view_pitch_radians
 	camera_pivot.rotation.x = camera_pitch
+
+
+func get_player_command_frame() -> PlayerCommandFrame:
+	if _current_command_frame == null:
+		push_error("PlayerController command frame requested before a valid physics-step commit.")
+	return _current_command_frame
 
 
 func _setup_grapple_visual() -> void:
@@ -434,7 +456,7 @@ func _try_start_wall_stick_from_collisions(input_dir: Vector2, entry_velocity: V
 	if (
 		is_wall_sticking
 		or not is_grappling
-		or not Input.is_action_pressed("fire_grapple")
+		or not get_player_command_frame().is_held(PlayerCommandFrame.Action.GRAPPLE)
 		or is_on_floor()
 		or not _can_start_wall_run(entry_velocity)
 	):
@@ -480,7 +502,10 @@ func _clear_wall_stick() -> void:
 
 
 func get_movement_input() -> Vector2:
-	return Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	var frame := get_player_command_frame()
+	if frame == null:
+		return Vector2.ZERO
+	return frame.movement_axis
 
 
 func update_grapple_feedback() -> void:
@@ -575,8 +600,11 @@ func get_grapple_telemetry() -> Dictionary:
 
 
 func _get_grapple_ray_hit() -> Dictionary:
+	var frame := get_player_command_frame()
+	if frame == null:
+		return {}
 	var origin := camera.global_position
-	var direction := -camera.global_transform.basis.z
+	var direction := frame.aim_world_direction
 	var query := PhysicsRayQueryParameters3D.create(origin, origin + direction * grapple_length)
 	query.exclude = [get_rid()]
 
@@ -695,6 +723,8 @@ func _set_dead() -> void:
 		return
 
 	is_dead = true
+	if input_source:
+		input_source.set_enabled(false)
 	_cancel_attack()
 	_clear_grapple()
 	_clear_wall_run()
