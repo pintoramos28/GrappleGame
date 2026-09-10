@@ -1,0 +1,11 @@
+[workflow]
+persistent_facts = [
+  "file:{project-root}/_bmad/custom/artifacts/artifact-contract.toml",
+  "file:{project-root}/_bmad/custom/artifacts/protocols/bounded-epics.md",
+]
+
+activation_steps_append = [
+  "Read and follow `{project-root}/_bmad/custom/artifacts/protocols/gds-create-story.md`. After the story key is selected, request a bounded resolver context pack for that exact story and use the exact `_bmad-output/project-context.md`; do not perform broad artifact globs.",
+]
+
+on_complete = "Record the artifact IDs and revisions used to create the story in its Dev Notes source-reference section."

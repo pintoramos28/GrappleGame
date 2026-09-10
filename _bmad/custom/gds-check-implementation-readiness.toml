@@ -1,0 +1,11 @@
+[workflow]
+persistent_facts = [
+  "file:{project-root}/_bmad/custom/artifacts/artifact-contract.toml",
+  "file:{project-root}/_bmad/custom/artifacts/protocols/bounded-epics.md",
+]
+
+activation_steps_append = [
+  "Read and follow `{project-root}/_bmad/custom/artifacts/protocols/gds-check-implementation-readiness.md`. Use the resolver inventory instead of filename inference, include the canonical decision log and exact project context, and execute the supplemental architecture, NFR, UX-bundle, lineage, and open-decision readiness gates.",
+]
+
+on_complete = "Execute the readiness protocol's Record phase so the report records exact artifact IDs, versions, paths, and source revisions assessed."

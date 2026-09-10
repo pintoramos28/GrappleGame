@@ -1,0 +1,111 @@
+schema_version = 1
+project_name = "testgame"
+path_base = "project-root"
+inventory_dir = "_bmad-output/.artifact-index"
+archive_dir = "_bmad-output/archive"
+max_epic_shard_words = 8000
+final_statuses = ["complete", "final", "active", "ready-for-development"]
+
+[artifacts.gdd]
+artifact_id = "grapplegame.gdd"
+canonical = "_bmad-output/planning-artifacts/gdd.md"
+document_type = "gdd"
+required = true
+depends_on = []
+compatibility_mirrors = ["_bmad-output/gdd-current.md"]
+legacy_candidates = ["_bmad-output/grapplegame-gdd-adapter.md"]
+
+[artifacts.architecture]
+artifact_id = "grapplegame.architecture"
+canonical = "_bmad-output/planning-artifacts/architecture.md"
+document_type = "game-architecture"
+required = true
+depends_on = ["gdd"]
+compatibility_mirrors = ["_bmad-output/game-architecture.md"]
+legacy_candidates = []
+
+[artifacts.epics]
+artifact_id = "grapplegame.epics"
+canonical = "_bmad-output/planning-artifacts/epics/index.md"
+document_type = "epics-index"
+required = true
+depends_on = ["gdd", "architecture"]
+manifest = "_bmad-output/planning-artifacts/epics/manifest.json"
+requirements = "_bmad-output/planning-artifacts/epics/requirements.md"
+shards_glob = "_bmad-output/planning-artifacts/epics/epic-*.md"
+legacy_candidates = ["_bmad-output/planning-artifacts/epics.md"]
+
+[artifacts.ux]
+artifact_id = "grapplegame.ux"
+canonical = "_bmad-output/planning-artifacts/ux/index.md"
+document_type = "ux-index"
+required = false
+depends_on = ["gdd"]
+bundle_files = [
+  "_bmad-output/planning-artifacts/ux/DESIGN.md",
+  "_bmad-output/planning-artifacts/ux/EXPERIENCE.md",
+]
+legacy_candidates = []
+
+[artifacts.decision_log]
+artifact_id = "grapplegame.decision-log"
+canonical = "_bmad-output/planning-artifacts/decision-log.md"
+document_type = "decision-log"
+required = true
+depends_on = []
+legacy_candidates = ["_bmad-output/decision-log.md"]
+
+[artifacts.project_context]
+artifact_id = "grapplegame.project-context"
+canonical = "_bmad-output/project-context.md"
+document_type = "project-context"
+required = true
+depends_on = ["architecture", "decision_log"]
+legacy_candidates = []
+
+[consumers.gds-gdd]
+required = ["decision_log"]
+optional = ["gdd"]
+allow_nonfinal = ["gdd"]
+
+[consumers.gds-game-architecture]
+required = ["gdd", "decision_log"]
+optional = ["epics"]
+
+[consumers.gds-ux]
+required = ["gdd", "decision_log"]
+optional = ["architecture"]
+
+[consumers.gds-create-epics-and-stories]
+required = ["gdd", "architecture", "decision_log"]
+optional = ["ux"]
+
+[consumers.gds-check-implementation-readiness]
+required = ["gdd", "architecture", "epics", "decision_log", "project_context"]
+optional = ["ux"]
+
+[consumers.gds-sprint-planning]
+required = ["epics", "project_context"]
+optional = []
+
+[consumers.gds-create-story]
+required = ["gdd", "architecture", "epics", "project_context"]
+optional = ["ux", "decision_log"]
+
+[consumers.gds-create-story.nonfinal_story_scopes.gdd]
+allowed_statuses = ["needs-decisions"]
+allowed_epics = [1]
+frontmatter_field = "implementation_scope_ready"
+allowed_values = ["M0 implementation-start only; no milestone is acceptance-ready"]
+
+[consumers.gds-dev-story]
+required = ["project_context"]
+optional = ["decision_log"]
+
+[consumers.gds-correct-course]
+required = ["gdd", "architecture", "epics", "decision_log", "project_context"]
+optional = ["ux"]
+
+[consumers.gds-generate-project-context]
+required = ["architecture", "decision_log"]
+optional = ["gdd"]

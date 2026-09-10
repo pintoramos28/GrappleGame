@@ -1,10 +1,12 @@
 # Investigation: BMad adapter auto-discovery
 
+> **Resolution (2026-09-09):** Closed by replacing the adapter with the canonical `_bmad-output/planning-artifacts/gdd.md`, adding a project-owned artifact contract and workflow overrides, and archiving the former adapter at `_bmad-output/archive/retired-design-adapter-2026-09-09.md`. Paths below are retained as historical evidence from the original investigation.
+
 ## Hand-off Brief
 
 1. **What happened.** The BMad architecture workflow reportedly did not auto-discover the adapter, although the adapter exists in the configured output root and matches the documented filename pattern.
-2. **Where the case stands.** Active; static evidence confirms a path/pattern match, so the remaining cause is likely an execution-context, stale-workflow, or discovery-implementation mismatch.
-3. **What's needed next.** Capture the exact workflow output and execution context, then compare it with the local discovery rule to identify where the observed run diverges.
+2. **Where the case stands.** Resolved through canonical artifact publication and explicit consumer resolution; the adapter is no longer an active planning artifact.
+3. **What's needed next.** No adapter-specific follow-up. Validate future workflow runs through the project-owned artifact resolver and compatibility checks.
 
 ## Case Info
 
@@ -12,7 +14,7 @@
 | ---------------- | ----- |
 | Ticket           | N/A |
 | Date opened      | 2026-08-31 |
-| Status           | Active |
+| Status           | Resolved |
 | System           | Windows; Godot project; BMad Game Dev Studio workflows |
 | Evidence sources | Architecture workflow instructions, resolved configuration, adapter artifact, repository status |
 

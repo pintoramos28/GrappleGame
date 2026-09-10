@@ -1,0 +1,11 @@
+[workflow]
+persistent_facts = [
+  "file:{project-root}/_bmad/custom/artifacts/artifact-contract.toml",
+  "file:{project-root}/_bmad/custom/artifacts/protocols/bounded-epics.md",
+]
+
+activation_steps_append = [
+  "Read and follow `{project-root}/_bmad/custom/artifacts/protocols/gds-correct-course.md`. After the change trigger is known, generate a resolver impact pack and load only affected epic shards plus the exact canonical GDD, architecture, UX, decision log, and project-context paths.",
+]
+
+on_complete = "Run the correct-course protocol's Republish phase for every changed canonical artifact, update the decision log, regenerate affected epic manifests or shards, and halt on stale or conflicting lineage."

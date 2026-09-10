@@ -1,0 +1,47 @@
+{
+  "artifacts": {
+    "epics": {
+      "artifact_id": "grapplegame.epics",
+      "bytes": 9916,
+      "document_type": "epics-index",
+      "errors": [],
+      "exists": true,
+      "manifest": {
+        "exists": true,
+        "path": "_bmad-output/planning-artifacts/epics/manifest.json",
+        "sha256": "8a0a51a1d4915b4aa75a7f96a427d03200a2fe0b4538ac061c9ab19afe045d15"
+      },
+      "name": "epics",
+      "path": "_bmad-output/planning-artifacts/epics/index.md",
+      "required": true,
+      "sha256": "0f7d52a19df28d0bd2d1c934fe2652f2590e043f1f39102a8cdaa63dc79dbc77",
+      "status": "complete",
+      "updated": "2026-09-09",
+      "version": null,
+      "warnings": [],
+      "words": 1213
+    },
+    "project_context": {
+      "artifact_id": "grapplegame.project-context",
+      "bytes": 21950,
+      "document_type": "project-context",
+      "errors": [],
+      "exists": true,
+      "name": "project_context",
+      "path": "_bmad-output/project-context.md",
+      "required": true,
+      "sha256": "924f967d83ac664c1352f27bb89ef91cef4d4ae765746d379c77cfe91eb608d9",
+      "status": "complete",
+      "updated": "2026-09-09",
+      "version": null,
+      "warnings": [],
+      "words": 2808
+    }
+  },
+  "consumer": "gds-sprint-planning",
+  "errors": [],
+  "generated_at": "2026-09-09T20:20:38-04:00",
+  "project_name": "testgame",
+  "schema_version": 1,
+  "valid": true
+}

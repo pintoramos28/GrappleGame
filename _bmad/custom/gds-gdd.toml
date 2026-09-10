@@ -1,0 +1,12 @@
+[workflow]
+output_dir = "{output_folder}/workspaces/gdd"
+
+persistent_facts = [
+  "file:{project-root}/_bmad/custom/artifacts/artifact-contract.toml",
+]
+
+activation_steps_append = [
+  "Read and follow `{project-root}/_bmad/custom/artifacts/protocols/gds-gdd.md`. Execute its Prepare phase before selecting or creating a GDD, use only resolver-selected sources, and halt on resolver errors.",
+]
+
+on_complete = "Read and execute the Publish phase of `{project-root}/_bmad/custom/artifacts/protocols/gds-gdd.md`. Publish the canonical GDD, convert the run-local epics companion into a noncanonical epic outline, merge applicable decisions, and do not report completion unless publication succeeds."

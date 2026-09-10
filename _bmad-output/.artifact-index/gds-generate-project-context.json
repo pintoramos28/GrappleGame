@@ -1,0 +1,74 @@
+{
+  "artifacts": {
+    "architecture": {
+      "artifact_id": "grapplegame.architecture",
+      "bytes": 179763,
+      "document_type": "game-architecture",
+      "errors": [],
+      "exists": true,
+      "mirrors": [
+        {
+          "canonical_sha256": "ca54427c79ab3b517529b257ea3e5d9db4bafde5b2a8058d210eecc8b259f971",
+          "current": true,
+          "exists": true,
+          "path": "_bmad-output/game-architecture.md"
+        }
+      ],
+      "name": "architecture",
+      "path": "_bmad-output/planning-artifacts/architecture.md",
+      "required": true,
+      "sha256": "ca54427c79ab3b517529b257ea3e5d9db4bafde5b2a8058d210eecc8b259f971",
+      "status": "complete",
+      "updated": "2026-09-09",
+      "version": "1.0",
+      "warnings": [],
+      "words": 23056
+    },
+    "decision_log": {
+      "artifact_id": "grapplegame.decision-log",
+      "bytes": 6701,
+      "document_type": "decision-log",
+      "errors": [],
+      "exists": true,
+      "name": "decision_log",
+      "path": "_bmad-output/planning-artifacts/decision-log.md",
+      "required": true,
+      "sha256": "cc3d3eb03afd970290251beca9be4b05004f621abe26dda689b424db8fa429e7",
+      "status": "active",
+      "updated": "2026-09-09",
+      "version": "1.1",
+      "warnings": [],
+      "words": 888
+    },
+    "gdd": {
+      "artifact_id": "grapplegame.gdd",
+      "bytes": 40387,
+      "document_type": "gdd",
+      "errors": [],
+      "exists": true,
+      "mirrors": [
+        {
+          "canonical_sha256": "203d1dbfc469dddb3f2e5edb441b443c9b2f4ff8fc0eb9d8e13841d57dded18d",
+          "current": true,
+          "exists": true,
+          "path": "_bmad-output/gdd-current.md"
+        }
+      ],
+      "name": "gdd",
+      "path": "_bmad-output/planning-artifacts/gdd.md",
+      "required": true,
+      "sha256": "203d1dbfc469dddb3f2e5edb441b443c9b2f4ff8fc0eb9d8e13841d57dded18d",
+      "status": "complete",
+      "updated": "2026-09-09",
+      "version": "1.0.0",
+      "warnings": [],
+      "words": 5484
+    }
+  },
+  "consumer": "gds-generate-project-context",
+  "errors": [],
+  "generated_at": "2026-09-09T00:54:56-04:00",
+  "project_name": "testgame",
+  "schema_version": 1,
+  "valid": true
+}

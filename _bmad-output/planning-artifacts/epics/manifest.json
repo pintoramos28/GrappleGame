@@ -1,0 +1,2036 @@
+{
+  "artifact_id": "grapplegame.epics",
+  "artifact_schema": 1,
+  "document_type": "epics-manifest",
+  "epics": [
+    {
+      "id": "1",
+      "overview": "epic-01-overview.md",
+      "requirement_ids": [
+        "FR2",
+        "FR3",
+        "FR4",
+        "FR5",
+        "FR6",
+        "FR7",
+        "FR8",
+        "FR9",
+        "FR10",
+        "FR11",
+        "FR12"
+      ],
+      "stories": [
+        {
+          "id": "1.1",
+          "path": "epic-01-story-01.md",
+          "requirement_ids": [],
+          "sha256": "97da50250d46fdfcfb4b5223a61cc9bf9be6fd8a85ae44460b5c0b73eecb2079",
+          "title": "Verify and Protect the Playable Traversal Baseline",
+          "words": 497
+        },
+        {
+          "id": "1.2",
+          "path": "epic-01-story-02.md",
+          "requirement_ids": [],
+          "sha256": "74e5509f09323c99a22b4b58599a1e67efd9cad55e21e4bac28c1dfaa6579fd7",
+          "title": "Deliver Reliable Fixed-Step Player Commands",
+          "words": 734
+        },
+        {
+          "id": "1.3",
+          "path": "epic-01-story-03.md",
+          "requirement_ids": [],
+          "sha256": "ce35a846f86b2f7d55b490b5659ec905b180d7842ddc629636b720ef4c2e0a66",
+          "title": "Centralize the Player's Physics-Step Movement Commit",
+          "words": 732
+        },
+        {
+          "id": "1.4",
+          "path": "epic-01-story-04.md",
+          "requirement_ids": [],
+          "sha256": "150fb00691abbed6b34d33c7509eb5f797391cc6c62f5d40ca63156f6b7549a3",
+          "title": "Resolve Traversal Through Semantic Motor Phases",
+          "words": 802
+        },
+        {
+          "id": "1.5",
+          "path": "epic-01-story-05.md",
+          "requirement_ids": [],
+          "sha256": "7457e456a0962c075b0bbb75ecd0df3ff93df83a47a40f8525ecc1ea41ad9329",
+          "title": "Share Authoritative Ground and Wall Contact Facts",
+          "words": 862
+        },
+        {
+          "id": "1.6",
+          "path": "epic-01-story-06.md",
+          "requirement_ids": [],
+          "sha256": "a5141fc63abd0cba2168f61fba4334fe2eca480f6e81daa73c3a22dc13ead41e",
+          "title": "Acquire Grapple Targets Consistently",
+          "words": 888
+        },
+        {
+          "id": "1.7",
+          "path": "epic-01-story-07.md",
+          "requirement_ids": [],
+          "sha256": "e9f59ac396edbb2969edb5e56e96f61419c019c4d0aaef782cccd3652d67fdba",
+          "title": "Zip-Pull Within a True Maximum Grapple Boundary",
+          "words": 846
+        },
+        {
+          "id": "1.8",
+          "path": "epic-01-story-08.md",
+          "requirement_ids": [],
+          "sha256": "c6e849e29667c5f4c97d7bd920e7024b96ae7d2b57ff4c603c78ecd817f0707c",
+          "title": "Grapple Moving and Stateful Targets Safely",
+          "words": 674
+        },
+        {
+          "id": "1.9",
+          "path": "epic-01-story-09.md",
+          "requirement_ids": [],
+          "sha256": "683d883b4f6691b98038c4e78d00180fa7c844bfad1ce2024a6e16e1e7bd691f",
+          "title": "Integrate Wall Traversal and Mistake Recovery",
+          "words": 769
+        },
+        {
+          "id": "1.10",
+          "path": "epic-01-story-10.md",
+          "requirement_ids": [],
+          "sha256": "4b5bebc10cde280f1f8ee1daaed19f17cf50957dce37c4697bffc8d9c7895862",
+          "title": "Complete the Focused Traversal Validation Route",
+          "words": 862
+        }
+      ],
+      "title": "Master Expressive Traversal"
+    },
+    {
+      "id": "2",
+      "overview": "epic-02-overview.md",
+      "requirement_ids": [
+        "FR13",
+        "FR14",
+        "FR15",
+        "FR16",
+        "FR17",
+        "FR18",
+        "FR19",
+        "FR20",
+        "FR21"
+      ],
+      "stories": [
+        {
+          "id": "2.1",
+          "path": "epic-02-story-01.md",
+          "requirement_ids": [],
+          "sha256": "a37ba674a5bafa071c7d6a9b554434f22f569015acb34b0ad2536385012d2f3e",
+          "title": "Run Every Timed Ability Through One Lifecycle",
+          "words": 945
+        },
+        {
+          "id": "2.2",
+          "path": "epic-02-story-02.md",
+          "requirement_ids": [],
+          "sha256": "4cdc109272de70ac6de341df918804c6e16b373d0ed79721e81fca004b57ecdf",
+          "title": "Resolve Immutable and Attributed Damage",
+          "words": 983
+        },
+        {
+          "id": "2.3",
+          "path": "epic-02-story-03.md",
+          "requirement_ids": [],
+          "sha256": "c378fd27b9408be985ba5a2034d45d47db9a43ad7d1e0dbf4629c4094757c8e8",
+          "title": "Capture Movement and Impact Context",
+          "words": 1013
+        },
+        {
+          "id": "2.4",
+          "path": "epic-02-story-04.md",
+          "requirement_ids": [],
+          "sha256": "b934c62b2aabef5bcd4f805f00a79cfb3b57f6b54eeae14b4dafd65907e2ff15",
+          "title": "Share Melee Space Between Telegraph and Delivery",
+          "words": 1112
+        },
+        {
+          "id": "2.5",
+          "path": "epic-02-story-05.md",
+          "requirement_ids": [],
+          "sha256": "e1e2c9d206144c7fa4e20c3040fe9c0f4fd90cc74be2af477e22592698ade623",
+          "title": "Coordinate Traversal and Attacks Explicitly",
+          "words": 1077
+        },
+        {
+          "id": "2.6",
+          "path": "epic-02-story-06.md",
+          "requirement_ids": [],
+          "sha256": "fba1b09c9bec177816b5c7fb249aa81f3b483677d91e50897e00897d9e62cb7c",
+          "title": "Deliver One Simulation-Owned Player Melee Attack",
+          "words": 1285
+        },
+        {
+          "id": "2.7",
+          "path": "epic-02-story-07.md",
+          "requirement_ids": [],
+          "sha256": "8af2d6282ef25dc4594e987e22d7bb87837eedee923a30cc4f10f245b7015c05",
+          "title": "Complete Health, Reactions, Death, and Combat Reset",
+          "words": 1208
+        },
+        {
+          "id": "2.8",
+          "path": "epic-02-story-08.md",
+          "requirement_ids": [],
+          "sha256": "d61dbd0883902714953ae761797fbd7ab9cc1d1cc7e8c98a5631eb7199d69831",
+          "title": "Keep Enemy AI at the Intent Boundary",
+          "words": 1179
+        },
+        {
+          "id": "2.9",
+          "path": "epic-02-story-09.md",
+          "requirement_ids": [],
+          "sha256": "f3a4a92b2a4c8cb458ecd065d771ea49ca194effab0c5d7dc0c530b09e2f2ea1",
+          "title": "Deliver One Complete Readable Melee Enemy",
+          "words": 1657
+        },
+        {
+          "id": "2.10",
+          "path": "epic-02-story-10.md",
+          "requirement_ids": [],
+          "sha256": "c52f82a2aa70951c0b299137a9b1561285062daa899d23239c497fb85b14e860",
+          "title": "Prove the Movement-Combat Contract",
+          "words": 1074
+        }
+      ],
+      "title": "Turn Movement into Combat Advantage"
+    },
+    {
+      "id": "3",
+      "overview": "epic-03-overview.md",
+      "requirement_ids": [
+        "FR23",
+        "FR24",
+        "FR25",
+        "FR27",
+        "FR33",
+        "FR36",
+        "FR43",
+        "FR44",
+        "FR45"
+      ],
+      "stories": [
+        {
+          "id": "3.1",
+          "path": "epic-03-story-01.md",
+          "requirement_ids": [],
+          "sha256": "11fe36ebc86088e7ab5d8e6a3ba58ee762631ee7b15eff7436d4c4799260348d",
+          "title": "Establish the M2 Prototype Contract and Manual Pressure Lab",
+          "words": 1318
+        },
+        {
+          "id": "3.2",
+          "path": "epic-03-story-02.md",
+          "requirement_ids": [],
+          "sha256": "0acdee5cb93e9df3c588a7088a3fafd972183a164c26fb49fd3978b079181b64",
+          "title": "Prove Geometry-Discovered Climbing and Pounce",
+          "words": 1682
+        },
+        {
+          "id": "3.3",
+          "path": "epic-03-story-03.md",
+          "requirement_ids": [],
+          "sha256": "19bdf364b8ef692b72358f5be875eab5945eb7e87261b28f6376e68c14672e1f",
+          "title": "Prove Geometry-Discovered Flying Tactics",
+          "words": 1814
+        },
+        {
+          "id": "3.4",
+          "path": "epic-03-story-04.md",
+          "requirement_ids": [],
+          "sha256": "e30322e6ec1e3de88b3f2a7b980c5c53b5d34d75b2895f5613aeeb2caf0b0351",
+          "title": "Prototype a Telegraph-Aligned Direct Lane Shot",
+          "words": 1714
+        },
+        {
+          "id": "3.5",
+          "path": "epic-03-story-05.md",
+          "requirement_ids": [],
+          "sha256": "c605af0d15225713388280f886f409e7a0e0fa3fed3516a5598476ffa7d5a52f",
+          "title": "Apply One-Shot Knockback with Recovery",
+          "words": 1719
+        },
+        {
+          "id": "3.6",
+          "path": "epic-03-story-06.md",
+          "requirement_ids": [],
+          "sha256": "3a90baf06f7ccc33330e51a5364f621741b63eba07238320ea44d83cca6c7f58",
+          "title": "Grow a Telegraph-First Temporary Obstacle",
+          "words": 2010
+        },
+        {
+          "id": "3.7",
+          "path": "epic-03-story-07.md",
+          "requirement_ids": [],
+          "sha256": "2815c97d38a95233258666cc534dfec9b424a3661500ec8c1248e91c15187c57",
+          "title": "Break a Harpoon Tether Without Losing Traversal Control",
+          "words": 1882
+        },
+        {
+          "id": "3.8",
+          "path": "epic-03-story-08.md",
+          "requirement_ids": [],
+          "sha256": "7c2143e6747c0573384dbac1f1a522bc08f7dbca6816fcef2e570603f5cdd05a",
+          "title": "Identify and Disperse a Deterministic Decoy",
+          "words": 1829
+        },
+        {
+          "id": "3.9",
+          "path": "epic-03-story-09.md",
+          "requirement_ids": [],
+          "sha256": "83e2141c52f9cc92f40bd9923f87e7bbd15326f9af90bced8b4908109503b8fa",
+          "title": "Select a Readable Anti-Wall Harpoon from Player Context",
+          "words": 2078
+        },
+        {
+          "id": "3.10",
+          "path": "epic-03-story-10.md",
+          "requirement_ids": [],
+          "sha256": "fda568675025dda9a3d1382c6810def843a6355f1c76fad40aef4cdb547eae78",
+          "title": "Pass the Six-Family Prototype Gate",
+          "words": 1957
+        }
+      ],
+      "title": "Prove Core Combat-Pressure Patterns"
+    },
+    {
+      "id": "4",
+      "overview": "epic-04-overview.md",
+      "requirement_ids": [
+        "FR22",
+        "FR26",
+        "FR29",
+        "FR31",
+        "FR34",
+        "FR37",
+        "FR38"
+      ],
+      "stories": [
+        {
+          "id": "4.1",
+          "path": "epic-04-story-01.md",
+          "requirement_ids": [],
+          "sha256": "460f20ea652cdd4cca5dc45b256b25c33d4f2c2bdcfb703e7dc71459aeed118d",
+          "title": "Escape a Telegraph-First Adhesive Surface",
+          "words": 2110
+        },
+        {
+          "id": "4.2",
+          "path": "epic-04-story-02.md",
+          "requirement_ids": [],
+          "sha256": "b4bcd7ab78306a52138289b856296f5dd77f8480a1b44258b4ade97ef2024799",
+          "title": "Defeat a Frozen Predictive Mark by Changing Course",
+          "words": 1978
+        },
+        {
+          "id": "4.3",
+          "path": "epic-04-story-03.md",
+          "requirement_ids": [],
+          "sha256": "f0540aea9a06e3dfaf5730c0f60cfcdaa58059880834361e9d5aa40703b72076",
+          "title": "Cross a Rate-Independent Rotating Sweep",
+          "words": 2082
+        },
+        {
+          "id": "4.4",
+          "path": "epic-04-story-04.md",
+          "requirement_ids": [],
+          "sha256": "b5da161905f7fce32dd21ebe591dec95e3dd79d4f1eb955c348dd604714b7bf4",
+          "title": "Escape a Telegraph-First Drifting Damage Cloud",
+          "words": 2502
+        },
+        {
+          "id": "4.5",
+          "path": "epic-04-story-05.md",
+          "requirement_ids": [],
+          "sha256": "fb2223007ad330b2a14c76adf92c91e3c019fd32811b400c27d93c018ef85fda",
+          "title": "Adapt to a Temporarily Weakened Grapple Anchor",
+          "words": 2215
+        },
+        {
+          "id": "4.6",
+          "path": "epic-04-story-06.md",
+          "requirement_ids": [],
+          "sha256": "31b711953ccc80480b15015d007b762c95ebc83cb3340066dad22547039f2956",
+          "title": "Preserve Control in a Directional Wind Field",
+          "words": 2528
+        },
+        {
+          "id": "4.7",
+          "path": "epic-04-story-07.md",
+          "requirement_ids": [],
+          "sha256": "58e0025c1a53d866a34ef8f670d74428be5f5cc9586a6e94fbce6dd99a7347d7",
+          "title": "Adapt to a Temporarily Infested Wall",
+          "words": 2587
+        },
+        {
+          "id": "4.8",
+          "path": "epic-04-story-08.md",
+          "requirement_ids": [
+            "FR22",
+            "FR26",
+            "FR29",
+            "FR31",
+            "FR34",
+            "FR37",
+            "FR38",
+            "FR39"
+          ],
+          "sha256": "b71d5d647968577da7556a80e764b6b80e48a415be02097d40b16c7d75c4dfd5",
+          "title": "Pass the Route-Pressure Prototype Gate",
+          "words": 2536
+        }
+      ],
+      "title": "Adapt to Route and Movement Disruption"
+    },
+    {
+      "id": "5",
+      "overview": "epic-05-overview.md",
+      "requirement_ids": [
+        "FR28",
+        "FR30",
+        "FR32",
+        "FR35",
+        "FR42"
+      ],
+      "stories": [
+        {
+          "id": "5.1",
+          "path": "epic-05-story-01.md",
+          "requirement_ids": [],
+          "sha256": "2ccc44bde3c0bd4f8de0f12e0b7c976a51ffbf03cb728de1abc012d185fef817",
+          "title": "Escape a Source-Independent Arcing Bombardment",
+          "words": 2900
+        },
+        {
+          "id": "5.2",
+          "path": "epic-05-story-02.md",
+          "requirement_ids": [],
+          "sha256": "f1511ad9ad19f47ca18dcb305309bcbb933a377acfedb7847632e74b0232efd7",
+          "title": "Navigate a Bounded Spore Veil Without Losing Critical Cues",
+          "words": 2682
+        },
+        {
+          "id": "5.3",
+          "path": "epic-05-story-03.md",
+          "requirement_ids": [],
+          "sha256": "2832b0cc168ebd6b1f4d49a86d2d4b0a46f5f75ad365e9cfbfdb4c87eddd3ce7",
+          "title": "Navigate a Telegraph-First Aerial Mine Lattice",
+          "words": 3323
+        },
+        {
+          "id": "5.4",
+          "path": "epic-05-story-04.md",
+          "requirement_ids": [],
+          "sha256": "9ef5c721c8c8205798d87d2963060aaeab02ae81978ef3ec65363d5fc185c1ca",
+          "title": "Interrupt a Healing Support Tether",
+          "words": 3408
+        },
+        {
+          "id": "5.5",
+          "path": "epic-05-story-05.md",
+          "requirement_ids": [],
+          "sha256": "6c1633ab77087426ba161719fd980aece5e179def8cb57470378ba6b3294ff2b",
+          "title": "Break Enemy Support While Under Melee Pressure",
+          "words": 2969
+        },
+        {
+          "id": "5.6",
+          "path": "epic-05-story-06.md",
+          "requirement_ids": [
+            "FR28",
+            "FR30",
+            "FR32",
+            "FR35",
+            "FR39",
+            "FR42"
+          ],
+          "sha256": "1f3070c0657c9899ed9013dfeff93931f3db10502bcc77c61f1c1450538a4673",
+          "title": "Pass the Aerial, Visibility, and Support-Pressure Gate",
+          "words": 2555
+        }
+      ],
+      "title": "Read Aerial, Obscured, and Coordinated Threats"
+    },
+    {
+      "id": "6",
+      "overview": "epic-06-overview.md",
+      "requirement_ids": [
+        "FR39",
+        "FR40",
+        "FR41"
+      ],
+      "stories": [
+        {
+          "id": "6.1",
+          "path": "epic-06-story-01.md",
+          "requirement_ids": [],
+          "sha256": "09d159c484a15b7c9e809e5234d1fc60be126473f83ce6dbf02336be94376850",
+          "title": "Turn a Growing Wall into a Lane-Shot Decision",
+          "words": 2709
+        },
+        {
+          "id": "6.2",
+          "path": "epic-06-story-02.md",
+          "requirement_ids": [],
+          "sha256": "f938e59b173add78c4571622cdcc37ccba2caa070dc39cd43b08e0de7bb0cfe6",
+          "title": "Turn Knockback into a Prediction-Breaking Choice",
+          "words": 2921
+        },
+        {
+          "id": "6.3",
+          "path": "epic-06-story-03.md",
+          "requirement_ids": [],
+          "sha256": "d37b1d2b15b9e4a5731cfeea4d6f5fcb76ba3ccc62df2a03846af3e5e533e92a",
+          "title": "Read a Pursuing Enemy Through a Spore Veil",
+          "words": 3005
+        },
+        {
+          "id": "6.4",
+          "path": "epic-06-story-04.md",
+          "requirement_ids": [],
+          "sha256": "9d74f6233486fe5b45173f6e7cb7ecc219eb034ab54edaa1b19d9caf996775f2",
+          "title": "Break Artillery Support While Evading Bombardment",
+          "words": 3384
+        },
+        {
+          "id": "6.5",
+          "path": "epic-06-story-05.md",
+          "requirement_ids": [],
+          "sha256": "23392b4c5f5053e16f4101e09e23e08fa5b74b2d6e0996d8d0d80ce4123aa8fc",
+          "title": "Escape Anti-Wall Pressure on an Infested Route",
+          "words": 3268
+        },
+        {
+          "id": "6.6",
+          "path": "epic-06-story-06.md",
+          "requirement_ids": [],
+          "sha256": "d44c69ad997d97e3b6a9ebfb30b4630a196cc9ac29f1fbc7f3d60e22aa9843cb",
+          "title": "Navigate an Aerial Mine Lattice in Directional Wind",
+          "words": 3497
+        },
+        {
+          "id": "6.7",
+          "path": "epic-06-story-07.md",
+          "requirement_ids": [
+            "FR22",
+            "FR23",
+            "FR24",
+            "FR25",
+            "FR26",
+            "FR27",
+            "FR28",
+            "FR29",
+            "FR30",
+            "FR31",
+            "FR32",
+            "FR33",
+            "FR34",
+            "FR35",
+            "FR36",
+            "FR37",
+            "FR38",
+            "FR39"
+          ],
+          "sha256": "de3324e240d61f518e40c940cf697d934264c319ea6da075bd626f19619c7501",
+          "title": "Pass the Complete M2 Mechanic Vocabulary Gate",
+          "words": 3104
+        },
+        {
+          "id": "6.8",
+          "path": "epic-06-story-08.md",
+          "requirement_ids": [
+            "FR56",
+            "NFR2"
+          ],
+          "sha256": "9c0234762b92d4352bba5eea1488018c8bbb992e948a11b18b22240506268b6c",
+          "title": "Select the Last Garden Production Mechanic Subset",
+          "words": 2881
+        }
+      ],
+      "title": "Survive Combined Combat Pressure"
+    },
+    {
+      "id": "7",
+      "overview": "epic-07-overview.md",
+      "requirement_ids": [
+        "FR46",
+        "FR47",
+        "FR48",
+        "FR49",
+        "FR50",
+        "FR51",
+        "FR52",
+        "FR53",
+        "FR57",
+        "FR58"
+      ],
+      "stories": [
+        {
+          "id": "7.1",
+          "path": "epic-07-story-01.md",
+          "requirement_ids": [],
+          "sha256": "da0ba79659d3ba078807e9c483aca1546b8a6a9f5edefe377b75b182956fb939",
+          "title": "Define and Approve the Gameplay HUD Contract",
+          "words": 2691
+        },
+        {
+          "id": "7.2",
+          "path": "epic-07-story-02.md",
+          "requirement_ids": [],
+          "sha256": "87dcdeb6c0b8c71da0986f63ac457966c2e6df2b0f6a3c2cb89a2e4a5b5bbcf1",
+          "title": "Complete One Run-Scoped Encounter",
+          "words": 2777
+        },
+        {
+          "id": "7.3",
+          "path": "epic-07-story-03.md",
+          "requirement_ids": [],
+          "sha256": "5b41c265d495a941429054873781e023e677ba031e1c3fe132a7a0ad011b6c4d",
+          "title": "Host One Replaceable Level Session",
+          "words": 2684
+        },
+        {
+          "id": "7.4",
+          "path": "epic-07-story-04.md",
+          "requirement_ids": [],
+          "sha256": "95d3fa4ba76aff44bebda41bd04e987c6fd4116e3af3b7c5c90fa33cb7f39649",
+          "title": "Load and Replace Authored Levels Safely",
+          "words": 2791
+        },
+        {
+          "id": "7.5",
+          "path": "epic-07-story-05.md",
+          "requirement_ids": [],
+          "sha256": "a97319569bf6b4fd6ded5687b00c4c1eb3ce82dc7780ee7f93f6dbb2f2954dfc",
+          "title": "Traverse a Multi-Route M3 Level Shell",
+          "words": 2827
+        },
+        {
+          "id": "7.6",
+          "path": "epic-07-story-06.md",
+          "requirement_ids": [],
+          "sha256": "30e337fc66e9e459983c6e7ee06d72b9ca9a11978eb8336bc9fa61be560b69e0",
+          "title": "Complete Required Encounters with an Optional Challenge",
+          "words": 3108
+        },
+        {
+          "id": "7.7",
+          "path": "epic-07-story-07.md",
+          "requirement_ids": [],
+          "sha256": "43b45459261875d29ddc33bc67b3669607f4209b61de5c391d1d2e4cb93ad122",
+          "title": "Restart an Encounter or Reload the Active Checkpoint",
+          "words": 3245
+        },
+        {
+          "id": "7.8",
+          "path": "epic-07-story-08.md",
+          "requirement_ids": [],
+          "sha256": "473894e9f93a8054b5bf64098ac1115c149ea0fb2bb757fbc5a15ffbc4159de4",
+          "title": "Collect Current-Session Health and Coin Rewards",
+          "words": 2399
+        },
+        {
+          "id": "7.9",
+          "path": "epic-07-story-09.md",
+          "requirement_ids": [],
+          "sha256": "dcdd00a80ea75dccd9f9cfcf423809e187e5a66d8e7f8b5b8560db24b9a2c2e4",
+          "title": "Present Gameplay State Through the Approved HUD",
+          "words": 2069
+        },
+        {
+          "id": "7.10",
+          "path": "epic-07-story-10.md",
+          "requirement_ids": [
+            "FR57"
+          ],
+          "sha256": "6a60c8bf5b904a4f475340ced809b411a25c3c8be83cf27774424afd279cc229",
+          "title": "Hear Scoped Gameplay and Level Audio",
+          "words": 2358
+        },
+        {
+          "id": "7.11",
+          "path": "epic-07-story-11.md",
+          "requirement_ids": [],
+          "sha256": "ebee868b264bcd788b4192575cb82c3c4c1af749e2d4fcaa16f974184e1c882d",
+          "title": "Pause and Resume Without State Drift",
+          "words": 1939
+        },
+        {
+          "id": "7.12",
+          "path": "epic-07-story-12.md",
+          "requirement_ids": [],
+          "sha256": "8b9e8ca9dbee0a811ceac6a4df15354bd0589069b835ee8c0da22e313d77da1b",
+          "title": "Configure and Persist Supported Preferences",
+          "words": 2059
+        },
+        {
+          "id": "7.13",
+          "path": "epic-07-story-13.md",
+          "requirement_ids": [],
+          "sha256": "04eec5bd88339871ccba0a3b904dae2fd06e7238d7eb66b1026a1507925788c7",
+          "title": "Remap Keyboard-and-Mouse Actions Safely",
+          "words": 2290
+        },
+        {
+          "id": "7.14",
+          "path": "epic-07-story-14.md",
+          "requirement_ids": [],
+          "sha256": "dc12e83aebb42002bd974d129d0eddd855e38154925ec7867d1aa35bce7b1169",
+          "title": "Leave the Active Level for a Safe Menu",
+          "words": 2112
+        },
+        {
+          "id": "7.15",
+          "path": "epic-07-story-15.md",
+          "requirement_ids": [],
+          "sha256": "64ca46af8485189ab2a70c41bb419faa0b11ee461eb5e34f0df8df6d15897844",
+          "title": "Inspect and Control Development Sessions Safely",
+          "words": 2506
+        },
+        {
+          "id": "7.16",
+          "path": "epic-07-story-16.md",
+          "requirement_ids": [
+            "NFR2"
+          ],
+          "sha256": "01dd15aa0b515f168e9c9f8334fa2f8dcc8003bd22981598c86df6e66e1023d6",
+          "title": "Define and Pass the M3 Minimum-Spec Performance Gate",
+          "words": 1892
+        },
+        {
+          "id": "7.17",
+          "path": "epic-07-story-17.md",
+          "requirement_ids": [
+            "FR46",
+            "FR53",
+            "FR54",
+            "FR56",
+            "FR57",
+            "FR58"
+          ],
+          "sha256": "34ce8ef3656835717a16cb43c1e0effb7ac3185c51290ff637705fd456e607f4",
+          "title": "Complete and Replay the Integrated M3 Level Loop",
+          "words": 2922
+        }
+      ],
+      "title": "Complete a Replayable Encounter-Driven Level"
+    },
+    {
+      "id": "8",
+      "overview": "epic-08-overview.md",
+      "requirement_ids": [
+        "FR1",
+        "FR54",
+        "FR55",
+        "FR56"
+      ],
+      "stories": [
+        {
+          "id": "8.1",
+          "path": "epic-08-story-01.md",
+          "requirement_ids": [],
+          "sha256": "66bf633d9b4d56f4ca1584fd49f146a8aeef2a235f4cdb4fb8dd3e84b25ba1d9",
+          "title": "Define and Approve the Garden Heart Boss Fight",
+          "words": 2857
+        },
+        {
+          "id": "8.2",
+          "path": "epic-08-story-02.md",
+          "requirement_ids": [],
+          "sha256": "8e4bca228246f8a444e0a4057a20acf808bea4f8b9f17dff69c3f52ff1e963ac",
+          "title": "Traverse the Last Garden Boss Level and Arena Shell",
+          "words": 2992
+        },
+        {
+          "id": "8.3",
+          "path": "epic-08-story-03.md",
+          "requirement_ids": [
+            "FR56"
+          ],
+          "sha256": "47564b797294b3ab8cbfdeb98e78944eb1faefadc0be1aa632606e952b9713a2",
+          "title": "Complete the Last Garden Approach Encounter",
+          "words": 2288
+        },
+        {
+          "id": "8.4",
+          "path": "epic-08-story-04.md",
+          "requirement_ids": [],
+          "sha256": "2fc5779ffdf0d0d74ee807d69ad38449d7fe3f7a3419150711018ff5c67e2215",
+          "title": "Build the Garden Heart Core Boss Runtime",
+          "words": 2486
+        },
+        {
+          "id": "8.5",
+          "path": "epic-08-story-05.md",
+          "requirement_ids": [],
+          "sha256": "a9e740504c3d64cbd44433943f75b7d6ea488644f841164717b68b539b66eadf",
+          "title": "Open Garden Heart Weak Points Through Traversal",
+          "words": 2551
+        },
+        {
+          "id": "8.6",
+          "path": "epic-08-story-06.md",
+          "requirement_ids": [],
+          "sha256": "74fe9edae281fc496c8573a5ee5d8a862c1df710e20dda8455fb88339de483eb",
+          "title": "Complete the Primary Garden Heart Attack-Response Cycle",
+          "words": 2377
+        },
+        {
+          "id": "8.7",
+          "path": "epic-08-story-07.md",
+          "requirement_ids": [],
+          "sha256": "f3b3b050cb72201f2da9354aef2942ecb163ea63f69afaf3551768148216846f",
+          "title": "Escalate the Garden Heart Through Its Approved Phases",
+          "words": 2534
+        },
+        {
+          "id": "8.8",
+          "path": "epic-08-story-08.md",
+          "requirement_ids": [],
+          "sha256": "0c77aab4189f4162e318ab2be2d5413de0cf8c2d2ba8d35cf3bdbe2d16c1e687",
+          "title": "Present the Garden Heart Fight Clearly",
+          "words": 2496
+        },
+        {
+          "id": "8.9",
+          "path": "epic-08-story-09.md",
+          "requirement_ids": [],
+          "sha256": "a21223d58abed2ff9064096cb6226b214e134b6640d2aeca9d338fff1ccf9fda",
+          "title": "Activate, Defeat, and Restart the Garden Heart Encounter",
+          "words": 2762
+        },
+        {
+          "id": "8.10",
+          "path": "epic-08-story-10.md",
+          "requirement_ids": [],
+          "sha256": "e7c0b84d1162a085f9dce9f248e9cac6d9e485dd69992397937c41f587048d20",
+          "title": "Claim the Garden Heart Reward and Exit",
+          "words": 2471
+        },
+        {
+          "id": "8.11",
+          "path": "epic-08-story-11.md",
+          "requirement_ids": [
+            "NFR2"
+          ],
+          "sha256": "358e18cc5e341702584e52e7edea77a919cd3e668cff4ff30004dc35e3886135",
+          "title": "Pass the M4 Boss Performance Gate",
+          "words": 2069
+        },
+        {
+          "id": "8.12",
+          "path": "epic-08-story-12.md",
+          "requirement_ids": [
+            "FR1",
+            "FR54",
+            "FR56"
+          ],
+          "sha256": "477ed98a5d7d532ee68e26db4d153110bc9c03f0d612bf13b7a199488aab4a04",
+          "title": "Complete and Replay the Last Garden Slice",
+          "words": 3594
+        }
+      ],
+      "title": "Defeat the Garden Heart and Complete the Slice"
+    }
+  ],
+  "files": [
+    {
+      "kind": "requirements",
+      "path": "requirements.md",
+      "requirement_ids": [
+        "FR1",
+        "FR2",
+        "FR3",
+        "FR4",
+        "FR5",
+        "FR6",
+        "FR7",
+        "FR8",
+        "FR9",
+        "FR10",
+        "FR11",
+        "FR12",
+        "FR13",
+        "FR14",
+        "FR15",
+        "FR16",
+        "FR17",
+        "FR18",
+        "FR19",
+        "FR20",
+        "FR21",
+        "FR22",
+        "FR23",
+        "FR24",
+        "FR25",
+        "FR26",
+        "FR27",
+        "FR28",
+        "FR29",
+        "FR30",
+        "FR31",
+        "FR32",
+        "FR33",
+        "FR34",
+        "FR35",
+        "FR36",
+        "FR37",
+        "FR38",
+        "FR39",
+        "FR40",
+        "FR41",
+        "FR42",
+        "FR43",
+        "FR44",
+        "FR45",
+        "FR46",
+        "FR47",
+        "FR48",
+        "FR49",
+        "FR50",
+        "FR51",
+        "FR52",
+        "FR53",
+        "FR54",
+        "FR55",
+        "FR56",
+        "FR57",
+        "FR58",
+        "NFR1",
+        "NFR2",
+        "NFR3",
+        "NFR4",
+        "NFR5",
+        "NFR6",
+        "NFR7",
+        "NFR8",
+        "NFR9",
+        "NFR10",
+        "NFR11",
+        "NFR12",
+        "NFR13",
+        "NFR14",
+        "NFR15",
+        "NFR16",
+        "NFR17",
+        "NFR18",
+        "NFR19",
+        "NFR20",
+        "NFR21",
+        "NFR22",
+        "NFR23",
+        "NFR24"
+      ],
+      "sha256": "59d343e69c9665bff66b06cc1b1cac701f16539c0d874a0832d551641eb8f29b",
+      "words": 4589
+    },
+    {
+      "epic": 1,
+      "kind": "epic-overview",
+      "path": "epic-01-overview.md",
+      "requirement_ids": [
+        "FR2",
+        "FR3",
+        "FR4",
+        "FR5",
+        "FR6",
+        "FR7",
+        "FR8",
+        "FR9",
+        "FR10",
+        "FR11",
+        "FR12"
+      ],
+      "sha256": "1e6218beba7e5361b374f02722620c129e3ab6b21af321b280d9fb3899eab168",
+      "words": 67
+    },
+    {
+      "epic": 1,
+      "id": "1.1",
+      "kind": "story",
+      "path": "epic-01-story-01.md",
+      "requirement_ids": [],
+      "sha256": "97da50250d46fdfcfb4b5223a61cc9bf9be6fd8a85ae44460b5c0b73eecb2079",
+      "title": "Verify and Protect the Playable Traversal Baseline",
+      "words": 497
+    },
+    {
+      "epic": 1,
+      "id": "1.2",
+      "kind": "story",
+      "path": "epic-01-story-02.md",
+      "requirement_ids": [],
+      "sha256": "74e5509f09323c99a22b4b58599a1e67efd9cad55e21e4bac28c1dfaa6579fd7",
+      "title": "Deliver Reliable Fixed-Step Player Commands",
+      "words": 734
+    },
+    {
+      "epic": 1,
+      "id": "1.3",
+      "kind": "story",
+      "path": "epic-01-story-03.md",
+      "requirement_ids": [],
+      "sha256": "ce35a846f86b2f7d55b490b5659ec905b180d7842ddc629636b720ef4c2e0a66",
+      "title": "Centralize the Player's Physics-Step Movement Commit",
+      "words": 732
+    },
+    {
+      "epic": 1,
+      "id": "1.4",
+      "kind": "story",
+      "path": "epic-01-story-04.md",
+      "requirement_ids": [],
+      "sha256": "150fb00691abbed6b34d33c7509eb5f797391cc6c62f5d40ca63156f6b7549a3",
+      "title": "Resolve Traversal Through Semantic Motor Phases",
+      "words": 802
+    },
+    {
+      "epic": 1,
+      "id": "1.5",
+      "kind": "story",
+      "path": "epic-01-story-05.md",
+      "requirement_ids": [],
+      "sha256": "7457e456a0962c075b0bbb75ecd0df3ff93df83a47a40f8525ecc1ea41ad9329",
+      "title": "Share Authoritative Ground and Wall Contact Facts",
+      "words": 862
+    },
+    {
+      "epic": 1,
+      "id": "1.6",
+      "kind": "story",
+      "path": "epic-01-story-06.md",
+      "requirement_ids": [],
+      "sha256": "a5141fc63abd0cba2168f61fba4334fe2eca480f6e81daa73c3a22dc13ead41e",
+      "title": "Acquire Grapple Targets Consistently",
+      "words": 888
+    },
+    {
+      "epic": 1,
+      "id": "1.7",
+      "kind": "story",
+      "path": "epic-01-story-07.md",
+      "requirement_ids": [],
+      "sha256": "e9f59ac396edbb2969edb5e56e96f61419c019c4d0aaef782cccd3652d67fdba",
+      "title": "Zip-Pull Within a True Maximum Grapple Boundary",
+      "words": 846
+    },
+    {
+      "epic": 1,
+      "id": "1.8",
+      "kind": "story",
+      "path": "epic-01-story-08.md",
+      "requirement_ids": [],
+      "sha256": "c6e849e29667c5f4c97d7bd920e7024b96ae7d2b57ff4c603c78ecd817f0707c",
+      "title": "Grapple Moving and Stateful Targets Safely",
+      "words": 674
+    },
+    {
+      "epic": 1,
+      "id": "1.9",
+      "kind": "story",
+      "path": "epic-01-story-09.md",
+      "requirement_ids": [],
+      "sha256": "683d883b4f6691b98038c4e78d00180fa7c844bfad1ce2024a6e16e1e7bd691f",
+      "title": "Integrate Wall Traversal and Mistake Recovery",
+      "words": 769
+    },
+    {
+      "epic": 1,
+      "id": "1.10",
+      "kind": "story",
+      "path": "epic-01-story-10.md",
+      "requirement_ids": [],
+      "sha256": "4b5bebc10cde280f1f8ee1daaed19f17cf50957dce37c4697bffc8d9c7895862",
+      "title": "Complete the Focused Traversal Validation Route",
+      "words": 862
+    },
+    {
+      "epic": 2,
+      "kind": "epic-overview",
+      "path": "epic-02-overview.md",
+      "requirement_ids": [
+        "FR13",
+        "FR14",
+        "FR15",
+        "FR16",
+        "FR17",
+        "FR18",
+        "FR19",
+        "FR20",
+        "FR21"
+      ],
+      "sha256": "e6f7b44344736b479641ad388895cfacbe63b9f12ad0170123ca7e60f5f1fafe",
+      "words": 67
+    },
+    {
+      "epic": 2,
+      "id": "2.1",
+      "kind": "story",
+      "path": "epic-02-story-01.md",
+      "requirement_ids": [],
+      "sha256": "a37ba674a5bafa071c7d6a9b554434f22f569015acb34b0ad2536385012d2f3e",
+      "title": "Run Every Timed Ability Through One Lifecycle",
+      "words": 945
+    },
+    {
+      "epic": 2,
+      "id": "2.2",
+      "kind": "story",
+      "path": "epic-02-story-02.md",
+      "requirement_ids": [],
+      "sha256": "4cdc109272de70ac6de341df918804c6e16b373d0ed79721e81fca004b57ecdf",
+      "title": "Resolve Immutable and Attributed Damage",
+      "words": 983
+    },
+    {
+      "epic": 2,
+      "id": "2.3",
+      "kind": "story",
+      "path": "epic-02-story-03.md",
+      "requirement_ids": [],
+      "sha256": "c378fd27b9408be985ba5a2034d45d47db9a43ad7d1e0dbf4629c4094757c8e8",
+      "title": "Capture Movement and Impact Context",
+      "words": 1013
+    },
+    {
+      "epic": 2,
+      "id": "2.4",
+      "kind": "story",
+      "path": "epic-02-story-04.md",
+      "requirement_ids": [],
+      "sha256": "b934c62b2aabef5bcd4f805f00a79cfb3b57f6b54eeae14b4dafd65907e2ff15",
+      "title": "Share Melee Space Between Telegraph and Delivery",
+      "words": 1112
+    },
+    {
+      "epic": 2,
+      "id": "2.5",
+      "kind": "story",
+      "path": "epic-02-story-05.md",
+      "requirement_ids": [],
+      "sha256": "e1e2c9d206144c7fa4e20c3040fe9c0f4fd90cc74be2af477e22592698ade623",
+      "title": "Coordinate Traversal and Attacks Explicitly",
+      "words": 1077
+    },
+    {
+      "epic": 2,
+      "id": "2.6",
+      "kind": "story",
+      "path": "epic-02-story-06.md",
+      "requirement_ids": [],
+      "sha256": "fba1b09c9bec177816b5c7fb249aa81f3b483677d91e50897e00897d9e62cb7c",
+      "title": "Deliver One Simulation-Owned Player Melee Attack",
+      "words": 1285
+    },
+    {
+      "epic": 2,
+      "id": "2.7",
+      "kind": "story",
+      "path": "epic-02-story-07.md",
+      "requirement_ids": [],
+      "sha256": "8af2d6282ef25dc4594e987e22d7bb87837eedee923a30cc4f10f245b7015c05",
+      "title": "Complete Health, Reactions, Death, and Combat Reset",
+      "words": 1208
+    },
+    {
+      "epic": 2,
+      "id": "2.8",
+      "kind": "story",
+      "path": "epic-02-story-08.md",
+      "requirement_ids": [],
+      "sha256": "d61dbd0883902714953ae761797fbd7ab9cc1d1cc7e8c98a5631eb7199d69831",
+      "title": "Keep Enemy AI at the Intent Boundary",
+      "words": 1179
+    },
+    {
+      "epic": 2,
+      "id": "2.9",
+      "kind": "story",
+      "path": "epic-02-story-09.md",
+      "requirement_ids": [],
+      "sha256": "f3a4a92b2a4c8cb458ecd065d771ea49ca194effab0c5d7dc0c530b09e2f2ea1",
+      "title": "Deliver One Complete Readable Melee Enemy",
+      "words": 1657
+    },
+    {
+      "epic": 2,
+      "id": "2.10",
+      "kind": "story",
+      "path": "epic-02-story-10.md",
+      "requirement_ids": [],
+      "sha256": "c52f82a2aa70951c0b299137a9b1561285062daa899d23239c497fb85b14e860",
+      "title": "Prove the Movement-Combat Contract",
+      "words": 1074
+    },
+    {
+      "epic": 3,
+      "kind": "epic-overview",
+      "path": "epic-03-overview.md",
+      "requirement_ids": [
+        "FR23",
+        "FR24",
+        "FR25",
+        "FR27",
+        "FR33",
+        "FR36",
+        "FR43",
+        "FR44",
+        "FR45"
+      ],
+      "sha256": "77bf3e38a676cbef8d8694056b0da4eda3e1fdf273b0d2802300f2c26b04eacc",
+      "words": 63
+    },
+    {
+      "epic": 3,
+      "id": "3.1",
+      "kind": "story",
+      "path": "epic-03-story-01.md",
+      "requirement_ids": [],
+      "sha256": "11fe36ebc86088e7ab5d8e6a3ba58ee762631ee7b15eff7436d4c4799260348d",
+      "title": "Establish the M2 Prototype Contract and Manual Pressure Lab",
+      "words": 1318
+    },
+    {
+      "epic": 3,
+      "id": "3.2",
+      "kind": "story",
+      "path": "epic-03-story-02.md",
+      "requirement_ids": [],
+      "sha256": "0acdee5cb93e9df3c588a7088a3fafd972183a164c26fb49fd3978b079181b64",
+      "title": "Prove Geometry-Discovered Climbing and Pounce",
+      "words": 1682
+    },
+    {
+      "epic": 3,
+      "id": "3.3",
+      "kind": "story",
+      "path": "epic-03-story-03.md",
+      "requirement_ids": [],
+      "sha256": "19bdf364b8ef692b72358f5be875eab5945eb7e87261b28f6376e68c14672e1f",
+      "title": "Prove Geometry-Discovered Flying Tactics",
+      "words": 1814
+    },
+    {
+      "epic": 3,
+      "id": "3.4",
+      "kind": "story",
+      "path": "epic-03-story-04.md",
+      "requirement_ids": [],
+      "sha256": "e30322e6ec1e3de88b3f2a7b980c5c53b5d34d75b2895f5613aeeb2caf0b0351",
+      "title": "Prototype a Telegraph-Aligned Direct Lane Shot",
+      "words": 1714
+    },
+    {
+      "epic": 3,
+      "id": "3.5",
+      "kind": "story",
+      "path": "epic-03-story-05.md",
+      "requirement_ids": [],
+      "sha256": "c605af0d15225713388280f886f409e7a0e0fa3fed3516a5598476ffa7d5a52f",
+      "title": "Apply One-Shot Knockback with Recovery",
+      "words": 1719
+    },
+    {
+      "epic": 3,
+      "id": "3.6",
+      "kind": "story",
+      "path": "epic-03-story-06.md",
+      "requirement_ids": [],
+      "sha256": "3a90baf06f7ccc33330e51a5364f621741b63eba07238320ea44d83cca6c7f58",
+      "title": "Grow a Telegraph-First Temporary Obstacle",
+      "words": 2010
+    },
+    {
+      "epic": 3,
+      "id": "3.7",
+      "kind": "story",
+      "path": "epic-03-story-07.md",
+      "requirement_ids": [],
+      "sha256": "2815c97d38a95233258666cc534dfec9b424a3661500ec8c1248e91c15187c57",
+      "title": "Break a Harpoon Tether Without Losing Traversal Control",
+      "words": 1882
+    },
+    {
+      "epic": 3,
+      "id": "3.8",
+      "kind": "story",
+      "path": "epic-03-story-08.md",
+      "requirement_ids": [],
+      "sha256": "7c2143e6747c0573384dbac1f1a522bc08f7dbca6816fcef2e570603f5cdd05a",
+      "title": "Identify and Disperse a Deterministic Decoy",
+      "words": 1829
+    },
+    {
+      "epic": 3,
+      "id": "3.9",
+      "kind": "story",
+      "path": "epic-03-story-09.md",
+      "requirement_ids": [],
+      "sha256": "83e2141c52f9cc92f40bd9923f87e7bbd15326f9af90bced8b4908109503b8fa",
+      "title": "Select a Readable Anti-Wall Harpoon from Player Context",
+      "words": 2078
+    },
+    {
+      "epic": 3,
+      "id": "3.10",
+      "kind": "story",
+      "path": "epic-03-story-10.md",
+      "requirement_ids": [],
+      "sha256": "fda568675025dda9a3d1382c6810def843a6355f1c76fad40aef4cdb547eae78",
+      "title": "Pass the Six-Family Prototype Gate",
+      "words": 1957
+    },
+    {
+      "epic": 4,
+      "kind": "epic-overview",
+      "path": "epic-04-overview.md",
+      "requirement_ids": [
+        "FR22",
+        "FR26",
+        "FR29",
+        "FR31",
+        "FR34",
+        "FR37",
+        "FR38"
+      ],
+      "sha256": "036fd760371e24a6b09873d7ca49859233cf983ab22c032e7ecc8b0cd1358318",
+      "words": 58
+    },
+    {
+      "epic": 4,
+      "id": "4.1",
+      "kind": "story",
+      "path": "epic-04-story-01.md",
+      "requirement_ids": [],
+      "sha256": "460f20ea652cdd4cca5dc45b256b25c33d4f2c2bdcfb703e7dc71459aeed118d",
+      "title": "Escape a Telegraph-First Adhesive Surface",
+      "words": 2110
+    },
+    {
+      "epic": 4,
+      "id": "4.2",
+      "kind": "story",
+      "path": "epic-04-story-02.md",
+      "requirement_ids": [],
+      "sha256": "b4bcd7ab78306a52138289b856296f5dd77f8480a1b44258b4ade97ef2024799",
+      "title": "Defeat a Frozen Predictive Mark by Changing Course",
+      "words": 1978
+    },
+    {
+      "epic": 4,
+      "id": "4.3",
+      "kind": "story",
+      "path": "epic-04-story-03.md",
+      "requirement_ids": [],
+      "sha256": "f0540aea9a06e3dfaf5730c0f60cfcdaa58059880834361e9d5aa40703b72076",
+      "title": "Cross a Rate-Independent Rotating Sweep",
+      "words": 2082
+    },
+    {
+      "epic": 4,
+      "id": "4.4",
+      "kind": "story",
+      "path": "epic-04-story-04.md",
+      "requirement_ids": [],
+      "sha256": "b5da161905f7fce32dd21ebe591dec95e3dd79d4f1eb955c348dd604714b7bf4",
+      "title": "Escape a Telegraph-First Drifting Damage Cloud",
+      "words": 2502
+    },
+    {
+      "epic": 4,
+      "id": "4.5",
+      "kind": "story",
+      "path": "epic-04-story-05.md",
+      "requirement_ids": [],
+      "sha256": "fb2223007ad330b2a14c76adf92c91e3c019fd32811b400c27d93c018ef85fda",
+      "title": "Adapt to a Temporarily Weakened Grapple Anchor",
+      "words": 2215
+    },
+    {
+      "epic": 4,
+      "id": "4.6",
+      "kind": "story",
+      "path": "epic-04-story-06.md",
+      "requirement_ids": [],
+      "sha256": "31b711953ccc80480b15015d007b762c95ebc83cb3340066dad22547039f2956",
+      "title": "Preserve Control in a Directional Wind Field",
+      "words": 2528
+    },
+    {
+      "epic": 4,
+      "id": "4.7",
+      "kind": "story",
+      "path": "epic-04-story-07.md",
+      "requirement_ids": [],
+      "sha256": "58e0025c1a53d866a34ef8f670d74428be5f5cc9586a6e94fbce6dd99a7347d7",
+      "title": "Adapt to a Temporarily Infested Wall",
+      "words": 2587
+    },
+    {
+      "epic": 4,
+      "id": "4.8",
+      "kind": "story",
+      "path": "epic-04-story-08.md",
+      "requirement_ids": [
+        "FR22",
+        "FR26",
+        "FR29",
+        "FR31",
+        "FR34",
+        "FR37",
+        "FR38",
+        "FR39"
+      ],
+      "sha256": "b71d5d647968577da7556a80e764b6b80e48a415be02097d40b16c7d75c4dfd5",
+      "title": "Pass the Route-Pressure Prototype Gate",
+      "words": 2536
+    },
+    {
+      "epic": 5,
+      "kind": "epic-overview",
+      "path": "epic-05-overview.md",
+      "requirement_ids": [
+        "FR28",
+        "FR30",
+        "FR32",
+        "FR35",
+        "FR42"
+      ],
+      "sha256": "b35da58b80be8180732f311face98e008771327f34a1b28053aa78d438d451b3",
+      "words": 54
+    },
+    {
+      "epic": 5,
+      "id": "5.1",
+      "kind": "story",
+      "path": "epic-05-story-01.md",
+      "requirement_ids": [],
+      "sha256": "2ccc44bde3c0bd4f8de0f12e0b7c976a51ffbf03cb728de1abc012d185fef817",
+      "title": "Escape a Source-Independent Arcing Bombardment",
+      "words": 2900
+    },
+    {
+      "epic": 5,
+      "id": "5.2",
+      "kind": "story",
+      "path": "epic-05-story-02.md",
+      "requirement_ids": [],
+      "sha256": "f1511ad9ad19f47ca18dcb305309bcbb933a377acfedb7847632e74b0232efd7",
+      "title": "Navigate a Bounded Spore Veil Without Losing Critical Cues",
+      "words": 2682
+    },
+    {
+      "epic": 5,
+      "id": "5.3",
+      "kind": "story",
+      "path": "epic-05-story-03.md",
+      "requirement_ids": [],
+      "sha256": "2832b0cc168ebd6b1f4d49a86d2d4b0a46f5f75ad365e9cfbfdb4c87eddd3ce7",
+      "title": "Navigate a Telegraph-First Aerial Mine Lattice",
+      "words": 3323
+    },
+    {
+      "epic": 5,
+      "id": "5.4",
+      "kind": "story",
+      "path": "epic-05-story-04.md",
+      "requirement_ids": [],
+      "sha256": "9ef5c721c8c8205798d87d2963060aaeab02ae81978ef3ec65363d5fc185c1ca",
+      "title": "Interrupt a Healing Support Tether",
+      "words": 3408
+    },
+    {
+      "epic": 5,
+      "id": "5.5",
+      "kind": "story",
+      "path": "epic-05-story-05.md",
+      "requirement_ids": [],
+      "sha256": "6c1633ab77087426ba161719fd980aece5e179def8cb57470378ba6b3294ff2b",
+      "title": "Break Enemy Support While Under Melee Pressure",
+      "words": 2969
+    },
+    {
+      "epic": 5,
+      "id": "5.6",
+      "kind": "story",
+      "path": "epic-05-story-06.md",
+      "requirement_ids": [
+        "FR28",
+        "FR30",
+        "FR32",
+        "FR35",
+        "FR39",
+        "FR42"
+      ],
+      "sha256": "1f3070c0657c9899ed9013dfeff93931f3db10502bcc77c61f1c1450538a4673",
+      "title": "Pass the Aerial, Visibility, and Support-Pressure Gate",
+      "words": 2555
+    },
+    {
+      "epic": 6,
+      "kind": "epic-overview",
+      "path": "epic-06-overview.md",
+      "requirement_ids": [
+        "FR39",
+        "FR40",
+        "FR41"
+      ],
+      "sha256": "f208f592b787912e667770197f0c2a2c4cb51dc18c551db127d827198684ddd5",
+      "words": 57
+    },
+    {
+      "epic": 6,
+      "id": "6.1",
+      "kind": "story",
+      "path": "epic-06-story-01.md",
+      "requirement_ids": [],
+      "sha256": "09d159c484a15b7c9e809e5234d1fc60be126473f83ce6dbf02336be94376850",
+      "title": "Turn a Growing Wall into a Lane-Shot Decision",
+      "words": 2709
+    },
+    {
+      "epic": 6,
+      "id": "6.2",
+      "kind": "story",
+      "path": "epic-06-story-02.md",
+      "requirement_ids": [],
+      "sha256": "f938e59b173add78c4571622cdcc37ccba2caa070dc39cd43b08e0de7bb0cfe6",
+      "title": "Turn Knockback into a Prediction-Breaking Choice",
+      "words": 2921
+    },
+    {
+      "epic": 6,
+      "id": "6.3",
+      "kind": "story",
+      "path": "epic-06-story-03.md",
+      "requirement_ids": [],
+      "sha256": "d37b1d2b15b9e4a5731cfeea4d6f5fcb76ba3ccc62df2a03846af3e5e533e92a",
+      "title": "Read a Pursuing Enemy Through a Spore Veil",
+      "words": 3005
+    },
+    {
+      "epic": 6,
+      "id": "6.4",
+      "kind": "story",
+      "path": "epic-06-story-04.md",
+      "requirement_ids": [],
+      "sha256": "9d74f6233486fe5b45173f6e7cb7ecc219eb034ab54edaa1b19d9caf996775f2",
+      "title": "Break Artillery Support While Evading Bombardment",
+      "words": 3384
+    },
+    {
+      "epic": 6,
+      "id": "6.5",
+      "kind": "story",
+      "path": "epic-06-story-05.md",
+      "requirement_ids": [],
+      "sha256": "23392b4c5f5053e16f4101e09e23e08fa5b74b2d6e0996d8d0d80ce4123aa8fc",
+      "title": "Escape Anti-Wall Pressure on an Infested Route",
+      "words": 3268
+    },
+    {
+      "epic": 6,
+      "id": "6.6",
+      "kind": "story",
+      "path": "epic-06-story-06.md",
+      "requirement_ids": [],
+      "sha256": "d44c69ad997d97e3b6a9ebfb30b4630a196cc9ac29f1fbc7f3d60e22aa9843cb",
+      "title": "Navigate an Aerial Mine Lattice in Directional Wind",
+      "words": 3497
+    },
+    {
+      "epic": 6,
+      "id": "6.7",
+      "kind": "story",
+      "path": "epic-06-story-07.md",
+      "requirement_ids": [
+        "FR22",
+        "FR23",
+        "FR24",
+        "FR25",
+        "FR26",
+        "FR27",
+        "FR28",
+        "FR29",
+        "FR30",
+        "FR31",
+        "FR32",
+        "FR33",
+        "FR34",
+        "FR35",
+        "FR36",
+        "FR37",
+        "FR38",
+        "FR39"
+      ],
+      "sha256": "de3324e240d61f518e40c940cf697d934264c319ea6da075bd626f19619c7501",
+      "title": "Pass the Complete M2 Mechanic Vocabulary Gate",
+      "words": 3104
+    },
+    {
+      "epic": 6,
+      "id": "6.8",
+      "kind": "story",
+      "path": "epic-06-story-08.md",
+      "requirement_ids": [
+        "FR56",
+        "NFR2"
+      ],
+      "sha256": "9c0234762b92d4352bba5eea1488018c8bbb992e948a11b18b22240506268b6c",
+      "title": "Select the Last Garden Production Mechanic Subset",
+      "words": 2881
+    },
+    {
+      "epic": 7,
+      "kind": "epic-overview",
+      "path": "epic-07-overview.md",
+      "requirement_ids": [
+        "FR46",
+        "FR47",
+        "FR48",
+        "FR49",
+        "FR50",
+        "FR51",
+        "FR52",
+        "FR53",
+        "FR57",
+        "FR58"
+      ],
+      "sha256": "92b06726f3a03ce01737e97703b587175c68d7138ab4201b138d4779ad94d59c",
+      "words": 78
+    },
+    {
+      "epic": 7,
+      "id": "7.1",
+      "kind": "story",
+      "path": "epic-07-story-01.md",
+      "requirement_ids": [],
+      "sha256": "da0ba79659d3ba078807e9c483aca1546b8a6a9f5edefe377b75b182956fb939",
+      "title": "Define and Approve the Gameplay HUD Contract",
+      "words": 2691
+    },
+    {
+      "epic": 7,
+      "id": "7.2",
+      "kind": "story",
+      "path": "epic-07-story-02.md",
+      "requirement_ids": [],
+      "sha256": "87dcdeb6c0b8c71da0986f63ac457966c2e6df2b0f6a3c2cb89a2e4a5b5bbcf1",
+      "title": "Complete One Run-Scoped Encounter",
+      "words": 2777
+    },
+    {
+      "epic": 7,
+      "id": "7.3",
+      "kind": "story",
+      "path": "epic-07-story-03.md",
+      "requirement_ids": [],
+      "sha256": "5b41c265d495a941429054873781e023e677ba031e1c3fe132a7a0ad011b6c4d",
+      "title": "Host One Replaceable Level Session",
+      "words": 2684
+    },
+    {
+      "epic": 7,
+      "id": "7.4",
+      "kind": "story",
+      "path": "epic-07-story-04.md",
+      "requirement_ids": [],
+      "sha256": "95d3fa4ba76aff44bebda41bd04e987c6fd4116e3af3b7c5c90fa33cb7f39649",
+      "title": "Load and Replace Authored Levels Safely",
+      "words": 2791
+    },
+    {
+      "epic": 7,
+      "id": "7.5",
+      "kind": "story",
+      "path": "epic-07-story-05.md",
+      "requirement_ids": [],
+      "sha256": "a97319569bf6b4fd6ded5687b00c4c1eb3ce82dc7780ee7f93f6dbb2f2954dfc",
+      "title": "Traverse a Multi-Route M3 Level Shell",
+      "words": 2827
+    },
+    {
+      "epic": 7,
+      "id": "7.6",
+      "kind": "story",
+      "path": "epic-07-story-06.md",
+      "requirement_ids": [],
+      "sha256": "30e337fc66e9e459983c6e7ee06d72b9ca9a11978eb8336bc9fa61be560b69e0",
+      "title": "Complete Required Encounters with an Optional Challenge",
+      "words": 3108
+    },
+    {
+      "epic": 7,
+      "id": "7.7",
+      "kind": "story",
+      "path": "epic-07-story-07.md",
+      "requirement_ids": [],
+      "sha256": "43b45459261875d29ddc33bc67b3669607f4209b61de5c391d1d2e4cb93ad122",
+      "title": "Restart an Encounter or Reload the Active Checkpoint",
+      "words": 3245
+    },
+    {
+      "epic": 7,
+      "id": "7.8",
+      "kind": "story",
+      "path": "epic-07-story-08.md",
+      "requirement_ids": [],
+      "sha256": "473894e9f93a8054b5bf64098ac1115c149ea0fb2bb757fbc5a15ffbc4159de4",
+      "title": "Collect Current-Session Health and Coin Rewards",
+      "words": 2399
+    },
+    {
+      "epic": 7,
+      "id": "7.9",
+      "kind": "story",
+      "path": "epic-07-story-09.md",
+      "requirement_ids": [],
+      "sha256": "dcdd00a80ea75dccd9f9cfcf423809e187e5a66d8e7f8b5b8560db24b9a2c2e4",
+      "title": "Present Gameplay State Through the Approved HUD",
+      "words": 2069
+    },
+    {
+      "epic": 7,
+      "id": "7.10",
+      "kind": "story",
+      "path": "epic-07-story-10.md",
+      "requirement_ids": [
+        "FR57"
+      ],
+      "sha256": "6a60c8bf5b904a4f475340ced809b411a25c3c8be83cf27774424afd279cc229",
+      "title": "Hear Scoped Gameplay and Level Audio",
+      "words": 2358
+    },
+    {
+      "epic": 7,
+      "id": "7.11",
+      "kind": "story",
+      "path": "epic-07-story-11.md",
+      "requirement_ids": [],
+      "sha256": "ebee868b264bcd788b4192575cb82c3c4c1af749e2d4fcaa16f974184e1c882d",
+      "title": "Pause and Resume Without State Drift",
+      "words": 1939
+    },
+    {
+      "epic": 7,
+      "id": "7.12",
+      "kind": "story",
+      "path": "epic-07-story-12.md",
+      "requirement_ids": [],
+      "sha256": "8b9e8ca9dbee0a811ceac6a4df15354bd0589069b835ee8c0da22e313d77da1b",
+      "title": "Configure and Persist Supported Preferences",
+      "words": 2059
+    },
+    {
+      "epic": 7,
+      "id": "7.13",
+      "kind": "story",
+      "path": "epic-07-story-13.md",
+      "requirement_ids": [],
+      "sha256": "04eec5bd88339871ccba0a3b904dae2fd06e7238d7eb66b1026a1507925788c7",
+      "title": "Remap Keyboard-and-Mouse Actions Safely",
+      "words": 2290
+    },
+    {
+      "epic": 7,
+      "id": "7.14",
+      "kind": "story",
+      "path": "epic-07-story-14.md",
+      "requirement_ids": [],
+      "sha256": "dc12e83aebb42002bd974d129d0eddd855e38154925ec7867d1aa35bce7b1169",
+      "title": "Leave the Active Level for a Safe Menu",
+      "words": 2112
+    },
+    {
+      "epic": 7,
+      "id": "7.15",
+      "kind": "story",
+      "path": "epic-07-story-15.md",
+      "requirement_ids": [],
+      "sha256": "64ca46af8485189ab2a70c41bb419faa0b11ee461eb5e34f0df8df6d15897844",
+      "title": "Inspect and Control Development Sessions Safely",
+      "words": 2506
+    },
+    {
+      "epic": 7,
+      "id": "7.16",
+      "kind": "story",
+      "path": "epic-07-story-16.md",
+      "requirement_ids": [
+        "NFR2"
+      ],
+      "sha256": "01dd15aa0b515f168e9c9f8334fa2f8dcc8003bd22981598c86df6e66e1023d6",
+      "title": "Define and Pass the M3 Minimum-Spec Performance Gate",
+      "words": 1892
+    },
+    {
+      "epic": 7,
+      "id": "7.17",
+      "kind": "story",
+      "path": "epic-07-story-17.md",
+      "requirement_ids": [
+        "FR46",
+        "FR53",
+        "FR54",
+        "FR56",
+        "FR57",
+        "FR58"
+      ],
+      "sha256": "34ce8ef3656835717a16cb43c1e0effb7ac3185c51290ff637705fd456e607f4",
+      "title": "Complete and Replay the Integrated M3 Level Loop",
+      "words": 2922
+    },
+    {
+      "epic": 8,
+      "kind": "epic-overview",
+      "path": "epic-08-overview.md",
+      "requirement_ids": [
+        "FR1",
+        "FR54",
+        "FR55",
+        "FR56"
+      ],
+      "sha256": "82fac1916b4c7785cac0e7299d88915b02ff850fb217d8ac2e5008e7bd71e083",
+      "words": 62
+    },
+    {
+      "epic": 8,
+      "id": "8.1",
+      "kind": "story",
+      "path": "epic-08-story-01.md",
+      "requirement_ids": [],
+      "sha256": "66bf633d9b4d56f4ca1584fd49f146a8aeef2a235f4cdb4fb8dd3e84b25ba1d9",
+      "title": "Define and Approve the Garden Heart Boss Fight",
+      "words": 2857
+    },
+    {
+      "epic": 8,
+      "id": "8.2",
+      "kind": "story",
+      "path": "epic-08-story-02.md",
+      "requirement_ids": [],
+      "sha256": "8e4bca228246f8a444e0a4057a20acf808bea4f8b9f17dff69c3f52ff1e963ac",
+      "title": "Traverse the Last Garden Boss Level and Arena Shell",
+      "words": 2992
+    },
+    {
+      "epic": 8,
+      "id": "8.3",
+      "kind": "story",
+      "path": "epic-08-story-03.md",
+      "requirement_ids": [
+        "FR56"
+      ],
+      "sha256": "47564b797294b3ab8cbfdeb98e78944eb1faefadc0be1aa632606e952b9713a2",
+      "title": "Complete the Last Garden Approach Encounter",
+      "words": 2288
+    },
+    {
+      "epic": 8,
+      "id": "8.4",
+      "kind": "story",
+      "path": "epic-08-story-04.md",
+      "requirement_ids": [],
+      "sha256": "2fc5779ffdf0d0d74ee807d69ad38449d7fe3f7a3419150711018ff5c67e2215",
+      "title": "Build the Garden Heart Core Boss Runtime",
+      "words": 2486
+    },
+    {
+      "epic": 8,
+      "id": "8.5",
+      "kind": "story",
+      "path": "epic-08-story-05.md",
+      "requirement_ids": [],
+      "sha256": "a9e740504c3d64cbd44433943f75b7d6ea488644f841164717b68b539b66eadf",
+      "title": "Open Garden Heart Weak Points Through Traversal",
+      "words": 2551
+    },
+    {
+      "epic": 8,
+      "id": "8.6",
+      "kind": "story",
+      "path": "epic-08-story-06.md",
+      "requirement_ids": [],
+      "sha256": "74fe9edae281fc496c8573a5ee5d8a862c1df710e20dda8455fb88339de483eb",
+      "title": "Complete the Primary Garden Heart Attack-Response Cycle",
+      "words": 2377
+    },
+    {
+      "epic": 8,
+      "id": "8.7",
+      "kind": "story",
+      "path": "epic-08-story-07.md",
+      "requirement_ids": [],
+      "sha256": "f3b3b050cb72201f2da9354aef2942ecb163ea63f69afaf3551768148216846f",
+      "title": "Escalate the Garden Heart Through Its Approved Phases",
+      "words": 2534
+    },
+    {
+      "epic": 8,
+      "id": "8.8",
+      "kind": "story",
+      "path": "epic-08-story-08.md",
+      "requirement_ids": [],
+      "sha256": "0c77aab4189f4162e318ab2be2d5413de0cf8c2d2ba8d35cf3bdbe2d16c1e687",
+      "title": "Present the Garden Heart Fight Clearly",
+      "words": 2496
+    },
+    {
+      "epic": 8,
+      "id": "8.9",
+      "kind": "story",
+      "path": "epic-08-story-09.md",
+      "requirement_ids": [],
+      "sha256": "a21223d58abed2ff9064096cb6226b214e134b6640d2aeca9d338fff1ccf9fda",
+      "title": "Activate, Defeat, and Restart the Garden Heart Encounter",
+      "words": 2762
+    },
+    {
+      "epic": 8,
+      "id": "8.10",
+      "kind": "story",
+      "path": "epic-08-story-10.md",
+      "requirement_ids": [],
+      "sha256": "e7c0b84d1162a085f9dce9f248e9cac6d9e485dd69992397937c41f587048d20",
+      "title": "Claim the Garden Heart Reward and Exit",
+      "words": 2471
+    },
+    {
+      "epic": 8,
+      "id": "8.11",
+      "kind": "story",
+      "path": "epic-08-story-11.md",
+      "requirement_ids": [
+        "NFR2"
+      ],
+      "sha256": "358e18cc5e341702584e52e7edea77a919cd3e668cff4ff30004dc35e3886135",
+      "title": "Pass the M4 Boss Performance Gate",
+      "words": 2069
+    },
+    {
+      "epic": 8,
+      "id": "8.12",
+      "kind": "story",
+      "path": "epic-08-story-12.md",
+      "requirement_ids": [
+        "FR1",
+        "FR54",
+        "FR56"
+      ],
+      "sha256": "477ed98a5d7d532ee68e26db4d153110bc9c03f0d612bf13b7a199488aab4a04",
+      "title": "Complete and Replay the Last Garden Slice",
+      "words": 3594
+    },
+    {
+      "kind": "index",
+      "path": "index.md",
+      "requirement_ids": [],
+      "sha256": "0f7d52a19df28d0bd2d1c934fe2652f2590e043f1f39102a8cdaa63dc79dbc77",
+      "words": 1213
+    }
+  ],
+  "generated_at": "2026-09-09T01:55:05-04:00",
+  "input_documents": [
+    "_bmad-output/planning-artifacts/gdd.md",
+    "_bmad-output/planning-artifacts/architecture.md",
+    "_bmad-output/planning-artifacts/decision-log.md"
+  ],
+  "input_revisions": {
+    "_bmad-output/planning-artifacts/architecture.md": "77b5370419ec5358ab29760a256f9ad2aa817efa6e84b8ff124d0f7774387080",
+    "_bmad-output/planning-artifacts/decision-log.md": "01454eb5eadbeb60cffe4508fcae8336cfb4bc8dd14c19230964c28a5fb72a00",
+    "_bmad-output/planning-artifacts/gdd.md": "d630bc8b194d16de29004b4d461b949b446b4e87bef895bf43ff25f8adc77156"
+  },
+  "requirement_ids": [
+    "FR1",
+    "FR2",
+    "FR3",
+    "FR4",
+    "FR5",
+    "FR6",
+    "FR7",
+    "FR8",
+    "FR9",
+    "FR10",
+    "FR11",
+    "FR12",
+    "FR13",
+    "FR14",
+    "FR15",
+    "FR16",
+    "FR17",
+    "FR18",
+    "FR19",
+    "FR20",
+    "FR21",
+    "FR22",
+    "FR23",
+    "FR24",
+    "FR25",
+    "FR26",
+    "FR27",
+    "FR28",
+    "FR29",
+    "FR30",
+    "FR31",
+    "FR32",
+    "FR33",
+    "FR34",
+    "FR35",
+    "FR36",
+    "FR37",
+    "FR38",
+    "FR39",
+    "FR40",
+    "FR41",
+    "FR42",
+    "FR43",
+    "FR44",
+    "FR45",
+    "FR46",
+    "FR47",
+    "FR48",
+    "FR49",
+    "FR50",
+    "FR51",
+    "FR52",
+    "FR53",
+    "FR54",
+    "FR55",
+    "FR56",
+    "FR57",
+    "FR58",
+    "NFR1",
+    "NFR2",
+    "NFR3",
+    "NFR4",
+    "NFR5",
+    "NFR6",
+    "NFR7",
+    "NFR8",
+    "NFR9",
+    "NFR10",
+    "NFR11",
+    "NFR12",
+    "NFR13",
+    "NFR14",
+    "NFR15",
+    "NFR16",
+    "NFR17",
+    "NFR18",
+    "NFR19",
+    "NFR20",
+    "NFR21",
+    "NFR22",
+    "NFR23",
+    "NFR24"
+  ],
+  "source_path": "_bmad-output/archive/epics-monolith-2026-09-09-004427.md",
+  "source_sha256": "3cc7afdc04ab7cdb13d219237a83a6d784eaeff281c8620b928da293479a8e71",
+  "status": "complete"
+}

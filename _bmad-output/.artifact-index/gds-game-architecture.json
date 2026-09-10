@@ -1,0 +1,71 @@
+{
+  "artifacts": {
+    "decision_log": {
+      "artifact_id": "grapplegame.decision-log",
+      "bytes": 6701,
+      "document_type": "decision-log",
+      "errors": [],
+      "exists": true,
+      "name": "decision_log",
+      "path": "_bmad-output/planning-artifacts/decision-log.md",
+      "required": true,
+      "sha256": "cc3d3eb03afd970290251beca9be4b05004f621abe26dda689b424db8fa429e7",
+      "status": "active",
+      "updated": "2026-09-09",
+      "version": "1.1",
+      "warnings": [],
+      "words": 888
+    },
+    "epics": {
+      "artifact_id": "grapplegame.epics",
+      "bytes": 9916,
+      "document_type": "epics-index",
+      "errors": [],
+      "exists": true,
+      "manifest": {
+        "exists": true,
+        "path": "_bmad-output/planning-artifacts/epics/manifest.json",
+        "sha256": "91e42c51a457e32b7d09c22eb67e7bf5ce1b8cf485d9bd3b4d62e21a93eefbb2"
+      },
+      "name": "epics",
+      "path": "_bmad-output/planning-artifacts/epics/index.md",
+      "required": true,
+      "sha256": "0f7d52a19df28d0bd2d1c934fe2652f2590e043f1f39102a8cdaa63dc79dbc77",
+      "status": "complete",
+      "updated": "2026-09-09",
+      "version": null,
+      "warnings": [],
+      "words": 1213
+    },
+    "gdd": {
+      "artifact_id": "grapplegame.gdd",
+      "bytes": 40387,
+      "document_type": "gdd",
+      "errors": [],
+      "exists": true,
+      "mirrors": [
+        {
+          "canonical_sha256": "203d1dbfc469dddb3f2e5edb441b443c9b2f4ff8fc0eb9d8e13841d57dded18d",
+          "current": true,
+          "exists": true,
+          "path": "_bmad-output/gdd-current.md"
+        }
+      ],
+      "name": "gdd",
+      "path": "_bmad-output/planning-artifacts/gdd.md",
+      "required": true,
+      "sha256": "203d1dbfc469dddb3f2e5edb441b443c9b2f4ff8fc0eb9d8e13841d57dded18d",
+      "status": "complete",
+      "updated": "2026-09-09",
+      "version": "1.0.0",
+      "warnings": [],
+      "words": 5484
+    }
+  },
+  "consumer": "gds-game-architecture",
+  "errors": [],
+  "generated_at": "2026-09-09T00:54:53-04:00",
+  "project_name": "testgame",
+  "schema_version": 1,
+  "valid": true
+}

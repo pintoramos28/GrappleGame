@@ -1,0 +1,10 @@
+[workflow]
+persistent_facts = [
+  "file:{project-root}/_bmad/custom/artifacts/artifact-contract.toml",
+]
+
+activation_steps_append = [
+  "Read and follow `{project-root}/_bmad/custom/artifacts/protocols/gds-game-architecture.md`. Execute its Prepare phase, require the resolver-selected canonical GDD, and create the managed root GDD compatibility mirror before installed document discovery.",
+]
+
+on_complete = "Read and execute the Publish phase of `{project-root}/_bmad/custom/artifacts/protocols/gds-game-architecture.md`. Do not report completion unless the canonical planning architecture is validated and published."

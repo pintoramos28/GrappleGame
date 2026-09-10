@@ -1,19 +1,38 @@
 ---
 project_name: 'testgame'
 user_name: 'Pinto'
-date: '2026-09-03'
+date: '2026-09-09'
 sections_completed: ['technology_stack', 'engine_rules', 'performance_rules', 'organization_rules', 'testing_rules', 'platform_rules', 'anti_patterns']
 existing_patterns_found: 9
 status: 'complete'
-rule_count: 87
+rule_count: 91
 optimized_for_llm: true
+artifact_schema: 1
+artifact_id: 'grapplegame.project-context'
+document_type: 'project-context'
+artifact_role: 'derived-implementation-guidance'
+authority: 'implementation-guidance'
+path_base: 'project-root'
+updated: '2026-09-09'
+architecture_path: '_bmad-output/planning-artifacts/architecture.md'
+architecture_sha256: '77b5370419ec5358ab29760a256f9ad2aa817efa6e84b8ff124d0f7774387080'
+decision_log: '_bmad-output/planning-artifacts/decision-log.md'
+decision_log_sha256: '01454eb5eadbeb60cffe4508fcae8336cfb4bc8dd14c19230964c28a5fb72a00'
 ---
 
 # Project Context for AI Agents
 
-_Critical, project-specific rules for agents implementing game code. The completed `game-architecture.md` is the source of truth for rationale and edge cases._
+_Critical, project-specific rules for agents implementing game code. The completed `_bmad-output/planning-artifacts/architecture.md` is the source of truth for rationale and edge cases._
 
 ---
+
+
+## Artifact Authority and Usage
+
+- Read this file before implementation, but use `_bmad-output/planning-artifacts/gdd.md` for design intent and `_bmad-output/planning-artifacts/architecture.md` for target technical decisions.
+- Use `_bmad-output/planning-artifacts/epics/manifest.json` for backlog inventory and load only the selected story shard.
+- Consult `_bmad-output/planning-artifacts/decision-log.md` for history; accepted requirements must also appear in their owning canonical artifact.
+- Supporting documents under `_bmad-output/planning-artifacts/sources/design-library/` are evidence, not competing planning authorities.
 
 ## Technology Stack & Versions
 
@@ -108,7 +127,7 @@ _Critical, project-specific rules for agents implementing game code. The complet
 
 ### Critical Don't-Miss Rules
 
-- Treat current tutorial, player, enemy, combat, and level code as prototype evidence, not architectural authority. When prototype behavior conflicts with `game-architecture.md`, implement the approved architecture and migrate affected dependencies together.
+- Treat current tutorial, player, enemy, combat, and level code as prototype evidence, not architectural authority. When prototype behavior conflicts with `_bmad-output/planning-artifacts/architecture.md`, implement the approved architecture and migrate affected dependencies together.
 - Grapple acquisition uses the canonical crosshair aim and authoritative first valid physics hit, without aim snapping or target-priority assistance. Presentation consumes that result rather than selecting independently.
 - Replace the prototype's `StaticBody3D` check with the typed `Grappleable3D` contract supporting eligibility, static or moving attachment points, response values, state changes, destruction, and invalidation. Most geometry and created obstacles are grappleable by default.
 - Grapple pull is acceleration-based and preserves existing momentum. The same `max_grapple_length_m` value - initially 35 m - governs acquisition and the active tether boundary; it is not the attachment distance. At maximum range, constrain only outward relative motion while preserving inward and tangential motion.
@@ -132,7 +151,7 @@ _Critical, project-specific rules for agents implementing game code. The complet
 **For AI Agents:**
 
 - Read this file before implementing game code and apply every rule relevant to the change.
-- Treat current prototype behavior as evidence, not authority; use `game-architecture.md` for rationale, edge cases, and conflict resolution.
+- Treat current prototype behavior as evidence, not authority; use `_bmad-output/planning-artifacts/architecture.md` for rationale, edge cases, and conflict resolution.
 - Consult the linked design documents before changing design-sensitive behavior.
 - Update this file only when an approved dependency, architecture decision, or stable implementation contract changes.
 
@@ -142,4 +161,4 @@ _Critical, project-specific rules for agents implementing game code. The complet
 - Update it when the technology stack or approved architecture changes.
 - Review it at milestone boundaries and remove rules superseded by an intentional redesign.
 
-Last Updated: 2026-09-03
+Last Updated: 2026-09-09

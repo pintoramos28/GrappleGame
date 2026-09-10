@@ -1,0 +1,54 @@
+{
+  "artifacts": {
+    "decision_log": {
+      "artifact_id": "grapplegame.decision-log",
+      "bytes": 7399,
+      "document_type": "decision-log",
+      "errors": [],
+      "exists": true,
+      "name": "decision_log",
+      "path": "_bmad-output/planning-artifacts/decision-log.md",
+      "required": true,
+      "sha256": "01454eb5eadbeb60cffe4508fcae8336cfb4bc8dd14c19230964c28a5fb72a00",
+      "status": "active",
+      "updated": "2026-09-09",
+      "version": "1.3",
+      "warnings": [],
+      "words": 991
+    },
+    "gdd": {
+      "artifact_id": "grapplegame.gdd",
+      "bytes": 48324,
+      "document_type": "gdd",
+      "errors": [],
+      "exists": true,
+      "mirrors": [
+        {
+          "canonical_sha256": "d630bc8b194d16de29004b4d461b949b446b4e87bef895bf43ff25f8adc77156",
+          "current": true,
+          "exists": true,
+          "link_errors": [],
+          "mirror_body_sha256": "921e9bdc76bc1cfcd04bccdd3dd40314ab4d43f476bd59ea20006fead8472a55",
+          "path": "_bmad-output/gdd-current.md"
+        }
+      ],
+      "name": "gdd",
+      "path": "_bmad-output/planning-artifacts/gdd.md",
+      "required": true,
+      "sha256": "d630bc8b194d16de29004b4d461b949b446b4e87bef895bf43ff25f8adc77156",
+      "status": "needs-decisions",
+      "updated": "2026-09-09",
+      "version": "1.2.0",
+      "warnings": [
+        "status is 'needs-decisions'; expected one of active, complete, final, ready-for-development"
+      ],
+      "words": 7020
+    }
+  },
+  "consumer": "gds-gdd",
+  "errors": [],
+  "generated_at": "2026-09-09T01:59:14-04:00",
+  "project_name": "testgame",
+  "schema_version": 1,
+  "valid": true
+}

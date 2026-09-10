@@ -1,0 +1,10 @@
+[workflow]
+persistent_facts = [
+  "file:{project-root}/_bmad/custom/artifacts/artifact-contract.toml",
+]
+
+activation_steps_append = [
+  "Read and follow `{project-root}/_bmad/custom/artifacts/protocols/gds-generate-project-context.md`. Use the resolver-selected canonical architecture and the exact project-context target `_bmad-output/project-context.md`; halt if another project-context.md exists.",
+]
+
+on_complete = "Validate `_bmad-output/project-context.md`, stamp its architecture source revision, and verify it is the repository's only canonical project-context.md."

@@ -1,0 +1,12 @@
+[workflow]
+ux_output_path = "{output_folder}/workspaces/ux"
+
+persistent_facts = [
+  "file:{project-root}/_bmad/custom/artifacts/artifact-contract.toml",
+]
+
+activation_steps_append = [
+  "Read and follow `{project-root}/_bmad/custom/artifacts/protocols/gds-ux.md`. Use only resolver-selected canonical sources and halt on duplicate, stale, or unresolved inputs.",
+]
+
+on_complete = "Read and execute the Publish phase of `{project-root}/_bmad/custom/artifacts/protocols/gds-ux.md`. Publish DESIGN.md and EXPERIENCE.md together with index.md as one validated UX bundle."

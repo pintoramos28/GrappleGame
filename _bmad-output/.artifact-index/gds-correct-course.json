@@ -1,0 +1,120 @@
+{
+  "artifacts": {
+    "architecture": {
+      "artifact_id": "grapplegame.architecture",
+      "bytes": 179763,
+      "document_type": "game-architecture",
+      "errors": [],
+      "exists": true,
+      "mirrors": [
+        {
+          "canonical_sha256": "ca54427c79ab3b517529b257ea3e5d9db4bafde5b2a8058d210eecc8b259f971",
+          "current": true,
+          "exists": true,
+          "path": "_bmad-output/game-architecture.md"
+        }
+      ],
+      "name": "architecture",
+      "path": "_bmad-output/planning-artifacts/architecture.md",
+      "required": true,
+      "sha256": "ca54427c79ab3b517529b257ea3e5d9db4bafde5b2a8058d210eecc8b259f971",
+      "status": "complete",
+      "updated": "2026-09-09",
+      "version": "1.0",
+      "warnings": [],
+      "words": 23056
+    },
+    "decision_log": {
+      "artifact_id": "grapplegame.decision-log",
+      "bytes": 6701,
+      "document_type": "decision-log",
+      "errors": [],
+      "exists": true,
+      "name": "decision_log",
+      "path": "_bmad-output/planning-artifacts/decision-log.md",
+      "required": true,
+      "sha256": "cc3d3eb03afd970290251beca9be4b05004f621abe26dda689b424db8fa429e7",
+      "status": "active",
+      "updated": "2026-09-09",
+      "version": "1.1",
+      "warnings": [],
+      "words": 888
+    },
+    "epics": {
+      "artifact_id": "grapplegame.epics",
+      "bytes": 9916,
+      "document_type": "epics-index",
+      "errors": [],
+      "exists": true,
+      "manifest": {
+        "exists": true,
+        "path": "_bmad-output/planning-artifacts/epics/manifest.json",
+        "sha256": "91e42c51a457e32b7d09c22eb67e7bf5ce1b8cf485d9bd3b4d62e21a93eefbb2"
+      },
+      "name": "epics",
+      "path": "_bmad-output/planning-artifacts/epics/index.md",
+      "required": true,
+      "sha256": "0f7d52a19df28d0bd2d1c934fe2652f2590e043f1f39102a8cdaa63dc79dbc77",
+      "status": "complete",
+      "updated": "2026-09-09",
+      "version": null,
+      "warnings": [],
+      "words": 1213
+    },
+    "gdd": {
+      "artifact_id": "grapplegame.gdd",
+      "bytes": 40387,
+      "document_type": "gdd",
+      "errors": [],
+      "exists": true,
+      "mirrors": [
+        {
+          "canonical_sha256": "203d1dbfc469dddb3f2e5edb441b443c9b2f4ff8fc0eb9d8e13841d57dded18d",
+          "current": true,
+          "exists": true,
+          "path": "_bmad-output/gdd-current.md"
+        }
+      ],
+      "name": "gdd",
+      "path": "_bmad-output/planning-artifacts/gdd.md",
+      "required": true,
+      "sha256": "203d1dbfc469dddb3f2e5edb441b443c9b2f4ff8fc0eb9d8e13841d57dded18d",
+      "status": "complete",
+      "updated": "2026-09-09",
+      "version": "1.0.0",
+      "warnings": [],
+      "words": 5484
+    },
+    "project_context": {
+      "artifact_id": "grapplegame.project-context",
+      "bytes": 21862,
+      "document_type": "project-context",
+      "errors": [],
+      "exists": true,
+      "name": "project_context",
+      "path": "_bmad-output/project-context.md",
+      "required": true,
+      "sha256": "ff4edd977536d6d78ea9c3d3e0c6a8c26e31c562a68e8830885ccbe4d302e092",
+      "status": "complete",
+      "updated": "2026-09-09",
+      "version": null,
+      "warnings": [],
+      "words": 2806
+    },
+    "ux": {
+      "artifact_id": "grapplegame.ux",
+      "errors": [],
+      "exists": false,
+      "name": "ux",
+      "path": "_bmad-output/planning-artifacts/ux/index.md",
+      "required": false,
+      "warnings": []
+    }
+  },
+  "consumer": "gds-correct-course",
+  "errors": [],
+  "generated_at": "2026-09-09T00:54:56-04:00",
+  "project_name": "testgame",
+  "schema_version": 1,
+  "valid": true
+}

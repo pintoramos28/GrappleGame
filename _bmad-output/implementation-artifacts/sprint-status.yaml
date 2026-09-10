@@ -1,0 +1,150 @@
+# generated: 2026-09-09T20:21:39-04:00
+# last_updated: 2026-09-09T20:45:33-04:00
+# project: testgame
+# project_key: NOKEY
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts
+# epics_manifest: _bmad-output/planning-artifacts/epics/manifest.json
+# epics_manifest_sha256: 8a0a51a1d4915b4aa75a7f96a427d03200a2fe0b4538ac061c9ab19afe045d15
+# project_context: _bmad-output/project-context.md
+# project_context_sha256: 924f967d83ac664c1352f27bb89ef91cef4d4ae765746d379c77cfe91eb608d9
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog -> in-progress: Automatically when first story is created (via create-story)
+#   - in-progress -> done: Manually when all stories reach done status
+#
+# Story Status:
+#   - backlog: Story only exists in the canonical Epic package
+#   - ready-for-dev: Story implementation file has been created
+#   - in-progress: Developer actively working on implementation
+#   - review: Story is ready for code review
+#   - done: Story implementation is complete
+#
+# Retrospective Status:
+#   - optional: Available but not required
+#   - done: Retrospective completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to in-progress when its first Story is created.
+# - Stories may be worked in parallel when capacity and dependencies allow.
+# - Create the next Story after prior implementation learnings are available.
+# - Dev Story moves work to review; run Code Review in a fresh context before done.
+
+generated: '2026-09-09T20:21:39-04:00'
+last_updated: '2026-09-09T20:45:33-04:00'
+project: 'testgame'
+project_key: 'NOKEY'
+tracking_system: 'file-system'
+story_location: '_bmad-output/implementation-artifacts'
+epics_manifest: '_bmad-output/planning-artifacts/epics/manifest.json'
+epics_manifest_sha256: '8a0a51a1d4915b4aa75a7f96a427d03200a2fe0b4538ac061c9ab19afe045d15'
+epics_manifest_source_sha256: '3cc7afdc04ab7cdb13d219237a83a6d784eaeff281c8620b928da293479a8e71'
+project_context: '_bmad-output/project-context.md'
+project_context_sha256: '924f967d83ac664c1352f27bb89ef91cef4d4ae765746d379c77cfe91eb608d9'
+
+development_status:
+  epic-1: in-progress
+  1-1-verify-and-protect-the-playable-traversal-baseline: ready-for-dev
+  1-2-deliver-reliable-fixed-step-player-commands: backlog
+  1-3-centralize-the-players-physics-step-movement-commit: backlog
+  1-4-resolve-traversal-through-semantic-motor-phases: backlog
+  1-5-share-authoritative-ground-and-wall-contact-facts: backlog
+  1-6-acquire-grapple-targets-consistently: backlog
+  1-7-zip-pull-within-a-true-maximum-grapple-boundary: backlog
+  1-8-grapple-moving-and-stateful-targets-safely: backlog
+  1-9-integrate-wall-traversal-and-mistake-recovery: backlog
+  1-10-complete-the-focused-traversal-validation-route: backlog
+  epic-1-retrospective: optional
+  epic-2: backlog
+  2-1-run-every-timed-ability-through-one-lifecycle: backlog
+  2-2-resolve-immutable-and-attributed-damage: backlog
+  2-3-capture-movement-and-impact-context: backlog
+  2-4-share-melee-space-between-telegraph-and-delivery: backlog
+  2-5-coordinate-traversal-and-attacks-explicitly: backlog
+  2-6-deliver-one-simulation-owned-player-melee-attack: backlog
+  2-7-complete-health-reactions-death-and-combat-reset: backlog
+  2-8-keep-enemy-ai-at-the-intent-boundary: backlog
+  2-9-deliver-one-complete-readable-melee-enemy: backlog
+  2-10-prove-the-movement-combat-contract: backlog
+  epic-2-retrospective: optional
+  epic-3: backlog
+  3-1-establish-the-m2-prototype-contract-and-manual-pressure-lab: backlog
+  3-2-prove-geometry-discovered-climbing-and-pounce: backlog
+  3-3-prove-geometry-discovered-flying-tactics: backlog
+  3-4-prototype-a-telegraph-aligned-direct-lane-shot: backlog
+  3-5-apply-one-shot-knockback-with-recovery: backlog
+  3-6-grow-a-telegraph-first-temporary-obstacle: backlog
+  3-7-break-a-harpoon-tether-without-losing-traversal-control: backlog
+  3-8-identify-and-disperse-a-deterministic-decoy: backlog
+  3-9-select-a-readable-anti-wall-harpoon-from-player-context: backlog
+  3-10-pass-the-six-family-prototype-gate: backlog
+  epic-3-retrospective: optional
+  epic-4: backlog
+  4-1-escape-a-telegraph-first-adhesive-surface: backlog
+  4-2-defeat-a-frozen-predictive-mark-by-changing-course: backlog
+  4-3-cross-a-rate-independent-rotating-sweep: backlog
+  4-4-escape-a-telegraph-first-drifting-damage-cloud: backlog
+  4-5-adapt-to-a-temporarily-weakened-grapple-anchor: backlog
+  4-6-preserve-control-in-a-directional-wind-field: backlog
+  4-7-adapt-to-a-temporarily-infested-wall: backlog
+  4-8-pass-the-route-pressure-prototype-gate: backlog
+  epic-4-retrospective: optional
+  epic-5: backlog
+  5-1-escape-a-source-independent-arcing-bombardment: backlog
+  5-2-navigate-a-bounded-spore-veil-without-losing-critical-cues: backlog
+  5-3-navigate-a-telegraph-first-aerial-mine-lattice: backlog
+  5-4-interrupt-a-healing-support-tether: backlog
+  5-5-break-enemy-support-while-under-melee-pressure: backlog
+  5-6-pass-the-aerial-visibility-and-support-pressure-gate: backlog
+  epic-5-retrospective: optional
+  epic-6: backlog
+  6-1-turn-a-growing-wall-into-a-lane-shot-decision: backlog
+  6-2-turn-knockback-into-a-prediction-breaking-choice: backlog
+  6-3-read-a-pursuing-enemy-through-a-spore-veil: backlog
+  6-4-break-artillery-support-while-evading-bombardment: backlog
+  6-5-escape-anti-wall-pressure-on-an-infested-route: backlog
+  6-6-navigate-an-aerial-mine-lattice-in-directional-wind: backlog
+  6-7-pass-the-complete-m2-mechanic-vocabulary-gate: backlog
+  6-8-select-the-last-garden-production-mechanic-subset: backlog
+  epic-6-retrospective: optional
+  epic-7: backlog
+  7-1-define-and-approve-the-gameplay-hud-contract: backlog
+  7-2-complete-one-run-scoped-encounter: backlog
+  7-3-host-one-replaceable-level-session: backlog
+  7-4-load-and-replace-authored-levels-safely: backlog
+  7-5-traverse-a-multi-route-m3-level-shell: backlog
+  7-6-complete-required-encounters-with-an-optional-challenge: backlog
+  7-7-restart-an-encounter-or-reload-the-active-checkpoint: backlog
+  7-8-collect-current-session-health-and-coin-rewards: backlog
+  7-9-present-gameplay-state-through-the-approved-hud: backlog
+  7-10-hear-scoped-gameplay-and-level-audio: backlog
+  7-11-pause-and-resume-without-state-drift: backlog
+  7-12-configure-and-persist-supported-preferences: backlog
+  7-13-remap-keyboard-and-mouse-actions-safely: backlog
+  7-14-leave-the-active-level-for-a-safe-menu: backlog
+  7-15-inspect-and-control-development-sessions-safely: backlog
+  7-16-define-and-pass-the-m3-minimum-spec-performance-gate: backlog
+  7-17-complete-and-replay-the-integrated-m3-level-loop: backlog
+  epic-7-retrospective: optional
+  epic-8: backlog
+  8-1-define-and-approve-the-garden-heart-boss-fight: backlog
+  8-2-traverse-the-last-garden-boss-level-and-arena-shell: backlog
+  8-3-complete-the-last-garden-approach-encounter: backlog
+  8-4-build-the-garden-heart-core-boss-runtime: backlog
+  8-5-open-garden-heart-weak-points-through-traversal: backlog
+  8-6-complete-the-primary-garden-heart-attack-response-cycle: backlog
+  8-7-escalate-the-garden-heart-through-its-approved-phases: backlog
+  8-8-present-the-garden-heart-fight-clearly: backlog
+  8-9-activate-defeat-and-restart-the-garden-heart-encounter: backlog
+  8-10-claim-the-garden-heart-reward-and-exit: backlog
+  8-11-pass-the-m4-boss-performance-gate: backlog
+  8-12-complete-and-replay-the-last-garden-slice: backlog
+  epic-8-retrospective: optional

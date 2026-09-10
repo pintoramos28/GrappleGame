@@ -1,0 +1,128 @@
+{
+  "artifacts": {
+    "architecture": {
+      "artifact_id": "grapplegame.architecture",
+      "bytes": 179932,
+      "document_type": "game-architecture",
+      "errors": [],
+      "exists": true,
+      "mirrors": [
+        {
+          "canonical_sha256": "77b5370419ec5358ab29760a256f9ad2aa817efa6e84b8ff124d0f7774387080",
+          "current": true,
+          "exists": true,
+          "link_errors": [],
+          "mirror_body_sha256": "0d51bad38dbfa5fb1597045ee15072fcdaeb520b48dde74a9c73d3e8d0cbaeb8",
+          "path": "_bmad-output/game-architecture.md"
+        }
+      ],
+      "name": "architecture",
+      "path": "_bmad-output/planning-artifacts/architecture.md",
+      "required": true,
+      "sha256": "77b5370419ec5358ab29760a256f9ad2aa817efa6e84b8ff124d0f7774387080",
+      "status": "complete",
+      "updated": "2026-09-09",
+      "version": "1.0",
+      "warnings": [],
+      "words": 23048
+    },
+    "decision_log": {
+      "artifact_id": "grapplegame.decision-log",
+      "bytes": 7399,
+      "document_type": "decision-log",
+      "errors": [],
+      "exists": true,
+      "name": "decision_log",
+      "path": "_bmad-output/planning-artifacts/decision-log.md",
+      "required": true,
+      "sha256": "01454eb5eadbeb60cffe4508fcae8336cfb4bc8dd14c19230964c28a5fb72a00",
+      "status": "active",
+      "updated": "2026-09-09",
+      "version": "1.3",
+      "warnings": [],
+      "words": 991
+    },
+    "epics": {
+      "artifact_id": "grapplegame.epics",
+      "bytes": 9916,
+      "document_type": "epics-index",
+      "errors": [],
+      "exists": true,
+      "manifest": {
+        "exists": true,
+        "path": "_bmad-output/planning-artifacts/epics/manifest.json",
+        "sha256": "8a0a51a1d4915b4aa75a7f96a427d03200a2fe0b4538ac061c9ab19afe045d15"
+      },
+      "name": "epics",
+      "path": "_bmad-output/planning-artifacts/epics/index.md",
+      "required": true,
+      "sha256": "0f7d52a19df28d0bd2d1c934fe2652f2590e043f1f39102a8cdaa63dc79dbc77",
+      "status": "complete",
+      "updated": "2026-09-09",
+      "version": null,
+      "warnings": [],
+      "words": 1213
+    },
+    "gdd": {
+      "artifact_id": "grapplegame.gdd",
+      "bytes": 48324,
+      "document_type": "gdd",
+      "errors": [
+        "status is 'needs-decisions'; expected one of active, complete, final, ready-for-development"
+      ],
+      "exists": true,
+      "mirrors": [
+        {
+          "canonical_sha256": "d630bc8b194d16de29004b4d461b949b446b4e87bef895bf43ff25f8adc77156",
+          "current": true,
+          "exists": true,
+          "link_errors": [],
+          "mirror_body_sha256": "921e9bdc76bc1cfcd04bccdd3dd40314ab4d43f476bd59ea20006fead8472a55",
+          "path": "_bmad-output/gdd-current.md"
+        }
+      ],
+      "name": "gdd",
+      "path": "_bmad-output/planning-artifacts/gdd.md",
+      "required": true,
+      "sha256": "d630bc8b194d16de29004b4d461b949b446b4e87bef895bf43ff25f8adc77156",
+      "status": "needs-decisions",
+      "updated": "2026-09-09",
+      "version": "1.2.0",
+      "warnings": [],
+      "words": 7020
+    },
+    "project_context": {
+      "artifact_id": "grapplegame.project-context",
+      "bytes": 21950,
+      "document_type": "project-context",
+      "errors": [],
+      "exists": true,
+      "name": "project_context",
+      "path": "_bmad-output/project-context.md",
+      "required": true,
+      "sha256": "924f967d83ac664c1352f27bb89ef91cef4d4ae765746d379c77cfe91eb608d9",
+      "status": "complete",
+      "updated": "2026-09-09",
+      "version": null,
+      "warnings": [],
+      "words": 2808
+    },
+    "ux": {
+      "artifact_id": "grapplegame.ux",
+      "errors": [],
+      "exists": false,
+      "name": "ux",
+      "path": "_bmad-output/planning-artifacts/ux/index.md",
+      "required": false,
+      "warnings": []
+    }
+  },
+  "consumer": "gds-create-story",
+  "errors": [
+    "gdd: status is 'needs-decisions'; expected one of active, complete, final, ready-for-development"
+  ],
+  "generated_at": "2026-09-09T20:53:46-04:00",
+  "project_name": "testgame",
+  "schema_version": 1,
+  "valid": false
+}

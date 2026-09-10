@@ -1,0 +1,479 @@
+{
+  "artifact_revisions": {
+    "architecture": "77b5370419ec5358ab29760a256f9ad2aa817efa6e84b8ff124d0f7774387080",
+    "decision_log": "01454eb5eadbeb60cffe4508fcae8336cfb4bc8dd14c19230964c28a5fb72a00",
+    "epics": "0f7d52a19df28d0bd2d1c934fe2652f2590e043f1f39102a8cdaa63dc79dbc77",
+    "gdd": "d630bc8b194d16de29004b4d461b949b446b4e87bef895bf43ff25f8adc77156",
+    "project_context": "924f967d83ac664c1352f27bb89ef91cef4d4ae765746d379c77cfe91eb608d9",
+    "ux": null
+  },
+  "coverage": {
+    "epic_requirement_count": 58,
+    "gdd_fr_count": 58,
+    "gdd_nfr_count": 21,
+    "manifest_requirement_count": 82,
+    "missing_fr_delivery_coverage": [],
+    "missing_nfr_architecture_disposition": [],
+    "story_requirement_count": 27,
+    "story_shards_without_requirement_ids": 71,
+    "ux_requirement_ids": []
+  },
+  "epic_manifest_sha256": "8a0a51a1d4915b4aa75a7f96a427d03200a2fe0b4538ac061c9ab19afe045d15",
+  "epic_shards": 91,
+  "errors": [
+    "gdd: status is 'needs-decisions'; expected one of active, complete, final, ready-for-development",
+    "UX is required by the GDD, but the canonical UX bundle is absent"
+  ],
+  "generated_at": "2026-09-09T19:53:34-04:00",
+  "implementation_scope_ready": "M0 implementation-start only; no milestone is acceptance-ready",
+  "inventory_valid": false,
+  "lineage": {
+    "architecture_decision_log_sha256": "01454eb5eadbeb60cffe4508fcae8336cfb4bc8dd14c19230964c28a5fb72a00",
+    "architecture_gdd_sha256": "d630bc8b194d16de29004b4d461b949b446b4e87bef895bf43ff25f8adc77156",
+    "epic_input_revisions": {
+      "_bmad-output/planning-artifacts/architecture.md": "77b5370419ec5358ab29760a256f9ad2aa817efa6e84b8ff124d0f7774387080",
+      "_bmad-output/planning-artifacts/decision-log.md": "01454eb5eadbeb60cffe4508fcae8336cfb4bc8dd14c19230964c28a5fb72a00",
+      "_bmad-output/planning-artifacts/gdd.md": "d630bc8b194d16de29004b4d461b949b446b4e87bef895bf43ff25f8adc77156"
+    },
+    "project_context_architecture_sha256": "77b5370419ec5358ab29760a256f9ad2aa817efa6e84b8ff124d0f7774387080",
+    "project_context_decision_log_sha256": "01454eb5eadbeb60cffe4508fcae8336cfb4bc8dd14c19230964c28a5fb72a00"
+  },
+  "open_decisions": [
+    {
+      "blocks_phase": "M3-M4",
+      "decision": "Select the Last Garden production subset from the validated M2 vocabulary.",
+      "id": "OD-001"
+    },
+    {
+      "blocks_phase": "future-design",
+      "decision": "Decide which enemy-effect mechanics may also support future player abilities.",
+      "id": "OD-002"
+    },
+    {
+      "blocks_phase": "M2-balance",
+      "decision": "Establish limits for hard control and movement cancellation.",
+      "id": "OD-003"
+    },
+    {
+      "blocks_phase": "M2-balance",
+      "decision": "Establish the maximum readable simultaneous pressure overlap.",
+      "id": "OD-004"
+    },
+    {
+      "blocks_phase": "tuning",
+      "decision": "Decide which tuning decisions require telemetry.",
+      "id": "OD-005"
+    },
+    {
+      "blocks_phase": "verification",
+      "decision": "Allocate automated-test evidence versus playtest-only evidence for each prototype.",
+      "id": "OD-006"
+    },
+    {
+      "blocks_phase": "UX",
+      "decision": "Define target audience, HUD hierarchy, accessibility behavior, reticle options, settings interactions, and active-slice audio minimum.",
+      "id": "OD-007"
+    },
+    {
+      "blocks_phase": "performance",
+      "decision": "Define minimum-spec hardware, representative content density, capture method, pass duration, peak-memory target, and level-load target for the 1080p/60 FPS gate.",
+      "id": "OD-008"
+    },
+    {
+      "blocks_phase": "M0-tuning",
+      "decision": "Measure and approve jump apex/airtime, coyote time, jump buffering, wall-relative entry tolerance, and grapple-gravity behavior after focused traversal playtests.",
+      "id": "OD-009"
+    },
+    {
+      "blocks_phase": "M3-level-flow",
+      "decision": "Define checkpoint spacing, retry-time target, and encounter-versus-checkpoint reset cadence.",
+      "id": "OD-010"
+    },
+    {
+      "blocks_phase": "M1-validation",
+      "decision": "Define the movement-derived combat advantage and its minimum pass threshold against an equivalent stationary attack.",
+      "id": "OD-011"
+    },
+    {
+      "blocks_phase": "M1-scope",
+      "decision": "Confirm Basic Strike as the only required player attack with no combo chain in M0-M4, or define the replacement scope.",
+      "id": "OD-012"
+    }
+  ],
+  "ready": false,
+  "schema_version": 1,
+  "shard_validation": {
+    "digests": [
+      {
+        "path": "requirements.md",
+        "sha256": "59d343e69c9665bff66b06cc1b1cac701f16539c0d874a0832d551641eb8f29b"
+      },
+      {
+        "path": "epic-01-overview.md",
+        "sha256": "1e6218beba7e5361b374f02722620c129e3ab6b21af321b280d9fb3899eab168"
+      },
+      {
+        "path": "epic-01-story-01.md",
+        "sha256": "97da50250d46fdfcfb4b5223a61cc9bf9be6fd8a85ae44460b5c0b73eecb2079"
+      },
+      {
+        "path": "epic-01-story-02.md",
+        "sha256": "74e5509f09323c99a22b4b58599a1e67efd9cad55e21e4bac28c1dfaa6579fd7"
+      },
+      {
+        "path": "epic-01-story-03.md",
+        "sha256": "ce35a846f86b2f7d55b490b5659ec905b180d7842ddc629636b720ef4c2e0a66"
+      },
+      {
+        "path": "epic-01-story-04.md",
+        "sha256": "150fb00691abbed6b34d33c7509eb5f797391cc6c62f5d40ca63156f6b7549a3"
+      },
+      {
+        "path": "epic-01-story-05.md",
+        "sha256": "7457e456a0962c075b0bbb75ecd0df3ff93df83a47a40f8525ecc1ea41ad9329"
+      },
+      {
+        "path": "epic-01-story-06.md",
+        "sha256": "a5141fc63abd0cba2168f61fba4334fe2eca480f6e81daa73c3a22dc13ead41e"
+      },
+      {
+        "path": "epic-01-story-07.md",
+        "sha256": "e9f59ac396edbb2969edb5e56e96f61419c019c4d0aaef782cccd3652d67fdba"
+      },
+      {
+        "path": "epic-01-story-08.md",
+        "sha256": "c6e849e29667c5f4c97d7bd920e7024b96ae7d2b57ff4c603c78ecd817f0707c"
+      },
+      {
+        "path": "epic-01-story-09.md",
+        "sha256": "683d883b4f6691b98038c4e78d00180fa7c844bfad1ce2024a6e16e1e7bd691f"
+      },
+      {
+        "path": "epic-01-story-10.md",
+        "sha256": "4b5bebc10cde280f1f8ee1daaed19f17cf50957dce37c4697bffc8d9c7895862"
+      },
+      {
+        "path": "epic-02-overview.md",
+        "sha256": "e6f7b44344736b479641ad388895cfacbe63b9f12ad0170123ca7e60f5f1fafe"
+      },
+      {
+        "path": "epic-02-story-01.md",
+        "sha256": "a37ba674a5bafa071c7d6a9b554434f22f569015acb34b0ad2536385012d2f3e"
+      },
+      {
+        "path": "epic-02-story-02.md",
+        "sha256": "4cdc109272de70ac6de341df918804c6e16b373d0ed79721e81fca004b57ecdf"
+      },
+      {
+        "path": "epic-02-story-03.md",
+        "sha256": "c378fd27b9408be985ba5a2034d45d47db9a43ad7d1e0dbf4629c4094757c8e8"
+      },
+      {
+        "path": "epic-02-story-04.md",
+        "sha256": "b934c62b2aabef5bcd4f805f00a79cfb3b57f6b54eeae14b4dafd65907e2ff15"
+      },
+      {
+        "path": "epic-02-story-05.md",
+        "sha256": "e1e2c9d206144c7fa4e20c3040fe9c0f4fd90cc74be2af477e22592698ade623"
+      },
+      {
+        "path": "epic-02-story-06.md",
+        "sha256": "fba1b09c9bec177816b5c7fb249aa81f3b483677d91e50897e00897d9e62cb7c"
+      },
+      {
+        "path": "epic-02-story-07.md",
+        "sha256": "8af2d6282ef25dc4594e987e22d7bb87837eedee923a30cc4f10f245b7015c05"
+      },
+      {
+        "path": "epic-02-story-08.md",
+        "sha256": "d61dbd0883902714953ae761797fbd7ab9cc1d1cc7e8c98a5631eb7199d69831"
+      },
+      {
+        "path": "epic-02-story-09.md",
+        "sha256": "f3a4a92b2a4c8cb458ecd065d771ea49ca194effab0c5d7dc0c530b09e2f2ea1"
+      },
+      {
+        "path": "epic-02-story-10.md",
+        "sha256": "c52f82a2aa70951c0b299137a9b1561285062daa899d23239c497fb85b14e860"
+      },
+      {
+        "path": "epic-03-overview.md",
+        "sha256": "77bf3e38a676cbef8d8694056b0da4eda3e1fdf273b0d2802300f2c26b04eacc"
+      },
+      {
+        "path": "epic-03-story-01.md",
+        "sha256": "11fe36ebc86088e7ab5d8e6a3ba58ee762631ee7b15eff7436d4c4799260348d"
+      },
+      {
+        "path": "epic-03-story-02.md",
+        "sha256": "0acdee5cb93e9df3c588a7088a3fafd972183a164c26fb49fd3978b079181b64"
+      },
+      {
+        "path": "epic-03-story-03.md",
+        "sha256": "19bdf364b8ef692b72358f5be875eab5945eb7e87261b28f6376e68c14672e1f"
+      },
+      {
+        "path": "epic-03-story-04.md",
+        "sha256": "e30322e6ec1e3de88b3f2a7b980c5c53b5d34d75b2895f5613aeeb2caf0b0351"
+      },
+      {
+        "path": "epic-03-story-05.md",
+        "sha256": "c605af0d15225713388280f886f409e7a0e0fa3fed3516a5598476ffa7d5a52f"
+      },
+      {
+        "path": "epic-03-story-06.md",
+        "sha256": "3a90baf06f7ccc33330e51a5364f621741b63eba07238320ea44d83cca6c7f58"
+      },
+      {
+        "path": "epic-03-story-07.md",
+        "sha256": "2815c97d38a95233258666cc534dfec9b424a3661500ec8c1248e91c15187c57"
+      },
+      {
+        "path": "epic-03-story-08.md",
+        "sha256": "7c2143e6747c0573384dbac1f1a522bc08f7dbca6816fcef2e570603f5cdd05a"
+      },
+      {
+        "path": "epic-03-story-09.md",
+        "sha256": "83e2141c52f9cc92f40bd9923f87e7bbd15326f9af90bced8b4908109503b8fa"
+      },
+      {
+        "path": "epic-03-story-10.md",
+        "sha256": "fda568675025dda9a3d1382c6810def843a6355f1c76fad40aef4cdb547eae78"
+      },
+      {
+        "path": "epic-04-overview.md",
+        "sha256": "036fd760371e24a6b09873d7ca49859233cf983ab22c032e7ecc8b0cd1358318"
+      },
+      {
+        "path": "epic-04-story-01.md",
+        "sha256": "460f20ea652cdd4cca5dc45b256b25c33d4f2c2bdcfb703e7dc71459aeed118d"
+      },
+      {
+        "path": "epic-04-story-02.md",
+        "sha256": "b4bcd7ab78306a52138289b856296f5dd77f8480a1b44258b4ade97ef2024799"
+      },
+      {
+        "path": "epic-04-story-03.md",
+        "sha256": "f0540aea9a06e3dfaf5730c0f60cfcdaa58059880834361e9d5aa40703b72076"
+      },
+      {
+        "path": "epic-04-story-04.md",
+        "sha256": "b5da161905f7fce32dd21ebe591dec95e3dd79d4f1eb955c348dd604714b7bf4"
+      },
+      {
+        "path": "epic-04-story-05.md",
+        "sha256": "fb2223007ad330b2a14c76adf92c91e3c019fd32811b400c27d93c018ef85fda"
+      },
+      {
+        "path": "epic-04-story-06.md",
+        "sha256": "31b711953ccc80480b15015d007b762c95ebc83cb3340066dad22547039f2956"
+      },
+      {
+        "path": "epic-04-story-07.md",
+        "sha256": "58e0025c1a53d866a34ef8f670d74428be5f5cc9586a6e94fbce6dd99a7347d7"
+      },
+      {
+        "path": "epic-04-story-08.md",
+        "sha256": "b71d5d647968577da7556a80e764b6b80e48a415be02097d40b16c7d75c4dfd5"
+      },
+      {
+        "path": "epic-05-overview.md",
+        "sha256": "b35da58b80be8180732f311face98e008771327f34a1b28053aa78d438d451b3"
+      },
+      {
+        "path": "epic-05-story-01.md",
+        "sha256": "2ccc44bde3c0bd4f8de0f12e0b7c976a51ffbf03cb728de1abc012d185fef817"
+      },
+      {
+        "path": "epic-05-story-02.md",
+        "sha256": "f1511ad9ad19f47ca18dcb305309bcbb933a377acfedb7847632e74b0232efd7"
+      },
+      {
+        "path": "epic-05-story-03.md",
+        "sha256": "2832b0cc168ebd6b1f4d49a86d2d4b0a46f5f75ad365e9cfbfdb4c87eddd3ce7"
+      },
+      {
+        "path": "epic-05-story-04.md",
+        "sha256": "9ef5c721c8c8205798d87d2963060aaeab02ae81978ef3ec65363d5fc185c1ca"
+      },
+      {
+        "path": "epic-05-story-05.md",
+        "sha256": "6c1633ab77087426ba161719fd980aece5e179def8cb57470378ba6b3294ff2b"
+      },
+      {
+        "path": "epic-05-story-06.md",
+        "sha256": "1f3070c0657c9899ed9013dfeff93931f3db10502bcc77c61f1c1450538a4673"
+      },
+      {
+        "path": "epic-06-overview.md",
+        "sha256": "f208f592b787912e667770197f0c2a2c4cb51dc18c551db127d827198684ddd5"
+      },
+      {
+        "path": "epic-06-story-01.md",
+        "sha256": "09d159c484a15b7c9e809e5234d1fc60be126473f83ce6dbf02336be94376850"
+      },
+      {
+        "path": "epic-06-story-02.md",
+        "sha256": "f938e59b173add78c4571622cdcc37ccba2caa070dc39cd43b08e0de7bb0cfe6"
+      },
+      {
+        "path": "epic-06-story-03.md",
+        "sha256": "d37b1d2b15b9e4a5731cfeea4d6f5fcb76ba3ccc62df2a03846af3e5e533e92a"
+      },
+      {
+        "path": "epic-06-story-04.md",
+        "sha256": "9d74f6233486fe5b45173f6e7cb7ecc219eb034ab54edaa1b19d9caf996775f2"
+      },
+      {
+        "path": "epic-06-story-05.md",
+        "sha256": "23392b4c5f5053e16f4101e09e23e08fa5b74b2d6e0996d8d0d80ce4123aa8fc"
+      },
+      {
+        "path": "epic-06-story-06.md",
+        "sha256": "d44c69ad997d97e3b6a9ebfb30b4630a196cc9ac29f1fbc7f3d60e22aa9843cb"
+      },
+      {
+        "path": "epic-06-story-07.md",
+        "sha256": "de3324e240d61f518e40c940cf697d934264c319ea6da075bd626f19619c7501"
+      },
+      {
+        "path": "epic-06-story-08.md",
+        "sha256": "9c0234762b92d4352bba5eea1488018c8bbb992e948a11b18b22240506268b6c"
+      },
+      {
+        "path": "epic-07-overview.md",
+        "sha256": "92b06726f3a03ce01737e97703b587175c68d7138ab4201b138d4779ad94d59c"
+      },
+      {
+        "path": "epic-07-story-01.md",
+        "sha256": "da0ba79659d3ba078807e9c483aca1546b8a6a9f5edefe377b75b182956fb939"
+      },
+      {
+        "path": "epic-07-story-02.md",
+        "sha256": "87dcdeb6c0b8c71da0986f63ac457966c2e6df2b0f6a3c2cb89a2e4a5b5bbcf1"
+      },
+      {
+        "path": "epic-07-story-03.md",
+        "sha256": "5b41c265d495a941429054873781e023e677ba031e1c3fe132a7a0ad011b6c4d"
+      },
+      {
+        "path": "epic-07-story-04.md",
+        "sha256": "95d3fa4ba76aff44bebda41bd04e987c6fd4116e3af3b7c5c90fa33cb7f39649"
+      },
+      {
+        "path": "epic-07-story-05.md",
+        "sha256": "a97319569bf6b4fd6ded5687b00c4c1eb3ce82dc7780ee7f93f6dbb2f2954dfc"
+      },
+      {
+        "path": "epic-07-story-06.md",
+        "sha256": "30e337fc66e9e459983c6e7ee06d72b9ca9a11978eb8336bc9fa61be560b69e0"
+      },
+      {
+        "path": "epic-07-story-07.md",
+        "sha256": "43b45459261875d29ddc33bc67b3669607f4209b61de5c391d1d2e4cb93ad122"
+      },
+      {
+        "path": "epic-07-story-08.md",
+        "sha256": "473894e9f93a8054b5bf64098ac1115c149ea0fb2bb757fbc5a15ffbc4159de4"
+      },
+      {
+        "path": "epic-07-story-09.md",
+        "sha256": "dcdd00a80ea75dccd9f9cfcf423809e187e5a66d8e7f8b5b8560db24b9a2c2e4"
+      },
+      {
+        "path": "epic-07-story-10.md",
+        "sha256": "6a60c8bf5b904a4f475340ced809b411a25c3c8be83cf27774424afd279cc229"
+      },
+      {
+        "path": "epic-07-story-11.md",
+        "sha256": "ebee868b264bcd788b4192575cb82c3c4c1af749e2d4fcaa16f974184e1c882d"
+      },
+      {
+        "path": "epic-07-story-12.md",
+        "sha256": "8b9e8ca9dbee0a811ceac6a4df15354bd0589069b835ee8c0da22e313d77da1b"
+      },
+      {
+        "path": "epic-07-story-13.md",
+        "sha256": "04eec5bd88339871ccba0a3b904dae2fd06e7238d7eb66b1026a1507925788c7"
+      },
+      {
+        "path": "epic-07-story-14.md",
+        "sha256": "dc12e83aebb42002bd974d129d0eddd855e38154925ec7867d1aa35bce7b1169"
+      },
+      {
+        "path": "epic-07-story-15.md",
+        "sha256": "64ca46af8485189ab2a70c41bb419faa0b11ee461eb5e34f0df8df6d15897844"
+      },
+      {
+        "path": "epic-07-story-16.md",
+        "sha256": "01dd15aa0b515f168e9c9f8334fa2f8dcc8003bd22981598c86df6e66e1023d6"
+      },
+      {
+        "path": "epic-07-story-17.md",
+        "sha256": "34ce8ef3656835717a16cb43c1e0effb7ac3185c51290ff637705fd456e607f4"
+      },
+      {
+        "path": "epic-08-overview.md",
+        "sha256": "82fac1916b4c7785cac0e7299d88915b02ff850fb217d8ac2e5008e7bd71e083"
+      },
+      {
+        "path": "epic-08-story-01.md",
+        "sha256": "66bf633d9b4d56f4ca1584fd49f146a8aeef2a235f4cdb4fb8dd3e84b25ba1d9"
+      },
+      {
+        "path": "epic-08-story-02.md",
+        "sha256": "8e4bca228246f8a444e0a4057a20acf808bea4f8b9f17dff69c3f52ff1e963ac"
+      },
+      {
+        "path": "epic-08-story-03.md",
+        "sha256": "47564b797294b3ab8cbfdeb98e78944eb1faefadc0be1aa632606e952b9713a2"
+      },
+      {
+        "path": "epic-08-story-04.md",
+        "sha256": "2fc5779ffdf0d0d74ee807d69ad38449d7fe3f7a3419150711018ff5c67e2215"
+      },
+      {
+        "path": "epic-08-story-05.md",
+        "sha256": "a9e740504c3d64cbd44433943f75b7d6ea488644f841164717b68b539b66eadf"
+      },
+      {
+        "path": "epic-08-story-06.md",
+        "sha256": "74fe9edae281fc496c8573a5ee5d8a862c1df710e20dda8455fb88339de483eb"
+      },
+      {
+        "path": "epic-08-story-07.md",
+        "sha256": "f3b3b050cb72201f2da9354aef2942ecb163ea63f69afaf3551768148216846f"
+      },
+      {
+        "path": "epic-08-story-08.md",
+        "sha256": "0c77aab4189f4162e318ab2be2d5413de0cf8c2d2ba8d35cf3bdbe2d16c1e687"
+      },
+      {
+        "path": "epic-08-story-09.md",
+        "sha256": "a21223d58abed2ff9064096cb6226b214e134b6640d2aeca9d338fff1ccf9fda"
+      },
+      {
+        "path": "epic-08-story-10.md",
+        "sha256": "e7c0b84d1162a085f9dce9f248e9cac6d9e485dd69992397937c41f587048d20"
+      },
+      {
+        "path": "epic-08-story-11.md",
+        "sha256": "358e18cc5e341702584e52e7edea77a919cd3e668cff4ff30004dc35e3886135"
+      },
+      {
+        "path": "epic-08-story-12.md",
+        "sha256": "477ed98a5d7d532ee68e26db4d153110bc9c03f0d612bf13b7a199488aab4a04"
+      },
+      {
+        "path": "index.md",
+        "sha256": "0f7d52a19df28d0bd2d1c934fe2652f2590e043f1f39102a8cdaa63dc79dbc77"
+      }
+    ],
+    "expected": 91,
+    "validated": 91
+  },
+  "warnings": [
+    "71 story shards have no explicit requirement IDs; functional coverage currently relies on primary epic mappings",
+    "12 open decisions remain; apply their phase labels before starting the affected work"
+  ]
+}

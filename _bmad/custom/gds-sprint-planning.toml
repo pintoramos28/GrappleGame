@@ -1,0 +1,11 @@
+[workflow]
+persistent_facts = [
+  "file:{project-root}/_bmad/custom/artifacts/artifact-contract.toml",
+  "file:{project-root}/_bmad/custom/artifacts/protocols/bounded-epics.md",
+]
+
+activation_steps_append = [
+  "Read and follow `{project-root}/_bmad/custom/artifacts/protocols/gds-sprint-planning.md`. Bind epic inventory to the resolver-generated compact manifest and do not load or concatenate epic story bodies.",
+]
+
+on_complete = "Validate sprint-status.yaml against the canonical epic manifest revision and record that revision in its generated metadata."

@@ -1,0 +1,42 @@
+{
+  "artifacts": {
+    "decision_log": {
+      "artifact_id": "grapplegame.decision-log",
+      "bytes": 6701,
+      "document_type": "decision-log",
+      "errors": [],
+      "exists": true,
+      "name": "decision_log",
+      "path": "_bmad-output/planning-artifacts/decision-log.md",
+      "required": true,
+      "sha256": "cc3d3eb03afd970290251beca9be4b05004f621abe26dda689b424db8fa429e7",
+      "status": "active",
+      "updated": "2026-09-09",
+      "version": "1.1",
+      "warnings": [],
+      "words": 888
+    },
+    "project_context": {
+      "artifact_id": "grapplegame.project-context",
+      "bytes": 21862,
+      "document_type": "project-context",
+      "errors": [],
+      "exists": true,
+      "name": "project_context",
+      "path": "_bmad-output/project-context.md",
+      "required": true,
+      "sha256": "ff4edd977536d6d78ea9c3d3e0c6a8c26e31c562a68e8830885ccbe4d302e092",
+      "status": "complete",
+      "updated": "2026-09-09",
+      "version": null,
+      "warnings": [],
+      "words": 2806
+    }
+  },
+  "consumer": "gds-dev-story",
+  "errors": [],
+  "generated_at": "2026-09-09T00:54:55-04:00",
+  "project_name": "testgame",
+  "schema_version": 1,
+  "valid": true
+}

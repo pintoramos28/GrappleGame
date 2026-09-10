@@ -1,0 +1,8 @@
+[workflow]
+persistent_facts = [
+  "file:{project-root}/_bmad/custom/artifacts/artifact-contract.toml",
+]
+
+activation_steps_append = [
+  "Read and follow `{project-root}/_bmad/custom/artifacts/protocols/gds-dev-story.md`. Resolve project context only from `_bmad-output/project-context.md`, reject multiple project-context matches, and verify the story's recorded planning revisions before implementation.",
+]

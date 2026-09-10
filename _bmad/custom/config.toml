@@ -5,3 +5,8 @@
 #
 # [agents.bmad-agent-pm]
 # description = "Prefers short, bulleted PRDs over narrative drafts."
+
+[modules.gds]
+artifact_contract = "{project-root}/_bmad/custom/artifacts/artifact-contract.toml"
+planning_sources = "{project-root}/_bmad-output/planning-artifacts/sources"
+project_context = "{project-root}/_bmad-output/project-context.md"

@@ -1,0 +1,10 @@
+[workflow]
+persistent_facts = [
+  "file:{project-root}/_bmad/custom/artifacts/artifact-contract.toml",
+]
+
+activation_steps_append = [
+  "Read and follow `{project-root}/_bmad/custom/artifacts/protocols/gds-create-epics-and-stories.md`. Treat the resolver inventory as the authoritative GDD, architecture, UX, and decision-log selection; halt on stale lineage or unresolved phase-blocking decisions.",
+]
+
+on_complete = "Read and execute the Publish phase of `{project-root}/_bmad/custom/artifacts/protocols/gds-create-epics-and-stories.md`. Shard the generated epics artifact, generate its manifest, and do not leave a competing whole epics file in planning-artifacts."

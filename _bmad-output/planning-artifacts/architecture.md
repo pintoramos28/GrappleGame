@@ -1,8 +1,8 @@
 ---
 artifact_schema: 1
 artifact_id: 'grapplegame.architecture'
-document_type: 'game-architecture-compatibility-mirror'
-artifact_role: 'compatibility-mirror'
+document_type: 'game-architecture'
+artifact_role: 'canonical'
 authority: 'target-implementation'
 path_base: 'project-root'
 title: 'Game Architecture'
@@ -28,9 +28,6 @@ downstream_documents:
   epics: '_bmad-output/planning-artifacts/epics/index.md'
   project_context: '_bmad-output/project-context.md'
 decision_log_sha256: '01454eb5eadbeb60cffe4508fcae8336cfb4bc8dd14c19230964c28a5fb72a00'
-canonical_path: '_bmad-output/planning-artifacts/architecture.md'
-canonical_sha256: '77b5370419ec5358ab29760a256f9ad2aa817efa6e84b8ff124d0f7774387080'
-mirror_body_sha256: '0d51bad38dbfa5fb1597045ee15072fcdaeb520b48dde74a9c73d3e8d0cbaeb8'
 ---
 
 ## Executive Summary
