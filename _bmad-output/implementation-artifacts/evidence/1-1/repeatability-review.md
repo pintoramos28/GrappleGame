@@ -2,7 +2,7 @@
 
 Dry-run review completed 2026-09-09 after the evidence paths settled.
 
-Result: PASS.
+Result: PASS WITH LIMITATIONS.
 
 - The documented main scene exists at `res://main.tscn`; the optional tutorial scene also exists, is explicitly marked unused, and was not saved.
 - The record provides the approved raw Godot version, an operator-local executable-resolution requirement, exact import and 120-frame headless-load commands, and the authoritative interactive launch procedure.
@@ -12,5 +12,6 @@ Result: PASS.
 - All Story-linked evidence paths exist. The final evidence directory contains the raw import, headless, interactive, classification, traversal, start/end status, start/end manifest, and audit artifacts.
 - A final independent 120-frame headless load completed `res://main.tscn` with no error/warning pattern matches; see `final-headless.log` and `end-scoped-git-checks.txt`.
 - No automated-test command is prescribed or claimed because the repository has no established test suite.
+- The wall-run, wall-stick, and wall-jump observations depend on runtime-only positioning, state preparation, and injected entry velocity; the retained record does not include a complete executable fixture that recreates those states.
 
-A second operator can repeat the capture by resolving the approved Godot 4.7.2 stable executable, following the commands and runtime setup in the Story, and comparing their observations against the matrix. Machine-specific executable paths remain intentionally uncommitted.
+A second operator can repeat the pinned import, headless load, controllability check, and documented input observations by resolving the approved Godot 4.7.2 stable executable and following the Story. Exact deterministic replay of every traversal row is not guaranteed from the retained artifacts alone because the complete runtime fixture setup is not captured. Machine-specific executable paths remain intentionally uncommitted.

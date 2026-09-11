@@ -1,0 +1,48 @@
+{
+  "files": [
+    {
+      "path": "_bmad-output/planning-artifacts/epics/requirements.md",
+      "sha256": "59d343e69c9665bff66b06cc1b1cac701f16539c0d874a0832d551641eb8f29b"
+    },
+    {
+      "path": "_bmad-output/planning-artifacts/epics/epic-01-overview.md",
+      "sha256": "1e6218beba7e5361b374f02722620c129e3ab6b21af321b280d9fb3899eab168"
+    },
+    {
+      "path": "_bmad-output/planning-artifacts/epics/epic-01-story-02.md",
+      "sha256": "74e5509f09323c99a22b4b58599a1e67efd9cad55e21e4bac28c1dfaa6579fd7"
+    },
+    {
+      "path": "_bmad-output/planning-artifacts/gdd.md",
+      "sha256": "d630bc8b194d16de29004b4d461b949b446b4e87bef895bf43ff25f8adc77156"
+    },
+    {
+      "path": "_bmad-output/planning-artifacts/architecture.md",
+      "sha256": "77b5370419ec5358ab29760a256f9ad2aa817efa6e84b8ff124d0f7774387080"
+    },
+    {
+      "path": "_bmad-output/project-context.md",
+      "sha256": "924f967d83ac664c1352f27bb89ef91cef4d4ae765746d379c77cfe91eb608d9"
+    }
+  ],
+  "inventory_errors": [],
+  "inventory_valid": true,
+  "inventory_warnings": [
+    "gdd: status is 'needs-decisions'; expected one of active, complete, final, ready-for-development; permitted for scoped story 1.2"
+  ],
+  "requirement_ids": [
+    "FR2",
+    "FR3",
+    "FR4",
+    "FR5",
+    "FR6",
+    "FR7",
+    "FR8",
+    "FR9",
+    "FR10",
+    "FR11",
+    "FR12"
+  ],
+  "schema_version": 1,
+  "story": "1.2"
+}

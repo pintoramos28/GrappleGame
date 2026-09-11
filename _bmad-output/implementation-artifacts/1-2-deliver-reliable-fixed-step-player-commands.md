@@ -4,7 +4,7 @@ baseline_commit: e53d33ea7b088a38cdd8923eb3b24d6a01d5a32b
 
 # Story 1.2: Deliver Reliable Fixed-Step Player Commands
 
-Status: review
+Status: done
 
 <!-- This story is implementation-ready. Keep Story 1.1's traversal baseline and current tuning intact while changing only the player-input boundary. -->
 
@@ -475,3 +475,16 @@ OpenAI Codex (GPT-5)
 - 2026-09-10 — Implemented the player-owned fixed-step command boundary and migrated the existing player HSM consumers.
 - 2026-09-10 — Added deterministic command-frame/input-source tests and recorded pinned GUT and Godot load evidence.
 - 2026-09-10 — Completed the Dev Agent Record and moved the story to `review`; no project commit was created.
+
+### Review Findings
+
+- [x] [Review][Dismiss][P1] Cancel grappling whenever the committed command no longer holds grapple [scripts/player_grappling_state.gd:16-19] — Dismissed at user request; implementation unchanged.
+- [x] [Review][Dismiss][P1] Require every individual movement control to be neutral before focus rearm completes [game/player/input/player_input_source.gd:331-345] — Dismissed at user request; implementation unchanged.
+- [x] [Review][Dismiss][P1] Keep authoritative grapple aim aligned with the stable camera rig orientation [game/player/input/player_input_source.gd:348-351] — Dismissed at user request; implementation unchanged.
+- [x] [Review][Dismiss][P1] Validate all mandatory player dependencies before activating either HSM [scripts/player_controller.gd:91-109] — Dismissed at user request; implementation unchanged.
+- [x] [Review][Dismiss][P2] Reject missing or unbound required InputMap actions [game/player/input/player_input_source.gd:81-95] — Dismissed at user request; implementation unchanged.
+- [x] [Review][Dismiss][P2] Mark a visible-window recapture click handled at the application boundary [game/player/input/player_input_source.gd:262-267] — Dismissed at user request; implementation unchanged.
+- [x] [Review][Dismiss][P2] Make the sequencing test exercise the production controller path [tests/player/input/test_player_controller_command_sequence.gd:7-36] — Dismissed at user request; implementation unchanged.
+- [x] [Review][Dismiss][P2] Add action-edge assertions to both 60-step and 120-step diagnostics [tests/player/input/test_player_input_source.gd:162-181] — Dismissed at user request; implementation unchanged.
+- [x] [Review][Dismiss][P1] Complete the required post-change main-scene traversal and cursor smoke [_bmad-output/implementation-artifacts/evidence/1-2/pinned-load.md:19-21] — Dismissed at user request; implementation unchanged.
+- [x] [Review][Dismiss][P2] Initialize focus/rearm state from the actual window lifecycle [game/player/input/player_input_source.gd:57-58,105-110,385-393] — Dismissed at user request; implementation unchanged.
