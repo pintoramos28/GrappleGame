@@ -9,4 +9,5 @@ func _enter() -> void:
 
 
 func _update(delta: float) -> void:
-	agent._apply_dead_physics(delta)
+	var motion_velocity: Vector3 = agent.calculate_dead_motion(delta)
+	agent.submit_motion_velocity(agent.LOCOMOTION_DEAD, motion_velocity)

@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://ctp8c3maf0y66" path="res://scripts/visuals/attack_arc_visual_3d.gd" id="19_attackarc"]
 [ext_resource type="Script" path="res://scripts/debug_grapple_telemetry.gd" id="20_grapple_debug"]
 [ext_resource type="Script" path="res://game/player/input/player_input_source.gd" id="21_input_source"]
+[ext_resource type="Script" path="res://game/player/motor/player_motor.gd" id="22_player_motor"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5vw27"]
 radius = 0.45
@@ -68,6 +69,9 @@ fov = 70.0
 
 [node name="PlayerInputSource" type="Node" parent="."]
 script = ExtResource("21_input_source")
+
+[node name="PlayerMotor" type="Node" parent="."]
+script = ExtResource("22_player_motor")
 
 [node name="Health" type="Node" parent="." unique_id=1561324531]
 script = ExtResource("3_8agwv")
