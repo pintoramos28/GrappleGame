@@ -4,7 +4,7 @@ baseline_commit: 1e8f81bfe34a6dd2bd602b3d48d772e63d648cc2
 
 # Story 1.3: Centralize the Player's Physics-Step Movement Commit
 
-Status: review
+Status: done
 
 <!-- This story introduces the single-commit PlayerMotor seam while preserving the Story 1.1 traversal baseline and the Story 1.2 command-frame boundary. Story 1.4 owns semantic influence phases. -->
 
@@ -419,3 +419,4 @@ The Godot AI MCP session used for the final post-review validation was `testgame
 - 2026-09-11: Added the typed single-commit `PlayerMotor` boundary, migrated player movement ownership, added diagnostics and real-Jolt tests, recorded evidence, and moved the story to `review` with headless verification limitations called out.
 - 2026-09-11: Applied the approved hardening follow-up for transactional submission failure, wall-stick baseline isolation, lifecycle guards, bounded contact facts, and stable bounded diagnostics; refreshed GUT/MCP evidence and retained the documented headless/fixture-only limitations.
 - 2026-09-12: Completed post-review hardening validation in rotated MCP session `testgame@d3ecac167a39b179`, fixed stale grapple state before landing, refreshed final GUT totals to 45/45 recursive and 24/24 focused motor, and recorded the remaining evidence boundaries.
+- 2026-09-12: User completed the manual Story 1.3 smoke pass and confirmed the implemented behavior works; story status moved from `review` to `done`.
