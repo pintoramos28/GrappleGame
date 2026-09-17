@@ -128,6 +128,23 @@ const LOCOMOTION_GRAPPLING := &"player.locomotion.grappling"
 const LOCOMOTION_WALL_RUN := &"player.locomotion.wall_run"
 const LOCOMOTION_WALL_STICK := &"player.locomotion.wall_stick"
 const LOCOMOTION_DEAD := &"player.locomotion.dead"
+const COMMAND_JUMP_PRESSED := &"player.command.jump_pressed"
+const SOURCE_TERMINAL_DEAD := &"player.terminal.dead"
+const SOURCE_BASE_GROUNDED := &"player.locomotion.grounded.base"
+const SOURCE_BASE_AIRBORNE := &"player.locomotion.airborne.base"
+const SOURCE_BASE_GRAPPLING := &"player.locomotion.grappling.base"
+const SOURCE_BASE_WALL_RUN := &"player.locomotion.wall_run.base"
+const SOURCE_BASE_WALL_STICK := &"player.locomotion.wall_stick.base"
+const SOURCE_BASE_DEAD := &"player.locomotion.dead.base"
+const SOURCE_GRAVITY_DEFAULT := &"player.gravity.default"
+const SOURCE_GRAVITY_GRAPPLE := &"player.gravity.grapple"
+const SOURCE_GRAVITY_WALL_RUN := &"player.gravity.wall_run"
+const SOURCE_GRAPPLE_PULL := &"player.grapple.pull"
+const SOURCE_GRAPPLE_SPEED_CAP := &"player.grapple.speed_cap"
+const SOURCE_JUMP_GROUND := &"player.jump.ground"
+const SOURCE_JUMP_WALL := &"player.jump.wall"
+const SOURCE_WALL_RUN_CONSTRAINT := &"player.wall_run.constraint"
+const SOURCE_WALL_STICK_HOLD := &"player.wall_stick.hold"
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var camera_pitch := 0.0
@@ -268,7 +285,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	_apply_canonical_presentation(frame)
-	var frame_status := player_motor.begin_motion_frame(_player_physics_step)
+	var frame_status := player_motor.begin_motion_frame(_player_physics_step, delta)
 	if frame_status != PlayerMotor.FrameStatus.SUCCESS:
 		_abort_motion_frame_safely()
 		_deactivate_player()
@@ -329,7 +346,7 @@ func _abort_motion_frame_safely() -> void:
 
 
 func _coordinate_post_commit(result: PlayerMotorCommitResult) -> void:
-	if _submitted_locomotion_state_id == LOCOMOTION_GRAPPLING and is_grappling:
+	if _submitted_locomotion_state_id == LOCOMOTION_GRAPPLING and is_grappling and not result.on_floor:
 		var started_wall_stick := _try_start_wall_stick_from_collisions(
 			_current_command_frame.movement_axis,
 			result.submitted_velocity,
@@ -339,17 +356,22 @@ func _coordinate_post_commit(result: PlayerMotorCommitResult) -> void:
 		if started_wall_stick:
 			dispatch_locomotion_event(EVENT_WALL_STICK_STARTED)
 
+	if _submitted_locomotion_state_id == LOCOMOTION_GRAPPLING and result.on_floor:
+		if is_grappling:
+			_clear_grapple()
+		if _pending_locomotion_event != &"":
+			return
+		dispatch_locomotion_event(EVENT_LANDED)
+		return
+
 	if _pending_locomotion_event != &"":
 		return
 	if _submitted_locomotion_state_id == LOCOMOTION_GROUNDED and not result.on_floor:
 		dispatch_locomotion_event(EVENT_LEFT_GROUND)
 	elif (
 		_submitted_locomotion_state_id == LOCOMOTION_AIRBORNE
-		or _submitted_locomotion_state_id == LOCOMOTION_GRAPPLING
 		or _submitted_locomotion_state_id == LOCOMOTION_WALL_RUN
 	) and result.on_floor:
-		if _submitted_locomotion_state_id == LOCOMOTION_GRAPPLING:
-			_clear_grapple()
 		dispatch_locomotion_event(EVENT_LANDED)
 
 
@@ -411,41 +433,242 @@ func _setup_grapple_cursor() -> void:
 	add_child(grapple_cursor)
 
 
-func submit_motion_velocity(locomotion_state_id: StringName, motion_velocity: Vector3) -> bool:
-	var request := PlayerMotionRequest.movement(_player_physics_step, locomotion_state_id, motion_velocity)
-	return _submit_motion_request(request)
+func submit_state_policy(locomotion_state_id: StringName) -> bool:
+	var status := player_motor.select_state_policy(locomotion_state_id, locomotion_state_id)
+	if status == PlayerMotor.SubmissionStatus.SUCCESS:
+		_submitted_locomotion_state_id = locomotion_state_id
+	return _submit_motor_status(status, locomotion_state_id)
 
 
-func submit_wall_stick_hold(locomotion_state_id: StringName, hold_position: Vector3) -> bool:
-	var request := PlayerMotionRequest.hold(_player_physics_step, locomotion_state_id, hold_position)
-	return _submit_motion_request(request)
+func submit_terminal_policy() -> bool:
+	return _submit_motor_status(
+		player_motor.select_terminal_policy(SOURCE_TERMINAL_DEAD),
+		SOURCE_TERMINAL_DEAD
+	)
 
 
-func _submit_motion_request(request: PlayerMotionRequest) -> bool:
-	if _motion_submission_failed:
+func submit_base_policy(
+	locomotion_state_id: StringName,
+	input_dir: Vector2
+) -> bool:
+	var grounded := is_on_floor()
+	var max_speed := max_ground_speed if grounded else max_air_speed
+	var target_velocity := _get_horizontal_target_velocity(input_dir, max_speed)
+	var acceleration := _get_horizontal_acceleration(input_dir, grounded)
+	var source_id := _base_source_for_state(locomotion_state_id)
+	return _submit_motor_status(
+		player_motor.submit_base_motion(source_id, target_velocity, acceleration),
+		source_id
+	)
+
+
+func submit_base_passthrough(locomotion_state_id: StringName) -> bool:
+	var source_id := _base_source_for_state(locomotion_state_id)
+	return _submit_motor_status(
+		player_motor.submit_base_motion(
+			source_id,
+			get_motion_start_velocity(),
+			0.0,
+			false
+		),
+		source_id
+	)
+
+
+func submit_gravity_policy() -> bool:
+	if is_on_floor():
+		return true
+	if is_wall_running and wall_run_zero_vertical_velocity:
+		return true
+	var source_id := SOURCE_GRAVITY_DEFAULT
+	if is_wall_running:
+		source_id = SOURCE_GRAVITY_WALL_RUN
+	elif is_grappling:
+		source_id = SOURCE_GRAVITY_GRAPPLE
+	return _submit_motor_status(
+		player_motor.submit_gravity(
+			source_id,
+			Vector3.DOWN * gravity * _get_gravity_scale()
+		),
+		source_id
+	)
+
+
+func submit_ground_jump(reference_velocity: Vector3) -> bool:
+	var impulse := Vector3(0.0, jump_velocity - reference_velocity.y, 0.0)
+	return _submit_motor_status(
+		player_motor.submit_one_shot_impulse(
+			SOURCE_JUMP_GROUND,
+			COMMAND_JUMP_PRESSED,
+			impulse
+		),
+		SOURCE_JUMP_GROUND
+	)
+
+
+func submit_grapple_pull(delta: float) -> bool:
+	if not is_instance_valid(grapple_target):
+		_clear_grapple()
 		return false
-	if player_motor == null or not is_instance_valid(player_motor):
-		_motion_submission_failed = true
-		_motion_submission_failure_status = PlayerMotor.SubmissionStatus.INVALID_BODY
-		_player_log.record_invariant(
-			&"player.controller.motor_unavailable",
-			DiagnosticContext.new(
-				_player_physics_step,
-				request.locomotion_state_id,
-				&"motor_unavailable",
-				int(request.kind)
-			)
+	var current_acceleration := _get_grapple_acceleration()
+	grapple_applied_acceleration = current_acceleration
+	grapple_elapsed += delta
+	var pull_direction := _get_player_mesh_center().direction_to(grapple_point)
+	if pull_direction == Vector3.ZERO:
+		return true
+	return _submit_motor_status(
+		player_motor.submit_sustained_acceleration(
+			SOURCE_GRAPPLE_PULL,
+			pull_direction * current_acceleration
+		),
+		SOURCE_GRAPPLE_PULL
+	)
+
+
+func submit_grapple_speed_cap() -> bool:
+	return _submit_motor_status(
+		player_motor.submit_total_speed_cap(
+			SOURCE_GRAPPLE_SPEED_CAP,
+			grapple_max_velocity
+		),
+		SOURCE_GRAPPLE_SPEED_CAP
+	)
+
+
+func submit_wall_run_base() -> bool:
+	return _submit_motor_status(
+		player_motor.submit_base_motion(
+			SOURCE_BASE_WALL_RUN,
+			wall_run_direction * wall_run_speed,
+			wall_run_acceleration,
+			true,
+			wall_run_zero_vertical_velocity
+		),
+		SOURCE_BASE_WALL_RUN
+	)
+
+
+func submit_wall_run_constraint() -> bool:
+	return _submit_motor_status(
+		player_motor.submit_wall_run_constraint(
+			SOURCE_WALL_RUN_CONSTRAINT,
+			wall_normal,
+			wall_run_direction
+		),
+		SOURCE_WALL_RUN_CONSTRAINT
+	)
+
+
+func submit_wall_jump(reference_velocity: Vector3) -> bool:
+	var along_wall_velocity: Vector3 = wall_run_direction * max(
+		Vector3(reference_velocity.x, 0.0, reference_velocity.z).dot(wall_run_direction),
+		0.0
+	)
+	var desired_velocity := wall_normal * wall_jump_away_velocity + along_wall_velocity
+	desired_velocity.y = wall_jump_up_velocity
+	_clear_wall_run()
+	return _submit_motor_status(
+		player_motor.submit_one_shot_impulse(
+			SOURCE_JUMP_WALL,
+			COMMAND_JUMP_PRESSED,
+			desired_velocity - reference_velocity
+		),
+		SOURCE_JUMP_WALL
+	)
+
+
+func submit_wall_stick_hold() -> bool:
+	return _submit_motor_status(
+		player_motor.submit_wall_stick_hold(
+			SOURCE_WALL_STICK_HOLD,
+			wall_stick_position
+		),
+		SOURCE_WALL_STICK_HOLD
+	)
+
+
+func submit_wall_stick_release(reference_velocity: Vector3) -> bool:
+	return _submit_motor_status(
+		player_motor.submit_base_motion(
+			SOURCE_BASE_WALL_STICK,
+			reference_velocity,
+			0.0,
+			false
+		),
+		SOURCE_BASE_WALL_STICK
+	)
+
+
+func submit_wall_stick_jump(reference_velocity: Vector3) -> bool:
+	var along_wall_velocity := wall_stick_run_direction * wall_run_speed
+	var desired_velocity := wall_stick_normal * wall_jump_away_velocity + along_wall_velocity
+	desired_velocity.y = wall_jump_up_velocity
+	_clear_wall_stick()
+	_clear_grapple()
+	return _submit_motor_status(
+		player_motor.submit_one_shot_impulse(
+			SOURCE_JUMP_WALL,
+			COMMAND_JUMP_PRESSED,
+			desired_velocity - reference_velocity
+		),
+		SOURCE_JUMP_WALL
+	)
+
+
+func submit_dead_motion() -> bool:
+	var source_id := SOURCE_BASE_DEAD
+	var success := _submit_motor_status(
+		player_motor.submit_base_motion(
+			source_id,
+			Vector3.ZERO,
+			ground_deceleration
+		),
+		source_id
+	)
+	if not success:
+		return false
+	return submit_gravity_policy()
+
+
+func _submit_motor_status(
+	status: PlayerMotor.SubmissionStatus,
+	source_id: StringName
+) -> bool:
+	if status == PlayerMotor.SubmissionStatus.SUCCESS:
+		return true
+	_player_log.record_invariant(
+		&"player.controller.motor_submission_rejected",
+		DiagnosticContext.new(
+			_player_physics_step,
+			_submitted_locomotion_state_id,
+			StringName(PlayerMotor.SubmissionStatus.keys()[int(status)].to_lower()),
+			0,
+			source_id
 		)
-		return false
+	)
+	if PlayerMotor.is_isolated_submission_status(status):
+		return true
+	_motion_submission_failed = true
+	_motion_submission_failure_status = status
+	return false
 
-	var submission_status := player_motor.submit_motion_request(request)
-	if submission_status != PlayerMotor.SubmissionStatus.SUCCESS:
-		_motion_submission_failed = true
-		_motion_submission_failure_status = submission_status
-		return false
 
-	_submitted_locomotion_state_id = request.locomotion_state_id
-	return true
+func _base_source_for_state(locomotion_state_id: StringName) -> StringName:
+	match locomotion_state_id:
+		LOCOMOTION_GROUNDED:
+			return SOURCE_BASE_GROUNDED
+		LOCOMOTION_AIRBORNE:
+			return SOURCE_BASE_AIRBORNE
+		LOCOMOTION_GRAPPLING:
+			return SOURCE_BASE_GRAPPLING
+		LOCOMOTION_WALL_RUN:
+			return SOURCE_BASE_WALL_RUN
+		LOCOMOTION_WALL_STICK:
+			return SOURCE_BASE_WALL_STICK
+		LOCOMOTION_DEAD:
+			return SOURCE_BASE_DEAD
+		_:
+			return StringName("player.locomotion.%s.base" % String(locomotion_state_id))
 
 
 func is_player_physics_active() -> bool:
@@ -468,34 +691,16 @@ func dispatch_locomotion_event(event: StringName) -> void:
 		movement_hsm.dispatch(event)
 
 
-func _apply_horizontal_movement(
-	input_dir: Vector2,
-	delta: float,
-	motion_velocity: Vector3
-) -> Vector3:
+func _get_horizontal_target_velocity(input_dir: Vector2, max_speed: float) -> Vector3:
 	var direction := (global_transform.basis * Vector3(input_dir.x, 0.0, input_dir.y)).normalized()
-	var current_max_speed := max_ground_speed if is_on_floor() else max_air_speed
-	var target_velocity := direction * current_max_speed
-	var horizontal_acceleration := _get_horizontal_acceleration(input_dir)
-
-	motion_velocity.x = move_toward(
-		motion_velocity.x,
-		target_velocity.x,
-		horizontal_acceleration * delta
-	)
-	motion_velocity.z = move_toward(
-		motion_velocity.z,
-		target_velocity.z,
-		horizontal_acceleration * delta
-	)
-	return motion_velocity
+	return direction * max_speed
 
 
-func _get_horizontal_acceleration(input_dir: Vector2) -> float:
+func _get_horizontal_acceleration(input_dir: Vector2, grounded: bool = false) -> float:
 	if input_dir == Vector2.ZERO:
-		return ground_deceleration if is_on_floor() else air_deceleration
+		return ground_deceleration if grounded else air_deceleration
 
-	return ground_acceleration if is_on_floor() else air_acceleration
+	return ground_acceleration if grounded else air_acceleration
 
 
 func _get_gravity_scale() -> float:
@@ -606,49 +811,6 @@ func _has_wall_run_input_for_direction(input_dir: Vector2, run_direction: Vector
 	return input_direction.dot(run_direction) >= wall_run_min_input_alignment
 
 
-func _apply_wall_run_movement(delta: float, motion_velocity: Vector3) -> Vector3:
-	if wall_run_zero_vertical_velocity:
-		motion_velocity.y = 0.0
-
-	var target_velocity := wall_run_direction * wall_run_speed
-
-	motion_velocity.x = move_toward(
-		motion_velocity.x,
-		target_velocity.x,
-		wall_run_acceleration * delta
-	)
-	motion_velocity.z = move_toward(
-		motion_velocity.z,
-		target_velocity.z,
-		wall_run_acceleration * delta
-	)
-
-	var away_from_wall_speed := motion_velocity.dot(wall_normal)
-	if away_from_wall_speed > 0.0:
-		motion_velocity -= wall_normal * away_from_wall_speed
-	return motion_velocity
-
-
-func _wall_jump(reference_velocity: Vector3) -> Vector3:
-	var along_wall_velocity: Vector3 = wall_run_direction * max(
-		Vector3(reference_velocity.x, 0.0, reference_velocity.z).dot(wall_run_direction),
-		0.0
-	)
-	var wall_jump_velocity := wall_normal * wall_jump_away_velocity + along_wall_velocity
-	wall_jump_velocity.y = wall_jump_up_velocity
-	_clear_wall_run()
-	return wall_jump_velocity
-
-
-func _wall_stick_jump() -> Vector3:
-	var along_wall_velocity: Vector3 = wall_stick_run_direction * wall_run_speed
-	var wall_stick_jump_velocity := wall_stick_normal * wall_jump_away_velocity + along_wall_velocity
-	wall_stick_jump_velocity.y = wall_jump_up_velocity
-	_clear_wall_stick()
-	_clear_grapple()
-	return wall_stick_jump_velocity
-
-
 func _clear_wall_run() -> void:
 	is_wall_running = false
 	wall_normal = Vector3.ZERO
@@ -744,20 +906,6 @@ func get_movement_input() -> Vector2:
 func update_grapple_feedback() -> void:
 	_update_grapple_visual()
 	_update_grapple_cursor()
-
-
-func apply_default_gravity(delta: float, motion_velocity: Vector3) -> Vector3:
-	if not is_on_floor():
-		if is_wall_running and wall_run_zero_vertical_velocity:
-			motion_velocity.y = 0.0
-		else:
-			motion_velocity.y -= gravity * _get_gravity_scale() * delta
-	return motion_velocity
-
-
-func apply_ground_jump(motion_velocity: Vector3) -> Vector3:
-	motion_velocity.y = jump_velocity
-	return motion_velocity
 
 
 func dispatch_locomotion_after_grapple_clear() -> void:
@@ -904,25 +1052,6 @@ func _get_grapple_acceleration() -> float:
 	)
 
 
-func _apply_grapple_acceleration(delta: float, motion_velocity: Vector3) -> Vector3:
-	if not is_instance_valid(grapple_target):
-		_clear_grapple()
-		return motion_velocity
-
-	var current_acceleration := _get_grapple_acceleration()
-	grapple_applied_acceleration = current_acceleration
-	grapple_elapsed += delta
-	var pull_direction := _get_player_mesh_center().direction_to(grapple_point)
-	if pull_direction == Vector3.ZERO:
-		return motion_velocity
-
-	motion_velocity += pull_direction * current_acceleration * delta
-
-	if grapple_max_velocity > 0.0 and motion_velocity.length() > grapple_max_velocity:
-		motion_velocity = motion_velocity.normalized() * grapple_max_velocity
-	return motion_velocity
-
-
 func _clear_grapple() -> void:
 	is_grappling = false
 	grapple_elapsed = 0.0
@@ -932,15 +1061,6 @@ func _clear_grapple() -> void:
 	_clear_wall_stick()
 	if grapple_visual:
 		grapple_visual.visible = false
-
-
-func calculate_dead_motion(delta: float) -> Vector3:
-	var motion_velocity := get_motion_start_velocity()
-	motion_velocity.x = move_toward(motion_velocity.x, 0.0, ground_deceleration * delta)
-	motion_velocity.z = move_toward(motion_velocity.z, 0.0, ground_deceleration * delta)
-	if not is_on_floor():
-		motion_velocity.y -= gravity * delta
-	return motion_velocity
 
 
 func _cancel_attack() -> void:

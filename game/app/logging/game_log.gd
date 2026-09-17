@@ -26,10 +26,11 @@ func record_invariant(event_code: StringName, context: DiagnosticContext) -> voi
 	_deduplication_order.append(deduplication_key)
 	diagnostic_recorded.emit(event)
 	push_error(
-		"GameLog %s (step=%d locomotion=%s reason=%s kind=%d)" % [
+		"GameLog %s (step=%d locomotion=%s source=%s reason=%s kind=%d)" % [
 			String(event.code),
 			event.context.physics_step,
 			String(event.context.locomotion_state_id),
+			String(event.context.source_id),
 			String(event.context.reason),
 			event.context.request_kind,
 		]

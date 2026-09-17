@@ -35,7 +35,7 @@ func test_initialization_is_typed_and_fails_closed() -> void:
 	assert_true(motor.is_initialized())
 
 
-func test_begin_snapshots_committed_body_state_without_moving() -> void:
+func test_begin_snapshots_body_state_and_delta_without_moving() -> void:
 	var fixture := _new_fixture()
 	var body: CharacterBody3D = fixture[0]
 	var motor: PlayerMotor = fixture[1]
@@ -45,42 +45,58 @@ func test_begin_snapshots_committed_body_state_without_moving() -> void:
 	var before := body.global_transform
 
 	motor.set_diagnostics_enabled(true)
-	assert_eq(motor.begin_motion_frame(7), PlayerMotor.FrameStatus.SUCCESS)
+	assert_eq(motor.begin_motion_frame(7, 1.0 / 120.0), PlayerMotor.FrameStatus.SUCCESS)
 	var snapshot := motor.get_diagnostic_snapshot()
 
 	assert_eq(body.global_transform, before)
 	assert_eq(snapshot.physics_step, 7)
+	assert_almost_eq(snapshot.delta_seconds, 1.0 / 120.0, 0.0000001)
 	assert_eq(snapshot.initial_velocity, Vector3(1.0, -2.0, 3.0))
 	assert_eq(snapshot.commit_count, 0)
 	assert_eq(snapshot.locomotion_state_id, StringName())
+	assert_eq(snapshot.phase_order, MotorPhase.canonical_phase_ids())
 
 
-func test_valid_request_commits_once_and_exposes_post_commit_result() -> void:
+func test_typed_submissions_resolve_in_canonical_order_and_commit_once() -> void:
 	var fixture := _new_fixture()
+	var body: CharacterBody3D = fixture[0]
 	var motor: PlayerMotor = fixture[1]
+	body.velocity = Vector3(2.0, 0.0, 0.0)
 	assert_eq(motor.begin_motion_frame(1), PlayerMotor.FrameStatus.SUCCESS)
-	var request := PlayerMotionRequest.movement(1, &"player.grounded", Vector3(2.0, 0.0, 0.0))
-	assert_eq(motor.submit_motion_request(request), PlayerMotor.SubmissionStatus.SUCCESS)
+	assert_eq(
+		motor.select_state_policy(&"player.locomotion.grounded"),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_eq(
+		motor.submit_base_motion(
+			&"player.locomotion.grounded.base",
+			Vector3(2.0, 0.0, 0.0),
+			0.0
+		),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
 
 	var result := motor.resolve_and_commit()
 
 	assert_true(result.success)
 	assert_eq(result.physics_step, 1)
 	assert_eq(result.submitted_velocity, Vector3(2.0, 0.0, 0.0))
+	assert_eq(result.phase_order, MotorPhase.canonical_phase_ids())
+	assert_eq(result.phase_intermediates.size(), MotorPhase.PHASE_COUNT)
 	assert_eq(result.commit_count, 1)
 	assert_eq(motor.get_commit_count(), 1)
-	assert_eq(motor.get_accepted_submission_count(), 1)
+	assert_eq(motor.get_accepted_submission_count(), 2)
 	assert_eq(motor.get_last_commit_result(), result)
+	assert_eq(body.velocity, Vector3(2.0, 0.0, 0.0))
 
 
-func test_duplicate_begin_preserves_request_and_duplicate_commit_cannot_move_body_again() -> void:
+func test_duplicate_begin_and_commit_cannot_move_body_again() -> void:
 	var fixture := _new_fixture()
 	var body: CharacterBody3D = fixture[0]
 	var motor: PlayerMotor = fixture[1]
 	motor.set_debug_assertions_enabled(false)
 	assert_eq(motor.begin_motion_frame(3), PlayerMotor.FrameStatus.SUCCESS)
-	var request := PlayerMotionRequest.movement(3, &"player.airborne", Vector3(1.0, 0.0, 0.0))
-	assert_eq(motor.submit_motion_request(request), PlayerMotor.SubmissionStatus.SUCCESS)
+	_submit_passthrough(motor, &"player.locomotion.airborne")
 
 	var duplicate_begin := motor.begin_motion_frame(3)
 	assert_push_error("player.motor.duplicate_active_frame")
@@ -102,108 +118,251 @@ func test_duplicate_begin_preserves_request_and_duplicate_commit_cannot_move_bod
 	assert_eq(motor.get_commit_count(), 1)
 
 
-func test_rejected_followup_aborts_the_accepted_request_without_a_commit() -> void:
+func test_structural_policy_conflict_aborts_without_body_mutation() -> void:
 	var fixture := _new_fixture()
 	var body: CharacterBody3D = fixture[0]
 	var motor: PlayerMotor = fixture[1]
 	motor.set_debug_assertions_enabled(false)
-	var before := body.global_transform
 	body.velocity = Vector3(3.0, 0.0, 0.0)
-
+	var before := body.global_transform
 	assert_eq(motor.begin_motion_frame(6), PlayerMotor.FrameStatus.SUCCESS)
+	assert_eq(motor.select_state_policy(&"player.locomotion.grounded"), PlayerMotor.SubmissionStatus.SUCCESS)
+	assert_eq(motor.select_state_policy(&"player.locomotion.airborne"), PlayerMotor.SubmissionStatus.SUCCESS)
 	assert_eq(
-		motor.submit_motion_request(
-			PlayerMotionRequest.movement(6, &"player.grounded", Vector3(6.0, 0.0, 0.0))
-		),
+		motor.submit_base_motion(&"player.locomotion.grounded.base", Vector3.ZERO, 0.0),
 		PlayerMotor.SubmissionStatus.SUCCESS
 	)
-	assert_eq(
-		motor.submit_motion_request(
-			PlayerMotionRequest.movement(6, &"player.airborne", Vector3(9.0, 0.0, 0.0))
-		),
-		PlayerMotor.SubmissionStatus.DUPLICATE_SUBMISSION
-	)
-	assert_push_error("player.motor.duplicate_motion_submission")
 
-	var aborted := motor.abort_motion_frame()
+	var result := motor.resolve_and_commit()
 
-	assert_false(aborted.success)
-	assert_eq(aborted.rejection_reason, PlayerMotorCommitResult.RejectionReason.FRAME_ABORTED)
-	assert_eq(motor.get_commit_count(), 0)
+	assert_push_error("player.motor.exclusive_policy_conflict")
+	assert_false(result.success)
+	assert_eq(result.rejection_reason, PlayerMotorCommitResult.RejectionReason.EXCLUSIVE_POLICY_CONFLICT)
+	assert_eq(result.commit_count, 0)
 	assert_false(motor.has_active_motion_frame())
 	assert_null(motor.get_last_commit_result())
 	assert_eq(body.global_transform, before)
 	assert_eq(body.velocity, Vector3(3.0, 0.0, 0.0))
 
-	var no_commit := motor.resolve_and_commit()
-	assert_push_error("player.motor.no_active_frame_at_commit")
-	assert_false(no_commit.success)
 
-
-func test_duplicate_commit_diagnostic_is_stable_and_consecutive_calls_are_deduplicated() -> void:
+func test_invalid_values_duplicate_sources_and_occurrences_fail_closed() -> void:
 	var fixture := _new_fixture()
 	var motor: PlayerMotor = fixture[1]
-	motor.set_debug_assertions_enabled(false)
-	var diagnostic_codes: Array[StringName] = []
-	motor.diagnostic_recorded.connect(func(event: DiagnosticEvent) -> void: diagnostic_codes.append(event.code))
-
-	assert_eq(motor.begin_motion_frame(1), PlayerMotor.FrameStatus.SUCCESS)
-	assert_eq(
-		motor.submit_motion_request(PlayerMotionRequest.movement(1, &"player.airborne", Vector3.ZERO)),
-		PlayerMotor.SubmissionStatus.SUCCESS
-	)
-	assert_true(motor.resolve_and_commit().success)
-
-	var first_duplicate := motor.resolve_and_commit()
-	assert_push_error("player.motor.duplicate_commit")
-	var second_duplicate := motor.resolve_and_commit()
-
-	assert_false(first_duplicate.success)
-	assert_false(second_duplicate.success)
-	assert_eq(diagnostic_codes, [&"player.motor.duplicate_commit"])
-
-	assert_eq(motor.begin_motion_frame(2), PlayerMotor.FrameStatus.SUCCESS)
-	assert_eq(
-		motor.submit_motion_request(PlayerMotionRequest.movement(2, &"player.airborne", Vector3.ZERO)),
-		PlayerMotor.SubmissionStatus.SUCCESS
-	)
-	assert_true(motor.resolve_and_commit().success)
-	var cross_step_duplicate := motor.resolve_and_commit()
-	assert_false(cross_step_duplicate.success)
-	assert_eq(diagnostic_codes, [&"player.motor.duplicate_commit"])
-
-
-func test_invalid_and_duplicate_submissions_fail_closed() -> void:
-	var fixture := _new_fixture()
-	var motor: PlayerMotor = fixture[1]
-	var no_frame_request := PlayerMotionRequest.movement(1, &"player.test", Vector3.ZERO)
-	assert_eq(motor.submit_motion_request(no_frame_request), PlayerMotor.SubmissionStatus.NO_ACTIVE_FRAME)
+	var no_frame_status := motor.submit_gravity(&"player.gravity.default", Vector3.ZERO)
 	assert_push_error("player.motor.no_active_motion_frame")
+	assert_eq(no_frame_status, PlayerMotor.SubmissionStatus.NO_ACTIVE_FRAME)
 
 	assert_eq(motor.begin_motion_frame(1), PlayerMotor.FrameStatus.SUCCESS)
-	var wrong_step := PlayerMotionRequest.movement(2, &"player.test", Vector3.ZERO)
-	assert_eq(motor.submit_motion_request(wrong_step), PlayerMotor.SubmissionStatus.WRONG_STEP)
-	assert_push_error("player.motor.wrong_physics_step")
-
-	var invalid_velocity := PlayerMotionRequest.movement(1, &"player.test", Vector3(INF, 0.0, 0.0))
-	assert_eq(motor.submit_motion_request(invalid_velocity), PlayerMotor.SubmissionStatus.INVALID_REQUEST)
-	assert_push_error("player.motor.invalid_motion_request")
-
-	var valid_request := PlayerMotionRequest.movement(1, &"player.test", Vector3.ZERO)
-	assert_eq(motor.submit_motion_request(valid_request), PlayerMotor.SubmissionStatus.SUCCESS)
-	assert_eq(motor.submit_motion_request(valid_request), PlayerMotor.SubmissionStatus.DUPLICATE_SUBMISSION)
-	assert_push_error("player.motor.duplicate_motion_submission")
+	var stale := PlayerMotorSubmission.gravity(0, &"player.gravity.stale", Vector3.ZERO)
+	assert_eq(motor.call("_submit_submission", stale), PlayerMotor.SubmissionStatus.STALE_STEP)
+	assert_push_error("player.motor.stale_physics_step")
+	assert_eq(
+		motor.submit_gravity(&"player.gravity.invalid", Vector3(INF, 0.0, 0.0)),
+		PlayerMotor.SubmissionStatus.NON_FINITE_VALUE
+	)
+	assert_push_error("player.motor.non_finite_value")
+	assert_eq(
+		motor.submit_sustained_acceleration(&"", Vector3.ZERO),
+		PlayerMotor.SubmissionStatus.INVALID_SOURCE
+	)
+	assert_push_error("player.motor.empty_source_id")
+	assert_eq(
+		motor.submit_base_motion(&"player.base.duplicate", Vector3.ZERO, 0.0),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_eq(
+		motor.submit_base_motion(&"player.base.duplicate", Vector3.ZERO, 0.0),
+		PlayerMotor.SubmissionStatus.DUPLICATE_SOURCE
+	)
+	assert_push_error("player.motor.duplicate_source")
+	assert_eq(motor.select_state_policy(&"player.locomotion.test"), PlayerMotor.SubmissionStatus.SUCCESS)
+	assert_eq(
+		motor.submit_one_shot_impulse(
+			&"player.jump.ground",
+			&"player.command.jump_pressed",
+			Vector3.UP
+		),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_eq(
+		motor.submit_one_shot_impulse(
+			&"player.jump.ground",
+			&"player.command.jump_pressed",
+			Vector3.UP
+		),
+		PlayerMotor.SubmissionStatus.DUPLICATE_OCCURRENCE
+	)
+	assert_push_error("player.motor.duplicate_occurrence")
+	assert_eq(
+		motor.submit_one_shot_impulse(
+			&"player.jump.ground",
+			&"player.command.jump_pressed.second",
+			Vector3.UP
+		),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
 	assert_true(motor.resolve_and_commit().success)
 
 
-func test_missing_request_and_non_monotonic_frames_fail_closed() -> void:
+func test_typed_submission_contract_rejects_mismatched_kinds_scopes_sources_and_vectors() -> void:
+	var fixture := _new_fixture()
+	var motor: PlayerMotor = fixture[1]
+	assert_eq(motor.begin_motion_frame(1), PlayerMotor.FrameStatus.SUCCESS)
+
+	var mismatched_submission := PlayerMotorSubmission.new(
+		PlayerMotorSubmission.Kind.SPEED_CAP,
+		MotorPhase.Phase.SUSTAINED_INFLUENCES,
+		1,
+		&"player.cap.invalid"
+	)
+	assert_false(mismatched_submission.has_valid_kind_and_phase())
+	assert_eq(
+		motor.call("_submit_submission", mismatched_submission),
+		PlayerMotor.SubmissionStatus.ILLEGAL_PHASE_OR_KIND
+	)
+	assert_push_error("player.motor.illegal_phase_or_kind")
+
+	assert_eq(
+		motor.submit_sustained_acceleration(&"player", Vector3.ZERO),
+		PlayerMotor.SubmissionStatus.INVALID_SOURCE
+	)
+	assert_push_error("player.motor.unstable_source_id")
+	assert_eq(
+		motor.submit_sustained_acceleration(&"Player.invalid", Vector3.ZERO),
+		PlayerMotor.SubmissionStatus.INVALID_SOURCE
+	)
+	assert_push_error("player.motor.unstable_source_id")
+	assert_eq(
+		motor.submit_total_speed_cap(
+			&"player.cap.horizontal",
+			12.0,
+			&"horizontal_speed"
+		),
+		PlayerMotor.SubmissionStatus.UNSUPPORTED_CAP_SCOPE
+	)
+	assert_push_error("player.motor.unsupported_cap_scope")
+	assert_eq(
+		motor.submit_wall_run_constraint(
+			&"player.wall_run.invalid",
+			Vector3.ZERO,
+			Vector3.FORWARD
+		),
+		PlayerMotor.SubmissionStatus.INVALID_WALL_CONSTRAINT
+	)
+	assert_push_error("player.motor.invalid_wall_constraint")
+
+	assert_eq(
+		motor.select_state_policy(&"player.locomotion.grounded"),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_eq(
+		motor.submit_base_motion(&"player.locomotion.grounded.base", Vector3.ZERO, 0.0),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_true(motor.resolve_and_commit().success)
+
+
+func test_submission_failure_classification_preserves_valid_frames() -> void:
+	assert_true(
+		PlayerMotor.is_isolated_submission_status(
+			PlayerMotor.SubmissionStatus.INVALID_WALL_CONSTRAINT
+		)
+	)
+	assert_true(
+		PlayerMotor.is_isolated_submission_status(
+			PlayerMotor.SubmissionStatus.UNSUPPORTED_CAP_SCOPE
+		)
+	)
+	assert_true(
+		PlayerMotor.is_isolated_submission_status(
+			PlayerMotor.SubmissionStatus.DUPLICATE_OCCURRENCE
+		)
+	)
+	assert_false(
+		PlayerMotor.is_isolated_submission_status(
+			PlayerMotor.SubmissionStatus.NO_ACTIVE_FRAME
+		)
+	)
+	assert_false(
+		PlayerMotor.is_isolated_submission_status(
+			PlayerMotor.SubmissionStatus.NOT_INITIALIZED
+		)
+	)
+
+
+func test_duplicate_is_reported_before_current_step_capacity_overflow() -> void:
+	var fixture := _new_fixture()
+	var motor: PlayerMotor = fixture[1]
+	assert_eq(motor.begin_motion_frame(1), PlayerMotor.FrameStatus.SUCCESS)
+	assert_eq(motor.select_state_policy(&"player.locomotion.grounded"), PlayerMotor.SubmissionStatus.SUCCESS)
+	assert_eq(
+		motor.submit_base_motion(&"player.locomotion.grounded.base", Vector3.ZERO, 0.0),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+
+	for index in range(PlayerMotor.MAX_ACCEPTED_SUBMISSIONS - 2):
+		assert_eq(
+			motor.submit_sustained_acceleration(
+				StringName("player.test.influence_%d" % index),
+				Vector3.ZERO
+			),
+			PlayerMotor.SubmissionStatus.SUCCESS
+		)
+
+	assert_eq(
+		motor.submit_sustained_acceleration(&"player.test.influence_0", Vector3.ZERO),
+		PlayerMotor.SubmissionStatus.DUPLICATE_SOURCE
+	)
+	assert_push_error("player.motor.duplicate_source")
+	assert_eq(
+		motor.submit_sustained_acceleration(&"player.test.influence_overflow", Vector3.ZERO),
+		PlayerMotor.SubmissionStatus.OVERFLOW
+	)
+	assert_push_error("player.motor.submission_overflow")
+	assert_true(motor.resolve_and_commit().success)
+
+
+func test_wall_constraint_redirects_relative_velocity_before_outward_removal() -> void:
+	var fixture := _new_fixture()
+	var body: CharacterBody3D = fixture[0]
+	var motor: PlayerMotor = fixture[1]
+	body.velocity = Vector3(-5.0, 0.0, 2.0)
+	assert_eq(motor.begin_motion_frame(1), PlayerMotor.FrameStatus.SUCCESS)
+	assert_eq(motor.select_state_policy(&"player.locomotion.wall_run"), PlayerMotor.SubmissionStatus.SUCCESS)
+	assert_eq(
+		motor.submit_base_motion(
+			&"player.locomotion.wall_run.base",
+			body.velocity,
+			0.0,
+			false
+		),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_eq(
+		motor.submit_wall_run_constraint(
+			&"player.wall_run.constraint",
+			Vector3.RIGHT,
+			Vector3.FORWARD
+		),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+
+	var result := motor.resolve_and_commit()
+	assert_true(result.success)
+	assert_eq(result.submitted_velocity, Vector3(0.0, 0.0, 2.0))
+
+
+func test_missing_policy_and_non_monotonic_frames_fail_closed() -> void:
 	var fixture := _new_fixture()
 	var motor: PlayerMotor = fixture[1]
 	assert_eq(motor.begin_motion_frame(4), PlayerMotor.FrameStatus.SUCCESS)
-	var missing_request_result := motor.resolve_and_commit()
-	assert_push_error("player.motor.no_motion_request")
-	assert_false(missing_request_result.success)
-	assert_eq(missing_request_result.rejection_reason, PlayerMotorCommitResult.RejectionReason.NO_MOTION_REQUEST)
+	var missing_policy_result := motor.resolve_and_commit()
+	assert_push_error("player.motor.missing_required_policy")
+	assert_false(missing_policy_result.success)
+	assert_eq(
+		missing_policy_result.rejection_reason,
+		PlayerMotorCommitResult.RejectionReason.MISSING_REQUIRED_POLICY
+	)
 
 	assert_eq(motor.begin_motion_frame(3), PlayerMotor.FrameStatus.NON_MONOTONIC_STEP)
 	assert_push_error("player.motor.non_monotonic_step")
@@ -211,16 +370,19 @@ func test_missing_request_and_non_monotonic_frames_fail_closed() -> void:
 	assert_push_error("player.motor.duplicate_step")
 
 
-func test_wall_stick_hold_is_motor_owned() -> void:
+func test_wall_stick_hold_is_motor_owned_and_exclusive() -> void:
 	var fixture := _new_fixture()
 	var body: CharacterBody3D = fixture[0]
 	var motor: PlayerMotor = fixture[1]
 	motor.set_debug_assertions_enabled(false)
 	body.global_position = Vector3(1.0, 2.0, 3.0)
 	assert_eq(motor.begin_motion_frame(5), PlayerMotor.FrameStatus.SUCCESS)
+	assert_eq(motor.select_state_policy(&"player.locomotion.wall_stick"), PlayerMotor.SubmissionStatus.SUCCESS)
 	var hold_position := Vector3(8.0, 4.0, -2.0)
-	var request := PlayerMotionRequest.hold(5, &"player.wall_stick", hold_position)
-	assert_eq(motor.submit_motion_request(request), PlayerMotor.SubmissionStatus.SUCCESS)
+	assert_eq(
+		motor.submit_wall_stick_hold(&"player.wall_stick.hold", hold_position),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
 
 	var result := motor.resolve_and_commit()
 
@@ -230,6 +392,7 @@ func test_wall_stick_hold_is_motor_owned() -> void:
 	assert_eq(body.global_position, hold_position)
 	assert_eq(body.velocity, Vector3.ZERO)
 	assert_eq(result.commit_count, 1)
+	assert_eq(result.applied_constraints, [&"player.wall_stick.hold"])
 
 
 func test_wall_stick_entry_arms_a_motor_owned_zero_velocity_baseline() -> void:
@@ -239,22 +402,12 @@ func test_wall_stick_entry_arms_a_motor_owned_zero_velocity_baseline() -> void:
 	body.velocity = Vector3(8.0, 1.0, 0.0)
 
 	assert_eq(motor.begin_motion_frame(1), PlayerMotor.FrameStatus.SUCCESS)
-	assert_eq(
-		motor.submit_motion_request(
-			PlayerMotionRequest.movement(1, &"player.locomotion.grappling", body.velocity)
-		),
-		PlayerMotor.SubmissionStatus.SUCCESS
-	)
+	_submit_passthrough(motor, &"player.locomotion.grappling")
 	assert_true(motor.resolve_and_commit().success)
 	assert_eq(motor.set_next_frame_velocity_baseline(Vector3.ZERO), PlayerMotor.BaselineStatus.SUCCESS)
 	assert_eq(motor.begin_motion_frame(2), PlayerMotor.FrameStatus.SUCCESS)
 	assert_eq(motor.get_frame_initial_velocity(), Vector3.ZERO)
-	assert_eq(
-		motor.submit_motion_request(
-			PlayerMotionRequest.movement(2, &"player.locomotion.wall_stick", motor.get_frame_initial_velocity())
-		),
-		PlayerMotor.SubmissionStatus.SUCCESS
-	)
+	_submit_passthrough(motor, &"player.locomotion.wall_stick")
 	var release_result := motor.resolve_and_commit()
 	assert_true(release_result.success)
 	assert_eq(release_result.submitted_velocity, Vector3.ZERO)
@@ -315,16 +468,42 @@ func test_diagnostic_snapshot_is_opt_in_and_copies_bounded_facts() -> void:
 
 	motor.set_diagnostics_enabled(true)
 	assert_eq(motor.begin_motion_frame(9), PlayerMotor.FrameStatus.SUCCESS)
-	var request := PlayerMotionRequest.movement(9, &"player.dead", Vector3(0.0, -1.0, 0.0))
-	assert_eq(motor.submit_motion_request(request), PlayerMotor.SubmissionStatus.SUCCESS)
+	assert_eq(motor.select_state_policy(&"player.locomotion.dead"), PlayerMotor.SubmissionStatus.SUCCESS)
+	assert_eq(
+		motor.submit_base_motion(
+			&"player.locomotion.dead.base",
+			Vector3(0.0, -1.0, 0.0),
+			60.0,
+			false
+		),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
 	assert_true(motor.resolve_and_commit().success)
 
 	var snapshot := motor.get_diagnostic_snapshot()
 	assert_eq(snapshot.physics_step, 9)
 	assert_eq(snapshot.submitted_provisional_velocity, Vector3(0.0, -1.0, 0.0))
-	assert_eq(snapshot.locomotion_state_id, &"player.dead")
+	assert_eq(snapshot.final_resolved_velocity, Vector3(0.0, -1.0, 0.0))
+	assert_eq(snapshot.locomotion_state_id, &"player.locomotion.dead")
 	assert_eq(snapshot.commit_count, 1)
+	assert_eq(snapshot.phase_intermediates.size(), MotorPhase.PHASE_COUNT)
 	assert_eq(snapshot.last_rejection_reason, PlayerMotorCommitResult.RejectionReason.NONE)
+
+	var copied_phases := snapshot.phase_intermediates
+	copied_phases.clear()
+	assert_eq(snapshot.phase_intermediates.size(), MotorPhase.PHASE_COUNT)
+
+
+func _submit_passthrough(motor: PlayerMotor, locomotion_id: StringName) -> void:
+	assert_eq(motor.select_state_policy(locomotion_id), PlayerMotor.SubmissionStatus.SUCCESS)
+	assert_eq(
+		motor.submit_base_motion(
+			StringName("%s.base" % String(locomotion_id)),
+			Vector3.ZERO,
+			0.0
+		),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
 
 
 func _new_fixture() -> Array[Node]:

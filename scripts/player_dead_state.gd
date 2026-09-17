@@ -8,6 +8,7 @@ func _enter() -> void:
 	agent._clear_wall_stick()
 
 
-func _update(delta: float) -> void:
-	var motion_velocity: Vector3 = agent.calculate_dead_motion(delta)
-	agent.submit_motion_velocity(agent.LOCOMOTION_DEAD, motion_velocity)
+func _update(_delta: float) -> void:
+	agent.submit_terminal_policy()
+	agent.submit_state_policy(agent.LOCOMOTION_DEAD)
+	agent.submit_dead_motion()
