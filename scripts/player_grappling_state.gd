@@ -26,7 +26,7 @@ func _update(delta: float) -> void:
 	var input_dir: Vector2 = command_frame.movement_axis
 	agent.submit_base_policy(agent.LOCOMOTION_GRAPPLING, input_dir)
 	agent.submit_gravity_policy()
-	if command_frame.was_pressed(PlayerCommandFrame.Action.JUMP) and agent.is_on_floor():
+	if command_frame.was_pressed(PlayerCommandFrame.Action.JUMP) and agent.has_ground_contact():
 		agent.submit_ground_jump(reference_velocity)
 	agent.submit_grapple_pull(delta)
 	if not agent.has_valid_grapple():

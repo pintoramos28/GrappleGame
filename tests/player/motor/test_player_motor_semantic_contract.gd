@@ -361,5 +361,22 @@ func _new_fixture() -> Array[Node]:
 	root.add_child(body)
 	var motor := PlayerMotor.new()
 	root.add_child(motor)
-	assert_eq(motor.initialize(body), PlayerMotor.InitializationStatus.SUCCESS)
+	_configure_contact_profiles(motor)
+	motor.contact_lifecycle_strict = false
+	assert_eq(motor.initialize(body, false), PlayerMotor.InitializationStatus.SUCCESS)
 	return [body, motor]
+
+
+func _configure_contact_profiles(motor: PlayerMotor) -> void:
+	var ground := GroundProbe.new()
+	var ground_shape := SphereShape3D.new()
+	ground_shape.radius = 0.08
+	ground.shape = ground_shape
+	ground.collision_mask_names = PackedStringArray(["world_geometry"])
+	var wall := WallProbe.new()
+	var wall_shape := SphereShape3D.new()
+	wall_shape.radius = 0.12
+	wall.shape = wall_shape
+	wall.collision_mask_names = PackedStringArray(["world_geometry"])
+	motor.ground_probe = ground
+	motor.wall_probe = wall

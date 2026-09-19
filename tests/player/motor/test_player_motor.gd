@@ -28,6 +28,7 @@ func test_initialization_is_typed_and_fails_closed() -> void:
 	add_child(root)
 	var body := CharacterBody3D.new()
 	root.add_child(body)
+	_configure_contact_profiles(motor)
 	assert_eq(motor.initialize(body), PlayerMotor.InitializationStatus.SUCCESS)
 	var duplicate_status := motor.initialize(body)
 	assert_push_error("player.motor.already_initialized")
@@ -488,6 +489,13 @@ func test_diagnostic_snapshot_is_opt_in_and_copies_bounded_facts() -> void:
 	assert_eq(snapshot.commit_count, 1)
 	assert_eq(snapshot.phase_intermediates.size(), MotorPhase.PHASE_COUNT)
 	assert_eq(snapshot.last_rejection_reason, PlayerMotorCommitResult.RejectionReason.NONE)
+	assert_not_null(snapshot.contact_diagnostics)
+	assert_eq(snapshot.contact_diagnostics.physics_step, 9)
+	assert_eq(snapshot.contact_diagnostics.provider_status, &"ready")
+	assert_eq(snapshot.contact_diagnostics.ground_profile_id, &"player.contact.ground_probe")
+	assert_gte(snapshot.contact_diagnostics.ground_query_count, 1)
+	assert_gte(snapshot.contact_diagnostics.wall_query_count, 1)
+	assert_true(snapshot.contact_diagnostics.is_value_only())
 
 	var copied_phases := snapshot.phase_intermediates
 	copied_phases.clear()
@@ -513,5 +521,22 @@ func _new_fixture() -> Array[Node]:
 	root.add_child(body)
 	var motor: PlayerMotor = PlayerMotor.new()
 	root.add_child(motor)
-	assert_eq(motor.initialize(body), PlayerMotor.InitializationStatus.SUCCESS)
+	_configure_contact_profiles(motor)
+	motor.contact_lifecycle_strict = false
+	assert_eq(motor.initialize(body, false), PlayerMotor.InitializationStatus.SUCCESS)
 	return [body, motor]
+
+
+func _configure_contact_profiles(motor: PlayerMotor) -> void:
+	var ground := GroundProbe.new()
+	var ground_shape := SphereShape3D.new()
+	ground_shape.radius = 0.08
+	ground.shape = ground_shape
+	ground.collision_mask_names = PackedStringArray(["world_geometry"])
+	var wall := WallProbe.new()
+	var wall_shape := SphereShape3D.new()
+	wall_shape.radius = 0.12
+	wall.shape = wall_shape
+	wall.collision_mask_names = PackedStringArray(["world_geometry"])
+	motor.ground_probe = ground
+	motor.wall_probe = wall

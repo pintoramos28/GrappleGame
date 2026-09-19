@@ -9,6 +9,9 @@ enum InitializationStatus {
 	WRONG_BODY,
 	BODY_NOT_IN_TREE,
 	ALREADY_INITIALIZED,
+	INVALID_GROUND_PROFILE,
+	INVALID_WALL_PROFILE,
+	CONTACT_PROVIDER_UNAVAILABLE,
 }
 
 enum FrameStatus {
@@ -20,6 +23,7 @@ enum FrameStatus {
 	NON_MONOTONIC_STEP,
 	CONFLICTING_ACTIVE_FRAME,
 	INVALID_DELTA,
+	INVALID_CONTACT_FRAME,
 }
 
 enum SubmissionStatus {
@@ -61,8 +65,21 @@ const CAP_SCOPE_TOTAL_SPEED: StringName = PlayerMotorSubmission.CAP_SCOPE_TOTAL_
 signal diagnostic_recorded(event: DiagnosticEvent)
 
 
+@export_group("Authoritative Contact")
+## Required authored ground query profile. The profile is validated and locked at initialization.
+@export var ground_probe: GroundProbe
+## Optional authored wall query profile. Invalid wall data disables wall contact only.
+@export var wall_probe: WallProbe
+## Direct test fixtures may use sparse steps; the scene-owned motor stays strict.
+@export var contact_lifecycle_strict := true
+
+
 var _body: CharacterBody3D
 var _initialized := false
+var _contact_provider: PlayerContactProvider
+var _last_contact_frame: ContactFrame
+var _contact_bootstrapped := false
+var _contact_lifecycle_is_strict := true
 var _frame_open := false
 var _active_step := -1
 var _last_started_step := -1
@@ -101,7 +118,7 @@ func _init() -> void:
 	_game_log.diagnostic_recorded.connect(_on_diagnostic_recorded)
 
 
-func initialize(body: Node) -> InitializationStatus:
+func initialize(body: Node, strict_contact_lifecycle: bool = true) -> InitializationStatus:
 	if _initialized:
 		_record_rejection(
 			PlayerMotorCommitResult.RejectionReason.INVALID_REQUEST,
@@ -140,7 +157,30 @@ func initialize(body: Node) -> InitializationStatus:
 		return InitializationStatus.BODY_NOT_IN_TREE
 
 	_body = character_body
+	if ground_probe == null:
+		_record_rejection(
+			PlayerMotorCommitResult.RejectionReason.CONTACT_PROVIDER_UNAVAILABLE,
+			&"player.motor.missing_ground_probe",
+			-1,
+			&""
+		)
+		return InitializationStatus.INVALID_GROUND_PROFILE
+	_contact_provider = PlayerContactProvider.new()
+	var provider_status := _contact_provider.initialize(body, ground_probe, wall_probe)
+	if provider_status != PlayerContactProvider.InitializationStatus.SUCCESS:
+		_contact_provider = null
+		_record_rejection(
+			PlayerMotorCommitResult.RejectionReason.CONTACT_PROVIDER_UNAVAILABLE,
+			&"player.motor.contact_provider_initialization_failed",
+			-1,
+			&""
+		)
+		return InitializationStatus.CONTACT_PROVIDER_UNAVAILABLE
+	_contact_lifecycle_is_strict = strict_contact_lifecycle and contact_lifecycle_strict
+	_contact_provider.set_strict_lifecycle(_contact_lifecycle_is_strict)
 	_initialized = true
+	_contact_bootstrapped = false
+	_last_contact_frame = null
 	_has_next_frame_velocity_baseline = false
 	_next_frame_velocity_baseline = Vector3.ZERO
 	_last_rejection_reason = PlayerMotorCommitResult.RejectionReason.NONE
@@ -150,6 +190,33 @@ func initialize(body: Node) -> InitializationStatus:
 
 func is_initialized() -> bool:
 	return _initialized
+
+
+func bootstrap_contact_frame() -> ContactFrame:
+	if not _initialized or _contact_provider == null:
+		return ContactFrame.failure(0, ContactFrame.Status.NOT_INITIALIZED, ContactFrame.Origin.BOOTSTRAP)
+	if _contact_bootstrapped:
+		return _last_contact_frame
+	var frame := _contact_provider.bootstrap()
+	if frame.success:
+		_contact_bootstrapped = true
+		_last_contact_frame = frame
+	else:
+		_record_rejection(
+			PlayerMotorCommitResult.RejectionReason.CONTACT_FRAME_FAILED,
+			&"player.motor.contact_bootstrap_failed",
+			0,
+			&""
+		)
+	return frame
+
+
+func get_previous_contact_frame() -> ContactFrame:
+	return _last_contact_frame
+
+
+func get_contact_provider() -> PlayerContactProvider:
+	return _contact_provider
 
 
 static func initialization_status_id(status: InitializationStatus) -> StringName:
@@ -184,6 +251,24 @@ func begin_motion_frame(
 			&""
 		)
 		return FrameStatus.INVALID_DELTA
+	if _contact_provider == null:
+		_record_rejection(
+			PlayerMotorCommitResult.RejectionReason.CONTACT_PROVIDER_UNAVAILABLE,
+			&"player.motor.contact_provider_unavailable",
+			physics_step,
+			&""
+		)
+		return FrameStatus.INVALID_CONTACT_FRAME
+	if not _contact_bootstrapped:
+		var bootstrap_frame := bootstrap_contact_frame()
+		if bootstrap_frame == null or not bootstrap_frame.success:
+			_record_rejection(
+				PlayerMotorCommitResult.RejectionReason.CONTACT_FRAME_FAILED,
+				&"player.motor.contact_bootstrap_failed",
+				physics_step,
+				&""
+			)
+			return FrameStatus.INVALID_CONTACT_FRAME
 
 	if _frame_open:
 		if physics_step == _active_step:
@@ -740,22 +825,39 @@ func resolve_and_commit() -> PlayerMotorCommitResult:
 	_last_closed_step = _active_step
 	_committed_velocity = _body.velocity
 	var after_position := _body.global_position
-	var collisions: Array[KinematicCollision3D] = []
-	var collision_candidates: Array[KinematicCollision3D] = []
-	var collision_normals: Array[Vector3] = []
-	var total_collision_count := _body.get_slide_collision_count()
-	var collision_scan_count := mini(total_collision_count, MAX_SCANNED_COLLISIONS)
-	for collision_index in range(collision_scan_count):
-		var collision := _body.get_slide_collision(collision_index)
-		if collision != null:
-			collision_candidates.append(collision)
-			collision_normals.append(collision.get_normal())
-	var prioritized_indices := prioritize_collision_indices(
-		collision_normals,
-		MAX_REPORTED_COLLISIONS
+	var contact_frame := _contact_provider.publish_committed_frame(
+		_active_step,
+		_delta_seconds,
+		_submitted_velocity
 	)
-	for candidate_index in prioritized_indices:
-		collisions.append(collision_candidates[candidate_index])
+	if contact_frame == null or not contact_frame.success:
+		var contact_failure := _make_result(
+			_active_step,
+			false,
+			PlayerMotorCommitResult.RejectionReason.CONTACT_FRAME_FAILED,
+			&"player.motor.contact_frame_failed",
+			_last_locomotion_state_id,
+			_submitted_velocity,
+			_committed_velocity,
+			_initial_position,
+			after_position,
+			hold_request,
+			requested_hold_position,
+			_commit_count,
+			contact_frame,
+			true
+		)
+		_record_rejection(
+			PlayerMotorCommitResult.RejectionReason.CONTACT_FRAME_FAILED,
+			&"player.motor.contact_frame_failed",
+			_active_step,
+			_last_locomotion_state_id
+		)
+		_last_commit_result = contact_failure
+		_frame_open = false
+		_last_closed_step = _active_step
+		return contact_failure
+	_last_contact_frame = contact_frame
 
 	var result := _make_result(
 		_active_step,
@@ -769,12 +871,9 @@ func resolve_and_commit() -> PlayerMotorCommitResult:
 		after_position,
 		hold_request,
 		requested_hold_position,
-		_body.is_on_floor(),
-		_body.is_on_wall(),
 		_commit_count,
-		collisions,
-		total_collision_count > MAX_REPORTED_COLLISIONS
-			or total_collision_count > MAX_SCANNED_COLLISIONS
+		contact_frame,
+		contact_frame.overflowed
 	)
 	_last_commit_result = result
 	_frame_open = false
@@ -830,10 +929,8 @@ func abort_motion_frame() -> PlayerMotorCommitResult:
 		_initial_position,
 		_has_hold_submission(),
 		_get_hold_position(),
-		false,
-		false,
 		0,
-		[],
+		ContactFrame.failure(_active_step, ContactFrame.Status.INVALID_DATA),
 		false
 	)
 	_last_rejection_reason = PlayerMotorCommitResult.RejectionReason.FRAME_ABORTED
@@ -898,7 +995,9 @@ func get_diagnostic_snapshot() -> PlayerMotorDiagnosticSnapshot:
 		_applied_constraints,
 		_applied_caps,
 		_rejected_contribution_overflow_count,
-		_rejected_contributions_truncated
+		_rejected_contributions_truncated,
+		_last_contact_frame,
+		_contact_provider.get_diagnostic_snapshot() if _contact_provider != null else null
 	)
 
 
@@ -1023,10 +1122,8 @@ func _make_result(
 	after_position: Vector3,
 	hold_request: bool,
 	requested_hold_position: Vector3,
-	floor_contact: bool,
-	wall_contact: bool,
 	actual_commit_count: int,
-	collisions: Array[KinematicCollision3D],
+	contact_frame: ContactFrame,
 	contact_facts_were_truncated: bool
 ) -> PlayerMotorCommitResult:
 	return PlayerMotorCommitResult.new(
@@ -1041,10 +1138,8 @@ func _make_result(
 		after_position,
 		hold_request,
 		requested_hold_position,
-		floor_contact,
-		wall_contact,
 		actual_commit_count,
-		collisions,
+		contact_frame,
 		contact_facts_were_truncated,
 		_delta_seconds,
 		_phase_order,
@@ -1078,10 +1173,8 @@ func _reject_result(
 		_body.global_position if body_is_usable else _initial_position,
 		_has_hold_submission(),
 		_get_hold_position(),
-		_body.is_on_floor() if body_is_usable else false,
-		_body.is_on_wall() if body_is_usable else false,
 		_commit_count,
-		[],
+		ContactFrame.failure(physics_step, ContactFrame.Status.INVALID_DATA),
 		false
 	)
 

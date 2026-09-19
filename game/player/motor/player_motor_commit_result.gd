@@ -29,6 +29,8 @@ enum RejectionReason {
 	ALREADY_RESOLVED,
 	UNSUPPORTED_CAP_SCOPE,
 	INVALID_WALL_CONSTRAINT,
+	CONTACT_PROVIDER_UNAVAILABLE,
+	CONTACT_FRAME_FAILED,
 }
 
 
@@ -95,19 +97,19 @@ var hold_position: Vector3:
 
 var on_floor: bool:
 	get:
-		return _on_floor
+		return _contact_frame.is_grounded if _contact_frame != null else false
 
 var on_wall: bool:
 	get:
-		return _on_wall
+		return _contact_frame.has_wall_contact if _contact_frame != null else false
 
 var commit_count: int:
 	get:
 		return _commit_count
 
-var slide_collisions: Array[KinematicCollision3D]:
+var contact_frame: ContactFrame:
 	get:
-		return _slide_collisions.duplicate()
+		return _contact_frame
 
 var collision_facts_truncated: bool:
 	get:
@@ -157,10 +159,8 @@ var _position_before: Vector3
 var _position_after: Vector3
 var _is_hold_request: bool
 var _hold_position: Vector3
-var _on_floor: bool
-var _on_wall: bool
 var _commit_count: int
-var _slide_collisions: Array[KinematicCollision3D] = []
+var _contact_frame: ContactFrame
 var _collision_facts_truncated := false
 var _phase_order: Array[StringName] = []
 var _phase_intermediates: Array[Dictionary] = []
@@ -184,10 +184,8 @@ func _init(
 	after_position: Vector3,
 	hold_request: bool,
 	requested_hold_position: Vector3,
-	floor_contact: bool,
-	wall_contact: bool,
 	actual_commit_count: int,
-	collisions: Array[KinematicCollision3D],
+	frame: ContactFrame,
 	contact_facts_were_truncated: bool = false,
 	delta_seconds: float = 1.0 / 60.0,
 	resolved_phase_order: Array[StringName] = [],
@@ -211,11 +209,9 @@ func _init(
 	_position_after = after_position
 	_is_hold_request = hold_request
 	_hold_position = requested_hold_position
-	_on_floor = floor_contact
-	_on_wall = wall_contact
 	_commit_count = actual_commit_count
-	_slide_collisions = collisions.duplicate()
-	_collision_facts_truncated = contact_facts_were_truncated
+	_contact_frame = frame if frame != null else ContactFrame.failure(step, ContactFrame.Status.INVALID_DATA)
+	_collision_facts_truncated = contact_facts_were_truncated or _contact_frame.overflowed
 	_phase_order = resolved_phase_order.duplicate()
 	_phase_intermediates = _duplicate_dictionaries(resolved_phase_intermediates)
 	_accepted_sources_by_phase = _duplicate_nested_arrays(resolved_sources_by_phase)

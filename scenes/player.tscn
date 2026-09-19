@@ -22,6 +22,8 @@
 [ext_resource type="Script" path="res://scripts/debug_grapple_telemetry.gd" id="20_grapple_debug"]
 [ext_resource type="Script" path="res://game/player/input/player_input_source.gd" id="21_input_source"]
 [ext_resource type="Script" path="res://game/player/motor/player_motor.gd" id="22_player_motor"]
+[ext_resource type="Resource" path="res://game/shared/physics/ground_probe.tres" id="23_ground_probe"]
+[ext_resource type="Resource" path="res://game/shared/physics/wall_probe.tres" id="24_wall_probe"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5vw27"]
 radius = 0.45
@@ -72,6 +74,9 @@ script = ExtResource("21_input_source")
 
 [node name="PlayerMotor" type="Node" parent="."]
 script = ExtResource("22_player_motor")
+ground_probe = ExtResource("23_ground_probe")
+wall_probe = ExtResource("24_wall_probe")
+contact_lifecycle_strict = true
 
 [node name="Health" type="Node" parent="." unique_id=1561324531]
 script = ExtResource("3_8agwv")

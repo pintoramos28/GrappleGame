@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://game/shared/physics/wall_probe.gd" id="1_wall_probe"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wall_probe"]
+radius = 0.12
+
+[resource]
+script = ExtResource("1_wall_probe")
+profile_id = &"player.contact.wall_probe"
+collision_mask_names = PackedStringArray("world_geometry")
+shape = SubResource("SphereShape3D_wall_probe")
+probe_offset = Vector3(0, 0.9, 0)
+probe_direction = Vector3(1, 0, 0)
+probe_distance_m = 0.8
+sweep_distance_cap_m = 0.8
+margin_m = 0.001
+thickness_m = 0.12
+continuity_angle_degrees = 25.0
+continuity_distance_m = 0.2
+continuity_loss_steps = 2
+candidate_limit = 16
+report_limit = 8
+scan_limit = 32

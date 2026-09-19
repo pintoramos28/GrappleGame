@@ -13,7 +13,7 @@ func _update(_delta: float) -> void:
 		agent.submit_base_passthrough(agent.LOCOMOTION_AIRBORNE)
 		return
 
-	if agent.is_on_floor():
+	if agent.has_ground_contact():
 		agent.submit_base_passthrough(agent.LOCOMOTION_AIRBORNE)
 		agent.dispatch_locomotion_event(agent.EVENT_LANDED)
 		return

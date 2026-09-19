@@ -221,6 +221,14 @@ func _ready() -> void:
 		)
 		input_source.set_enabled(false)
 		return
+	var contact_bootstrap := player_motor.bootstrap_contact_frame()
+	if contact_bootstrap == null or not contact_bootstrap.success:
+		_player_log.record_invariant(
+			&"player.controller.contact_bootstrap_failed",
+			DiagnosticContext.new(-1, &"", &"contact_bootstrap_failed")
+		)
+		input_source.set_enabled(false)
+		return
 	_player_initialized = true
 
 	if capture_mouse_on_start:
@@ -346,17 +354,29 @@ func _abort_motion_frame_safely() -> void:
 
 
 func _coordinate_post_commit(result: PlayerMotorCommitResult) -> void:
-	if _submitted_locomotion_state_id == LOCOMOTION_GRAPPLING and is_grappling and not result.on_floor:
-		var started_wall_stick := _try_start_wall_stick_from_collisions(
+	var contact_frame := result.contact_frame
+	if (
+		contact_frame == null
+		or contact_frame.physics_step != result.physics_step
+	):
+		_player_log.record_invariant(
+			&"player.controller.contact_frame_mismatch",
+			DiagnosticContext.new(_player_physics_step, &"", &"contact_frame_mismatch")
+		)
+		_deactivate_player()
+		return
+
+	if _submitted_locomotion_state_id == LOCOMOTION_GRAPPLING and is_grappling and not contact_frame.is_grounded:
+		var started_wall_stick := _try_start_wall_stick_from_contact(
 			_current_command_frame.movement_axis,
 			result.submitted_velocity,
-			result.slide_collisions,
+			contact_frame,
 			result.position_after
 		)
 		if started_wall_stick:
 			dispatch_locomotion_event(EVENT_WALL_STICK_STARTED)
 
-	if _submitted_locomotion_state_id == LOCOMOTION_GRAPPLING and result.on_floor:
+	if _submitted_locomotion_state_id == LOCOMOTION_GRAPPLING and contact_frame.is_grounded:
 		if is_grappling:
 			_clear_grapple()
 		if _pending_locomotion_event != &"":
@@ -366,12 +386,12 @@ func _coordinate_post_commit(result: PlayerMotorCommitResult) -> void:
 
 	if _pending_locomotion_event != &"":
 		return
-	if _submitted_locomotion_state_id == LOCOMOTION_GROUNDED and not result.on_floor:
+	if _submitted_locomotion_state_id == LOCOMOTION_GROUNDED and not contact_frame.is_grounded:
 		dispatch_locomotion_event(EVENT_LEFT_GROUND)
 	elif (
 		_submitted_locomotion_state_id == LOCOMOTION_AIRBORNE
 		or _submitted_locomotion_state_id == LOCOMOTION_WALL_RUN
-	) and result.on_floor:
+	) and contact_frame.is_grounded:
 		dispatch_locomotion_event(EVENT_LANDED)
 
 
@@ -451,7 +471,7 @@ func submit_base_policy(
 	locomotion_state_id: StringName,
 	input_dir: Vector2
 ) -> bool:
-	var grounded := is_on_floor()
+	var grounded := has_ground_contact()
 	var max_speed := max_ground_speed if grounded else max_air_speed
 	var target_velocity := _get_horizontal_target_velocity(input_dir, max_speed)
 	var acceleration := _get_horizontal_acceleration(input_dir, grounded)
@@ -476,7 +496,7 @@ func submit_base_passthrough(locomotion_state_id: StringName) -> bool:
 
 
 func submit_gravity_policy() -> bool:
-	if is_on_floor():
+	if has_ground_contact():
 		return true
 	if is_wall_running and wall_run_zero_vertical_velocity:
 		return true
@@ -685,6 +705,21 @@ func get_motion_step() -> int:
 	return _player_physics_step
 
 
+func get_previous_contact_frame() -> ContactFrame:
+	if player_motor == null or not is_instance_valid(player_motor):
+		return null
+	return player_motor.get_previous_contact_frame()
+
+
+func has_ground_contact() -> bool:
+	var frame := get_previous_contact_frame()
+	return frame != null and frame.is_grounded
+
+
+func get_wall_contact() -> ContactFrame:
+	return get_previous_contact_frame()
+
+
 func dispatch_locomotion_event(event: StringName) -> void:
 	_pending_locomotion_event = event
 	if movement_hsm:
@@ -714,65 +749,17 @@ func _get_gravity_scale() -> float:
 
 
 func _update_wall_run_state(input_dir: Vector2, reference_velocity: Vector3) -> void:
-	if is_on_floor() or is_grappling:
-		_clear_wall_run()
-		return
-
-	var wall_hit := _find_wall_with_velocity_rays(reference_velocity)
-	if wall_hit.is_empty():
+	var contact_frame := get_previous_contact_frame()
+	if has_ground_contact() or is_grappling or contact_frame == null or not contact_frame.has_wall_contact:
 		_clear_wall_run()
 		return
 
 	if not is_wall_running and not _can_start_wall_run(reference_velocity):
 		return
 
-	var normal: Vector3 = wall_hit["normal"]
-	_set_wall_run(normal, reference_velocity)
+	_set_wall_run(contact_frame.wall_normal, reference_velocity)
 	if not _has_wall_run_input_for_direction(input_dir, wall_run_direction):
 		_clear_wall_run()
-
-
-func _find_wall_with_velocity_rays(reference_velocity: Vector3) -> Dictionary:
-	var horizontal_velocity := Vector3(reference_velocity.x, 0.0, reference_velocity.z)
-	if horizontal_velocity.length() < wall_run_min_horizontal_speed:
-		return {}
-
-	var move_forward := horizontal_velocity.normalized()
-	var move_right := move_forward.cross(Vector3.UP).normalized()
-	var check_dirs: Array[Vector3] = [
-		move_right,
-		-move_right,
-		(move_right + move_forward).normalized(),
-		(-move_right + move_forward).normalized(),
-	]
-
-	var origin := _get_player_mesh_center()
-	var best_hit := {}
-	var best_score := -INF
-	var space_state := get_world_3d().direct_space_state
-
-	for check_dir in check_dirs:
-		var query := PhysicsRayQueryParameters3D.create(origin, origin + check_dir * wall_check_distance)
-		query.exclude = [get_rid()]
-
-		var hit := space_state.intersect_ray(query)
-		if hit.is_empty():
-			continue
-
-		var collider: Object = hit["collider"]
-		if not collider is StaticBody3D:
-			continue
-
-		var normal: Vector3 = hit["normal"]
-		if not _is_valid_wall_normal(normal):
-			continue
-
-		var score := normal.dot(-check_dir)
-		if score > best_score:
-			best_score = score
-			best_hit = hit
-
-	return best_hit
 
 
 func _can_start_wall_run(check_velocity: Vector3) -> bool:
@@ -781,10 +768,6 @@ func _can_start_wall_run(check_velocity: Vector3) -> bool:
 		horizontal_speed >= wall_run_min_horizontal_speed
 		and check_velocity.length() <= wall_run_max_entry_speed
 	)
-
-
-func _is_valid_wall_normal(normal: Vector3) -> bool:
-	return abs(normal.y) <= wall_run_max_normal_y
 
 
 func _set_wall_run(normal: Vector3, reference_velocity: Vector3) -> void:
@@ -817,10 +800,10 @@ func _clear_wall_run() -> void:
 	wall_run_direction = Vector3.ZERO
 
 
-func _try_start_wall_stick_from_collisions(
+func _try_start_wall_stick_from_contact(
 	input_dir: Vector2,
 	entry_velocity: Vector3,
-	collisions: Array[KinematicCollision3D],
+	contact_frame: ContactFrame,
 	committed_position: Vector3
 ) -> bool:
 	if (
@@ -828,27 +811,19 @@ func _try_start_wall_stick_from_collisions(
 		or not is_grappling
 		or _current_command_frame == null
 		or not _current_command_frame.is_held(PlayerCommandFrame.Action.GRAPPLE)
-		or is_on_floor()
+		or contact_frame == null
+		or contact_frame.is_grounded
+		or not contact_frame.has_wall_contact
 		or not _can_start_wall_run(entry_velocity)
 	):
 		return false
 
-	for collision in collisions:
-		var collider := collision.get_collider()
-		if not collider is StaticBody3D:
-			continue
+	var normal := contact_frame.wall_normal
+	var run_direction := _get_wall_run_direction(normal, entry_velocity)
+	if not _has_wall_run_input_for_direction(input_dir, run_direction):
+		return false
 
-		var normal := collision.get_normal()
-		if not _is_valid_wall_normal(normal):
-			continue
-
-		var run_direction := _get_wall_run_direction(normal, entry_velocity)
-		if not _has_wall_run_input_for_direction(input_dir, run_direction):
-			continue
-
-		return _set_wall_stick(normal, run_direction, committed_position)
-
-	return false
+	return _set_wall_stick(normal, run_direction, committed_position)
 
 
 func _set_wall_stick(
@@ -909,7 +884,7 @@ func update_grapple_feedback() -> void:
 
 
 func dispatch_locomotion_after_grapple_clear() -> void:
-	if is_on_floor():
+	if has_ground_contact():
 		dispatch_locomotion_event(EVENT_LANDED)
 	else:
 		dispatch_locomotion_event(EVENT_GRAPPLE_RELEASED)
@@ -969,7 +944,7 @@ func get_grapple_telemetry() -> Dictionary:
 		"speed": committed_velocity.length(),
 		"velocity": committed_velocity,
 		"cap_reached": grapple_max_velocity > 0.0 and committed_velocity.length() >= grapple_max_velocity - 0.01,
-		"on_floor": is_on_floor(),
+		"on_floor": has_ground_contact(),
 		"wall_running": is_wall_running,
 		"wall_sticking": is_wall_sticking,
 		"wall_stick_speed_gate": speed_gate_passed,
@@ -1002,8 +977,11 @@ func _update_grapple_visual() -> void:
 		grapple_visual.visible = false
 		return
 
+	var was_hidden := not grapple_visual.visible
 	grapple_visual_mesh.height = length
 	grapple_visual.global_transform = Transform3D(_basis_from_y_axis(segment), start + segment * 0.5)
+	if was_hidden:
+		grapple_visual.reset_physics_interpolation()
 	grapple_visual.visible = true
 
 

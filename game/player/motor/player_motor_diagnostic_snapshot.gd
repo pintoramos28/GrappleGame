@@ -74,6 +74,14 @@ var rejected_contributions_truncated: bool:
 	get:
 		return _rejected_contributions_truncated
 
+var contact_frame: ContactFrame:
+	get:
+		return _contact_frame
+
+var contact_diagnostics: ContactDiagnosticSnapshot:
+	get:
+		return _contact_diagnostics
+
 var _physics_step: int
 var _delta_seconds: float
 var _initial_velocity: Vector3
@@ -92,6 +100,8 @@ var _applied_constraints: Array[StringName] = []
 var _applied_caps: Array[StringName] = []
 var _rejected_contribution_overflow_count := 0
 var _rejected_contributions_truncated := false
+var _contact_frame: ContactFrame
+var _contact_diagnostics: ContactDiagnosticSnapshot
 
 
 func _init(
@@ -110,7 +120,9 @@ func _init(
 	resolved_constraints: Array[StringName] = [],
 	resolved_caps: Array[StringName] = [],
 	rejected_overflow_count: int = 0,
-	rejected_facts_were_truncated: bool = false
+	rejected_facts_were_truncated: bool = false,
+	contact: ContactFrame = null,
+	contact_snapshot: ContactDiagnosticSnapshot = null
 ) -> void:
 	_physics_step = step
 	_delta_seconds = delta
@@ -130,6 +142,8 @@ func _init(
 	_applied_caps = resolved_caps.duplicate()
 	_rejected_contribution_overflow_count = rejected_overflow_count
 	_rejected_contributions_truncated = rejected_facts_were_truncated
+	_contact_frame = contact
+	_contact_diagnostics = contact_snapshot
 
 
 static func _duplicate_dictionaries(source: Array[Dictionary]) -> Array[Dictionary]:

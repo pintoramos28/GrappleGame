@@ -37,6 +37,7 @@ func test_real_character_body_fixture_accepts_one_commit_for_each_traversal_stat
 		assert_eq(result.physics_step, physics_step)
 		assert_eq(result.locomotion_state_id, traversal_ids[step])
 		assert_eq(result.commit_count, 1)
+		_assert_post_commit_contact_frame(result.contact_frame, physics_step, true)
 
 
 func test_real_character_body_fixture_returns_bounded_slide_collisions_without_second_commit() -> void:
@@ -57,7 +58,8 @@ func test_real_character_body_fixture_returns_bounded_slide_collisions_without_s
 	)
 	var result := motor.resolve_and_commit()
 	assert_true(result.success)
-	assert_lte(result.slide_collisions.size(), PlayerMotor.MAX_REPORTED_COLLISIONS)
+	_assert_post_commit_contact_frame(result.contact_frame, 1, true)
+	assert_lte(result.contact_frame.reported_collision_count, PlayerMotor.MAX_REPORTED_COLLISIONS)
 	assert_false(result.collision_facts_truncated)
 	var transform_after_commit := body.global_transform
 	var second := motor.resolve_and_commit()
@@ -74,14 +76,18 @@ func test_real_player_scene_commits_once_per_controller_physics_step() -> void:
 	input_source.enable_test_input_seam()
 
 	player.call("_physics_process", 1.0 / 60.0)
+	var first_result: PlayerMotorCommitResult = motor.get_last_commit_result()
 	assert_gte(motor.get_accepted_submission_count(), 2)
 	assert_eq(motor.get_commit_count(), 1)
-	assert_eq(motor.get_last_commit_result().physics_step, 1)
+	assert_eq(first_result.physics_step, 1)
+	_assert_post_commit_contact_frame(first_result.contact_frame, 1, true)
 
 	player.call("_physics_process", 1.0 / 60.0)
+	var second_result: PlayerMotorCommitResult = motor.get_last_commit_result()
 	assert_gte(motor.get_accepted_submission_count(), 2)
 	assert_eq(motor.get_commit_count(), 1)
-	assert_eq(motor.get_last_commit_result().physics_step, 2)
+	assert_eq(second_result.physics_step, 2)
+	_assert_post_commit_contact_frame(second_result.contact_frame, 2, true)
 
 
 func test_real_player_scene_commits_once_per_real_physics_tick() -> void:
@@ -99,6 +105,7 @@ func test_real_player_scene_commits_once_per_real_physics_tick() -> void:
 			continue
 		assert_true(result.success)
 		assert_eq(result.commit_count, 1)
+		_assert_post_commit_contact_frame(result.contact_frame, result.physics_step, true)
 		assert_gte(motor.get_accepted_submission_count(), 2)
 		if not observed_steps.is_empty():
 			assert_eq(result.physics_step, observed_steps.back() + 1)
@@ -155,7 +162,7 @@ func test_real_player_scene_preserves_ground_commit_and_jump_launch() -> void:
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 
-	assert_true(player.is_on_floor())
+	assert_true(player.get_previous_contact_frame().is_grounded)
 	assert_lt(player.global_position.z, -1.0)
 	assert_lte(absf(player.velocity.z), 10.0)
 	assert_eq(motor.get_commit_count(), 1)
@@ -214,6 +221,12 @@ func test_real_player_scene_routes_wall_run_and_wall_jump_once() -> void:
 	var wall_run_entry_result := motor.get_last_commit_result()
 	assert_eq(wall_run_entry_result.locomotion_state_id, &"player.locomotion.airborne")
 	assert_eq(wall_run_entry_result.commit_count, 1)
+	_assert_post_commit_contact_frame(
+		wall_run_entry_result.contact_frame,
+		wall_run_entry_result.physics_step,
+		true
+	)
+	assert_true(wall_run_entry_result.contact_frame.has_wall_contact)
 	assert_true(bool(player.get("is_wall_running")))
 
 	input_source.inject_action_binding(PlayerCommandFrame.Action.JUMP, 0, true)
@@ -258,6 +271,8 @@ func test_real_player_scene_routes_wall_stick_hold_and_release_once() -> void:
 	player.call("_physics_process", 1.0 / 60.0)
 	var hold_result := motor.get_last_commit_result()
 	assert_eq(hold_result.locomotion_state_id, &"player.locomotion.wall_stick")
+	_assert_post_commit_contact_frame(hold_result.contact_frame, hold_result.physics_step, true)
+	assert_true(hold_result.contact_frame.has_wall_contact)
 	assert_true(hold_result.is_hold_request)
 	assert_eq(hold_result.commit_count, 1)
 
@@ -290,7 +305,7 @@ func test_real_player_scene_clears_grapple_before_landing_transition() -> void:
 	assert_true(landing_result.success)
 	assert_eq(landing_result.locomotion_state_id, &"player.locomotion.grappling")
 	assert_eq(landing_result.commit_count, 1)
-	assert_true(landing_result.on_floor)
+	assert_true(landing_result.contact_frame.is_grounded)
 	assert_false(bool(player.get("is_grappling")))
 	assert_true(player.is_player_physics_active())
 
@@ -416,5 +431,38 @@ func _new_physics_fixture() -> Array[Node]:
 
 	var motor := PlayerMotor.new()
 	world.add_child(motor)
+	_configure_contact_profiles(motor)
 	assert_eq(motor.initialize(body), PlayerMotor.InitializationStatus.SUCCESS)
 	return [body, motor]
+
+
+func _configure_contact_profiles(motor: PlayerMotor) -> void:
+	var ground := GroundProbe.new()
+	var ground_shape := SphereShape3D.new()
+	ground_shape.radius = 0.08
+	ground.shape = ground_shape
+	ground.collision_mask_names = PackedStringArray(["world_geometry"])
+	var wall := WallProbe.new()
+	var wall_shape := SphereShape3D.new()
+	wall_shape.radius = 0.12
+	wall.shape = wall_shape
+	wall.collision_mask_names = PackedStringArray(["world_geometry"])
+	motor.ground_probe = ground
+	motor.wall_probe = wall
+
+
+func _assert_post_commit_contact_frame(
+	frame: ContactFrame,
+	physics_step: int,
+	committed_evidence: bool
+) -> void:
+	assert_not_null(frame)
+	assert_true(frame.success)
+	assert_eq(frame.physics_step, physics_step)
+	assert_eq(frame.source_motor_step, physics_step)
+	assert_eq(frame.origin, ContactFrame.Origin.POST_COMMIT)
+	assert_eq(frame.committed_evidence_available, committed_evidence)
+	assert_true(frame.is_value_only())
+	assert_lte(frame.scanned_collision_count, PlayerMotor.MAX_SCANNED_COLLISIONS)
+	assert_lte(frame.reported_collision_count, PlayerMotor.MAX_REPORTED_COLLISIONS)
+	assert_gte(frame.query_count, 1)
