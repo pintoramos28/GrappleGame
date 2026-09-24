@@ -14,9 +14,13 @@ enum Reason {
 	NO_CANDIDATE,
 	OUT_OF_RANGE,
 	OCCLUDED,
+	## The blocking surface is ineligible for grapple (surface/kind level).
 	INVALID_SURFACE,
+	## A valid target explicitly refuses via its authored response.
 	POLICY_REJECTED,
 	TARGET_INVALID,
+	## Required hit/target data is unusable (non-finite vectors, degenerate
+	## normal, bad identity/response).
 	MALFORMED_TARGET_DATA,
 	MISSING_RESULT,
 	STALE_RESULT,

@@ -113,3 +113,34 @@ margin_m)` = 0.01 m with the authored profiles (bound recorded per Task 1:
 0.001 m-0.01 m with current quantization/margin). It exists solely so the
 `OUT_OF_RANGE` band is observable at the ray endpoint; it is not acceptance
 range and never a second range scalar.
+
+## 2026-09-24 — review-fixes amendments
+
+- **`query_count` is measured, not clamped.** `GrappleTargetResolver` routes the
+  one gameplay ray through a counted wrapper (`_counted_intersect_ray`, the
+  file's only engine ray call shape — pinned by a source scan), so the count
+  reflects the calls that actually ran and is passed into
+  `GrappleTargetingResult`, which stores it verbatim (a wrong count, negative
+  included, stays observable instead of being erased by a floor clamp). The
+  named contract constant `MAX_QUERY_COUNT := 1` remains, and
+  `matches_single_query_contract()` returns `query_count == MAX_QUERY_COUNT`,
+  so any evaluated step with a count != 1 is observable. `no_query_failure()`
+  still reports `query_count = 0`.
+- **Degenerate normal -> `MALFORMED_TARGET_DATA` before kind/range.** The
+  zero/degenerate hit-normal check moved from the post-kind candidate path
+  (where it mapped to `INVALID_SURFACE`) into the malformed-data block right
+  after the non-finite checks and before kind classification and the range
+  band.
+- **`INVALID_SURFACE` vs `POLICY_REJECTED` definitions.** `INVALID_SURFACE` =
+  the blocking surface is ineligible for grapple (surface/kind level);
+  `POLICY_REJECTED` = a valid target explicitly refuses via its authored
+  response; `MALFORMED_TARGET_DATA` = required hit/target data is unusable
+  (non-finite vectors, degenerate normal, bad identity/response).
+- **Init-failure activation -> `MISSING_RESULT` without per-press invariants.**
+  When the grapple feature is unavailable because initialization failed
+  (resolver missing/not initialized), `try_start_grapple()` typed-rejects with
+  `MISSING_RESULT` and records NO per-press `GameLog` invariant; the one-time
+  `player.grapple.targeting_initialization_failed` invariant logged at
+  composition remains. The logged per-press invariant path is kept for a live
+  feature that produced no result (and, unchanged, for `STALE_RESULT` step
+  mismatch and `TARGET_INVALID` dead `WeakRef`).

@@ -11,6 +11,9 @@ extends RefCounted
 ## bounded `WeakRef` target reference (AC 4). Nothing else escapes: no `Node`,
 ## `PhysicsBody3D`, `Dictionary`, or live engine reference.
 
+## Named single-query contract bound. `query_count` stores the measured count
+## as given and is never clamped to this constant; only
+## `matches_single_query_contract()` compares against it.
 const MAX_QUERY_COUNT := 1
 
 
@@ -139,7 +142,10 @@ func _init(
 	_accepted_seed = seed if rejection_reason == GrappleRejection.Reason.NONE else null
 	_candidate_profile_id = candidate_profile
 	_occlusion_profile_id = occlusion_profile
-	_query_count = clampi(performed_query_count, 0, MAX_QUERY_COUNT)
+	# Stored verbatim: a wrong count (negative included) must stay observable
+	# and distinct from 0 = the documented no-query failure, never be erased
+	# by a floor clamp.
+	_query_count = performed_query_count
 
 
 func is_accepted() -> bool:
@@ -165,5 +171,44 @@ func is_finite() -> bool:
 	)
 
 
+func matches_single_query_contract() -> bool:
+	return _query_count == MAX_QUERY_COUNT
+
+
+## True only when every script variable holds a value type (int, float, bool,
+## String, StringName, Vector3; enums are ints) or an allowed class member:
+## `accepted_seed` may be null or a value-only `GrappleTargetSeed`. Any other
+## object-typed script variable (including on subclasses) reports false.
 func is_value_only() -> bool:
+	return GrappleTargetingResult.value_is_value_only(self)
+
+
+## Static so nested purity checks dispatch here even if a subclass overrides
+## `is_value_only()`; subclass instances are still inspected field by field.
+static func value_is_value_only(value: Variant) -> bool:
+	if value == null or not (value is GrappleTargetingResult):
+		return false
+	for property in value.get_property_list():
+		if (property.usage & PROPERTY_USAGE_SCRIPT_VARIABLE) == 0:
+			continue
+		match int(property.type):
+			TYPE_INT, TYPE_FLOAT, TYPE_BOOL, TYPE_STRING, TYPE_STRING_NAME, TYPE_VECTOR3:
+				continue
+			TYPE_OBJECT:
+				if not _is_allowed_object_property(value, property):
+					return false
+			_:
+				return false
 	return true
+
+
+static func _is_allowed_object_property(value: Variant, property: Dictionary) -> bool:
+	var property_name := StringName(property.name)
+	if property_name != &"accepted_seed" and property_name != &"_accepted_seed":
+		return false
+	if String(property.get("class_name", "")) != "GrappleTargetSeed":
+		return false
+	var seed_value: Variant = value.get(property.name)
+	if seed_value == null:
+		return true
+	return GrappleTargetSeed.value_is_value_only(seed_value)

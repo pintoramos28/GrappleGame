@@ -2,6 +2,7 @@ extends GutTest
 
 
 const PLAYER_SCENE: PackedScene = preload("res://scenes/player.tscn")
+const PLAYER_CONTROLLER_SCRIPT := preload("res://scripts/player_controller.gd")
 
 
 func test_default_world_geometry_is_grappleable_without_authored_components() -> void:
@@ -408,6 +409,166 @@ func test_targeting_acceptance_matches_between_sixty_and_one_twenty_hz() -> void
 		0.01
 	)
 	assert_eq(at_one_twenty.is_accepted(), at_sixty.is_accepted())
+
+
+func test_grapple_pull_decay_reaches_the_floor_and_commits_the_speed_cap() -> void:
+	var fixture := _new_player_scene_fixture(Vector3(0.0, 12.0, 0.0))
+	var player: CharacterBody3D = fixture[0]
+	var input_source: PlayerInputSource = player.get_node(^"PlayerInputSource")
+	var motor: PlayerMotor = player.get_node(^"PlayerMotor")
+	_add_box_target(player.get_parent(), Vector3(0.0, 5.0, -28.0), Vector3(20.0, 30.0, 0.4))
+	input_source.enable_test_input_seam()
+
+	var found_airborne := false
+	for _frame in range(8):
+		await get_tree().physics_frame
+		var current: PlayerMotorCommitResult = motor.get_last_commit_result()
+		if current != null and current.locomotion_state_id == &"player.locomotion.airborne":
+			found_airborne = true
+			break
+	assert_true(found_airborne)
+
+	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)
+	player.call("_physics_process", 1.0 / 60.0)
+	assert_true(bool(player.get("is_grappling")))
+
+	var step_delta := 1.0 / 60.0
+	var initial_accel := float(player.get("grapple_initial_acceleration"))
+	var min_accel := float(player.get("grapple_min_acceleration"))
+	var jerk := float(player.get("grapple_acceleration_jerk"))
+	var previous_acceleration := float(player.get("grapple_applied_acceleration"))
+	var observed_floor := false
+	for _step in range(56):
+		# Mirror submit_grapple_pull(): the acceleration is computed from the
+		# pre-increment elapsed time, then grapple_elapsed advances by delta.
+		var elapsed_before := float(player.get("grapple_elapsed"))
+		player.call("_physics_process", step_delta)
+		if not bool(player.get("is_grappling")):
+			break
+		var applied := float(player.get("grapple_applied_acceleration"))
+		var expected := maxf(min_accel, initial_accel - jerk * elapsed_before)
+		observed_floor = observed_floor or absf(applied - min_accel) <= 0.0001
+		assert_almost_eq(applied, expected, 0.0001)
+		assert_lte(applied, previous_acceleration + 0.0001)
+		previous_acceleration = applied
+		assert_almost_eq(float(player.get("grapple_elapsed")), elapsed_before + step_delta, 0.000001)
+		var commit: PlayerMotorCommitResult = motor.get_last_commit_result()
+		assert_not_null(commit)
+		assert_true(commit.applied_caps.has(&"player.grapple.speed_cap"))
+
+	assert_true(
+		bool(player.get("is_grappling")),
+		"pull must not arrive at the target inside the sampled window"
+	)
+	assert_true(observed_floor, "decay floor reached inside the sampled window")
+	assert_almost_eq(
+		float(player.get("grapple_applied_acceleration")),
+		min_accel,
+		0.0001
+	)
+
+
+func test_rope_physics_interpolation_resets_once_per_hidden_to_visible() -> void:
+	var fixture := _new_player_scene_fixture(Vector3(0.0, 6.0, 0.0))
+	var player: CharacterBody3D = fixture[0]
+	var input_source: PlayerInputSource = player.get_node(^"PlayerInputSource")
+	var motor: PlayerMotor = player.get_node(^"PlayerMotor")
+	var rope: MeshInstance3D = player.get("grapple_visual")
+	_add_box_target(player.get_parent(), Vector3(0.0, 5.0, -20.0), Vector3(20.0, 30.0, 0.4))
+	input_source.enable_test_input_seam()
+
+	var found_airborne := false
+	for _frame in range(8):
+		await get_tree().physics_frame
+		var current: PlayerMotorCommitResult = motor.get_last_commit_result()
+		if current != null and current.locomotion_state_id == &"player.locomotion.airborne":
+			found_airborne = true
+			break
+	assert_true(found_airborne)
+
+	assert_eq(int(player.get("grapple_visual_reset_count")), 0)
+	assert_false(rope.visible)
+
+	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)
+	player.call("_physics_process", 1.0 / 60.0)
+	assert_true(bool(player.get("is_grappling")))
+	assert_eq(rope.visible, bool(player.get("is_grappling")))
+	assert_eq(int(player.get("grapple_visual_reset_count")), 1)
+
+	for _step in range(4):
+		player.call("_physics_process", 1.0 / 60.0)
+		assert_true(bool(player.get("is_grappling")))
+		assert_eq(rope.visible, bool(player.get("is_grappling")))
+		assert_eq(int(player.get("grapple_visual_reset_count")), 1)
+
+	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
+	player.call("_physics_process", 1.0 / 60.0)
+	assert_false(bool(player.get("is_grappling")))
+	assert_eq(rope.visible, bool(player.get("is_grappling")))
+	assert_eq(int(player.get("grapple_visual_reset_count")), 1)
+
+	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)
+	player.call("_physics_process", 1.0 / 60.0)
+	assert_true(bool(player.get("is_grappling")))
+	assert_eq(rope.visible, bool(player.get("is_grappling")))
+	assert_eq(int(player.get("grapple_visual_reset_count")), 2)
+
+	# The counter is a measurement seam; pin that the frozen behavior it
+	# counts still exists: exactly one interpolation reset call site in the
+	# controller, at the hidden-to-visible edge.
+	var controller_source := FileAccess.get_file_as_string("res://scripts/player_controller.gd")
+	assert_eq(
+		controller_source.count("grapple_visual.reset_physics_interpolation()"),
+		1,
+		"rope reset must remain exactly one call site (frozen spec)"
+	)
+	assert_true(controller_source.contains("if was_hidden:"))
+
+
+func test_definition_pull_tuning_matches_controller_exports() -> void:
+	var fixture := _new_player_scene_fixture()
+	var player: CharacterBody3D = fixture[0]
+	var definition: GrappleDefinition = player.get("grapple_definition")
+	assert_not_null(definition)
+	var tolerance: float = PLAYER_CONTROLLER_SCRIPT.PULL_TUNING_PARITY_TOLERANCE
+	assert_almost_eq(
+		definition.pull_initial_acceleration_mps2,
+		float(player.get("grapple_initial_acceleration")),
+		tolerance
+	)
+	assert_almost_eq(
+		definition.pull_min_acceleration_mps2,
+		float(player.get("grapple_min_acceleration")),
+		tolerance
+	)
+	assert_almost_eq(
+		definition.pull_acceleration_jerk_mps3,
+		float(player.get("grapple_acceleration_jerk")),
+		tolerance
+	)
+	assert_almost_eq(
+		definition.maximum_speed_mps,
+		float(player.get("grapple_max_velocity")),
+		tolerance
+	)
+
+	# Divergence is a composition-time contract violation: the check must fire.
+	player.set("grapple_initial_acceleration", 999.0)
+	assert_false(bool(player.call("_pull_tuning_matches_definition")))
+	player.call("_compose_grapple_targeting")
+	assert_push_error("player.grapple.pull_tuning_mismatch")
+
+
+func test_unavailable_feature_rejects_activation_quietly_without_per_press_invariants() -> void:
+	var controller := PLAYER_CONTROLLER_SCRIPT.new()
+	autofree(controller)
+	assert_false(controller.try_start_grapple())
+	assert_eq(
+		controller.get_last_activation_rejection(),
+		GrappleRejection.Reason.MISSING_RESULT
+	)
+	assert_false(controller.is_grappling)
+	assert_push_error_count(0, "init-failure activation must stay quiet per press")
 
 
 func _evaluate(

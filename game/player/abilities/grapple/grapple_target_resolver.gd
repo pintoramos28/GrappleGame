@@ -43,6 +43,7 @@ var _occlusion_profile: PhysicsQueryProfile
 var _initialized := false
 var _last_evaluated_step := -1
 var _last_result: GrappleTargetingResult
+var _performed_query_count := 0
 
 
 func initialize(
@@ -155,8 +156,11 @@ func evaluate(
 	return result
 
 
-## The single authoritative gameplay raycast (query_count = 1). Engine dictionary
-## output is converted to bounded typed values immediately and discarded.
+## The single authoritative gameplay raycast. The measured number of
+## `intersect_ray` calls performed here is carried into the result as
+## `query_count` (the single-query contract bound is
+## `GrappleTargetingResult.MAX_QUERY_COUNT`). Engine dictionary output is
+## converted to bounded typed values immediately and discarded.
 func _query_first_blocking_hit(
 	physics_step: int,
 	command_frame_step: int,
@@ -198,7 +202,12 @@ func _query_first_blocking_hit(
 	params.hit_from_inside = _candidate_profile.ray_hit_from_inside
 	params.hit_back_faces = _candidate_profile.ray_hit_back_faces
 
-	var hit: Dictionary = space_state.intersect_ray(params)
+	# Measured at the query site: the counted wrapper below is the only
+	# gameplay ray query in this file (a source-scan contract asserts the
+	# engine call shape occurs exactly once) and increments the counter
+	# around the engine call, so `query_count` reports what actually ran.
+	_performed_query_count = 0
+	var hit: Dictionary = _counted_intersect_ray(space_state, params)
 	var has_hit := not hit.is_empty()
 	var hit_position := Vector3.ZERO
 	var hit_normal := Vector3.ZERO
@@ -243,8 +252,20 @@ func _query_first_blocking_hit(
 		explicit,
 		_candidate_profile.profile_id,
 		_occlusion_profile.profile_id,
-		1
+		_performed_query_count
 	)
+
+
+## The single engine ray call site. The engine call shape appears exactly
+## once in this file; the source-scan contract counts it, and this wrapper
+## increments the measured count immediately around the call so a future
+## second query cannot silently report one.
+func _counted_intersect_ray(
+	space_state: PhysicsDirectSpaceState3D,
+	params: PhysicsRayQueryParameters3D
+) -> Dictionary:
+	_performed_query_count += 1
+	return space_state.intersect_ray(params)
 
 
 func _classify_hit_kind(
@@ -268,13 +289,13 @@ func _classify_hit_kind(
 ## Locked classification predicate (Story 1.6). Pure and engine-independent so the
 ## boundary oracle and every AC 6 mapping stay directly testable:
 ## 1. no blocking hit -> `NO_CANDIDATE`;
-## 2. non-finite hit facts -> `MALFORMED_TARGET_DATA`;
+## 2. malformed hit data (non-finite hit facts or degenerate/zero surface
+##    normal) -> `MALFORMED_TARGET_DATA`;
 ## 3. occlusion-only first hit -> `OCCLUDED`; neither profile -> `INVALID_SURFACE`;
-## 4. candidate with degenerate surface normal -> `INVALID_SURFACE`;
-## 5. candidate with quantized distance in (max, max + tolerance] -> `OUT_OF_RANGE`;
-## 6. explicit `Grappleable3D` policy -> `TARGET_INVALID` / `MALFORMED_TARGET_DATA`
+## 4. candidate with quantized distance in (max, max + tolerance] -> `OUT_OF_RANGE`;
+## 5. explicit `Grappleable3D` policy -> `TARGET_INVALID` / `MALFORMED_TARGET_DATA`
 ##    / `POLICY_REJECTED` / acceptance with authored response;
-## 7. default policy -> acceptance with the built-in static response.
+## 6. default policy -> acceptance with the built-in static response.
 ##
 ## Acceptance is inclusive and quantized: quantized distance `<= max_grapple_length_m`.
 static func resolve_hit_result(
@@ -319,6 +340,7 @@ static func resolve_hit_result(
 		or not hit_normal.is_finite()
 		or is_nan(hit_distance_m)
 		or is_inf(hit_distance_m)
+		or hit_normal.length_squared() <= SURFACE_NORMAL_EPSILON_SQUARED
 	):
 		return _make_result(
 			physics_step,
@@ -386,24 +408,6 @@ static func resolve_hit_result(
 				query_count
 			)
 
-	if hit_normal.length_squared() <= SURFACE_NORMAL_EPSILON_SQUARED:
-		return _make_result(
-			physics_step,
-			command_frame_step,
-			query_origin,
-			query_direction,
-			max_grapple_length_m,
-			GrappleRejection.Reason.INVALID_SURFACE,
-			hit_position,
-			hit_normal,
-			hit_distance_m,
-			range_fraction,
-			&"",
-			null,
-			candidate_profile_id,
-			occlusion_profile_id,
-			query_count
-		)
 	if quantized_distance > safe_maximum + acquisition_tolerance_m:
 		return _make_result(
 			physics_step,

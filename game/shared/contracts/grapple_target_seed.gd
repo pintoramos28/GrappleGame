@@ -79,5 +79,45 @@ func has_live_target() -> bool:
 	return is_instance_valid(get_target())
 
 
+## True only when every script variable holds a value type (int, float, bool,
+## String, StringName, Vector3; enums are ints) or an allowed class member:
+## `response` (null or a value-only `GrappleTargetResponse`) and the documented
+## engine-reference exception `_target_reference` (`WeakRef`). Any other
+## object-typed script variable (including on subclasses) reports false.
 func is_value_only() -> bool:
+	return GrappleTargetSeed.value_is_value_only(self)
+
+
+## Static so nested purity checks dispatch here even if a subclass overrides
+## `is_value_only()`; subclass instances are still inspected field by field.
+static func value_is_value_only(value: Variant) -> bool:
+	if value == null or not (value is GrappleTargetSeed):
+		return false
+	for property in value.get_property_list():
+		if (property.usage & PROPERTY_USAGE_SCRIPT_VARIABLE) == 0:
+			continue
+		match int(property.type):
+			TYPE_INT, TYPE_FLOAT, TYPE_BOOL, TYPE_STRING, TYPE_STRING_NAME, TYPE_VECTOR3:
+				continue
+			TYPE_OBJECT:
+				if not _is_allowed_object_property(value, property):
+					return false
+			_:
+				return false
 	return true
+
+
+static func _is_allowed_object_property(value: Variant, property: Dictionary) -> bool:
+	var property_name := StringName(property.name)
+	var class_id := String(property.get("class_name", ""))
+	if property_name == &"_target_reference" and class_id == "WeakRef":
+		return true
+	if (
+		(property_name == &"response" or property_name == &"_response")
+		and class_id == "GrappleTargetResponse"
+	):
+		var response_value: Variant = value.get(property.name)
+		if response_value == null:
+			return true
+		return GrappleTargetResponse.value_is_value_only(response_value)
+	return false

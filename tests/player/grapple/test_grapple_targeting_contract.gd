@@ -1,6 +1,22 @@
 extends GutTest
 
 
+class DirtyTargetingResult extends GrappleTargetingResult:
+	var bad_node: Node = null
+
+
+class DirtySeed extends GrappleTargetSeed:
+	var bad_node: Node = null
+
+
+class DirtyResponse extends GrappleTargetResponse:
+	var bad_node: Node = null
+
+
+class DirtySnapshot extends GrappleTargetingDiagnosticSnapshot:
+	var bad_node: Node = null
+
+
 func test_targeting_result_is_value_only_bounded_and_sanitizes_malformed_payloads() -> void:
 	var seed := GrappleTargetSeed.new(
 		&"target.wall_a",
@@ -38,6 +54,7 @@ func test_targeting_result_is_value_only_bounded_and_sanitizes_malformed_payload
 	assert_eq(result.candidate_profile_id, &"player.grapple.candidate")
 	assert_eq(result.occlusion_profile_id, &"player.grapple.occlusion")
 	assert_eq(result.query_count, 1)
+	assert_true(result.matches_single_query_contract())
 	assert_true(result.is_value_only())
 	assert_true(result.is_finite())
 
@@ -58,7 +75,28 @@ func test_targeting_result_is_value_only_bounded_and_sanitizes_malformed_payload
 		&"player.grapple.occlusion",
 		9
 	)
-	assert_eq(bounded.query_count, GrappleTargetingResult.MAX_QUERY_COUNT)
+	assert_eq(bounded.query_count, 9)
+	assert_false(bounded.matches_single_query_contract())
+
+	var double_query := GrappleTargetingResult.new(
+		1,
+		1,
+		Vector3.ZERO,
+		Vector3.FORWARD,
+		35.0,
+		GrappleRejection.Reason.NO_CANDIDATE,
+		Vector3.ZERO,
+		Vector3.ZERO,
+		0.0,
+		0.0,
+		&"",
+		null,
+		&"player.grapple.candidate",
+		&"player.grapple.occlusion",
+		2
+	)
+	assert_eq(double_query.query_count, 2)
+	assert_false(double_query.matches_single_query_contract())
 
 	var malformed := GrappleTargetingResult.new(
 		2,
@@ -81,6 +119,113 @@ func test_targeting_result_is_value_only_bounded_and_sanitizes_malformed_payload
 	assert_false(malformed.is_accepted())
 	assert_null(malformed.accepted_seed)
 	assert_eq(malformed.hit_position, Vector3.ZERO)
+
+
+func test_value_only_introspection_detects_dirty_records() -> void:
+	var clean := GrappleTargetingResult.new(
+		3,
+		3,
+		Vector3.ZERO,
+		Vector3.FORWARD,
+		35.0,
+		GrappleRejection.Reason.NONE,
+		Vector3(1.0, 2.0, 3.0),
+		Vector3.BACK,
+		4.0,
+		0.5,
+		&"target.wall_a",
+		GrappleTargetSeed.new(
+			&"target.wall_a",
+			Vector3(1.0, 2.0, 3.0),
+			Vector3.BACK,
+			GrappleTargetResponse.static_default(),
+			weakref(_new_target()),
+			Vector3.ZERO
+		),
+		&"player.grapple.candidate",
+		&"player.grapple.occlusion",
+		1
+	)
+	assert_true(clean.is_value_only())
+	assert_true(clean.accepted_seed.is_value_only())
+	assert_true(clean.accepted_seed.response.is_value_only())
+
+	var dirty := DirtyTargetingResult.new(
+		4,
+		4,
+		Vector3.ZERO,
+		Vector3.FORWARD,
+		35.0,
+		GrappleRejection.Reason.NONE,
+		Vector3(1.0, 2.0, 3.0),
+		Vector3.BACK,
+		4.0,
+		0.5,
+		&"target.wall_a",
+		null,
+		&"player.grapple.candidate",
+		&"player.grapple.occlusion",
+		1
+	)
+	assert_false(dirty.is_value_only())
+
+	var dirty_seed := DirtySeed.new(
+		&"target.wall_a",
+		Vector3(1.0, 2.0, 3.0),
+		Vector3.BACK,
+		GrappleTargetResponse.static_default(),
+		weakref(_new_target()),
+		Vector3.ZERO
+	)
+	assert_false(dirty_seed.is_value_only())
+	assert_false(GrappleTargetSeed.value_is_value_only(dirty_seed))
+
+	var dirty_response := DirtyResponse.new()
+	assert_false(dirty_response.is_value_only())
+	assert_false(GrappleTargetResponse.value_is_value_only(dirty_response))
+
+	var dirty_snapshot := DirtySnapshot.new(
+		1,
+		1,
+		Vector3.ZERO,
+		Vector3.FORWARD,
+		35.0,
+		Vector3.ZERO,
+		Vector3.BACK,
+		4.0,
+		&"target.wall_a",
+		false,
+		GrappleRejection.Reason.NO_CANDIDATE,
+		0.5,
+		&"player.grapple.candidate",
+		&"player.grapple.occlusion",
+		1
+	)
+	assert_false(dirty_snapshot.is_value_only())
+	assert_false(GrappleTargetingDiagnosticSnapshot.value_is_value_only(dirty_snapshot))
+
+	# A dirty record smuggled into an otherwise clean parent must be detected
+	# through the parent's own purity check.
+	var smuggler := GrappleTargetingResult.new(
+		5,
+		5,
+		Vector3.ZERO,
+		Vector3.FORWARD,
+		35.0,
+		GrappleRejection.Reason.NONE,
+		Vector3(1.0, 2.0, 3.0),
+		Vector3.BACK,
+		4.0,
+		0.5,
+		&"target.wall_a",
+		dirty_seed,
+		&"player.grapple.candidate",
+		&"player.grapple.occlusion",
+		1
+	)
+	assert_false(smuggler.is_value_only())
+	assert_false(GrappleTargetingResult.value_is_value_only(smuggler))
+	assert_true(GrappleTargetingResult.value_is_value_only(clean))
 
 
 func test_grapple_rejection_value_set_is_closed_and_expected_rejections_are_not_errors() -> void:
@@ -353,7 +498,36 @@ func test_locked_predicate_maps_every_ac6_condition_to_stable_typed_rejections()
 		target,
 		null
 	)
-	assert_eq(degenerate_normal.rejection, GrappleRejection.Reason.INVALID_SURFACE)
+	assert_eq(degenerate_normal.rejection, GrappleRejection.Reason.MALFORMED_TARGET_DATA)
+	assert_null(degenerate_normal.accepted_seed)
+
+	# Degenerate normals are malformed hit data and outrank kind and range.
+	var degenerate_occluded_kind := _resolve(
+		true,
+		Vector3(0.0, 1.0, -4.0),
+		Vector3.ZERO,
+		4.0,
+		GrappleTargetResolver.HitKind.OCCLUSION_ONLY,
+		target,
+		null
+	)
+	assert_eq(
+		degenerate_occluded_kind.rejection,
+		GrappleRejection.Reason.MALFORMED_TARGET_DATA
+	)
+	var degenerate_out_of_range := _resolve(
+		true,
+		Vector3(0.0, 1.0, -35.0025),
+		Vector3.ZERO,
+		35.0025,
+		GrappleTargetResolver.HitKind.CANDIDATE,
+		target,
+		null
+	)
+	assert_eq(
+		degenerate_out_of_range.rejection,
+		GrappleRejection.Reason.MALFORMED_TARGET_DATA
+	)
 
 	var malformed_hit := _resolve(
 		true,
@@ -403,6 +577,35 @@ func test_locked_predicate_maps_every_ac6_condition_to_stable_typed_rejections()
 	)
 	assert_eq(policy_rejected.rejection, GrappleRejection.Reason.POLICY_REJECTED)
 	assert_null(policy_rejected.accepted_seed)
+
+	# Precedence pins: malformed outranks an explicit policy rejection, and
+	# the range band outranks policy (kind -> range -> policy order).
+	var degenerate_policy_target := _resolve(
+		true,
+		Vector3(0.0, 1.0, -4.0),
+		Vector3.ZERO,
+		4.0,
+		GrappleTargetResolver.HitKind.CANDIDATE,
+		target,
+		ineligible_response
+	)
+	assert_eq(
+		degenerate_policy_target.rejection,
+		GrappleRejection.Reason.MALFORMED_TARGET_DATA
+	)
+	var out_of_range_policy_target := _resolve(
+		true,
+		Vector3(0.0, 1.0, -35.0025),
+		Vector3.BACK,
+		35.0025,
+		GrappleTargetResolver.HitKind.CANDIDATE,
+		target,
+		ineligible_response
+	)
+	assert_eq(
+		out_of_range_policy_target.rejection,
+		GrappleRejection.Reason.OUT_OF_RANGE
+	)
 
 
 func test_boundary_predicate_is_inclusive_quantized_and_never_flips() -> void:

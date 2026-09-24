@@ -369,6 +369,34 @@ func test_authored_tuning_contexts_remain_distinct_and_tutorial_reset_stays_out_
 	)
 	assert_true(tutorial_source.contains('player.set("grapple_gravity_scale", 0.65)'))
 
+	var range_scalar_sites: Array[String] = [
+		"res://scripts/player_controller.gd",
+		"res://game/player/abilities/grapple/presentation/grapple_target_marker.gd",
+		"res://scripts/debug_grapple_telemetry.gd",
+		"res://scenes/player.tscn",
+	]
+	var token_regex := RegEx.new()
+	assert_eq(token_regex.compile("(?<![A-Za-z0-9_])grapple_length"), OK)
+	var literal_regex := RegEx.new()
+	assert_eq(literal_regex.compile("(?<![0-9.])35\\.0"), OK)
+	# Positive controls: the guard must match what it forbids, and must leave
+	# the canonical read-through name alone.
+	assert_not_null(token_regex.search("grapple_length = 35.0"), "token regex must match")
+	assert_not_null(literal_regex.search("= 35.0"), "literal regex must match")
+	assert_null(token_regex.search("max_grapple_length_m"), "canonical read-through stays allowed")
+	for path in range_scalar_sites:
+		assert_true(FileAccess.file_exists(path), "%s must exist to be scanned" % path)
+		var site_source := FileAccess.get_file_as_string(path)
+		assert_gt(site_source.length(), 0, "%s must have content to scan" % path)
+		assert_null(
+			token_regex.search(site_source),
+			"%s must not carry a grapple_length range scalar (Story 1.6 single range source)" % path
+		)
+		assert_null(
+			literal_regex.search(site_source),
+			"%s must not carry a 35.0 range literal (Story 1.6 single range source)" % path
+		)
+
 
 func _new_player_scene_fixture(
 	player_position: Vector3 = Vector3(0.0, 0.1, 0.0)

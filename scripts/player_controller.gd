@@ -144,6 +144,9 @@ const SOURCE_JUMP_GROUND := &"player.jump.ground"
 const SOURCE_JUMP_WALL := &"player.jump.wall"
 const SOURCE_WALL_RUN_CONSTRAINT := &"player.wall_run.constraint"
 const SOURCE_WALL_STICK_HOLD := &"player.wall_stick.hold"
+## Unitless parity epsilon for the duplicated pull tuning (controller exports
+## versus the authored `GrappleDefinition` fields).
+const PULL_TUNING_PARITY_TOLERANCE := 0.000001
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var camera_pitch := 0.0
@@ -154,6 +157,8 @@ var grapple_point := Vector3.ZERO
 var grapple_target: Node3D
 var grapple_visual: MeshInstance3D
 var grapple_visual_mesh: CylinderMesh
+## Hidden->visible rope resets, counted where `reset_physics_interpolation()` runs.
+var grapple_visual_reset_count: int = 0
 var is_wall_running := false
 var wall_normal := Vector3.ZERO
 var wall_run_direction := Vector3.ZERO
@@ -438,6 +443,11 @@ func _setup_grapple_visual() -> void:
 
 
 func _compose_grapple_targeting() -> void:
+	if grapple_definition != null and not _pull_tuning_matches_definition():
+		_player_log.record_invariant(
+			&"player.grapple.pull_tuning_mismatch",
+			DiagnosticContext.new(-1, &"", &"pull_tuning_mismatch")
+		)
 	var resolver := GrappleTargetResolver.new()
 	var initialization := resolver.initialize(self, grapple_definition, grapple_occlusion_profile)
 	if initialization != GrappleTargetResolver.InitializationStatus.SUCCESS:
@@ -454,6 +464,22 @@ func _compose_grapple_targeting() -> void:
 		return
 	_grapple_target_resolver = resolver
 	_grapple_targeting_available = true
+
+
+## Composition-time parity check (Story 1.6 review fixes): the duplicated pull
+## tuning must agree between the controller exports and the authored
+## `GrappleDefinition` until Story 1.7 unifies the source.
+func _pull_tuning_matches_definition() -> bool:
+	return (
+		absf(grapple_definition.pull_initial_acceleration_mps2 - grapple_initial_acceleration)
+		<= PULL_TUNING_PARITY_TOLERANCE
+		and absf(grapple_definition.pull_min_acceleration_mps2 - grapple_min_acceleration)
+		<= PULL_TUNING_PARITY_TOLERANCE
+		and absf(grapple_definition.pull_acceleration_jerk_mps3 - grapple_acceleration_jerk)
+		<= PULL_TUNING_PARITY_TOLERANCE
+		and absf(grapple_definition.maximum_speed_mps - grapple_max_velocity)
+		<= PULL_TUNING_PARITY_TOLERANCE
+	)
 
 
 func _evaluate_grapple_targeting(frame: PlayerCommandFrame) -> void:
@@ -908,7 +934,14 @@ func try_start_grapple() -> bool:
 	var frame := _current_command_frame
 	var result := _current_targeting_result
 	if result == null:
-		return _reject_grapple_activation(GrappleRejection.Reason.MISSING_RESULT, true)
+		# An unavailable feature (init failure) was already reported once at
+		# composition and stays quiet per press; a live feature that produced
+		# no result stays developer-visible.
+		var feature_composed := _grapple_targeting_available and _grapple_target_resolver != null
+		return _reject_grapple_activation(
+			GrappleRejection.Reason.MISSING_RESULT,
+			feature_composed
+		)
 	if (
 		frame == null
 		or result.source_physics_step != _player_physics_step
@@ -1040,6 +1073,7 @@ func _update_grapple_visual() -> void:
 	grapple_visual.global_transform = Transform3D(_basis_from_y_axis(segment), start + segment * 0.5)
 	if was_hidden:
 		grapple_visual.reset_physics_interpolation()
+		grapple_visual_reset_count += 1
 	grapple_visual.visible = true
 
 

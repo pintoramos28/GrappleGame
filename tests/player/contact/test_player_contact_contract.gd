@@ -356,11 +356,17 @@ func test_player_surface_reads_only_the_shared_contact_frame() -> void:
 		if path == "res://scripts/player_controller.gd":
 			assert_false(source.contains("_find_wall_with_velocity_rays"), path)
 			assert_false(source.contains("_try_start_wall_stick_from_collisions"), path)
-			var grapple_boundary := source.find("func _get_grapple_ray_hit")
-			var locomotion_surface := source.substr(0, grapple_boundary) if grapple_boundary >= 0 else source
-			assert_false(locomotion_surface.contains("PhysicsRayQueryParameters3D"), path)
-			assert_false(locomotion_surface.contains("PhysicsShapeQueryParameters3D"), path)
-			assert_false(locomotion_surface.contains("intersect_ray"), path)
+			assert_false(source.contains("PhysicsRayQueryParameters3D"), path)
+			assert_false(source.contains("PhysicsShapeQueryParameters3D"), path)
+			assert_false(source.contains("intersect_ray"), path)
+	var resolver_source := FileAccess.get_file_as_string(
+		"res://game/player/abilities/grapple/grapple_target_resolver.gd"
+	)
+	assert_eq(
+		resolver_source.count("space_state.intersect_ray("),
+		1,
+		"resolver must own exactly one gameplay ray call shape (positive control)"
+	)
 
 
 func _valid_ground_probe() -> GroundProbe:

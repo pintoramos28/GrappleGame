@@ -99,7 +99,26 @@ func is_finite() -> bool:
 	return _directional_adjustment.is_finite()
 
 
+## True only when every script variable holds a value type (int, float, bool,
+## String, StringName, Vector3; enums are ints). Nothing object-typed is
+## allowed here.
 func is_value_only() -> bool:
+	return GrappleTargetResponse.value_is_value_only(self)
+
+
+## Static so nested purity checks dispatch here even if a subclass overrides
+## `is_value_only()`; subclass instances are still inspected field by field.
+static func value_is_value_only(value: Variant) -> bool:
+	if value == null or not (value is GrappleTargetResponse):
+		return false
+	for property in value.get_property_list():
+		if (property.usage & PROPERTY_USAGE_SCRIPT_VARIABLE) == 0:
+			continue
+		match int(property.type):
+			TYPE_INT, TYPE_FLOAT, TYPE_BOOL, TYPE_STRING, TYPE_STRING_NAME, TYPE_VECTOR3:
+				continue
+			_:
+				return false
 	return true
 
 
