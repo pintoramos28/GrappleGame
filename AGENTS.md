@@ -1,5 +1,3 @@
-@C:\Users\pinto\.codex\RTK.md
-
 # Godot AI MCP requirement
 
 For every Godot story, the Godot AI MCP server is mandatory during both implementation and validation. Do not silently substitute headless CLI commands, filesystem inspection, or generic UI automation for Godot AI MCP.
