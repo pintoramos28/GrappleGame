@@ -24,6 +24,9 @@
 [ext_resource type="Script" path="res://game/player/motor/player_motor.gd" id="22_player_motor"]
 [ext_resource type="Resource" path="res://game/shared/physics/ground_probe.tres" id="23_ground_probe"]
 [ext_resource type="Resource" path="res://game/shared/physics/wall_probe.tres" id="24_wall_probe"]
+[ext_resource type="Script" path="res://game/player/abilities/grapple/presentation/grapple_target_marker.gd" id="25_grapple_marker"]
+[ext_resource type="Resource" path="res://game/player/abilities/grapple/definitions/grapple_definition.tres" id="26_grapple_definition"]
+[ext_resource type="Resource" path="res://game/shared/physics/grapple_occlusion.tres" id="27_grapple_occlusion"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5vw27"]
 radius = 0.45
@@ -48,6 +51,8 @@ air_deceleration = 5.0
 wall_run_acceleration = 4.0
 wall_run_gravity_scale = 0.0
 pitch_max = 70.0
+grapple_definition = ExtResource("26_grapple_definition")
+grapple_occlusion_profile = ExtResource("27_grapple_occlusion")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1730981838]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -120,6 +125,12 @@ sweep_rotation_degrees = Vector3(0, 0, 36)
 [node name="GrappleTelemetry" type="CanvasLayer" parent="."]
 layer = 50
 script = ExtResource("20_grapple_debug")
+
+[node name="GrappleTargetMarker" type="Node3D" parent="."]
+script = ExtResource("25_grapple_marker")
+grapple_cursor_radius = 0.2
+grapple_cursor_color = Color(1, 0.9, 0.1, 1)
+grapple_cursor_active_color = Color(0.2, 1, 0.25, 1)
 
 [node name="MovementHSM" type="LimboHSM" parent="." unique_id=917859255]
 

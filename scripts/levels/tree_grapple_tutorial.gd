@@ -249,7 +249,6 @@ func _add_player(parent: Node3D) -> void:
 	player.name = "Player"
 	parent.add_child(player)
 	player.global_position = START_POSITION
-	player.set("grapple_length", 35.0)
 	player.set("grapple_gravity_scale", 0.65)
 
 

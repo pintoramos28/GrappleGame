@@ -111,8 +111,30 @@ func _update_overlay() -> void:
 		],
 		"Wall-stick speed gate: %s (%s)" % [wall_gate, telemetry["wall_stick_speed_gate_reason"]],
 	])
+	lines.append_array(_targeting_lines(telemetry))
 
 	label.text = "\n".join(lines)
+
+
+## Presentation-only formatting of the authoritative targeting diagnostics. The
+## overlay never computes gameplay facts and never queries physics.
+func _targeting_lines(telemetry: Dictionary) -> PackedStringArray:
+	var targeting_state := "accepted" if telemetry["targeting_valid"] else String(telemetry["targeting_rejection_id"])
+	var target_identity := String(telemetry["target_identity"])
+	if target_identity.is_empty():
+		target_identity = "(default geometry)"
+	return PackedStringArray([
+		"Targeting: %s    step %s    queries %s" % [
+			targeting_state,
+			telemetry["targeting_physics_step"],
+			telemetry["targeting_query_count"],
+		],
+		"Target id: %s    range fraction: %s / max %s m" % [
+			target_identity,
+			_format_number(telemetry["range_fraction"]),
+			_format_number(telemetry["max_grapple_length_m"]),
+		],
+	])
 
 
 func _format_number(value: float) -> String:

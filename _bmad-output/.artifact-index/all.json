@@ -93,19 +93,19 @@
     },
     "project_context": {
       "artifact_id": "grapplegame.project-context",
-      "bytes": 21950,
+      "bytes": 22163,
       "document_type": "project-context",
       "errors": [],
       "exists": true,
       "name": "project_context",
       "path": "_bmad-output/project-context.md",
       "required": true,
-      "sha256": "924f967d83ac664c1352f27bb89ef91cef4d4ae765746d379c77cfe91eb608d9",
+      "sha256": "75a869097acf79d253fc36d3e6c5544ba4ba1c4b0d74ae4e1e3de6be6c3bac97",
       "status": "complete",
       "updated": "2026-09-09",
       "version": null,
       "warnings": [],
-      "words": 2808
+      "words": 2832
     },
     "ux": {
       "artifact_id": "grapplegame.ux",
@@ -121,7 +121,7 @@
   "errors": [
     "gdd: status is 'needs-decisions'; expected one of active, complete, final, ready-for-development"
   ],
-  "generated_at": "2026-09-09T01:57:54-04:00",
+  "generated_at": "2026-09-24T08:54:22-04:00",
   "project_name": "testgame",
   "schema_version": 1,
   "valid": false

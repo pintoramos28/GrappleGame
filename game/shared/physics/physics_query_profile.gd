@@ -13,6 +13,17 @@ enum ValidationStatus {
 }
 
 
+## Contact profiles sweep authored probe shapes and stay inside the contact-probe
+## bounds below. Ray profiles describe a ray's query meaning (named masks, body and
+## area flags, quantization, ray hit flags) and carry no reach value at all: ray
+## reach comes only from its owning definition (e.g.
+## `GrappleDefinition.max_grapple_length_m`), never from this profile.
+enum QueryKind {
+	CONTACT,
+	RAY,
+}
+
+
 const MAX_PROBE_DISTANCE_M := 4.0
 const MAX_SWEEP_DISTANCE_M := 4.0
 const MAX_CONTINUITY_LOSS_STEPS := 2
@@ -39,6 +50,21 @@ var _resolved_collision_mask := 0
 	set(value):
 		if not _locked:
 			shape = value
+
+@export var query_kind: QueryKind = QueryKind.CONTACT:
+	set(value):
+		if not _locked:
+			query_kind = value
+
+@export var ray_hit_back_faces := true:
+	set(value):
+		if not _locked:
+			ray_hit_back_faces = value
+
+@export var ray_hit_from_inside := false:
+	set(value):
+		if not _locked:
+			ray_hit_from_inside = value
 
 @export var probe_offset := Vector3.ZERO:
 	set(value):
@@ -172,7 +198,9 @@ func validate() -> ValidationStatus:
 		if layer_name_string.is_empty() or seen_layer_names.has(layer_name_string):
 			return ValidationStatus.INVALID_MASK
 		seen_layer_names[layer_name_string] = true
-	if shape == null:
+	# Ray profiles are shape-exempt; contact profiles keep requiring an authored
+	# probe shape and every existing contact bound below stays intact.
+	if shape == null and query_kind != QueryKind.RAY:
 		return ValidationStatus.INVALID_SHAPE
 	if not probe_offset.is_finite() or not probe_direction.is_finite() or probe_direction.length_squared() <= 0.000001:
 		return ValidationStatus.INVALID_DIRECTION
@@ -242,6 +270,10 @@ func validate() -> ValidationStatus:
 
 func is_locked() -> bool:
 	return _locked
+
+
+func is_ray_profile() -> bool:
+	return query_kind == QueryKind.RAY
 
 
 func get_collision_mask() -> int:

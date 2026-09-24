@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://game/shared/physics/physics_query_profile.gd" id="1_grapple_occlusion"]
+
+[resource]
+script = ExtResource("1_grapple_occlusion")
+profile_id = &"player.grapple.occlusion"
+query_kind = 1
+collision_mask_names = PackedStringArray("world_geometry", "enemy_body")
+ray_hit_back_faces = true
+ray_hit_from_inside = false
+margin_m = 0.001
+point_quantization_m = 0.001
+normal_quantization = 0.001

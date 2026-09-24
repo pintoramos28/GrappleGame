@@ -359,7 +359,14 @@ func test_authored_tuning_contexts_remain_distinct_and_tutorial_reset_stays_out_
 	)
 	assert_true(tutorial_source.contains("const START_POSITION := Vector3(0.0, 0.1, 24.0)"))
 	assert_true(tutorial_source.contains("player.global_position = START_POSITION"))
-	assert_true(tutorial_source.contains('player.set("grapple_length", 35.0)'))
+	assert_false(
+		tutorial_source.contains("grapple_length"),
+		"tutorial must not carry grapple-range scalars (Story 1.6 single range source)"
+	)
+	assert_false(
+		tutorial_source.contains("max_grapple"),
+		"tutorial must not carry grapple-range scalars (Story 1.6 single range source)"
+	)
 	assert_true(tutorial_source.contains('player.set("grapple_gravity_scale", 0.65)'))
 
 

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://game/player/abilities/grapple/definitions/grapple_definition.gd" id="1_grapple_definition"]
+[ext_resource type="Resource" path="res://game/shared/physics/grapple_candidate.tres" id="2_grapple_candidate"]
+
+[resource]
+script = ExtResource("1_grapple_definition")
+definition_id = &"player.grapple.default"
+max_grapple_length_m = 35.0
+acquisition_tolerance_m = 0.005
+target_query_profile = ExtResource("2_grapple_candidate")
+pull_initial_acceleration_mps2 = 48.0
+pull_min_acceleration_mps2 = 8.0
+pull_acceleration_jerk_mps3 = 53.333333
+maximum_speed_mps = 22.0

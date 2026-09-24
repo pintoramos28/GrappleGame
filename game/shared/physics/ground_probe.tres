@@ -1,6 +1,6 @@
-[gd_resource type="Resource" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="GroundProbe" format=3 uid="uid://dqqplmqkvf27i"]
 
-[ext_resource type="Script" path="res://game/shared/physics/ground_probe.gd" id="1_ground_probe"]
+[ext_resource type="Script" uid="uid://dv0f47jy7nx5r" path="res://game/shared/physics/ground_probe.gd" id="1_ground_probe"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ground_probe"]
 radius = 0.08
@@ -11,16 +11,5 @@ profile_id = &"player.contact.ground_probe"
 collision_mask_names = PackedStringArray("world_geometry")
 shape = SubResource("SphereShape3D_ground_probe")
 probe_offset = Vector3(0, 0.05, 0)
-probe_direction = Vector3(0, -1, 0)
 probe_distance_m = 0.3
 sweep_distance_cap_m = 0.35
-margin_m = 0.001
-thickness_m = 0.08
-support_max_distance_m = 0.18
-support_separation_epsilon_m = 0.01
-non_separating_velocity_epsilon_m = 0.05
-ground_min_normal_y = 0.7
-wall_max_abs_normal_y = 0.2
-candidate_limit = 16
-report_limit = 8
-scan_limit = 32

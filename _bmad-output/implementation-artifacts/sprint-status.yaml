@@ -57,7 +57,7 @@ development_status:
   1-3-centralize-the-players-physics-step-movement-commit: done
   1-4-resolve-traversal-through-semantic-motor-phases: review
   1-5-share-authoritative-ground-and-wall-contact-facts: review
-  1-6-acquire-grapple-targets-consistently: ready-for-dev
+  1-6-acquire-grapple-targets-consistently: review
   1-7-zip-pull-within-a-true-maximum-grapple-boundary: backlog
   1-8-grapple-moving-and-stateful-targets-safely: backlog
   1-9-integrate-wall-traversal-and-mistake-recovery: backlog

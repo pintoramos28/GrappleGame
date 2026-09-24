@@ -55,8 +55,6 @@ extends CharacterBody3D
 @export var invert_mouse_y := false
 
 @export_group("Grapple")
-## Maximum distance for the grapple targeting ray.
-@export var grapple_length := 35.0
 ## Initial pull acceleration applied when a grapple starts, in meters per second squared.
 @export var grapple_initial_acceleration := 48.0
 ## Lowest pull acceleration maintained while the grapple remains active, in meters per second squared.
@@ -73,12 +71,12 @@ extends CharacterBody3D
 @export var grapple_visual_radius := 0.035
 ## Color used for the grapple rope.
 @export var grapple_visual_color := Color(0.1, 0.85, 1.0)
-## Radius of the grapple target cursor.
-@export var grapple_cursor_radius := 0.2
-## Cursor color when a valid grapple target is under the crosshair.
-@export var grapple_cursor_color := Color(1.0, 0.9, 0.1)
-## Cursor color while actively grappling.
-@export var grapple_cursor_active_color := Color(0.2, 1.0, 0.25)
+
+@export_group("Grapple Targeting")
+## Immutable authored grapple definition - the single authoritative acquisition range source.
+@export var grapple_definition: GrappleDefinition
+## Immutable occlusion profile marking blocking-but-unacquirable surfaces.
+@export var grapple_occlusion_profile: PhysicsQueryProfile
 
 @export_group("Attack Timing")
 ## Total time before another player attack can begin.
@@ -108,6 +106,7 @@ extends CharacterBody3D
 @onready var attack_windup_state: LimboState = $AttackHSM/AttackWindupState
 @onready var attack_active_state: LimboState = $AttackHSM/AttackActiveState
 @onready var attack_recovery_state: LimboState = $AttackHSM/AttackRecoveryState
+@onready var grapple_marker: GrappleTargetMarker = get_node_or_null(^"GrappleTargetMarker") as GrappleTargetMarker
 
 const EVENT_LEFT_GROUND := &"left_ground"
 const EVENT_LANDED := &"landed"
@@ -152,12 +151,9 @@ var is_grappling := false
 var grapple_elapsed := 0.0
 var grapple_applied_acceleration := 0.0
 var grapple_point := Vector3.ZERO
-var grapple_target: StaticBody3D
+var grapple_target: Node3D
 var grapple_visual: MeshInstance3D
 var grapple_visual_mesh: CylinderMesh
-var grapple_cursor: MeshInstance3D
-var grapple_cursor_mesh: SphereMesh
-var grapple_cursor_material: StandardMaterial3D
 var is_wall_running := false
 var wall_normal := Vector3.ZERO
 var wall_run_direction := Vector3.ZERO
@@ -175,12 +171,16 @@ var _motion_submission_failed := false
 var _motion_submission_failure_status := PlayerMotor.SubmissionStatus.SUCCESS
 var _player_initialized := false
 var _player_log: GameLog = GameLog.new()
+var _grapple_target_resolver: GrappleTargetResolver
+var _grapple_targeting_available := false
+var _current_targeting_result: GrappleTargetingResult
+var _last_activation_rejection: GrappleRejection.Reason = GrappleRejection.Reason.NONE
 
 
 func _ready() -> void:
 	add_to_group("player")
 	_setup_grapple_visual()
-	_setup_grapple_cursor()
+	_compose_grapple_targeting()
 
 	if health:
 		health.damaged.connect(_on_health_damaged)
@@ -293,6 +293,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	_apply_canonical_presentation(frame)
+	_evaluate_grapple_targeting(frame)
 	var frame_status := player_motor.begin_motion_frame(_player_physics_step, delta)
 	if frame_status != PlayerMotor.FrameStatus.SUCCESS:
 		_abort_motion_frame_safely()
@@ -342,6 +343,9 @@ func _deactivate_player() -> void:
 		movement_hsm.set_active(false)
 	if attack_hsm:
 		attack_hsm.set_active(false)
+	_current_targeting_result = null
+	if grapple_marker:
+		grapple_marker.clear_targeting()
 
 
 func _abort_motion_frame_safely() -> void:
@@ -433,24 +437,34 @@ func _setup_grapple_visual() -> void:
 	add_child(grapple_visual)
 
 
-func _setup_grapple_cursor() -> void:
-	grapple_cursor_mesh = SphereMesh.new()
-	grapple_cursor_mesh.radius = grapple_cursor_radius
-	grapple_cursor_mesh.height = grapple_cursor_radius * 2.0
+func _compose_grapple_targeting() -> void:
+	var resolver := GrappleTargetResolver.new()
+	var initialization := resolver.initialize(self, grapple_definition, grapple_occlusion_profile)
+	if initialization != GrappleTargetResolver.InitializationStatus.SUCCESS:
+		_player_log.record_invariant(
+			&"player.grapple.targeting_initialization_failed",
+			DiagnosticContext.new(
+				-1,
+				&"",
+				GrappleTargetResolver.initialization_status_id(initialization)
+			)
+		)
+		if grapple_marker:
+			grapple_marker.clear_targeting()
+		return
+	_grapple_target_resolver = resolver
+	_grapple_targeting_available = true
 
-	grapple_cursor_material = StandardMaterial3D.new()
-	grapple_cursor_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	grapple_cursor_material.emission_enabled = true
-	_set_grapple_cursor_color(grapple_cursor_color)
 
-	grapple_cursor = MeshInstance3D.new()
-	grapple_cursor.name = "GrappleCursor"
-	grapple_cursor.top_level = true
-	grapple_cursor.mesh = grapple_cursor_mesh
-	grapple_cursor.material_override = grapple_cursor_material
-	grapple_cursor.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	grapple_cursor.visible = false
-	add_child(grapple_cursor)
+func _evaluate_grapple_targeting(frame: PlayerCommandFrame) -> void:
+	if not _grapple_targeting_available or _grapple_target_resolver == null:
+		_current_targeting_result = null
+		return
+	_current_targeting_result = _grapple_target_resolver.evaluate(
+		_player_physics_step,
+		frame,
+		camera.global_position
+	)
 
 
 func submit_state_policy(locomotion_state_id: StringName) -> bool:
@@ -880,7 +894,7 @@ func get_movement_input() -> Vector2:
 
 func update_grapple_feedback() -> void:
 	_update_grapple_visual()
-	_update_grapple_cursor()
+	_update_grapple_marker()
 
 
 func dispatch_locomotion_after_grapple_clear() -> void:
@@ -891,20 +905,54 @@ func dispatch_locomotion_after_grapple_clear() -> void:
 
 
 func try_start_grapple() -> bool:
-	var hit := _get_grapple_ray_hit()
-	if hit.is_empty():
-		return false
+	var frame := _current_command_frame
+	var result := _current_targeting_result
+	if result == null:
+		return _reject_grapple_activation(GrappleRejection.Reason.MISSING_RESULT, true)
+	if (
+		frame == null
+		or result.source_physics_step != _player_physics_step
+		or result.command_frame_step != frame.physics_step
+	):
+		return _reject_grapple_activation(GrappleRejection.Reason.STALE_RESULT, true)
+	if not result.is_accepted() or result.accepted_seed == null:
+		return _reject_grapple_activation(result.rejection, false)
 
-	var collider: Object = hit["collider"]
-	if collider is StaticBody3D:
-		is_grappling = true
-		grapple_elapsed = 0.0
-		grapple_applied_acceleration = grapple_initial_acceleration
-		grapple_point = hit["position"]
-		grapple_target = collider as StaticBody3D
-		return true
+	var seed := result.accepted_seed
+	var target := seed.get_target()
+	if not is_instance_valid(target) or not target is Node3D:
+		return _reject_grapple_activation(GrappleRejection.Reason.TARGET_INVALID, true)
 
+	is_grappling = true
+	grapple_elapsed = 0.0
+	grapple_applied_acceleration = grapple_initial_acceleration
+	grapple_point = seed.hit_position
+	grapple_target = target as Node3D
+	_last_activation_rejection = GrappleRejection.Reason.NONE
+	return true
+
+
+func _reject_grapple_activation(
+	reason: GrappleRejection.Reason,
+	log_contract_violation: bool
+) -> bool:
+	_last_activation_rejection = reason
+	if log_contract_violation:
+		_player_log.record_invariant(
+			_activation_diagnostic_code(reason),
+			DiagnosticContext.new(_player_physics_step, &"", GrappleRejection.reason_id(reason))
+		)
 	return false
+
+
+func _activation_diagnostic_code(reason: GrappleRejection.Reason) -> StringName:
+	match reason:
+		GrappleRejection.Reason.STALE_RESULT:
+			return &"player.grapple.activation_stale_result"
+		GrappleRejection.Reason.TARGET_INVALID:
+			return &"player.grapple.activation_target_invalid"
+		_:
+			return &"player.grapple.activation_missing_result"
 
 
 func has_valid_grapple() -> bool:
@@ -912,6 +960,7 @@ func has_valid_grapple() -> bool:
 
 
 func get_grapple_telemetry() -> Dictionary:
+	var targeting := get_grapple_targeting_diagnostic_snapshot()
 	var committed_velocity := player_motor.get_committed_velocity() if player_motor else Vector3.ZERO
 	var target_distance := 0.0
 	var pull_direction := Vector3.ZERO
@@ -949,19 +998,28 @@ func get_grapple_telemetry() -> Dictionary:
 		"wall_sticking": is_wall_sticking,
 		"wall_stick_speed_gate": speed_gate_passed,
 		"wall_stick_speed_gate_reason": speed_gate_reason,
+		"targeting_valid": targeting != null and targeting.is_accepted,
+		"targeting_rejection_id": targeting.rejection_id if targeting != null else GrappleRejection.reason_id(GrappleRejection.Reason.MISSING_RESULT),
+		"target_identity": targeting.target_identity if targeting != null else &"",
+		"range_fraction": targeting.range_fraction if targeting != null else 0.0,
+		"max_grapple_length_m": targeting.max_grapple_length_m if targeting != null else 0.0,
+		"targeting_physics_step": targeting.source_physics_step if targeting != null else -1,
+		"targeting_query_count": targeting.query_count if targeting != null else 0,
 	}
 
 
-func _get_grapple_ray_hit() -> Dictionary:
-	var frame := get_player_command_frame()
-	if frame == null:
-		return {}
-	var origin := camera.global_position
-	var direction := frame.aim_world_direction
-	var query := PhysicsRayQueryParameters3D.create(origin, origin + direction * grapple_length)
-	query.exclude = [get_rid()]
+func get_latest_grapple_targeting_result() -> GrappleTargetingResult:
+	return _current_targeting_result
 
-	return get_world_3d().direct_space_state.intersect_ray(query)
+
+func get_last_activation_rejection() -> GrappleRejection.Reason:
+	return _last_activation_rejection
+
+
+func get_grapple_targeting_diagnostic_snapshot() -> GrappleTargetingDiagnosticSnapshot:
+	if _current_targeting_result == null:
+		return null
+	return GrappleTargetingDiagnosticSnapshot.from_result(_current_targeting_result)
 
 
 func _update_grapple_visual() -> void:
@@ -985,26 +1043,10 @@ func _update_grapple_visual() -> void:
 	grapple_visual.visible = true
 
 
-func _update_grapple_cursor() -> void:
-	var hit := _get_grapple_ray_hit()
-	if hit.is_empty():
-		grapple_cursor.visible = false
+func _update_grapple_marker() -> void:
+	if grapple_marker == null:
 		return
-
-	var collider: Object = hit["collider"]
-	if not collider is StaticBody3D:
-		grapple_cursor.visible = false
-		return
-
-	var cursor_color: Color = grapple_cursor_active_color if is_grappling else grapple_cursor_color
-	_set_grapple_cursor_color(cursor_color)
-	grapple_cursor.global_position = hit["position"]
-	grapple_cursor.visible = true
-
-
-func _set_grapple_cursor_color(color: Color) -> void:
-	grapple_cursor_material.albedo_color = color
-	grapple_cursor_material.emission = color
+	grapple_marker.apply_targeting_result(_current_targeting_result, is_grappling)
 
 
 func _basis_from_y_axis(y_axis: Vector3) -> Basis:
@@ -1057,8 +1099,9 @@ func _set_dead() -> void:
 	_clear_grapple()
 	_clear_wall_run()
 	_clear_wall_stick()
-	if grapple_cursor:
-		grapple_cursor.visible = false
+	_current_targeting_result = null
+	if grapple_marker:
+		grapple_marker.clear_targeting()
 	if movement_hsm:
 		dispatch_locomotion_event(EVENT_DIED)
 	if attack_hsm:

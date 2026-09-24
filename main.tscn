@@ -93,9 +93,6 @@ enemy_definition = ExtResource("5_iycu1")
 transform = Transform3D(0.5881717, 0, -0.8087361, 0, 1, 0, 0.8087361, 0, 0.5881717, 11, 0.1, 8)
 enemy_definition = ExtResource("6_nqqwa")
 
-[node name="AttackHitbox" parent="World/DirectRangedEnemy" index="5" unique_id=1356933738]
-source_path = NodePath("")
-
 [node name="SunLight" type="DirectionalLight3D" parent="." unique_id=1231637837]
 transform = Transform3D(0.8660254, -0.3830222, 0.32139382, 0, 0.64278764, 0.7660444, -0.5, -0.6634139, 0.5566704, 0, 0, 0)
 light_energy = 2.5
