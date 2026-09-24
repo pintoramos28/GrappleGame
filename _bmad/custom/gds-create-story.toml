@@ -2,12 +2,10 @@
 persistent_facts = [
   "file:{project-root}/_bmad/custom/artifacts/artifact-contract.toml",
   "file:{project-root}/_bmad/custom/artifacts/protocols/bounded-epics.md",
-  "file:{project-root}/_bmad/custom/artifacts/protocols/create-story-agent-routing.md",
 ]
 
 activation_steps_append = [
   "Read and follow `{project-root}/_bmad/custom/artifacts/protocols/gds-create-story.md`. After the story key is selected, request a bounded resolver context pack for that exact story and use the exact `_bmad-output/project-context.md`; do not perform broad artifact globs.",
-  "Use the exact project-scoped Codex custom agents from `{project-root}/_bmad/custom/artifacts/protocols/create-story-agent-routing.md`; do not create or invoke personal, Workspace, or global agents for this workflow.",
 ]
 
 on_complete = "Record the artifact IDs and revisions used to create the story in its Dev Notes source-reference section."
