@@ -10,8 +10,10 @@ extends RefCounted
 ## ENGINE-REFERENCE EXCEPTION (documented, AC 4): `get_target_reference()` is the
 ## single weak engine reference allowed inside grapple result records. Every
 ## consumer must gate dereferences with `is_instance_valid` / `has_live_target()`
-## (NFR14: never retain destroyed nodes). Continuous moving-target tracking,
-## lifetime sampling, and invalidation belong to Story 1.8 and are absent here.
+## (NFR14: never retain destroyed nodes). Story 1.8 owns continuous anchor
+## sampling (`Grappleable3D.sample_anchor_state` + the controller's per-step
+## sampling phase) and typed invalidation; this seed stays the immutable
+## acquisition record.
 
 
 var target_identity: StringName:

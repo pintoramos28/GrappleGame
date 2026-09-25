@@ -71,6 +71,24 @@ var _locked := false
 		if not _locked:
 			maximum_speed_mps = value
 
+## Anchor motion at or below this speed is continuous motion: the grapple
+## follows normally and the boundary may carry the player with the anchor's
+## separating radial motion (Story 1.8 Task 6.1, AC 4/7). It also bounds the
+## maximum carry adjustment the boundary may apply - a required correction above
+## it terminates instead of snapping the player. Tolerance only, never a range.
+@export var anchor_continuous_motion_tolerance_mps: float = 50.0:
+	set(value):
+		if not _locked:
+			anchor_continuous_motion_tolerance_mps = value
+
+## Anchor motion at or above this speed is a severe discontinuity: the grapple
+## terminates with `ANCHOR_DISCONTINUITY` at the next sample instead of
+## following a teleporting anchor (AC 7). Tolerance only, never a range.
+@export var anchor_severe_discontinuity_threshold_mps: float = 250.0:
+	set(value):
+		if not _locked:
+			anchor_severe_discontinuity_threshold_mps = value
+
 
 func validate() -> ValidationStatus:
 	if not is_stable_definition_id(definition_id):
@@ -90,6 +108,24 @@ func validate() -> ValidationStatus:
 		target_query_profile.margin_m
 	)
 	if acquisition_tolerance_m > tolerance_limit:
+		return ValidationStatus.INVALID_TOLERANCE
+	# Anchor-motion discontinuity tolerances (Story 1.8 Task 6.1): finite,
+	# positive, and strictly ordered continuous < severe. Tolerances only -
+	# they never act as a range (Story 1.7 lesson).
+	if (
+		not _is_finite_value(anchor_continuous_motion_tolerance_mps)
+		or anchor_continuous_motion_tolerance_mps <= 0.0
+	):
+		return ValidationStatus.INVALID_TOLERANCE
+	if (
+		not _is_finite_value(anchor_severe_discontinuity_threshold_mps)
+		or anchor_severe_discontinuity_threshold_mps <= 0.0
+	):
+		return ValidationStatus.INVALID_TOLERANCE
+	if (
+		anchor_severe_discontinuity_threshold_mps
+		<= anchor_continuous_motion_tolerance_mps
+	):
 		return ValidationStatus.INVALID_TOLERANCE
 	for pull_value in [
 		pull_initial_acceleration_mps2,

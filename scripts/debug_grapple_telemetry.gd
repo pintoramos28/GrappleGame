@@ -70,69 +70,159 @@ func _build_overlay() -> void:
 
 
 func _update_overlay() -> void:
-	if not is_instance_valid(player) or not player.has_method("get_grapple_telemetry"):
+	if not is_instance_valid(player):
 		return
+	# Every member the overlay touches is guarded, so a player without these
+	# surfaces degrades to an empty overlay instead of erroring each refresh.
+	for required_method in [
+		&"get_grapple_attachment_diagnostic_snapshot",
+		&"get_grapple_targeting_diagnostic_snapshot",
+	]:
+		if not player.has_method(required_method):
+			return
 
-	var telemetry: Dictionary = player.get_grapple_telemetry()
-	var active: bool = telemetry["active"]
-	var velocity: Vector3 = telemetry["velocity"]
-	var state := "ACTIVE" if active else "INACTIVE"
-	var cap_state := "YES" if telemetry["cap_reached"] else "NO"
-	var wall_gate := "PASS" if telemetry["wall_stick_speed_gate"] else "BLOCKED"
-
-	var lines := PackedStringArray([
-		"GRAPPLE DEBUG  [F3 toggle]",
-		"State: %s    Target valid: %s" % [state, telemetry["target_valid"]],
-		"Time: %s s    Distance: %s m" % [
-			_format_number(telemetry["elapsed"]),
-			_format_number(telemetry["target_distance"])
-		],
-		"Acceleration: %s m/s^2" % _format_number(telemetry["acceleration"]),
-		"Profile: %s -> %s m/s^2    Jerk: %s m/s^3" % [
-			_format_number(telemetry["initial_acceleration"]),
-			_format_number(telemetry["min_acceleration"]),
-			_format_number(telemetry["jerk"])
-		],
-		"Speed: %s / %s m/s    Cap reached: %s" % [
-			_format_number(telemetry["speed"]),
-			_format_number(telemetry["max_velocity"]),
-			cap_state
-		],
-		"Pull speed: %s m/s" % _format_number(telemetry["pull_speed"]),
-		"Velocity: (%s, %s, %s)" % [
-			_format_number(velocity.x),
-			_format_number(velocity.y),
-			_format_number(velocity.z)
-		],
-		"Floor: %s    Wall run: %s    Wall stick: %s" % [
-			telemetry["on_floor"],
-			telemetry["wall_running"],
-			telemetry["wall_sticking"]
-		],
-		"Wall-stick speed gate: %s (%s)" % [wall_gate, telemetry["wall_stick_speed_gate_reason"]],
-	])
-	lines.append_array(_targeting_lines(telemetry))
-
+	# Typed read-only snapshots only (Story 1.7 Task 5.3): the overlay formats
+	# already-resolved facts and never computes gameplay, queries physics, or
+	# recalculates constraint resolution.
+	var attachment: GrappleAttachmentDiagnosticSnapshot = (
+		player.get_grapple_attachment_diagnostic_snapshot()
+	)
+	var targeting: GrappleTargetingDiagnosticSnapshot = (
+		player.get_grapple_targeting_diagnostic_snapshot()
+	)
+	var lines := PackedStringArray(["GRAPPLE DEBUG  [F3 toggle]"])
+	lines.append_array(_attachment_lines(attachment))
+	lines.append_array(_traversal_lines())
+	lines.append_array(_targeting_lines(targeting))
 	label.text = "\n".join(lines)
 
 
-## Presentation-only formatting of the authoritative targeting diagnostics. The
-## overlay never computes gameplay facts and never queries physics.
-func _targeting_lines(telemetry: Dictionary) -> PackedStringArray:
-	var targeting_state := "accepted" if telemetry["targeting_valid"] else String(telemetry["targeting_rejection_id"])
-	var target_identity := String(telemetry["target_identity"])
+func _attachment_lines(
+	attachment: GrappleAttachmentDiagnosticSnapshot
+) -> PackedStringArray:
+	if attachment == null:
+		return PackedStringArray(["Attachment: none"])
+	var state := "ACTIVE" if attachment.is_active else "ENDED"
+	var terminal := String(attachment.terminal_reason_id)
+	if attachment.is_active:
+		terminal = "-"
+	var boundary := "none"
+	if attachment.boundary_correction_applied:
+		boundary = "clipped %s m/s outward" % _format_number(attachment.boundary_correction_mps)
+	if attachment.boundary_carry_applied_mps > 0.0:
+		boundary += "    carry %s m/s" % _format_number(attachment.boundary_carry_applied_mps)
+	if attachment.boundary_carry_refused_mps > 0.0:
+		boundary += "    carry REFUSED %s m/s" % _format_number(
+			attachment.boundary_carry_refused_mps
+		)
+	# Both scalars come from the snapshot: the overlay formats facts and never
+	# derives a gameplay comparison of its own.
+	var speed := attachment.committed_speed_mps
+	var cap_state := "YES" if attachment.speed_cap_reached else "NO"
+	return PackedStringArray([
+		"Attachment: %s    %s    terminal: %s" % [
+			String(attachment.attachment_identity),
+			state,
+			terminal,
+		],
+		"Anchor: (%s, %s, %s)" % [
+			_format_number(attachment.anchor_world_position.x),
+			_format_number(attachment.anchor_world_position.y),
+			_format_number(attachment.anchor_world_position.z),
+		],
+		"Anchor status: %s    Target velocity: (%s, %s, %s) m/s" % [
+			String(attachment.anchor_status_id),
+			_format_number(attachment.target_velocity_mps.x),
+			_format_number(attachment.target_velocity_mps.y),
+			_format_number(attachment.target_velocity_mps.z),
+		],
+		"Time: %s s    Distance: %s / %s m    range %s" % [
+			_format_number(attachment.elapsed_seconds),
+			_format_number(attachment.current_distance_m),
+			_format_number(attachment.maximum_distance_m),
+			_format_number(attachment.range_fraction),
+		],
+		"Acceleration: %s m/s^2    Speed cap: %s m/s" % [
+			_format_number(attachment.submitted_acceleration_mps2),
+			_format_number(attachment.resolved_maximum_speed_mps),
+		],
+		"Pull dir: (%s, %s, %s)" % [
+			_format_number(attachment.pull_direction.x),
+			_format_number(attachment.pull_direction.y),
+			_format_number(attachment.pull_direction.z),
+		],
+		"Speed: %s / %s m/s    Cap reached: %s" % [
+			_format_number(speed),
+			_format_number(attachment.resolved_maximum_speed_mps),
+			cap_state,
+		],
+		"Velocity: (%s, %s, %s)" % [
+			_format_number(attachment.committed_velocity_mps.x),
+			_format_number(attachment.committed_velocity_mps.y),
+			_format_number(attachment.committed_velocity_mps.z),
+		],
+		"Resolved radial: %s m/s    Resolved tangential: %s m/s" % [
+			_format_number(attachment.resolved_radial_velocity_mps),
+			_format_number(attachment.resolved_tangential_velocity_mps),
+		],
+		"Boundary: %s    (tolerance %s m)" % [
+			boundary,
+			_format_number(attachment.boundary_positional_tolerance_m),
+		],
+		"Distance at boundary resolution: %s m" % [
+			_format_number(attachment.distance_at_resolution_m),
+		],
+	])
+
+
+func _traversal_lines() -> PackedStringArray:
+	if not _exposes_traversal_facts():
+		return PackedStringArray(["Traversal: (unavailable)"])
+	var wall_gate := "PASS" if player.is_wall_stick_speed_gate_open() else "BLOCKED"
+	return PackedStringArray([
+		"Floor: %s    Wall run: %s    Wall stick: %s" % [
+			player.has_ground_contact(),
+			player.is_wall_running,
+			player.is_wall_sticking,
+		],
+		"Wall-stick speed gate: %s (%s)" % [
+			wall_gate,
+			String(player.get_wall_stick_speed_gate_reason_id()),
+		],
+	])
+
+
+## True only when the player exposes every fact the traversal section reads.
+func _exposes_traversal_facts() -> bool:
+	return (
+		player.has_method("has_ground_contact")
+		and player.has_method("is_wall_stick_speed_gate_open")
+		and player.has_method("get_wall_stick_speed_gate_reason_id")
+		and "is_wall_running" in player
+		and "is_wall_sticking" in player
+	)
+
+
+## Presentation-only formatting of the authoritative targeting diagnostics.
+func _targeting_lines(
+	targeting: GrappleTargetingDiagnosticSnapshot
+) -> PackedStringArray:
+	if targeting == null:
+		return PackedStringArray(["Targeting: no result"])
+	var targeting_state := "accepted" if targeting.is_accepted else String(targeting.rejection_id)
+	var target_identity := String(targeting.target_identity)
 	if target_identity.is_empty():
 		target_identity = "(default geometry)"
 	return PackedStringArray([
 		"Targeting: %s    step %s    queries %s" % [
 			targeting_state,
-			telemetry["targeting_physics_step"],
-			telemetry["targeting_query_count"],
+			targeting.source_physics_step,
+			targeting.query_count,
 		],
 		"Target id: %s    range fraction: %s / max %s m" % [
 			target_identity,
-			_format_number(telemetry["range_fraction"]),
-			_format_number(telemetry["max_grapple_length_m"]),
+			_format_number(targeting.range_fraction),
+			_format_number(targeting.max_grapple_length_m),
 		],
 	])
 

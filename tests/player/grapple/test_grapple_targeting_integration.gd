@@ -359,11 +359,40 @@ func test_diagnostics_agree_with_the_authoritative_result() -> void:
 	assert_eq(snapshot.occlusion_profile_id, result.occlusion_profile_id)
 	assert_eq(snapshot.query_count, 1)
 
-	var telemetry: Dictionary = player.call("get_grapple_telemetry")
-	assert_eq(telemetry["targeting_valid"], result.is_accepted())
-	assert_eq(telemetry["targeting_rejection_id"], GrappleRejection.reason_id(result.rejection))
-	assert_almost_eq(float(telemetry["max_grapple_length_m"]), 35.0, 0.000001)
-	assert_eq(telemetry["targeting_query_count"], 1)
+	# Typed attachment + targeting snapshots replace the retired untyped
+	# telemetry Dictionary (Story 1.7 Task 5.3). With no attachment there is no
+	# attachment snapshot (the documented absence case).
+	assert_null(player.call("get_grapple_attachment_diagnostic_snapshot"))
+
+	var controller: GrappleController = player.get("_grapple_controller")
+	assert_not_null(controller)
+	var anchor := Vector3(0.0, 2.0, -8.0)
+	var target_seed := GrappleTargetSeed.new(
+		result.target_identity,
+		anchor,
+		Vector3(0.0, 0.0, 1.0),
+		GrappleTargetResponse.static_default(),
+		weakref(result.accepted_seed.get_target()),
+		Vector3.ZERO
+	)
+	assert_eq(
+		controller.commit_attachment(target_seed, result.source_physics_step),
+		GrappleController.CommitStatus.SUCCESS
+	)
+	var attachment = player.call("get_grapple_attachment_diagnostic_snapshot")
+	assert_not_null(attachment)
+	assert_true(attachment.is_value_only())
+	assert_true(attachment.is_active)
+	assert_eq(attachment.target_identity, result.target_identity)
+	assert_eq(attachment.anchor_world_position, anchor)
+	assert_almost_eq(attachment.maximum_distance_m, 35.0, 0.000001)
+	assert_almost_eq(
+		attachment.range_fraction,
+		attachment.current_distance_m / attachment.maximum_distance_m,
+		0.0001
+	)
+	assert_eq(attachment.terminal_reason, GrappleEndReason.Reason.NONE)
+	assert_eq(snapshot.query_count, 1)
 
 
 func test_exactly_one_query_is_counted_for_each_evaluated_step_in_full_flows() -> void:
@@ -433,9 +462,11 @@ func test_grapple_pull_decay_reaches_the_floor_and_commits_the_speed_cap() -> vo
 	assert_true(bool(player.get("is_grappling")))
 
 	var step_delta := 1.0 / 60.0
-	var initial_accel := float(player.get("grapple_initial_acceleration"))
-	var min_accel := float(player.get("grapple_min_acceleration"))
-	var jerk := float(player.get("grapple_acceleration_jerk"))
+	var definition: GrappleDefinition = player.get("grapple_definition")
+	assert_not_null(definition)
+	var initial_accel := definition.pull_initial_acceleration_mps2
+	var min_accel := definition.pull_min_acceleration_mps2
+	var jerk := definition.pull_acceleration_jerk_mps3
 	var previous_acceleration := float(player.get("grapple_applied_acceleration"))
 	var observed_floor := false
 	for _step in range(56):
@@ -525,38 +556,114 @@ func test_rope_physics_interpolation_resets_once_per_hidden_to_visible() -> void
 	assert_true(controller_source.contains("if was_hidden:"))
 
 
-func test_definition_pull_tuning_matches_controller_exports() -> void:
+func test_definition_is_the_sole_pull_cap_and_range_source() -> void:
+	# Story 1.7 Task 1: the authored `GrappleDefinition` is the only pull,
+	# speed-cap, and range source. The Story 1.6 parity check that guarded the
+	# duplicated controller exports is retired together with the duplication;
+	# this guard (and the runtime assertions below) replace it.
+	var sole_source_sites: Array[String] = [
+		"res://scripts/player_controller.gd",
+		"res://scripts/player_grappling_state.gd",
+		"res://game/player/abilities/grapple/grapple_controller.gd",
+		"res://game/player/abilities/grapple/grapple_attachment.gd",
+		"res://game/player/abilities/grapple/presentation/grapple_target_marker.gd",
+		"res://scripts/debug_grapple_telemetry.gd",
+		"res://scenes/player.tscn",
+		"res://main.tscn",
+	]
+	var pull_token_regex := RegEx.new()
+	assert_eq(
+		pull_token_regex.compile(
+			"(?<![A-Za-z0-9_])grapple_(initial_acceleration|min_acceleration|acceleration_jerk|max_velocity)(?![A-Za-z0-9_])"
+		),
+		OK
+	)
+	# Positive control: the guard must match what it forbids.
+	assert_not_null(
+		pull_token_regex.search("grapple_initial_acceleration = 48.0"),
+		"pull token regex must match"
+	)
+	assert_null(
+		pull_token_regex.search("pull_initial_acceleration_mps2"),
+		"the canonical definition field name stays allowed"
+	)
+	for path in sole_source_sites:
+		assert_true(FileAccess.file_exists(path), "%s must exist to be scanned" % path)
+		var site_source := FileAccess.get_file_as_string(path)
+		assert_gt(site_source.length(), 0, "%s must have content to scan" % path)
+		assert_null(
+			pull_token_regex.search(site_source),
+			"%s must not carry a competing pull/cap scalar (definition is the sole source)" % path
+		)
+
 	var fixture := _new_player_scene_fixture()
 	var player: CharacterBody3D = fixture[0]
 	var definition: GrappleDefinition = player.get("grapple_definition")
 	assert_not_null(definition)
-	var tolerance: float = PLAYER_CONTROLLER_SCRIPT.PULL_TUNING_PARITY_TOLERANCE
-	assert_almost_eq(
-		definition.pull_initial_acceleration_mps2,
-		float(player.get("grapple_initial_acceleration")),
-		tolerance
-	)
-	assert_almost_eq(
-		definition.pull_min_acceleration_mps2,
-		float(player.get("grapple_min_acceleration")),
-		tolerance
-	)
-	assert_almost_eq(
-		definition.pull_acceleration_jerk_mps3,
-		float(player.get("grapple_acceleration_jerk")),
-		tolerance
-	)
-	assert_almost_eq(
-		definition.maximum_speed_mps,
-		float(player.get("grapple_max_velocity")),
-		tolerance
+	assert_true(definition.is_locked(), "validated definitions lock and stay immutable")
+	var authored_initial := definition.pull_initial_acceleration_mps2
+	var authored_min := definition.pull_min_acceleration_mps2
+	var authored_jerk := definition.pull_acceleration_jerk_mps3
+	var authored_cap := definition.maximum_speed_mps
+	var authored_range := definition.max_grapple_length_m
+
+	var source := FileAccess.get_file_as_string("res://scripts/player_controller.gd")
+	assert_false(source.contains("PULL_TUNING_PARITY_TOLERANCE"), "parity machinery retired")
+	assert_false(source.contains("_pull_tuning_matches_definition"), "parity machinery retired")
+	assert_false(
+		source.contains("pull_tuning_mismatch"),
+		"the composition-time parity invariant is retired with the duplication"
 	)
 
-	# Divergence is a composition-time contract violation: the check must fire.
-	player.set("grapple_initial_acceleration", 999.0)
-	assert_false(bool(player.call("_pull_tuning_matches_definition")))
-	player.call("_compose_grapple_targeting")
-	assert_push_error("player.grapple.pull_tuning_mismatch")
+	# Runtime values resolve from the unchanged authored definition.
+	var input_source: PlayerInputSource = player.get_node(^"PlayerInputSource")
+	var motor: PlayerMotor = player.get_node(^"PlayerMotor")
+	player.position = Vector3(0.0, 6.0, 0.0)
+	_add_box_target(player.get_parent(), Vector3(0.0, 5.0, -20.0), Vector3(20.0, 30.0, 0.4))
+	input_source.enable_test_input_seam()
+	var found_airborne := false
+	for _frame in range(8):
+		await get_tree().physics_frame
+		var current: PlayerMotorCommitResult = motor.get_last_commit_result()
+		if current != null and current.locomotion_state_id == &"player.locomotion.airborne":
+			found_airborne = true
+			break
+	assert_true(found_airborne)
+	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)
+	player.call("_physics_process", 1.0 / 60.0)
+	assert_true(bool(player.get("is_grappling")))
+	assert_almost_eq(
+		float(player.get("grapple_applied_acceleration")),
+		authored_initial,
+		0.0001
+	)
+	var step_delta := 1.0 / 60.0
+	for _step in range(12):
+		# The pull profile reads the pre-increment clock (Task 2.5), so the
+		# acceleration submitted this step is the profile at the pre-step time.
+		var elapsed_before := float(player.get("grapple_elapsed"))
+		player.call("_physics_process", step_delta)
+		assert_true(bool(player.get("is_grappling")))
+		assert_almost_eq(
+			float(player.get("grapple_applied_acceleration")),
+			maxf(authored_min, authored_initial - authored_jerk * elapsed_before),
+			0.0001
+		)
+		assert_almost_eq(
+			float(player.get("grapple_elapsed")),
+			elapsed_before + step_delta,
+			0.000001
+		)
+	var commit: PlayerMotorCommitResult = motor.get_last_commit_result()
+	assert_not_null(commit)
+	assert_true(commit.applied_caps.has(&"player.grapple.speed_cap"))
+
+	# The authored definition is untouched by the whole occurrence.
+	assert_almost_eq(definition.pull_initial_acceleration_mps2, authored_initial, 0.000001)
+	assert_almost_eq(definition.pull_min_acceleration_mps2, authored_min, 0.000001)
+	assert_almost_eq(definition.pull_acceleration_jerk_mps3, authored_jerk, 0.000001)
+	assert_almost_eq(definition.maximum_speed_mps, authored_cap, 0.000001)
+	assert_almost_eq(definition.max_grapple_length_m, authored_range, 0.000001)
 
 
 func test_unavailable_feature_rejects_activation_quietly_without_per_press_invariants() -> void:

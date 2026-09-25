@@ -13,3 +13,5 @@ pull_initial_acceleration_mps2 = 48.0
 pull_min_acceleration_mps2 = 8.0
 pull_acceleration_jerk_mps3 = 53.333333
 maximum_speed_mps = 22.0
+anchor_continuous_motion_tolerance_mps = 50.0
+anchor_severe_discontinuity_threshold_mps = 250.0

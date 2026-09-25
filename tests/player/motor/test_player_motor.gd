@@ -353,6 +353,101 @@ func test_wall_constraint_redirects_relative_velocity_before_outward_removal() -
 	assert_eq(result.submitted_velocity, Vector3(0.0, 0.0, 2.0))
 
 
+func test_maximum_anchor_distance_kind_is_typed_ordered_and_exclusive() -> void:
+	var fixture := _new_fixture()
+	var body: CharacterBody3D = fixture[0]
+	var motor: PlayerMotor = fixture[1]
+
+	# Kind/phase coherence and payload validation (Story 1.7 Task 6.4).
+	assert_eq(
+		PlayerMotorSubmission.expected_phase_for_kind(
+			PlayerMotorSubmission.Kind.MAXIMUM_ANCHOR_DISTANCE
+		),
+		MotorPhase.Phase.CONSTRAINTS_AND_REDIRECTIONS
+	)
+	assert_eq(motor.begin_motion_frame(40), PlayerMotor.FrameStatus.SUCCESS)
+	assert_eq(
+		motor.select_state_policy(&"player.locomotion.grappling"),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_eq(
+		motor.submit_base_motion(
+			&"player.locomotion.grappling.base",
+			Vector3.ZERO,
+			0.0,
+			false
+		),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_eq(
+		motor.submit_maximum_anchor_distance(&"player.grapple.maximum_distance", Vector3.ZERO, 0.0),
+		PlayerMotor.SubmissionStatus.INVALID_REQUEST
+	)
+	assert_push_error("player.motor.invalid_maximum_distance")
+	assert_eq(
+		motor.submit_maximum_anchor_distance(
+			&"player.grapple.maximum_distance",
+			Vector3(NAN, 0.0, 0.0),
+			35.0
+		),
+		PlayerMotor.SubmissionStatus.NON_FINITE_VALUE
+	)
+	assert_push_error("player.motor.non_finite_value")
+	assert_eq(
+		motor.submit_maximum_anchor_distance(&"player.grapple.maximum_distance", Vector3.ZERO, 35.0),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_eq(
+		motor.submit_maximum_anchor_distance(&"player.grapple.maximum_distance", Vector3.ZERO, 35.0),
+		PlayerMotor.SubmissionStatus.DUPLICATE_SOURCE
+	)
+	assert_push_error("player.motor.duplicate_source")
+	var result := motor.resolve_and_commit()
+	assert_true(result.success)
+	assert_eq(result.anchor_constraint_records.size(), 1)
+	assert_true(result.applied_constraints.has(&"player.grapple.maximum_distance"))
+
+	# Ordering: the constraint resolves in CONSTRAINTS_AND_REDIRECTIONS, after
+	# sustained influences and before caps - canonical phases, never priorities.
+	var constraint_phase := -1
+	var sustained_phase := -1
+	var caps_phase := -1
+	for intermediate in result.phase_intermediates:
+		match intermediate["id"]:
+			&"constraints_and_redirections":
+				constraint_phase = int(intermediate["phase"])
+			&"sustained_influences":
+				sustained_phase = int(intermediate["phase"])
+			&"caps_and_final_commit":
+				caps_phase = int(intermediate["phase"])
+	assert_gt(constraint_phase, sustained_phase)
+	assert_lt(constraint_phase, caps_phase)
+
+	# WALL_STICK_HOLD exclusivity is unchanged (Task 4.5): a mixed frame fails
+	# closed instead of weakening the hold.
+	assert_eq(motor.begin_motion_frame(41), PlayerMotor.FrameStatus.SUCCESS)
+	assert_eq(
+		motor.select_state_policy(&"player.locomotion.wall_stick"),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_eq(
+		motor.submit_wall_stick_hold(&"player.wall_stick.hold", Vector3(1.0, 2.0, 3.0)),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_eq(
+		motor.submit_maximum_anchor_distance(&"player.grapple.maximum_distance", Vector3.ZERO, 35.0),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	var conflict := motor.resolve_and_commit()
+	assert_false(conflict.success)
+	assert_eq(
+		conflict.rejection_reason,
+		PlayerMotorCommitResult.RejectionReason.EXCLUSIVE_POLICY_CONFLICT
+	)
+	assert_push_error("player.motor.exclusive_policy_conflict")
+	assert_eq(conflict.commit_count, 0)
+
+
 func test_missing_policy_and_non_monotonic_frames_fail_closed() -> void:
 	var fixture := _new_fixture()
 	var motor: PlayerMotor = fixture[1]
@@ -500,6 +595,74 @@ func test_diagnostic_snapshot_is_opt_in_and_copies_bounded_facts() -> void:
 	var copied_phases := snapshot.phase_intermediates
 	copied_phases.clear()
 	assert_eq(snapshot.phase_intermediates.size(), MotorPhase.PHASE_COUNT)
+
+
+## Story 1.7 review patch (finding 1): within-phase precedence must be fixed by
+## KIND, never by source-id sort order. `_compare_submissions` sorts by
+## `source_id|occurrence_id`, so `player.grapple.maximum_distance` sorts BEFORE
+## `player.wall_run.constraint` - the boundary used to resolve first and the
+## wall projection could then rewrite the horizontal velocity and reintroduce
+## outward radial speed past `max_grapple_length_m` (AC 5). The boundary must be
+## the final word on outward radial speed in `CONSTRAINTS_AND_REDIRECTIONS`.
+func test_maximum_anchor_distance_out_ranks_wall_run_constraints() -> void:
+	var first := _resolve_wall_plus_boundary(true)
+	var second := _resolve_wall_plus_boundary(false)
+	assert_almost_eq(first.z, ALLOWED_OUTWARD_SPEED_MPS, 0.001)
+	assert_almost_eq(second.z, ALLOWED_OUTWARD_SPEED_MPS, 0.001)
+	assert_almost_eq(first.x, second.x, 0.001)
+	assert_almost_eq(first.z, second.z, 0.001)
+
+
+## Same scenario with the two constraints submitted in the given order. Both
+## orders must clip to the identical outward radial speed, which is only true
+## when the boundary resolves last by kind.
+func _resolve_wall_plus_boundary(submit_wall_first: bool) -> Vector3:
+	var fixture := _new_fixture()
+	var body: CharacterBody3D = fixture[0]
+	var motor: PlayerMotor = fixture[1]
+	body.global_position = ANCHOR_TEST_POSITION
+	body.velocity = Vector3(30.0, 0.0, 30.0)
+	assert_eq(motor.begin_motion_frame(71, 1.0 / 60.0), PlayerMotor.FrameStatus.SUCCESS)
+	_submit_passthrough(motor, &"player.locomotion.wall_run")
+
+	# Without a wall projection this velocity is clipped to ALLOWED_OUTWARD_SPEED_MPS.
+	# A wall projection along (1,0,1)/sqrt2 would instead leave the resolved
+	# velocity at (18,0,18) - outward 18 m/s, well past the boundary.
+	var wall_direction := Vector3(1.0, 0.0, 1.0).normalized()
+	var wall_normal := Vector3(1.0, 0.0, -1.0).normalized()
+	var boundary_status := motor.submit_maximum_anchor_distance(
+		&"player.grapple.maximum_distance",
+		ANCHOR,
+		35.0
+	)
+	var wall_status := motor.submit_wall_run_constraint(
+		&"player.wall_run.constraint",
+		wall_normal,
+		wall_direction
+	)
+	if submit_wall_first:
+		assert_eq(wall_status, PlayerMotor.SubmissionStatus.SUCCESS)
+		assert_eq(boundary_status, PlayerMotor.SubmissionStatus.SUCCESS)
+	else:
+		assert_eq(boundary_status, PlayerMotor.SubmissionStatus.SUCCESS)
+		assert_eq(wall_status, PlayerMotor.SubmissionStatus.SUCCESS)
+
+	var result := motor.resolve_and_commit()
+	assert_true(result.success)
+	assert_eq(result.commit_count, 1)
+	# The boundary is the final word: the outward radial component is clipped to
+	# exactly what one step may travel to the boundary, regardless of the wall.
+	assert_lte(
+		result.submitted_velocity.z,
+		ALLOWED_OUTWARD_SPEED_MPS + 0.001,
+		"the boundary must not be undone by a later redirect (AC 5)"
+	)
+	return result.submitted_velocity
+
+
+const ANCHOR := Vector3.ZERO
+const ANCHOR_TEST_POSITION := Vector3(0.0, 0.0, 34.9)
+const ALLOWED_OUTWARD_SPEED_MPS := (35.0 - 34.9) * 60.0
 
 
 func _submit_passthrough(motor: PlayerMotor, locomotion_id: StringName) -> void:

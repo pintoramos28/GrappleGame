@@ -139,6 +139,11 @@ var applied_caps: Array[StringName]:
 	get:
 		return _applied_caps.duplicate()
 
+## Copy-on-read maximum-anchor-distance resolution facts (Story 1.7 Task 5).
+var anchor_constraint_records: Array[Dictionary]:
+	get:
+		return _duplicate_dictionaries(_anchor_constraint_records)
+
 var rejected_contribution_overflow_count: int:
 	get:
 		return _rejected_contribution_overflow_count
@@ -146,6 +151,14 @@ var rejected_contribution_overflow_count: int:
 var rejected_contributions_truncated: bool:
 	get:
 		return _rejected_contributions_truncated
+
+var anchor_constraint_record_overflow_count: int:
+	get:
+		return _anchor_constraint_record_overflow_count
+
+var anchor_constraint_records_truncated: bool:
+	get:
+		return _anchor_constraint_records_truncated
 
 var _physics_step: int
 var _physics_delta_seconds: float
@@ -168,6 +181,9 @@ var _accepted_sources_by_phase: Array = []
 var _rejected_contributions: Array[Dictionary] = []
 var _applied_constraints: Array[StringName] = []
 var _applied_caps: Array[StringName] = []
+var _anchor_constraint_records: Array[Dictionary] = []
+var _anchor_constraint_record_overflow_count := 0
+var _anchor_constraint_records_truncated := false
 var _rejected_contribution_overflow_count := 0
 var _rejected_contributions_truncated := false
 
@@ -195,7 +211,10 @@ func _init(
 	resolved_constraints: Array[StringName] = [],
 	resolved_caps: Array[StringName] = [],
 	rejected_overflow_count: int = 0,
-	rejected_facts_were_truncated: bool = false
+	rejected_facts_were_truncated: bool = false,
+	resolved_anchor_constraint_records: Array[Dictionary] = [],
+	anchor_overflow_count: int = 0,
+	anchor_facts_were_truncated: bool = false
 ) -> void:
 	_physics_step = step
 	_physics_delta_seconds = delta_seconds
@@ -218,6 +237,9 @@ func _init(
 	_rejected_contributions = _duplicate_dictionaries(resolved_rejected_contributions)
 	_applied_constraints = resolved_constraints.duplicate()
 	_applied_caps = resolved_caps.duplicate()
+	_anchor_constraint_records = _duplicate_dictionaries(resolved_anchor_constraint_records)
+	_anchor_constraint_record_overflow_count = anchor_overflow_count
+	_anchor_constraint_records_truncated = anchor_facts_were_truncated
 	_rejected_contribution_overflow_count = rejected_overflow_count
 	_rejected_contributions_truncated = rejected_facts_were_truncated
 

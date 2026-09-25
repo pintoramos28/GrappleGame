@@ -1,4 +1,4 @@
-class_name PlayerMotor
+﻿class_name PlayerMotor
 extends Node
 
 
@@ -44,6 +44,11 @@ enum SubmissionStatus {
 	UNSUPPORTED_CAP_SCOPE,
 	INVALID_WALL_CONSTRAINT,
 	OVERFLOW,
+	## No attachment is active to submit for. Unlike `NO_ACTIVE_FRAME` (which
+	## means the motion frame is not open) this is reported with an open frame.
+	## Appended rather than grouped beside `NO_ACTIVE_FRAME` so the ordinals of
+	## every pre-existing status stay unchanged (Task 4.5).
+	NO_ACTIVE_ATTACHMENT,
 }
 
 enum BaselineStatus {
@@ -59,7 +64,15 @@ const MAX_REPORTED_COLLISIONS := 8
 const MAX_SCANNED_COLLISIONS := 32
 const MAX_ACCEPTED_SUBMISSIONS := 16
 const MAX_REJECTED_CONTRIBUTIONS := 16
+const MAX_ANCHOR_CONSTRAINT_RECORDS := 4
 const MAX_STABLE_ID_LENGTH := 96
+## Documented positional tolerance for the maximum-anchor-distance boundary
+## (Story 1.7 Task 4.3 / AC 6). The boundary is prevented in velocity space only
+## - the motor never writes position for it and never adds a movement commit -
+## so the post-commit distance may exceed `maximum_distance_m` only by collision
+## resolution drift, bounded by this tolerance. It is a tolerance, never a range.
+const ANCHOR_DISTANCE_POSITIONAL_TOLERANCE_M := 0.05
+const MIN_ANCHOR_DISTANCE_M := 0.000001
 const CAP_SCOPE_TOTAL_SPEED: StringName = PlayerMotorSubmission.CAP_SCOPE_TOTAL_SPEED
 
 signal diagnostic_recorded(event: DiagnosticEvent)
@@ -105,6 +118,9 @@ var _accepted_sources_by_phase: Array = []
 var _rejected_contributions: Array[Dictionary] = []
 var _applied_constraints: Array[StringName] = []
 var _applied_caps: Array[StringName] = []
+var _anchor_constraint_records: Array[Dictionary] = []
+var _anchor_constraint_record_overflow_count := 0
+var _anchor_constraint_records_truncated := false
 var _rejected_contribution_overflow_count := 0
 var _rejected_contributions_truncated := false
 var _has_next_frame_velocity_baseline := false
@@ -433,6 +449,31 @@ func submit_total_speed_cap(
 	)
 
 
+## Typed maximum-anchor-distance constraint (Story 1.7 Task 4.1). The motor
+## resolves it in `CONSTRAINTS_AND_REDIRECTIONS` as a relative-motion boundary
+## measured from the body origin to `anchor_position`: outward-radial-only
+## clipping of the player's motion relative to the anchor motion, plus the
+## anchor's separating carry bounded by `carry_tolerance_mps` (Story 1.8 Task
+## 4.1).
+func submit_maximum_anchor_distance(
+	source_id: StringName,
+	anchor_position: Vector3,
+	maximum_distance_m: float,
+	anchor_velocity: Vector3 = Vector3.ZERO,
+	carry_tolerance_mps: float = 0.0
+) -> SubmissionStatus:
+	return _submit_submission(
+		PlayerMotorSubmission.maximum_anchor_distance(
+			_active_step,
+			source_id,
+			anchor_position,
+			maximum_distance_m,
+			anchor_velocity,
+			carry_tolerance_mps
+		)
+	)
+
+
 func _submit_submission(submission: PlayerMotorSubmission) -> SubmissionStatus:
 	if not _initialized:
 		return _reject_submission(
@@ -557,6 +598,16 @@ func _submit_submission(submission: PlayerMotorSubmission) -> SubmissionStatus:
 			submission.source_id,
 			submission
 		)
+	if submission.kind == PlayerMotorSubmission.Kind.MAXIMUM_ANCHOR_DISTANCE:
+		if submission.maximum_distance_m <= 0.0:
+			return _reject_submission(
+				SubmissionStatus.INVALID_REQUEST,
+				PlayerMotorCommitResult.RejectionReason.INVALID_REQUEST,
+				&"player.motor.invalid_maximum_distance",
+				_active_step,
+				submission.source_id,
+				submission
+			)
 	if not submission.is_finite_payload():
 		return _reject_submission(
 			SubmissionStatus.NON_FINITE_VALUE,
@@ -766,26 +817,47 @@ func resolve_and_commit() -> PlayerMotorCommitResult:
 					applied_sources.append(hold_submissions[0].source_id)
 				else:
 					for submission in phase_submissions:
-						if submission.kind != PlayerMotorSubmission.Kind.WALL_RUN_CONSTRAINT:
+						# Kind precedence below is explicit and fixed: the
+						# maximum-anchor-distance boundary is skipped here and
+						# resolved in the second pass after every redirecting
+						# constraint. Never let source-id sort order decide.
+						if submission.kind == PlayerMotorSubmission.Kind.MAXIMUM_ANCHOR_DISTANCE:
 							continue
-						var wall_direction := Vector3(
-							submission.wall_direction.x,
-							0.0,
-							submission.wall_direction.z
-						).normalized()
-						var horizontal_velocity := Vector3(
-							working_velocity.x,
-							0.0,
-							working_velocity.z
+						if submission.kind == PlayerMotorSubmission.Kind.WALL_RUN_CONSTRAINT:
+							var wall_direction := Vector3(
+								submission.wall_direction.x,
+								0.0,
+								submission.wall_direction.z
+							).normalized()
+							var horizontal_velocity := Vector3(
+								working_velocity.x,
+								0.0,
+								working_velocity.z
+							)
+							var wall_relative_speed := horizontal_velocity.dot(wall_direction)
+							var redirected_horizontal := wall_direction * wall_relative_speed
+							working_velocity.x = redirected_horizontal.x
+							working_velocity.z = redirected_horizontal.z
+							var wall_normal := submission.wall_normal.normalized()
+							var outward_speed := working_velocity.dot(wall_normal)
+							if outward_speed > 0.0:
+								working_velocity -= wall_normal * outward_speed
+							_applied_constraints.append(submission.source_id)
+							applied_sources.append(submission.source_id)
+					# The maximum-anchor-distance boundary resolves AFTER every
+					# redirecting constraint in this phase, so it is always the
+					# final word on outward radial speed: no wall projection or
+					# later redirect can reintroduce motion past the boundary
+					# (AC 5). Order is by kind, never by source-id sort order.
+					for submission in phase_submissions:
+						if submission.kind != PlayerMotorSubmission.Kind.MAXIMUM_ANCHOR_DISTANCE:
+							continue
+						var boundary_record := _resolve_maximum_anchor_distance(
+							working_velocity,
+							submission
 						)
-						var wall_relative_speed := horizontal_velocity.dot(wall_direction)
-						var redirected_horizontal := wall_direction * wall_relative_speed
-						working_velocity.x = redirected_horizontal.x
-						working_velocity.z = redirected_horizontal.z
-						var wall_normal := submission.wall_normal.normalized()
-						var outward_speed := working_velocity.dot(wall_normal)
-						if outward_speed > 0.0:
-							working_velocity -= wall_normal * outward_speed
+						working_velocity = boundary_record["velocity"]
+						_append_anchor_constraint_record(boundary_record)
 						_applied_constraints.append(submission.source_id)
 						applied_sources.append(submission.source_id)
 
@@ -997,7 +1069,10 @@ func get_diagnostic_snapshot() -> PlayerMotorDiagnosticSnapshot:
 		_rejected_contribution_overflow_count,
 		_rejected_contributions_truncated,
 		_last_contact_frame,
-		_contact_provider.get_diagnostic_snapshot() if _contact_provider != null else null
+		_contact_provider.get_diagnostic_snapshot() if _contact_provider != null else null,
+		_anchor_constraint_records,
+		_anchor_constraint_record_overflow_count,
+		_anchor_constraint_records_truncated
 	)
 
 
@@ -1051,6 +1126,116 @@ func _apply_base_submission(
 	if submission.zero_vertical:
 		resolved.y = 0.0
 	return resolved
+
+
+## Relative-motion maximum-anchor-distance resolution (Story 1.7 Task 4.2
+## static semantics; Story 1.8 Tasks 4.1/4.2 add anchor-relative motion). One
+## documented player reference point - the body origin, i.e. the motor's own
+## commit transform (Task 4.4) - drives the distance measurement and the radial
+## decomposition.
+##
+## Rules (locked semantics):
+## - the constraint evaluates the player's motion RELATIVE to the anchor
+##   motion; only the outward radial component of relative velocity that would
+##   cross the boundary is clipped or redirected (AC 4);
+## - at or beyond the boundary the player's resolved outward radial speed is
+##   `min(player_outward, anchor_radial_speed)`: a separating anchor carries the
+##   player with exactly its separating radial motion (no more, no extra pull,
+##   no yank), inward and tangential motion stay free, and an approaching
+##   anchor transfers no motion (never pushes);
+## - before the boundary nothing is dragged, except that one step may not carry
+##   the pair past the maximum: the player receives only the anchor's separating
+##   radial motion required to stay within it (AC 4 first Given);
+## - the anchor-separating carry is bounded by the configured discontinuity
+##   tolerance: a required carry above it is refused and reported
+##   (`carry_refused_mps`) instead of snapping the player (AC 4) - the grapple
+##   side then terminates with `ANCHOR_DISCONTINUITY`;
+## - the correction is velocity space only: no position write, no second
+##   `move_and_slide()`, no snap to the anchor, no momentum zeroing;
+## - zero anchor velocity reduces this math byte-for-byte to Story 1.7.
+func _resolve_maximum_anchor_distance(
+	current_velocity: Vector3,
+	submission: PlayerMotorSubmission
+) -> Dictionary:
+	var anchor_offset := _body.global_position - submission.anchor_position
+	var distance_m := anchor_offset.length()
+	var outward_unit := (
+		anchor_offset / distance_m
+		if distance_m > MIN_ANCHOR_DISTANCE_M
+		else Vector3.ZERO
+	)
+	var outward_speed := current_velocity.dot(outward_unit)
+	var anchor_radial_speed := submission.anchor_velocity.dot(outward_unit)
+	var player_only_bound := 0.0
+	var relative_bound := 0.0
+	if outward_unit != Vector3.ZERO:
+		if distance_m >= submission.maximum_distance_m:
+			# At/over the boundary never force the player inward (no snap):
+			# the anchor's radial speed is the maximum the player may keep.
+			player_only_bound = 0.0
+			relative_bound = anchor_radial_speed
+		else:
+			# Slack: the pair may not cross the maximum within this step
+			# (`(L - r) / delta` is the 1.7 overshoot prevention) and the
+			# anchor's radial motion is evaluated as relative motion.
+			player_only_bound = (
+				(submission.maximum_distance_m - distance_m) / _delta_seconds
+			)
+			relative_bound = player_only_bound + anchor_radial_speed
+	var resolved_outward_speed := (
+		minf(outward_speed, relative_bound)
+		if outward_unit != Vector3.ZERO
+		else outward_speed
+	)
+	# The applied adjustment decomposes into the player's own outward clipping
+	# (unchanged Story 1.7 behavior, never a snap) and the anchor-separating
+	# carry (the only part that moves the player with the anchor), which is
+	# bounded by the configured discontinuity tolerance.
+	var carry_applied_mps := maxf(0.0, minf(outward_speed, 0.0) - resolved_outward_speed)
+	var carry_refused_mps := 0.0
+	if carry_applied_mps > submission.carry_tolerance_mps:
+		carry_refused_mps = carry_applied_mps
+		carry_applied_mps = 0.0
+		resolved_outward_speed = (
+			minf(outward_speed, player_only_bound)
+			if outward_unit != Vector3.ZERO
+			else outward_speed
+		)
+	var correction_mps := outward_speed - resolved_outward_speed
+	var resolved_velocity := current_velocity - outward_unit * correction_mps
+	var resolved_radial_speed := resolved_velocity.dot(outward_unit)
+	var tangential_velocity := resolved_velocity - outward_unit * resolved_radial_speed
+	return {
+		"velocity": resolved_velocity,
+		"physics_step": _active_step,
+		"source_id": submission.source_id,
+		"anchor_position": submission.anchor_position,
+		"anchor_velocity": submission.anchor_velocity,
+		"anchor_radial_velocity_mps": anchor_radial_speed,
+		"maximum_distance_m": submission.maximum_distance_m,
+		"distance_m": distance_m,
+		"range_fraction": (
+			distance_m / submission.maximum_distance_m
+			if submission.maximum_distance_m > 0.0
+			else 0.0
+		),
+		"radial_velocity_mps": resolved_radial_speed,
+		"tangential_velocity_mps": tangential_velocity.length(),
+		"correction_applied": correction_mps > 0.0,
+		"correction_mps": correction_mps,
+		"carry_applied_mps": carry_applied_mps,
+		"carry_refused_mps": carry_refused_mps,
+		"carry_refused": carry_refused_mps > 0.0,
+		"positional_tolerance_m": ANCHOR_DISTANCE_POSITIONAL_TOLERANCE_M,
+	}
+
+
+func _append_anchor_constraint_record(record: Dictionary) -> void:
+	if _anchor_constraint_records.size() >= MAX_ANCHOR_CONSTRAINT_RECORDS:
+		_anchor_constraint_record_overflow_count += 1
+		_anchor_constraint_records_truncated = true
+		return
+	_anchor_constraint_records.append(record.duplicate(true))
 
 
 func _sorted_submissions_for_phase(phase: int) -> Array[PlayerMotorSubmission]:
@@ -1149,7 +1334,10 @@ func _make_result(
 		_applied_constraints,
 		_applied_caps,
 		_rejected_contribution_overflow_count,
-		_rejected_contributions_truncated
+		_rejected_contributions_truncated,
+		_anchor_constraint_records,
+		_anchor_constraint_record_overflow_count,
+		_anchor_constraint_records_truncated
 	)
 
 
@@ -1225,6 +1413,9 @@ func _clear_frame_facts() -> void:
 	_rejected_contributions.clear()
 	_applied_constraints.clear()
 	_applied_caps.clear()
+	_anchor_constraint_records.clear()
+	_anchor_constraint_record_overflow_count = 0
+	_anchor_constraint_records_truncated = false
 	_rejected_contribution_overflow_count = 0
 	_rejected_contributions_truncated = false
 
@@ -1284,7 +1475,7 @@ func _reason_to_code(reason: PlayerMotorCommitResult.RejectionReason) -> StringN
 
 static func is_isolated_submission_status(status: SubmissionStatus) -> bool:
 	match status:
-		SubmissionStatus.SUCCESS, SubmissionStatus.NOT_INITIALIZED, SubmissionStatus.INVALID_BODY, SubmissionStatus.NO_ACTIVE_FRAME, SubmissionStatus.STALE_STEP, SubmissionStatus.WRONG_STEP, SubmissionStatus.ALREADY_RESOLVED:
+		SubmissionStatus.SUCCESS, SubmissionStatus.NOT_INITIALIZED, SubmissionStatus.INVALID_BODY, SubmissionStatus.NO_ACTIVE_FRAME, SubmissionStatus.NO_ACTIVE_ATTACHMENT, SubmissionStatus.STALE_STEP, SubmissionStatus.WRONG_STEP, SubmissionStatus.ALREADY_RESOLVED:
 			return false
 		_:
 			return true

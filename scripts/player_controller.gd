@@ -55,15 +55,8 @@ extends CharacterBody3D
 @export var invert_mouse_y := false
 
 @export_group("Grapple")
-## Initial pull acceleration applied when a grapple starts, in meters per second squared.
-@export var grapple_initial_acceleration := 48.0
-## Lowest pull acceleration maintained while the grapple remains active, in meters per second squared.
-@export var grapple_min_acceleration := 8.0
-## Rate at which pull acceleration decreases, in meters per second cubed.
-@export var grapple_acceleration_jerk := 53.333333
-## Maximum total velocity allowed while grapple acceleration is applied.
-@export var grapple_max_velocity := 22.0
-## Gravity multiplier applied while grappling.
+## Gravity multiplier applied while grappling (context tuning, not definition
+## tuning: `main.tscn` overrides it to 0.0 and the tutorial to 0.65).
 @export var grapple_gravity_scale := 1.0
 
 @export_group("Grapple Visuals")
@@ -73,7 +66,8 @@ extends CharacterBody3D
 @export var grapple_visual_color := Color(0.1, 0.85, 1.0)
 
 @export_group("Grapple Targeting")
-## Immutable authored grapple definition - the single authoritative acquisition range source.
+## Immutable authored grapple definition - the single authoritative pull, speed
+## cap, and acquisition/active-range source.
 @export var grapple_definition: GrappleDefinition
 ## Immutable occlusion profile marking blocking-but-unacquirable surfaces.
 @export var grapple_occlusion_profile: PhysicsQueryProfile
@@ -138,27 +132,56 @@ const SOURCE_BASE_DEAD := &"player.locomotion.dead.base"
 const SOURCE_GRAVITY_DEFAULT := &"player.gravity.default"
 const SOURCE_GRAVITY_GRAPPLE := &"player.gravity.grapple"
 const SOURCE_GRAVITY_WALL_RUN := &"player.gravity.wall_run"
-const SOURCE_GRAPPLE_PULL := &"player.grapple.pull"
-const SOURCE_GRAPPLE_SPEED_CAP := &"player.grapple.speed_cap"
 const SOURCE_JUMP_GROUND := &"player.jump.ground"
 const SOURCE_JUMP_WALL := &"player.jump.wall"
 const SOURCE_WALL_RUN_CONSTRAINT := &"player.wall_run.constraint"
 const SOURCE_WALL_STICK_HOLD := &"player.wall_stick.hold"
-## Unitless parity epsilon for the duplicated pull tuning (controller exports
-## versus the authored `GrappleDefinition` fields).
-const PULL_TUNING_PARITY_TOLERANCE := 0.000001
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var camera_pitch := 0.0
-var is_grappling := false
-var grapple_elapsed := 0.0
-var grapple_applied_acceleration := 0.0
-var grapple_point := Vector3.ZERO
-var grapple_target: Node3D
 var grapple_visual: MeshInstance3D
 var grapple_visual_mesh: CylinderMesh
 ## Hidden->visible rope resets, counted where `reset_physics_interpolation()` runs.
 var grapple_visual_reset_count: int = 0
+
+## Read-through views of the player-owned `GrappleAttachment` (Story 1.7 Task
+## 2.2): the attachment is the single grapple runtime authority and these are
+## never an independent state copy. Every view is gated on a LIVE attachment -
+## a committed terminal zeroes it, matching the pre-Story-1.7 contract that the
+## cleared grapple reads back as absent rather than as its last occurrence.
+var is_grappling: bool:
+	get:
+		return _grapple_controller != null and _grapple_controller.has_active_attachment()
+
+var grapple_elapsed: float:
+	get:
+		var attachment := get_grapple_attachment()
+		return attachment.elapsed_seconds if _is_live_attachment(attachment) else 0.0
+
+var grapple_applied_acceleration: float:
+	get:
+		var attachment := get_grapple_attachment()
+		return (
+			attachment.applied_acceleration_mps2
+			if _is_live_attachment(attachment)
+			else 0.0
+		)
+
+var grapple_point: Vector3:
+	get:
+		var attachment := get_grapple_attachment()
+		return (
+			attachment.anchor_world_position
+			if _is_live_attachment(attachment)
+			else Vector3.ZERO
+		)
+
+var grapple_target: Node3D:
+	get:
+		var attachment := get_grapple_attachment()
+		if not _is_live_attachment(attachment):
+			return null
+		return attachment.get_target() as Node3D
 var is_wall_running := false
 var wall_normal := Vector3.ZERO
 var wall_run_direction := Vector3.ZERO
@@ -177,15 +200,23 @@ var _motion_submission_failure_status := PlayerMotor.SubmissionStatus.SUCCESS
 var _player_initialized := false
 var _player_log: GameLog = GameLog.new()
 var _grapple_target_resolver: GrappleTargetResolver
+var _grapple_controller: GrappleController
 var _grapple_targeting_available := false
 var _current_targeting_result: GrappleTargetingResult
 var _last_activation_rejection: GrappleRejection.Reason = GrappleRejection.Reason.NONE
+## Injectable encounter-scope identity source (Story 1.8 Tasks 1.2/5, AC 1/6/10).
+## Encounter systems (or tests) provide a `Callable` returning the current
+## stable scope identity (lowercase dotted `StringName`). Empty means the
+## attachment is unscoped and never scope-checks. Only this identity contract
+## exists here - no encounter lifecycle, registry, or reset machinery.
+var grapple_encounter_scope_provider: Callable
 
 
 func _ready() -> void:
 	add_to_group("player")
 	_setup_grapple_visual()
 	_compose_grapple_targeting()
+	_compose_grapple_controller()
 
 	if health:
 		health.damaged.connect(_on_health_damaged)
@@ -331,6 +362,8 @@ func _physics_process(delta: float) -> void:
 		_deactivate_player()
 		return
 	_current_motor_result = motor_result
+	if _grapple_controller != null:
+		_grapple_controller.record_committed_facts(motor_result)
 	_coordinate_post_commit(motor_result)
 	if not _player_initialized:
 		return
@@ -387,7 +420,7 @@ func _coordinate_post_commit(result: PlayerMotorCommitResult) -> void:
 
 	if _submitted_locomotion_state_id == LOCOMOTION_GRAPPLING and contact_frame.is_grounded:
 		if is_grappling:
-			_clear_grapple()
+			terminate_grapple(GrappleEndReason.Reason.GROUND_CONTACT)
 		if _pending_locomotion_event != &"":
 			return
 		dispatch_locomotion_event(EVENT_LANDED)
@@ -443,11 +476,6 @@ func _setup_grapple_visual() -> void:
 
 
 func _compose_grapple_targeting() -> void:
-	if grapple_definition != null and not _pull_tuning_matches_definition():
-		_player_log.record_invariant(
-			&"player.grapple.pull_tuning_mismatch",
-			DiagnosticContext.new(-1, &"", &"pull_tuning_mismatch")
-		)
 	var resolver := GrappleTargetResolver.new()
 	var initialization := resolver.initialize(self, grapple_definition, grapple_occlusion_profile)
 	if initialization != GrappleTargetResolver.InitializationStatus.SUCCESS:
@@ -466,25 +494,57 @@ func _compose_grapple_targeting() -> void:
 	_grapple_targeting_available = true
 
 
-## Composition-time parity check (Story 1.6 review fixes): the duplicated pull
-## tuning must agree between the controller exports and the authored
-## `GrappleDefinition` until Story 1.7 unifies the source.
-func _pull_tuning_matches_definition() -> bool:
-	return (
-		absf(grapple_definition.pull_initial_acceleration_mps2 - grapple_initial_acceleration)
-		<= PULL_TUNING_PARITY_TOLERANCE
-		and absf(grapple_definition.pull_min_acceleration_mps2 - grapple_min_acceleration)
-		<= PULL_TUNING_PARITY_TOLERANCE
-		and absf(grapple_definition.pull_acceleration_jerk_mps3 - grapple_acceleration_jerk)
-		<= PULL_TUNING_PARITY_TOLERANCE
-		and absf(grapple_definition.maximum_speed_mps - grapple_max_velocity)
-		<= PULL_TUNING_PARITY_TOLERANCE
+## Compose the player-owned grapple controller (Story 1.7 Task 2.2). The
+## `GrappleDefinition` is the sole pull/cap/range source (Task 1); the Story 1.6
+## composition-time parity machinery is retired with the duplication it guarded.
+func _compose_grapple_controller() -> void:
+	var controller := GrappleController.new()
+	var initialization := controller.initialize(self, grapple_definition)
+	if initialization != GrappleController.InitializationStatus.SUCCESS:
+		_player_log.record_invariant(
+			&"player.grapple.controller_initialization_failed",
+			DiagnosticContext.new(
+				-1,
+				&"",
+				StringName(
+					GrappleController.InitializationStatus.keys()[int(initialization)].to_lower()
+				)
+			)
+		)
+		return
+	_grapple_controller = controller
+	# The optional originating encounter-scope identity is resolved from the
+	# injectable provider at commit time (Story 1.8 Task 1.2).
+	controller.set_scope_identity_provider(
+		Callable(self, "get_grapple_encounter_scope_identity")
 	)
+	# Exactly-once cleanup is enforced at the emitter (NFR15): every terminal
+	# path - not only `terminate_grapple()` - drops the rope and the wall-stick
+	# coupling through this one connection, and `attachment_ended` fires only on
+	# the first committed terminal.
+	controller.attachment_ended.connect(_on_grapple_attachment_ended)
+
+
+## Resolved at commit time through the injectable provider (Story 1.8 Task 1.2).
+func get_grapple_encounter_scope_identity() -> StringName:
+	if not grapple_encounter_scope_provider.is_valid():
+		return &""
+	var supplied: Variant = grapple_encounter_scope_provider.call()
+	if supplied == null:
+		return &""
+	return StringName(supplied)
 
 
 func _evaluate_grapple_targeting(frame: PlayerCommandFrame) -> void:
 	if not _grapple_targeting_available or _grapple_target_resolver == null:
 		_current_targeting_result = null
+		return
+	if is_grappling:
+		# Story 1.8 Task 3.3 (AC 3): while attached, the anchor follows the
+		# stored target-local hit point through transform math only - the
+		# target-selection raycast is NOT repeated for the attachment. The 1.6
+		# discipline stands: every EVALUATED step still performs exactly one
+		# authoritative query, and an attached step is not an evaluated step.
 		return
 	_current_targeting_result = _grapple_target_resolver.evaluate(
 		_player_physics_step,
@@ -566,32 +626,44 @@ func submit_ground_jump(reference_velocity: Vector3) -> bool:
 	)
 
 
-func submit_grapple_pull(delta: float) -> bool:
-	if not is_instance_valid(grapple_target):
-		_clear_grapple()
+## Grapple-sampling phase (Story 1.8 Task 3.1): sample exactly one
+## `GrappleAnchorState` for this physics step before any grapple submission.
+## Returns false when the sample was invalid and the attachment terminated with
+## its typed reason - the caller then submits nothing grapple-related for the
+## step (AC 6).
+func sample_grapple_anchor(delta: float) -> bool:
+	if _grapple_controller == null:
 		return false
-	var current_acceleration := _get_grapple_acceleration()
-	grapple_applied_acceleration = current_acceleration
-	grapple_elapsed += delta
-	var pull_direction := _get_player_mesh_center().direction_to(grapple_point)
-	if pull_direction == Vector3.ZERO:
-		return true
+	return _grapple_controller.sample_anchor_state(_player_physics_step, delta)
+
+
+## Per-step grapple motor influences (Story 1.7 Task 4.6), delegated to the
+## player-owned `GrappleController`: the sustained zip-pull toward the sampled
+## anchor plus the maximum-anchor-distance boundary constraint. Both consume
+## this step's stored `GrappleAnchorState` (Story 1.8 Task 3.2). The pull
+## direction, distance measurement, and constraint resolution all use the
+## controller's one documented reference point (body origin, Task 4.4). A dead
+## anchor terminates the attachment with a typed reason and submits nothing for
+## this step.
+func submit_grapple_pull(delta: float) -> bool:
+	if not has_valid_grapple():
+		terminate_grapple(GrappleEndReason.Reason.TARGET_INVALIDATED)
+		return false
+	if _grapple_controller == null:
+		return false
 	return _submit_motor_status(
-		player_motor.submit_sustained_acceleration(
-			SOURCE_GRAPPLE_PULL,
-			pull_direction * current_acceleration
-		),
-		SOURCE_GRAPPLE_PULL
+		_grapple_controller.submit_motor_influences(player_motor, delta),
+		GrappleController.SOURCE_PULL
 	)
 
 
+## Per-step total-speed cap from the occurrence-local resolved value (Task 4.6).
 func submit_grapple_speed_cap() -> bool:
+	if not has_valid_grapple() or _grapple_controller == null:
+		return false
 	return _submit_motor_status(
-		player_motor.submit_total_speed_cap(
-			SOURCE_GRAPPLE_SPEED_CAP,
-			grapple_max_velocity
-		),
-		SOURCE_GRAPPLE_SPEED_CAP
+		_grapple_controller.submit_speed_cap(player_motor),
+		GrappleController.SOURCE_SPEED_CAP
 	)
 
 
@@ -664,7 +736,7 @@ func submit_wall_stick_jump(reference_velocity: Vector3) -> bool:
 	var desired_velocity := wall_stick_normal * wall_jump_away_velocity + along_wall_velocity
 	desired_velocity.y = wall_jump_up_velocity
 	_clear_wall_stick()
-	_clear_grapple()
+	terminate_grapple(GrappleEndReason.Reason.STATE_CANCELLATION)
 	return _submit_motor_status(
 		player_motor.submit_one_shot_impulse(
 			SOURCE_JUMP_WALL,
@@ -955,25 +1027,49 @@ func try_start_grapple() -> bool:
 	var target := seed.get_target()
 	if not is_instance_valid(target) or not target is Node3D:
 		return _reject_grapple_activation(GrappleRejection.Reason.TARGET_INVALID, true)
+	if _grapple_controller == null:
+		return _reject_grapple_activation(GrappleRejection.Reason.TARGET_INVALID, true)
 
-	is_grappling = true
-	grapple_elapsed = 0.0
-	grapple_applied_acceleration = grapple_initial_acceleration
-	grapple_point = seed.hit_position
-	grapple_target = target as Node3D
+	# Commit exactly one occurrence-local attachment from the accepted same-step
+	# seed (Story 1.7 Task 2.3). The authoritative anchor is `seed.hit_position`;
+	# no rope length is stored and the maximum length never derives from the
+	# attachment distance (AC 4).
+	var commit_status := _grapple_controller.commit_attachment(seed, _player_physics_step)
+	if commit_status != GrappleController.CommitStatus.SUCCESS:
+		# The closed `GrappleRejection` set (Story 1.6, locked schema) has no
+		# "already attached" value; an unusable activation target - including an
+		# attachment that is somehow still active - reports as TARGET_INVALID and
+		# stays developer-visible through the same invariant. The true commit
+		# status is recorded alongside it as a stable dotted id, so a
+		# controller/state fault is never mistaken for a targeting fault without
+		# widening the locked `GrappleRejection` schema.
+		return _reject_grapple_activation(
+			GrappleRejection.Reason.TARGET_INVALID,
+			true,
+			StringName(
+				"player.grapple.commit_%s" % String(
+					GrappleController.CommitStatus.keys()[int(commit_status)].to_lower()
+				)
+			)
+		)
 	_last_activation_rejection = GrappleRejection.Reason.NONE
 	return true
 
 
 func _reject_grapple_activation(
 	reason: GrappleRejection.Reason,
-	log_contract_violation: bool
+	log_contract_violation: bool,
+	detail_id: StringName = &""
 ) -> bool:
 	_last_activation_rejection = reason
 	if log_contract_violation:
 		_player_log.record_invariant(
 			_activation_diagnostic_code(reason),
-			DiagnosticContext.new(_player_physics_step, &"", GrappleRejection.reason_id(reason))
+			DiagnosticContext.new(
+				_player_physics_step,
+				&"",
+				detail_id if detail_id != &"" else GrappleRejection.reason_id(reason)
+			)
 		)
 	return false
 
@@ -992,53 +1088,44 @@ func has_valid_grapple() -> bool:
 	return is_grappling and is_instance_valid(grapple_target)
 
 
-func get_grapple_telemetry() -> Dictionary:
-	var targeting := get_grapple_targeting_diagnostic_snapshot()
-	var committed_velocity := player_motor.get_committed_velocity() if player_motor else Vector3.ZERO
-	var target_distance := 0.0
-	var pull_direction := Vector3.ZERO
-	var pull_speed := 0.0
-	if is_grappling and is_instance_valid(player_mesh):
-		var player_center := _get_player_mesh_center()
-		target_distance = player_center.distance_to(grapple_point)
-		pull_direction = player_center.direction_to(grapple_point)
-		if pull_direction != Vector3.ZERO:
-			pull_speed = committed_velocity.dot(pull_direction)
+func get_grapple_attachment() -> GrappleAttachment:
+	if _grapple_controller == null:
+		return null
+	return _grapple_controller.get_attachment()
 
-	var speed_gate_passed := _can_start_wall_run(committed_velocity)
-	var speed_gate_reason := "pass"
+
+## True only while an attachment occurrence is still active. A committed
+## terminal leaves the occurrence record in place for diagnostics, but it is no
+## longer live state and must not be read back as current gameplay truth.
+func _is_live_attachment(attachment: GrappleAttachment) -> bool:
+	return attachment != null and attachment.is_active()
+
+
+## Typed read-only attachment diagnostics (Story 1.7 Task 5, AC 12). Built from
+## already-resolved facts only - no physics query, no constraint recomputation.
+func get_grapple_attachment_diagnostic_snapshot() -> GrappleAttachmentDiagnosticSnapshot:
+	if _grapple_controller == null:
+		return null
+	return _grapple_controller.get_diagnostic_snapshot()
+
+
+## Typed read-only wall-stick entry gate status (dev overlay consumption).
+func is_wall_stick_speed_gate_open() -> bool:
+	return _can_start_wall_run(get_committed_motion_velocity())
+
+
+func get_wall_stick_speed_gate_reason_id() -> StringName:
+	var committed_velocity := get_committed_motion_velocity()
 	if Vector3(committed_velocity.x, 0.0, committed_velocity.z).length() < wall_run_min_horizontal_speed:
-		speed_gate_reason = "horizontal speed below %.1f" % wall_run_min_horizontal_speed
-	elif committed_velocity.length() > wall_run_max_entry_speed:
-		speed_gate_reason = "total speed above %.1f" % wall_run_max_entry_speed
-
-	return {
-		"active": is_grappling,
-		"target_valid": is_instance_valid(grapple_target),
-		"elapsed": grapple_elapsed,
-		"acceleration": grapple_applied_acceleration if is_grappling else 0.0,
-		"initial_acceleration": grapple_initial_acceleration,
-		"min_acceleration": grapple_min_acceleration,
-		"jerk": grapple_acceleration_jerk,
-		"max_velocity": grapple_max_velocity,
-		"target_distance": target_distance,
-		"pull_speed": pull_speed,
-		"speed": committed_velocity.length(),
-		"velocity": committed_velocity,
-		"cap_reached": grapple_max_velocity > 0.0 and committed_velocity.length() >= grapple_max_velocity - 0.01,
-		"on_floor": has_ground_contact(),
-		"wall_running": is_wall_running,
-		"wall_sticking": is_wall_sticking,
-		"wall_stick_speed_gate": speed_gate_passed,
-		"wall_stick_speed_gate_reason": speed_gate_reason,
-		"targeting_valid": targeting != null and targeting.is_accepted,
-		"targeting_rejection_id": targeting.rejection_id if targeting != null else GrappleRejection.reason_id(GrappleRejection.Reason.MISSING_RESULT),
-		"target_identity": targeting.target_identity if targeting != null else &"",
-		"range_fraction": targeting.range_fraction if targeting != null else 0.0,
-		"max_grapple_length_m": targeting.max_grapple_length_m if targeting != null else 0.0,
-		"targeting_physics_step": targeting.source_physics_step if targeting != null else -1,
-		"targeting_query_count": targeting.query_count if targeting != null else 0,
-	}
+		return &"horizontal_speed_low"
+	if committed_velocity.length() > wall_run_max_entry_speed:
+		return &"total_speed_high"
+	# Derived from the same evaluation as `is_wall_stick_speed_gate_open()`, so
+	# the two queries can never disagree: a non-speed block (contact, alignment)
+	# reports `blocked`, never `pass`.
+	if not is_wall_stick_speed_gate_open():
+		return &"blocked"
+	return &"pass"
 
 
 func get_latest_grapple_targeting_result() -> GrappleTargetingResult:
@@ -1099,22 +1186,38 @@ func _get_player_mesh_center() -> Vector3:
 	return player_mesh.to_global(bounds.get_center())
 
 
-func _get_grapple_acceleration() -> float:
-	return max(
-		grapple_min_acceleration,
-		grapple_initial_acceleration - max(grapple_acceleration_jerk, 0.0) * grapple_elapsed
-	)
-
-
-func _clear_grapple() -> void:
-	is_grappling = false
-	grapple_elapsed = 0.0
-	grapple_applied_acceleration = 0.0
-	grapple_point = Vector3.ZERO
-	grapple_target = null
+## Idempotent, emitter-driven cleanup for a committed attachment terminal
+## (Story 1.7 Task 3.5 / NFR15): the wall-stick coupling and the rope hide run
+## at emission time, so a subscriber to `attachment_ended` never observes an
+## ended attachment with the rope still up or wall-stick still live.
+func _on_grapple_attachment_ended(
+	_attachment_id: StringName,
+	_reason: GrappleEndReason.Reason
+) -> void:
 	_clear_wall_stick()
 	if grapple_visual:
 		grapple_visual.visible = false
+
+
+## Request exactly one reason-coded attachment terminal (Story 1.7 Task 3.3).
+## The preserved `_clear_grapple()` side effects (wall-stick coupling, rope
+## hide) run from the controller's `attachment_ended` emission rather than
+## here, so they happen exactly once on every terminal path and cannot be
+## bypassed by calling `GrappleController.terminate()` directly. Repeated
+## requests commit nothing new and return false (NFR15).
+func terminate_grapple(reason: GrappleEndReason.Reason) -> bool:
+	if _grapple_controller == null:
+		return false
+	var attachment := _grapple_controller.get_attachment()
+	if attachment == null or not attachment.is_active():
+		return false
+	return _grapple_controller.terminate(reason, _player_physics_step) != null
+
+
+func get_committed_motion_velocity() -> Vector3:
+	if player_motor == null or not is_instance_valid(player_motor):
+		return Vector3.ZERO
+	return player_motor.get_committed_velocity()
 
 
 func _cancel_attack() -> void:
@@ -1130,7 +1233,7 @@ func _set_dead() -> void:
 	if input_source:
 		input_source.set_enabled(false)
 	_cancel_attack()
-	_clear_grapple()
+	terminate_grapple(GrappleEndReason.Reason.OWNER_DEATH)
 	_clear_wall_run()
 	_clear_wall_stick()
 	_current_targeting_result = null

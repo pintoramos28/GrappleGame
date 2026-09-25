@@ -12,6 +12,7 @@ enum Kind {
 	WALL_RUN_CONSTRAINT,
 	WALL_STICK_HOLD,
 	SPEED_CAP,
+	MAXIMUM_ANCHOR_DISTANCE,
 }
 
 
@@ -71,6 +72,27 @@ var hold_position: Vector3:
 	get:
 		return _hold_position
 
+var anchor_position: Vector3:
+	get:
+		return _anchor_position
+
+var maximum_distance_m: float:
+	get:
+		return _maximum_distance_m
+
+## Sampled anchor velocity in m/s (Story 1.8 Task 4.1): boundary resolution
+## evaluates the player's motion relative to this anchor motion.
+var anchor_velocity: Vector3:
+	get:
+		return _anchor_velocity
+
+## Maximum anchor-separating carry adjustment (m/s) the boundary may apply. A
+## required carry above this configured discontinuity tolerance is refused and
+## reported instead of snapping the player (AC 4).
+var carry_tolerance_mps: float:
+	get:
+		return _carry_tolerance_mps
+
 var cap_scope: StringName:
 	get:
 		return _cap_scope
@@ -100,6 +122,10 @@ var _velocity_delta: Vector3
 var _wall_normal: Vector3
 var _wall_direction: Vector3
 var _hold_position: Vector3
+var _anchor_position: Vector3
+var _maximum_distance_m: float
+var _anchor_velocity: Vector3
+var _carry_tolerance_mps: float
 var _cap_scope: StringName
 var _cap_limit_mps: float
 var _horizontal_only: bool
@@ -123,7 +149,11 @@ func _init(
 	scope: StringName = &"",
 	limit_mps: float = 0.0,
 	horizontal: bool = true,
-	zero_y: bool = false
+	zero_y: bool = false,
+	anchor: Vector3 = Vector3.ZERO,
+	anchor_maximum_distance_m: float = 0.0,
+	anchor_velocity: Vector3 = Vector3.ZERO,
+	anchor_carry_tolerance_mps: float = 0.0
 ) -> void:
 	_kind = submission_kind
 	_phase = submission_phase
@@ -138,6 +168,10 @@ func _init(
 	_wall_normal = normal
 	_wall_direction = direction
 	_hold_position = hold
+	_anchor_position = anchor
+	_maximum_distance_m = anchor_maximum_distance_m
+	_anchor_velocity = anchor_velocity
+	_carry_tolerance_mps = anchor_carry_tolerance_mps
 	_cap_scope = scope
 	_cap_limit_mps = limit_mps
 	_horizontal_only = horizontal
@@ -320,6 +354,45 @@ static func speed_cap(
 	)
 
 
+## Typed maximum-anchor-distance constraint (Story 1.7 Task 4.1; Story 1.8 Task
+## 4.1 extends the payload with the sampled anchor velocity and the carry
+## tolerance). Resolved in `CONSTRAINTS_AND_REDIRECTIONS` as a relative-motion
+## boundary: outward-radial-only clipping of the player's motion relative to
+## the anchor, plus the anchor's separating carry, which is bounded by the
+## configured discontinuity tolerance.
+static func maximum_anchor_distance(
+	step: int,
+	source: StringName,
+	anchor_position: Vector3,
+	maximum_distance_m: float,
+	anchor_velocity: Vector3 = Vector3.ZERO,
+	carry_tolerance_mps: float = 0.0
+) -> PlayerMotorSubmission:
+	return PlayerMotorSubmission.new(
+		Kind.MAXIMUM_ANCHOR_DISTANCE,
+		MotorPhase.Phase.CONSTRAINTS_AND_REDIRECTIONS,
+		step,
+		source,
+		&"",
+		&"",
+		Vector3.ZERO,
+		Vector3.ZERO,
+		0.0,
+		Vector3.ZERO,
+		Vector3.ZERO,
+		Vector3.ZERO,
+		Vector3.ZERO,
+		&"",
+		0.0,
+		true,
+		false,
+		anchor_position,
+		maximum_distance_m,
+		anchor_velocity,
+		carry_tolerance_mps
+	)
+
+
 func is_finite_payload() -> bool:
 	return (
 		_target_velocity.is_finite()
@@ -328,10 +401,16 @@ func is_finite_payload() -> bool:
 		and _wall_normal.is_finite()
 		and _wall_direction.is_finite()
 		and _hold_position.is_finite()
+		and _anchor_position.is_finite()
+		and _anchor_velocity.is_finite()
 		and not is_nan(_rate_mps2)
 		and not is_inf(_rate_mps2)
 		and not is_nan(_cap_limit_mps)
 		and not is_inf(_cap_limit_mps)
+		and not is_nan(_maximum_distance_m)
+		and not is_inf(_maximum_distance_m)
+		and not is_nan(_carry_tolerance_mps)
+		and not is_inf(_carry_tolerance_mps)
 	)
 
 
@@ -363,7 +442,7 @@ static func expected_phase_for_kind(submission_kind: Kind) -> int:
 			return MotorPhase.Phase.SUSTAINED_INFLUENCES
 		Kind.ONE_SHOT_IMPULSE:
 			return MotorPhase.Phase.ONE_SHOT_IMPULSES
-		Kind.WALL_RUN_CONSTRAINT, Kind.WALL_STICK_HOLD:
+		Kind.WALL_RUN_CONSTRAINT, Kind.WALL_STICK_HOLD, Kind.MAXIMUM_ANCHOR_DISTANCE:
 			return MotorPhase.Phase.CONSTRAINTS_AND_REDIRECTIONS
 		Kind.SPEED_CAP:
 			return MotorPhase.Phase.CAPS_AND_FINAL_COMMIT

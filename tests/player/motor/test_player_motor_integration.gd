@@ -293,9 +293,24 @@ func test_real_player_scene_clears_grapple_before_landing_transition() -> void:
 	var grapple_target := _add_wall_target(player.get_parent())
 	input_source.enable_test_input_seam()
 	await get_tree().physics_frame
-	player.set("is_grappling", true)
-	player.set("grapple_target", grapple_target)
-	player.set("grapple_point", Vector3(0.0, 0.1, -1.0))
+
+	# Seed the attachment through the real occurrence commit (Story 1.7): the
+	# controller fields are read-through views now, so tests must not write them.
+	var controller: GrappleController = player.get("_grapple_controller")
+	assert_not_null(controller)
+	var target_seed := GrappleTargetSeed.new(
+		&"target.wall",
+		Vector3(0.0, 0.1, -1.0),
+		Vector3(0.0, 0.0, 1.0),
+		GrappleTargetResponse.static_default(),
+		weakref(grapple_target),
+		Vector3.ZERO
+	)
+	assert_eq(
+		controller.commit_attachment(target_seed, int(player.call("get_motion_step")) + 1),
+		GrappleController.CommitStatus.SUCCESS
+	)
+	assert_true(bool(player.get("is_grappling")))
 	player.call("dispatch_locomotion_event", &"grapple_started")
 	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)
 
@@ -308,6 +323,12 @@ func test_real_player_scene_clears_grapple_before_landing_transition() -> void:
 	assert_true(landing_result.contact_frame.is_grounded)
 	assert_false(bool(player.get("is_grappling")))
 	assert_true(player.is_player_physics_active())
+
+	# The landing terminal is committed exactly once with its typed reason.
+	var attachment: GrappleAttachment = player.call("get_grapple_attachment")
+	assert_not_null(attachment)
+	assert_true(attachment.has_committed_terminal())
+	assert_eq(attachment.get_terminal().reason, GrappleEndReason.Reason.GROUND_CONTACT)
 
 
 func test_player_surface_keeps_motion_commit_inside_motor() -> void:
@@ -371,9 +392,15 @@ func test_authored_tuning_contexts_remain_distinct_and_tutorial_reset_stays_out_
 
 	var range_scalar_sites: Array[String] = [
 		"res://scripts/player_controller.gd",
+		"res://scripts/player_grappling_state.gd",
+		"res://game/player/abilities/grapple/grapple_controller.gd",
+		"res://game/player/abilities/grapple/grapple_attachment.gd",
+		"res://game/player/abilities/grapple/grapple_attachment_diagnostic_snapshot.gd",
+		"res://game/player/abilities/grapple/grapple_end_reason.gd",
 		"res://game/player/abilities/grapple/presentation/grapple_target_marker.gd",
 		"res://scripts/debug_grapple_telemetry.gd",
 		"res://scenes/player.tscn",
+		"res://main.tscn",
 	]
 	var token_regex := RegEx.new()
 	assert_eq(token_regex.compile("(?<![A-Za-z0-9_])grapple_length"), OK)

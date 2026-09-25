@@ -3,7 +3,7 @@ extends LimboState
 
 func _enter() -> void:
 	agent._cancel_attack()
-	agent._clear_grapple()
+	agent.terminate_grapple(GrappleEndReason.Reason.OWNER_DEATH)
 	agent._clear_wall_run()
 	agent._clear_wall_stick()
 

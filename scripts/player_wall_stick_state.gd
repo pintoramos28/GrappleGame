@@ -1,7 +1,7 @@
 extends LimboState
 
 
-func _update(_delta: float) -> void:
+func _update(delta: float) -> void:
 	var reference_velocity: Vector3 = agent.get_motion_start_velocity()
 	agent.submit_state_policy(agent.LOCOMOTION_WALL_STICK)
 	if agent.is_dead:
@@ -13,8 +13,18 @@ func _update(_delta: float) -> void:
 		agent.submit_wall_stick_hold()
 		return
 
-	if not command_frame.is_held(PlayerCommandFrame.Action.GRAPPLE) or not agent.has_valid_grapple():
-		agent._clear_grapple()
+	if not command_frame.is_held(PlayerCommandFrame.Action.GRAPPLE):
+		agent.terminate_grapple(GrappleEndReason.Reason.RELEASE)
+		agent.submit_wall_stick_release(reference_velocity)
+		agent.dispatch_locomotion_event(agent.EVENT_GRAPPLE_RELEASED)
+		return
+	if not agent.has_valid_grapple():
+		# Story 1.8 AC 6: classify the stale anchor through the sampling phase
+		# first (freed -> TARGET_DESTROYED, invalidated -> TARGET_INVALIDATED),
+		# then keep the preserved fallback for anything the sampler could not
+		# commit (idempotent: it commits nothing when a terminal exists).
+		agent.sample_grapple_anchor(delta)
+		agent.terminate_grapple(GrappleEndReason.Reason.TARGET_INVALIDATED)
 		agent.submit_wall_stick_release(reference_velocity)
 		agent.dispatch_locomotion_event(agent.EVENT_GRAPPLE_RELEASED)
 		return
