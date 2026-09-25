@@ -5,7 +5,7 @@ context_pack: _bmad-output/.artifact-index/context-1-6.json
 
 # Story 1.6: Acquire Grapple Targets Consistently
 
-Status: review
+Status: done
 
 <!-- Story 1.6 replaces the prototype's StaticBody3D grapple ray with one authoritative typed grapple targeting query per physics step (GrappleTargetResolver + optional Grappleable3D + default-grappleable geometry), and makes activation, presentation, and diagnostics agree on that single result. It consumes the current semantic-motor/ContactFrame working tree, preserves current grapple pull and release behavior, and explicitly does not implement the active maximum-distance tether constraint (Story 1.7), moving-target tracking/lifetime/invalidation (Story 1.8), pull redesign, tutorial preservation, or final presentation assets. -->
 
@@ -323,7 +323,7 @@ Bounded context pack: `_bmad-output/.artifact-index/context-1-6.json` (6 files; 
 
 ### Story Completion Status
 
-- Status: `ready-for-dev` - Ultimate context engine analysis completed - comprehensive developer guide created. Story key `1-6-acquire-grapple-targets-consistently`; sprint status updated to `ready-for-dev` on 2026-09-24. Boundary tolerance naming (`acquisition_tolerance_m`), final `GrappleRejection` value set, grapple collision-layer matrix, and the `PhysicsQueryProfile` ray-variance resolution are bounded implementation decisions to record in Completion Notes at dev time.
+- Status: `done` - marked completed 2026-09-24 after manual sign-off; review remediation (`spec-1-6-review-fixes`, commit `1bab424`) closed the verification gaps and the GUT and MCP gates passed. Story key `1-6-acquire-grapple-targets-consistently`; sprint status updated to `done` on 2026-09-24.
 
 ## Dev Agent Record
 
@@ -398,3 +398,5 @@ Deleted files: none (legacy `_get_grapple_ray_hit()`/`_setup_grapple_cursor()`/`
 ### Change Log
 
 - 2026-09-24: Story 1.6 "Acquire Grapple Targets Consistently" implemented. Replaced the prototype's dual untyped `intersect_ray()` + `StaticBody3D` gate with one authoritative typed `GrappleTargetResolver` query per evaluated physics step (candidate/occlusion ray profiles, default-grappleable geometry, optional `Grappleable3D` responses, locked quantized predicate, closed `GrappleRejection` set, order-independent duplicate normalization). Same-step typed activation with no-partial-state rejection, reticle extracted to `GrappleTargetMarker` (presentation consumes only), bounded diagnostics from the authoritative result, single 35 m range source (`GrappleDefinition`), typed initialization failure handling. Gates: GUT 92/92 (3,444 asserts) + focused per-domain runs, MCP-native 4/4 (separate), live MCP `main.tscn` smoke (acquisition, same-step activation, pull formula/cap, reticle and diagnostics agreement, release). Status: review.
+
+- 2026-09-24: Story 1.6 marked `done` (manual sign-off after review). Review remediation shipped as `spec-1-6-review-fixes` (commit `1bab424`): measured query-count contract, closed rejection mapping, real value-only introspection, and preservation/regression tests. Gates: GUT recursive `res://tests/player` 97/97 (3,810 asserts) plus focused runs, MCP-native 4/4 (separate), live MCP smoke; evidence `evidence/1-6/review-fixes-verification.md`. Status: done.
