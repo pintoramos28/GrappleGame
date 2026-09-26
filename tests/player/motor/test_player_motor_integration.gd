@@ -296,10 +296,13 @@ func test_real_player_scene_clears_grapple_before_landing_transition() -> void:
 
 	# Seed the attachment through the real occurrence commit (Story 1.7): the
 	# controller fields are read-through views now, so tests must not write them.
+	# Ordinary wall geometry seeds with an EMPTY target identity (Story 1.6
+	# resolver semantics), so the sampling phase keeps the built-in static
+	# response instead of expecting a `Grappleable3D` anchor contract.
 	var controller: GrappleController = player.get("_grapple_controller")
 	assert_not_null(controller)
 	var target_seed := GrappleTargetSeed.new(
-		&"target.wall",
+		&"",
 		Vector3(0.0, 0.1, -1.0),
 		Vector3(0.0, 0.0, 1.0),
 		GrappleTargetResponse.static_default(),

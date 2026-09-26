@@ -74,7 +74,9 @@ var anchor_status_id: StringName:
 
 ## Distance to the anchor at the moment the snapshot is built (AC 12 "current
 ## distance"). Distinct from `distance_at_resolution_m`, which is the distance
-## the motor's boundary constraint measured during its own resolution step.
+## the motor's boundary constraint measured during its own resolution step
+## (documented convention, Story 1.8 review: before the first resolved boundary
+## record it falls back to the live read; afterwards it is the motor fact).
 var current_distance_m: float:
 	get:
 		return _current_distance_m
@@ -308,7 +310,9 @@ static func from_attachment(
 		sampled_valid,
 		sampled_status_id,
 		float(facts.get("current_distance_m", 0.0)),
-		float(facts.get("distance_m", float(facts.get("current_distance_m", 0.0)))),
+		# `distance_at_resolution_m` is a single documented key (Story 1.8
+		# review): the controller always maps it before the snapshot is built.
+		float(facts.get("distance_m", 0.0)),
 		attachment.resolved_maximum_length_m,
 		float(facts.get("range_fraction", 0.0)),
 		Vector3(facts.get("pull_direction", Vector3.ZERO)),

@@ -18,12 +18,15 @@ func _update(delta: float) -> void:
 		agent.submit_wall_stick_release(reference_velocity)
 		agent.dispatch_locomotion_event(agent.EVENT_GRAPPLE_RELEASED)
 		return
-	if not agent.has_valid_grapple():
-		# Story 1.8 AC 6: classify the stale anchor through the sampling phase
-		# first (freed -> TARGET_DESTROYED, invalidated -> TARGET_INVALIDATED),
+	# Grapple-sampling phase (Story 1.8 Task 3.1, review fix): every wall-stick
+	# step with a live command frame samples the anchor exactly once - also
+	# while the grapple is valid, so the stored sample never goes stale during a
+	# wall-stick hold and the maximum-distance rule stays enforced.
+	if not agent.sample_grapple_anchor(delta) or not agent.has_valid_grapple():
+		# Story 1.8 AC 6: the sampling phase above already classified a stale
+		# anchor (freed -> TARGET_DESTROYED, invalidated -> TARGET_INVALIDATED),
 		# then keep the preserved fallback for anything the sampler could not
 		# commit (idempotent: it commits nothing when a terminal exists).
-		agent.sample_grapple_anchor(delta)
 		agent.terminate_grapple(GrappleEndReason.Reason.TARGET_INVALIDATED)
 		agent.submit_wall_stick_release(reference_velocity)
 		agent.dispatch_locomotion_event(agent.EVENT_GRAPPLE_RELEASED)

@@ -652,7 +652,11 @@ func submit_grapple_pull(delta: float) -> bool:
 	if _grapple_controller == null:
 		return false
 	return _submit_motor_status(
-		_grapple_controller.submit_motor_influences(player_motor, delta),
+		_grapple_controller.submit_motor_influences(
+			player_motor,
+			delta,
+			_player_physics_step
+		),
 		GrappleController.SOURCE_PULL
 	)
 
@@ -662,7 +666,7 @@ func submit_grapple_speed_cap() -> bool:
 	if not has_valid_grapple() or _grapple_controller == null:
 		return false
 	return _submit_motor_status(
-		_grapple_controller.submit_speed_cap(player_motor),
+		_grapple_controller.submit_speed_cap(player_motor, _player_physics_step),
 		GrappleController.SOURCE_SPEED_CAP
 	)
 
@@ -1088,6 +1092,11 @@ func has_valid_grapple() -> bool:
 	return is_grappling and is_instance_valid(grapple_target)
 
 
+## INTERNAL / TEST-ONLY accessor (Story 1.8 review fix, AC 9): the attachment
+## record carries mutators (`record_sampled_anchor_state`, `commit_terminal`,
+## ...), so presentation, diagnostics, and every external consumer must read
+## `get_grapple_attachment_diagnostic_snapshot()` instead. A source-scan
+## contract test keeps presentation/diagnostic consumers off this accessor.
 func get_grapple_attachment() -> GrappleAttachment:
 	if _grapple_controller == null:
 		return null

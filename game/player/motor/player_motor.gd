@@ -1,4 +1,4 @@
-﻿class_name PlayerMotor
+class_name PlayerMotor
 extends Node
 
 
@@ -49,6 +49,11 @@ enum SubmissionStatus {
 	## Appended rather than grouped beside `NO_ACTIVE_FRAME` so the ordinals of
 	## every pre-existing status stay unchanged (Task 4.5).
 	NO_ACTIVE_ATTACHMENT,
+	## The submission consumed an anchor sample that does not belong to the
+	## current physics step (Story 1.8 review fix, Task 3.2 guard). Nothing is
+	## submitted on a stale sample. Appended so pre-existing ordinals stay
+	## unchanged (same discipline as `NO_ACTIVE_ATTACHMENT`).
+	STALE_ANCHOR_SAMPLE,
 }
 
 enum BaselineStatus {
@@ -604,6 +609,17 @@ func _submit_submission(submission: PlayerMotorSubmission) -> SubmissionStatus:
 				SubmissionStatus.INVALID_REQUEST,
 				PlayerMotorCommitResult.RejectionReason.INVALID_REQUEST,
 				&"player.motor.invalid_maximum_distance",
+				_active_step,
+				submission.source_id,
+				submission
+			)
+		# The carry tolerance is a bound, never a negative range (Story 1.8
+		# review fix): a negative tolerance would refuse zero-carry motion.
+		if submission.carry_tolerance_mps < 0.0:
+			return _reject_submission(
+				SubmissionStatus.INVALID_REQUEST,
+				PlayerMotorCommitResult.RejectionReason.INVALID_REQUEST,
+				&"player.motor.invalid_carry_tolerance",
 				_active_step,
 				submission.source_id,
 				submission
@@ -1226,6 +1242,7 @@ func _resolve_maximum_anchor_distance(
 		"carry_applied_mps": carry_applied_mps,
 		"carry_refused_mps": carry_refused_mps,
 		"carry_refused": carry_refused_mps > 0.0,
+		"carry_tolerance_mps": submission.carry_tolerance_mps,
 		"positional_tolerance_m": ANCHOR_DISTANCE_POSITIONAL_TOLERANCE_M,
 	}
 
@@ -1475,7 +1492,7 @@ func _reason_to_code(reason: PlayerMotorCommitResult.RejectionReason) -> StringN
 
 static func is_isolated_submission_status(status: SubmissionStatus) -> bool:
 	match status:
-		SubmissionStatus.SUCCESS, SubmissionStatus.NOT_INITIALIZED, SubmissionStatus.INVALID_BODY, SubmissionStatus.NO_ACTIVE_FRAME, SubmissionStatus.NO_ACTIVE_ATTACHMENT, SubmissionStatus.STALE_STEP, SubmissionStatus.WRONG_STEP, SubmissionStatus.ALREADY_RESOLVED:
+		SubmissionStatus.SUCCESS, SubmissionStatus.NOT_INITIALIZED, SubmissionStatus.INVALID_BODY, SubmissionStatus.NO_ACTIVE_FRAME, SubmissionStatus.NO_ACTIVE_ATTACHMENT, SubmissionStatus.STALE_ANCHOR_SAMPLE, SubmissionStatus.STALE_STEP, SubmissionStatus.WRONG_STEP, SubmissionStatus.ALREADY_RESOLVED:
 			return false
 		_:
 			return true

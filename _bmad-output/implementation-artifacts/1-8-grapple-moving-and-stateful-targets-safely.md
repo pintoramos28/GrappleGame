@@ -4,7 +4,7 @@ baseline_commit: db421eacac7e0d34a581202f6d7302e0b59fd72e
 
 # Story 1.8: Grapple Moving and Stateful Targets Safely
 
-Status: review
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -98,6 +98,29 @@ so that dynamic anchors behave predictably without stale references or violent s
     **Then** every scenario passes at both 60 Hz and 120 Hz physics rates
     **And** the story introduces only an injectable scope-identity contract—not the full encounter lifecycle, anchor-modification mechanics, rope wrapping, elasticity, or reeling.
 
+### Review Ratifications (code review 2026-09-25)
+
+Two acceptance-criteria wordings were amended by explicit review decision (see
+`Review Findings` below); the implementations and tests now match:
+
+- **AC 4 (one-step pre-boundary carry).** RATIFIED EXCEPTION: at the boundary
+  approach, one physics step may carry the pair before the measured distance
+  reaches the maximum ("one step may not carry the pair past the maximum").
+  Before that step a separating anchor does not drag the player at all. The
+  exception is bounded by one step of anchor separation plus the measurement
+  tolerance, and the separation test now measures the drag band instead of
+  masking it (`evidence/1-8/limitations.md` records it as ratified).
+- **AC 10 (rate matrix).** AMENDED COVERAGE: the five termination-path
+  scenarios (freed, explicit invalidation, scope mismatch, severe
+  discontinuity, duplicate termination) and the static-target regression run at
+  BOTH 60 Hz and 120 Hz; translation/rotation follow and sampled-velocity
+  scenarios run at 60 Hz with the two rate-sensitive scenarios additionally
+  verified at 120 Hz (NFR4 evidence in `evidence/1-8/60-120-comparison.md`).
+- **AC 9 (read-only exposure).** The mutable `GrappleAttachment` accessor
+  (`GrappleController.get_attachment` / `player_controller.get_grapple_attachment`)
+  is documented INTERNAL/TEST-ONLY and guarded by a source-scan contract test;
+  presentation, diagnostics, and state consumers read value-only snapshots.
+
 ## Tasks / Subtasks
 
 - [x] Task 1: Target-relative attachment state (AC 1, 3, 5)
@@ -136,6 +159,129 @@ so that dynamic anchors behave predictably without stale references or violent s
   - [x] 9.1 GUT: focused `tests/player/grapple` + `tests/player/motor` runs, then the canonical recursive `res://tests/player/**` gate (baseline 119/119 tests, 4,821 asserts, exit 0) plus pinned `--import`/load and `rtk git diff --check`.
   - [x] 9.2 Godot AI MCP: full preflight, rescan/reload after every write batch, MCP-native `test_run`, live `res://main.tscn` smoke with a moving/stateful grapple target via `game_eval`/input seam, MCP log review; record session ID and operations under `evidence/1-8/`.
   - [x] 9.3 Evidence set under `_bmad-output/implementation-artifacts/evidence/1-8/` mirroring the 1-7 layout (oracle, contract, integration, 60/120 comparison, pinned import/load, MCP verification, traversal smoke, limitations).
+
+### Review Findings
+
+Code review of Story 1.8 (gds-code-review workflow, 2026-09-25). Diff range `db421ea..9335764` ("story 1.7 complete and 1.8 implemenged"; Stories 1.7 + 1.8 stacked in one commit — findings scoped to the 1.8 delta, 1.7 decisions treated as locked constraints). Three adversarial layers (blind hunter, edge-case path tracer, acceptance auditor). Godot AI MCP preflight session `testgame@e362124f09f388c2` (ready/stopped, current scene `res://main.tscn`); no gameplay state mutated during review. Result: 3 decision_needed, 18 patch, 3 defer, 1 dismissed.
+
+**decision_needed** — all three resolved during the review walkthrough (2026-09-25); each converted to a patch item below (marked `[Review][Patch][from Decision]`).
+
+- [x] [Review][Decision] AC 10 60/120 Hz matrix scope — **resolved: "termination scenarios at both rates"**. Run the 5 termination-path scenarios (freed, explicit invalidation, scope mismatch, severe discontinuity, duplicate termination) plus the static-target regression at both 60 Hz and 120 Hz; keep pure follow/velocity scenarios at 60 Hz; amend the AC 10 wording to match the agreed coverage.
+- [x] [Review][Decision] Pre-boundary carry contradicts locked AC 4 — **resolved: "ratify the one-step exception + fix the test"**. Amend the spec/AC wording so the documented one-step pre-boundary carry exception is explicit (it stays in `limitations.md`), and widen `_separation_scenario`'s measurement window so the drag band is observable and bounded instead of masked.
+- [x] [Review][Decision] AC 9 read-only exposure vs mutable attachment accessor — **resolved: "internal/test-only + guard"**. Mark `get_grapple_attachment()`/`get_attachment()` as internal test-only, assert no presentation/diagnostic consumer reaches the mutable attachment (source-scan guard), and document the boundary.
+
+**patch**
+
+- [x] [Review][Patch][from Decision] Extend the 60/120 Hz matrix to the 5 termination-path scenarios + static regression and amend AC 10 wording [tests/player/grapple/test_grapple_moving_target_integration.gd:100,141]
+- [x] [Review][Patch][from Decision] Ratify the one-step pre-boundary carry exception in spec/AC wording and widen the separation test window so the drag band is observable and bounded [game/player/motor/player_motor.gd:1184,1194; tests/player/grapple/test_grapple_moving_target_integration.gd:199]
+- [x] [Review][Patch][from Decision] Make the mutable attachment accessor internal/test-only with a no-consumer source-scan guard and documented boundary [scripts/player_controller.gd:1091; game/player/abilities/grapple/grapple_controller.gd]
+
+- [x] [Review][Patch] UTF-8 BOM prepended to `player_motor.gd` line 1 (`class_name PlayerMotor`) — baseline `db421ea` is clean, current bytes start `EF BB BF`; re-save UTF-8 without BOM and guard source scanners [game/player/motor/player_motor.gd:1]
+- [x] [Review][Patch] Anchor sample-history staleness: per-target `_last_sample_anchor_position` cache survives attachment occurrences and sampling gaps; finite-difference velocity and `_is_severe_anchor_discontinuity` implied speed divide a multi-step displacement by one `delta_seconds` → inflated velocity → false carry refusal / spurious `ANCHOR_DISCONTINUITY` on re-attach and after wall-stick; breaks 60/120 rate equivalence — reset the baseline at attachment commit and divide by true elapsed/gap [game/shared/contracts/grappleable_3d.gd:118-130; game/player/abilities/grapple/grapple_controller.gd:296-308]
+- [x] [Review][Patch] Wall-stick update samples the anchor only in the `not has_valid_grapple()` branch — no sample while wall-sticking with a valid grapple (stale anchor, unenforced maximum, resume spike); falsifies the "sampling every active step" claim — sample unconditionally per step or document suspension and repair the baseline on resume [scripts/player_wall_stick_state.gd:21-30]
+- [x] [Review][Patch] `submit_motor_influences` consumes the stored sample without verifying it belongs to the current physics step — pass the step and refuse stale samples [game/player/abilities/grapple/grapple_controller.gd:331]
+- [x] [Review][Patch] `carry_refused` → `ANCHOR_DISCONTINUITY` termination wiring (AC 4 "never snap") is never exercised end-to-end — `test_required_carry_above_the_discontinuity_tolerance_is_refused` drives the motor without a controller; add a controller-level test asserting one `attachment_ended` with `ANCHOR_DISCONTINUITY` and `carry_refused_mps` on the snapshot [game/player/abilities/grapple/grapple_controller.gd:420-425]
+- [x] [Review][Patch] `record_committed_facts` inspects only the first `MAXIMUM_ANCHOR_DISTANCE` record (`break`) though the motor allows up to 4 — a refused carry from a later record never terminates and never appears in diagnostics; scan all records (or reject duplicate boundary submissions) [game/player/abilities/grapple/grapple_controller.gd:416-419]
+- [x] [Review][Patch] Commit-step short-circuit: `GrappleAttachment._init` stamps `_sampled_anchor_step` with the seed sample, so `sample_anchor_state` on the commit step returns "valid" without running scope/discontinuity checks — init to an unsampled sentinel or document and test the one-step latency [game/player/abilities/grapple/grapple_controller.gd:181]
+- [x] [Review][Patch] Sampling-once-per-step idempotence branch (Task 8.2 contract) is never asserted — no test double-calls `sample_anchor_state` on the same step [tests/player/grapple/test_grapple_moving_target_contract.gd]
+- [x] [Review][Patch] AC 10 "rotation about the local hit point" scenario rotates about the body origin and asserts the anchor moves — the specified case (rotation centered on the hit point leaves the anchor stationary) is unasserted while `integration-matrix.md` claims coverage [tests/player/grapple/test_grapple_moving_target_integration.gd:135]
+- [x] [Review][Patch] `carry_tolerance_mps` payload lacks bounds validation (negative tolerance pathological) despite the "finite/bounds-validated like the existing fields" claim, and no test asserts it equals `resolved_continuous_motion_tolerance_mps` — validate the payload and assert the wiring [game/player/motor/player_motor_submission.gd; tests/player/grapple/test_grapple_moving_target_contract.gd:403-415]
+- [x] [Review][Patch] Tautological idempotency assertion `assert_same(attachment.get_terminal(), attachment.get_terminal())` cannot fail — capture the terminal first, then re-read and compare [tests/player/grapple/test_grapple_moving_target_contract.gd:480]
+- [x] [Review][Patch] `test_severe_anchor_discontinuity_terminates_before_any_submission` never asserts that the failing step submitted nothing — assert `NO_ACTIVE_ATTACHMENT` and zero accepted submissions for that step [tests/player/grapple/test_grapple_moving_target_contract.gd:577-593]
+- [x] [Review][Patch] Non-finite sampled anchor position coerces to `Vector3.ZERO` while `is_valid` stays true — a degenerate target transform silently anchors the rope at the world origin; fail closed with a typed invalidation [game/shared/contracts/grapple_anchor_state.gd:81]
+- [x] [Review][Patch] `get_originating_scope_identity` has a tautological ternary and `StringName()`-coerces any Variant from the scope provider — validate `is String`/`is StringName` and fail closed on malformed providers [game/player/abilities/grapple/grapple_controller.gd:92-99]
+- [x] [Review][Patch] `Terminal` claims value-only purity but has no `is_value_only()` check or test (unlike `GrappleAnchorState` and the diagnostic snapshot) — add the checker and one contract assertion [game/player/abilities/grapple/grapple_attachment.gd:25-55]
+- [x] [Review][Patch] New `seed` identifiers introduced at `var seed := GrappleTargetSeed.new(` — violates the naming guardrail "do not introduce new `seed` identifiers (pre-existing shadowing warnings must not grow)"; rename [tests/player/grapple/test_grapple_moving_target_contract.gd:279,317]
+- [x] [Review][Patch] `supply_anchor_velocity` has no expiry — a supplied velocity is reported until an explicit clear that a dying/invalidated target may never call; tie it to the sample step or clear on invalidation/exit-tree and document the lifetime [game/shared/contracts/grappleable_3d.gd]
+- [x] [Review][Patch] `distance_at_resolution_m` falls back to a live `current_distance_m` read when no boundary record exists, conflating two fields the docs insist are distinct (and `from_attachment` double-maps the same key) — use an explicit "unresolved" sentinel and one documented key [game/player/abilities/grapple/grapple_controller.gd:449-456; game/player/abilities/grapple/grapple_attachment_diagnostic_snapshot.gd:310-311]
+
+**defer**
+
+- [x] [Review][Defer] `get_reference_position()` silently returns `Vector3.ZERO` when the owner body is invalid — pull/distance basis becomes the world origin [game/player/abilities/grapple/grapple_controller.gd:103-106] — deferred, pre-existing (Story 1.7 contract)
+- [x] [Review][Defer] `commit_terminal` refusal path (invalid/NONE reason) leaves the attachment active with assert-only observability — soft-lock with zero signal in release builds [game/player/abilities/grapple/grapple_attachment.gd:332-338] — deferred, pre-existing (Story 1.7 fail-closed semantics, explicitly preserved)
+- [x] [Review][Defer] `pull_direction` is recorded even when the motor rejected the pull while `submitted_acceleration_mps2` reports accepted-only — mixed diagnostic basis in one snapshot [game/player/abilities/grapple/grapple_controller.gd:338,348] — deferred, pre-existing (Story 1.7 diagnostics basis)
+
+Dismissed (1): `_delta_seconds` division in `_resolve_maximum_anchor_distance` without an explicit positive guard — `PlayerMotor.begin_motion_frame` rejects non-positive deltas (verified against the callee), so the path is unreachable.
+
+### Review Fixes — Implementation Notes (2026-09-25)
+
+All 21 patch items (18 + 3 resolved decisions) applied and verified. Key
+implementation facts and honest deviations:
+
+- **Sample lifecycle (P2/P3/P4/P7).** `Grappleable3D.reset_anchor_sampling()`
+  starts a fresh finite-difference baseline per attachment occurrence
+  (called from `GrappleController.commit_attachment`); `sample_anchor_state`
+  computes gap-aware `elapsed_seconds` (`delta * (step - previous_sampled_step)`)
+  for both the derived velocity and the discontinuity classification;
+  `player_wall_stick_state.gd` samples every wall-stick step with a live
+  command frame (release edge still wins the same-step priority);
+  `submit_motor_influences`/`submit_speed_cap` take the physics step and refuse
+  stale samples with the new appended `SubmissionStatus.STALE_ANCHOR_SAMPLE`
+  (append-only, `is_isolated_submission_status` grouped with
+  `NO_ACTIVE_ATTACHMENT`); `GrappleAttachment._init` leaves
+  `_sampled_anchor_step = -1` so the commit step is genuinely sampled.
+- **Termination wiring (P5/P6).** `record_committed_facts` aggregates
+  `carry_refused` across ALL resolved boundary records (a refused carry from
+  any source terminates) and caches the controller's own record for
+  diagnostics; a controller-level end-to-end regression test drives
+  refusal -> `ANCHOR_DISCONTINUITY` -> exactly one `attachment_ended`.
+- **Validation/purity (P13/P17/P18/P19/P21).** Motor rejects
+  `carry_tolerance_mps < 0` (`player.motor.invalid_carry_tolerance`);
+  non-finite sampled anchors fail closed typed `TARGET_INVALIDATED`;
+  `get_originating_scope_identity` accepts only String/StringName; `Terminal`
+  gains `is_value_only()`; supplied anchor velocity expires on explicit
+  invalidation / `_exit_tree`.
+- **Hygiene (P1/P20).** UTF-8 BOM stripped from `player_motor.gd` line 1
+  (byte-verified: baseline had none); `seed` locals renamed `target_seed`.
+- **DEVIATION (P22).** The proposed `-1.0` "unresolved" sentinel for
+  `distance_at_resolution_m` was NOT kept: applying it broke the established
+  contract encoded by the 1.7 boundary suites and the targeting diagnostics
+  test (they read the field before the first boundary record). Re-implemented
+  as the reviewer's alternative: the `from_attachment` double-map is gone (one
+  documented key), and the pre-resolution live-read fallback is now an
+  explicitly documented convention on `get_diagnostic_snapshot` and the
+  snapshot field docs. Evidence: `gut-grapple-run1.log` failures at
+  `test_grapple_boundary_integration.gd` (`attachment_distance_m: -1.0`) and
+  `test_grapple_targeting_integration.gd:389`, all green after the change.
+- **Test-fixture alignments (recorded, not hidden).** Two synthetic fixtures
+  seeded explicit target identities without the `Grappleable3D` anchor contract
+  (impossible in production: the 1.6 resolver emits `&""` for ordinary
+  geometry and non-empty identities only from components). Commit-step
+  sampling now correctly exposes that: `test_grapple_boundary_contract.gd`'s
+  reference-point target gained a STATIC `Grappleable3D` (`target.contract`),
+  and `test_player_motor_integration.gd`'s landing-transition seed now uses the
+  production `&""` ordinary-geometry identity.
+- **Dual-harness evidence (AGENTS.md, both gates run).**
+  - GUT (canonical, pinned Godot 4.7.2 CLI): focused
+    `res://tests/player/grapple` **107/107 (6,538 asserts)**, then the
+    recursive `res://tests/player` gate **177/177 tests, 9,738 asserts, 13
+    scripts** (story baseline 163/163, 8,629 — no regressions, +14 tests from
+    review-fix and dual-rate scenarios). Pinned `--import` exit 0 (only the
+    known benign RID-leak warning recorded in `final-import.log`);
+    `git diff --check` clean.
+  - Godot AI MCP (session `testgame@e362124f09f388c2`): preflight
+    ready/stopped; `filesystem_manage(scan)` + `script_manage(find_symbols)`
+    parse verification after every write batch (all changed runtime/test files
+    parse clean); MCP-native `test_run` **15/15** across `grapple_boundary`,
+    `grapple_moving_target`, `grapple_targeting` (`new_errors: 0`); live
+    `res://main.tscn` smoke with a staged moving/stateful anchor
+    (`target.review_smoke`, MOVING, `pull_multiplier 0.5`, `instability 0.25`):
+    commit `player.grapple.attachment_1` with `sampled_step == motion_step`
+    (621/1378/637 across observations), exact translation follow
+    (`anchor == target.transform * offset` after the move), no false
+    termination while the target moved, explicit invalidation ->
+    `target_invalidated` committed once and identical on re-read (idempotent),
+    live debug-overlay screenshot showing the typed `Anchor status:
+    target_invalidated`, and a final game log containing only the helper
+    registration line (zero errors). GUT and MCP results are reported
+    separately; no parity claimed.
+  - MCP harness noise (recorded honestly): two live-smoke evals raised
+    harness-side errors (a null node access and a dynamically compiled staging
+    script parse error) which tripped the editor debugger break — the same
+    known harness behavior `limitations.md` documents; each run was relaunched
+    cleanly and the final run's logs are clean. `logs_read(editor)` retains the
+    pre-existing `player_contact_provider.gd` ring-buffer history
+    (`recent_errors_may_predate_run: true`) — stale, not current defects.
 
 ## Dev Notes
 
@@ -344,7 +490,7 @@ Bounded resolver context pack: `_bmad-output/.artifact-index/context-1-8.json` (
 
 ### Story Completion Status
 
-- Status: `review` - implementation complete (2026-09-25). All 9 tasks / 27 subtasks checked; 10 acceptance criteria satisfied (see Completion Notes and `evidence/1-8/`). GUT 163/163 (8,629 asserts, exit 0, no regressions vs the 119/119 baseline), MCP-native 15/15, live `main.tscn` moving/stateful smoke green. Story key `1-8-grapple-moving-and-stateful-targets-safely`.
+- Status: `done` - implementation complete (2026-09-25) and code review passed (2026-09-25). All 9 tasks / 27 subtasks checked; 10 acceptance criteria satisfied (see Completion Notes, the Review Ratifications under AC 10, and `evidence/1-8/`). Review outcome: 3 decisions resolved, 18 patches + 3 decision-derived patches applied and verified (GUT recursive 177/177 tests, 9,738 asserts; MCP-native 15/15; live `main.tscn` smoke + screenshot), 3 pre-existing findings deferred to `deferred-work.md`, 1 dismissed. Original implementation gate: GUT 163/163 (8,629 asserts), MCP-native 15/15, live moving/stateful smoke green. Story key `1-8-grapple-moving-and-stateful-targets-safely`.
 
 ## Dev Agent Record
 
@@ -399,11 +545,13 @@ MiMo-V2.6-Pro (OpenCode), executing the gds-dev-story workflow.
 - `tests/player/grapple/test_grapple_boundary_contract.gd` (end-reason schema test updated for the append-only extension)
 - `tests/test_grapple_moving_target_mcp.gd` (NEW, + `.gd.uid`) - MCP adapter
 - `tests/test_grapple_boundary_mcp.gd` (end-reason schema expectation updated 6 -> 9)
-- `_bmad-output/implementation-artifacts/evidence/1-8/**` (evidence set, 9 notes + raw logs)
+- `_bmad-output/implementation-artifacts/evidence/1-8/**` (evidence set, 10 notes + raw logs; `review-fixes.md` records the 2026-09-25 code-review gates)
 - `_bmad-output/implementation-artifacts/1-8-grapple-moving-and-stateful-targets-safely.md` (this story file)
 - `_bmad-output/implementation-artifacts/sprint-status.yaml` (status transitions)
 
 ### Change Log
+
+- 2026-09-25: Code review (gds-code-review) completed and review fixes applied. 3 decision-needed findings resolved (60/120 Hz matrix scope: termination scenarios + static regression at both rates; pre-boundary one-step carry ratified and its test window unmasked; mutable attachment accessor documented internal/test-only with a source-scan guard), 18 + 3 patches applied (sample-lifecycle staleness, wall-stick sampling, stale-sample guard, commit-step sampling, carry-refusal termination wiring and multi-record aggregation, payload bounds, non-finite fail-closed, scope-provider validation, Terminal purity, supplied-velocity expiry, BOM strip, `seed` rename, dual-rate matrix, rotation-about-hit-point scenario, test fixes), 3 pre-existing findings deferred, 1 dismissed. AC 4/AC 10/AC 9 wordings amended under "Review Ratifications". GUT 177/177 (9,738 asserts); MCP-native 15/15; live `main.tscn` smoke + screenshot; `evidence/1-8/review-fixes.md`. Status: done.
 
 - 2026-09-25: Story 1.8 "Grapple Moving and Stateful Targets Safely" implemented. Target-relative attachment state with per-step `GrappleAnchorState` sampling (query-only transform math, supplied-or-finite-difference target velocity), relative-motion maximum-distance resolution with the anchor-separating carry and its discontinuity-tolerance guard, append-only typed termination (`TARGET_DESTROYED`/`SCOPE_MISMATCH`/`ANCHOR_DISCONTINUITY`) with exactly-once idempotency, immutable anchor-motion tolerances (50/250 m/s, instability-scaled), read-only sampled-anchor diagnostics, and the real-Jolt 60/120 Hz verification matrix. GUT 163/163 (8,629 asserts, exit 0); MCP-native 15/15; live `main.tscn` moving/stateful smoke green. Status: review.
 

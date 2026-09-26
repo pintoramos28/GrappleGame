@@ -59,7 +59,7 @@ development_status:
   1-5-share-authoritative-ground-and-wall-contact-facts: review
   1-6-acquire-grapple-targets-consistently: done
   1-7-zip-pull-within-a-true-maximum-grapple-boundary: done
-  1-8-grapple-moving-and-stateful-targets-safely: review
+  1-8-grapple-moving-and-stateful-targets-safely: done
   1-9-integrate-wall-traversal-and-mistake-recovery: backlog
   1-10-complete-the-focused-traversal-validation-route: backlog
   epic-1-retrospective: optional

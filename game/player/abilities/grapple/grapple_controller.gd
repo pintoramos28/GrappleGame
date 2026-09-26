@@ -95,8 +95,12 @@ func get_originating_scope_identity() -> StringName:
 	var supplied: Variant = _scope_identity_provider.call()
 	if supplied == null:
 		return &""
-	var identity := StringName(supplied)
-	return identity if identity != &"" else &""
+	# Fail closed on a malformed provider (Story 1.8 review fix): only a
+	# String/StringName is a stable identity; anything else is refused instead
+	# of being coerced into a garbage scope identity.
+	if not (supplied is String or supplied is StringName):
+		return &""
+	return StringName(supplied)
 
 
 ## The one documented player reference point (Task 4.4).
@@ -136,6 +140,13 @@ func commit_attachment(
 		target_seed,
 		get_originating_scope_identity()
 	)
+	# Fresh sampling baseline for the new occurrence (Story 1.8 review fix):
+	# the target-side finite difference must never span the gap since a previous
+	# occurrence, or the first sample reports a stale-span velocity spike.
+	if target_seed.target_identity != &"":
+		var anchor_component := _find_anchor_component(target, target_seed.target_identity)
+		if anchor_component != null:
+			anchor_component.reset_anchor_sampling()
 	_last_pull_direction = Vector3.ZERO
 	_last_committed_velocity = Vector3.ZERO
 	_last_physics_step = physics_step
@@ -148,6 +159,11 @@ func has_active_attachment() -> bool:
 	return _attachment != null and _attachment.is_active()
 
 
+## INTERNAL / TEST-ONLY accessor (Story 1.8 review fix, AC 9): the attachment
+## record carries mutators, so presentation, diagnostics, and every external
+## consumer must read the value-only snapshots instead
+## (`get_diagnostic_snapshot()`). A source-scan contract test keeps
+## presentation/diagnostic consumers off this accessor.
 func get_attachment() -> GrappleAttachment:
 	return _attachment
 
@@ -180,6 +196,15 @@ func sample_anchor_state(physics_step: int, delta_seconds: float) -> bool:
 		return false
 	if _attachment.get_sampled_anchor_step() == physics_step:
 		return _attachment.get_sampled_anchor_state().is_valid
+	# Elapsed time since the previous SAMPLED step (Story 1.8 review fix): the
+	# displacement to the previous sample spans every skipped step, so the
+	# derived speed and the discontinuity classification divide by the full
+	# elapsed time - never by one step's delta (NFR4 rate equivalence).
+	var previous_step := _attachment.get_sampled_anchor_step()
+	var sample_gap_steps := 1
+	if previous_step >= 0 and physics_step > previous_step:
+		sample_gap_steps = physics_step - previous_step
+	var elapsed_seconds := maxf(delta_seconds, 0.0) * float(sample_gap_steps)
 	var target := _attachment.get_target()
 	if not is_instance_valid(target):
 		_record_invalid_sample(
@@ -188,7 +213,7 @@ func sample_anchor_state(physics_step: int, delta_seconds: float) -> bool:
 		)
 		_terminate_from_sample(GrappleEndReason.Reason.TARGET_DESTROYED, physics_step)
 		return false
-	var state := _sample_target_anchor_state(target, delta_seconds)
+	var state := _sample_target_anchor_state(target, elapsed_seconds)
 	if state == null or not state.is_valid:
 		if state != null:
 			_attachment.record_sampled_anchor_state(state, physics_step)
@@ -203,7 +228,7 @@ func sample_anchor_state(physics_step: int, delta_seconds: float) -> bool:
 		_attachment.record_sampled_anchor_state(state, physics_step)
 		_terminate_from_sample(GrappleEndReason.Reason.SCOPE_MISMATCH, physics_step)
 		return false
-	if _is_severe_anchor_discontinuity(state, delta_seconds):
+	if _is_severe_anchor_discontinuity(state, elapsed_seconds):
 		_attachment.record_sampled_anchor_state(state, physics_step)
 		_terminate_from_sample(GrappleEndReason.Reason.ANCHOR_DISCONTINUITY, physics_step)
 		return false
@@ -231,10 +256,11 @@ func _record_invalid_sample(
 ## Target-side sampling (Task 2.2). Ordinary geometry keeps the built-in static
 ## response (frozen world anchor, zero velocity); explicit targets are sampled
 ## through the query-only `Grappleable3D` API. No raycast is issued here - the
-## anchor follows transform math only (AC 3).
+## anchor follows transform math only (AC 3). `elapsed_seconds` is the time
+## since the previous sample (see `sample_anchor_state`).
 func _sample_target_anchor_state(
 	target: Object,
-	delta_seconds: float
+	elapsed_seconds: float
 ) -> GrappleAnchorState:
 	var identity := _attachment.target_identity
 	var initial_anchor := _attachment.get_sampled_anchor_state().anchor_world_position
@@ -252,7 +278,7 @@ func _sample_target_anchor_state(
 		)
 	return component.sample_anchor_state(
 		_attachment.target_local_hit_offset,
-		delta_seconds,
+		elapsed_seconds,
 		initial_anchor
 	)
 
@@ -288,23 +314,25 @@ func _is_scope_mismatch(state: GrappleAnchorState) -> bool:
 
 ## Discontinuity classification (AC 7, Task 6.2): the sampled anchor position is
 ## compared with the previous step's sampled position. The implied speed
-## (displacement / delta_seconds) is rate-equivalent at 60 Hz and 120 Hz. At or
+## (displacement / `elapsed_seconds`) is rate-equivalent at 60 Hz and 120 Hz and
+## gap-correct (Story 1.8 review fix: `elapsed_seconds` spans skipped sampling
+## steps, so a resumed sample never inflates the implied speed). At or
 ## above the severe threshold the grapple terminates before any submission for
 ## the step; below the continuous tolerance the anchor follows normally; the
 ## band between them keeps following while any required boundary carry above the
 ## continuous tolerance terminates instead of snapping (AC 4).
 func _is_severe_anchor_discontinuity(
 	state: GrappleAnchorState,
-	delta_seconds: float
+	elapsed_seconds: float
 ) -> bool:
-	if delta_seconds <= 0.0:
+	if elapsed_seconds <= 0.0:
 		return false
 	var previous := _attachment.get_sampled_anchor_state()
 	if previous == null:
 		return false
 	var implied_speed := (
 		state.anchor_world_position - previous.anchor_world_position
-	).length() / delta_seconds
+	).length() / elapsed_seconds
 	return implied_speed >= _attachment.resolved_severe_discontinuity_threshold_mps
 
 
@@ -321,13 +349,18 @@ func _terminate_from_sample(
 ## both derived from THIS step's one stored `GrappleAnchorState` - never from a
 ## live transform read (AC 2). The speed cap is a separate per-step submission
 ## (`submit_speed_cap`) so the owning state keeps its declared submission
-## ordering. Nothing is submitted once the attachment is absent or terminated.
+## ordering. Nothing is submitted once the attachment is absent or terminated,
+## and nothing is submitted from a sample that belongs to another physics step
+## (Story 1.8 review fix: `STALE_ANCHOR_SAMPLE`).
 func submit_motor_influences(
 	motor: PlayerMotor,
-	delta_seconds: float
+	delta_seconds: float,
+	physics_step: int
 ) -> PlayerMotor.SubmissionStatus:
 	if _attachment == null or not _attachment.is_active():
 		return PlayerMotor.SubmissionStatus.NO_ACTIVE_ATTACHMENT
+	if _attachment.get_sampled_anchor_step() != physics_step:
+		return PlayerMotor.SubmissionStatus.STALE_ANCHOR_SAMPLE
 	var sample := _attachment.get_sampled_anchor_state()
 	var pull_direction := get_reference_position().direction_to(
 		sample.anchor_world_position
@@ -364,10 +397,15 @@ func submit_motor_influences(
 
 
 ## Per-step total-speed cap (CAPS_AND_FINAL_COMMIT) from the occurrence-local
-## resolved value.
-func submit_speed_cap(motor: PlayerMotor) -> PlayerMotor.SubmissionStatus:
+## resolved value. Refused from a stale sample like `submit_motor_influences`.
+func submit_speed_cap(
+	motor: PlayerMotor,
+	physics_step: int
+) -> PlayerMotor.SubmissionStatus:
 	if _attachment == null or not _attachment.is_active():
 		return PlayerMotor.SubmissionStatus.NO_ACTIVE_ATTACHMENT
+	if _attachment.get_sampled_anchor_step() != physics_step:
+		return PlayerMotor.SubmissionStatus.STALE_ANCHOR_SAMPLE
 	return motor.submit_total_speed_cap(
 		SOURCE_SPEED_CAP,
 		_attachment.resolved_maximum_speed_mps
@@ -413,14 +451,20 @@ func record_committed_facts(result: PlayerMotorCommitResult) -> void:
 	# WALL_STICK_HOLD frame, a post-termination poll) must not keep serving the
 	# previous step's distance and correction as current facts.
 	_last_boundary_record = {}
+	var carry_refused := false
 	for record in result.anchor_constraint_records:
+		# A refused carry from ANY resolved boundary record terminates the
+		# attachment (Story 1.8 review fix): the motor may resolve several
+		# boundary records per frame from distinct source ids, and a snap must
+		# never hide in one this controller did not submit. The controller's own
+		# record is the diagnostics source.
+		carry_refused = carry_refused or bool(record.get("carry_refused", false))
 		if StringName(record.get("source_id", &"")) == SOURCE_MAXIMUM_DISTANCE:
 			_last_boundary_record = record.duplicate(true)
-			break
 	if (
 		_attachment != null
 		and _attachment.is_active()
-		and bool(_last_boundary_record.get("carry_refused", false))
+		and carry_refused
 	):
 		terminate(GrappleEndReason.Reason.ANCHOR_DISCONTINUITY, result.physics_step)
 
@@ -446,6 +490,10 @@ func get_diagnostic_snapshot() -> GrappleAttachmentDiagnosticSnapshot:
 	# `range_fraction` pairs with the distance the boundary ENFORCED
 	# (`distance_m`), so it is bounded by the authored maximum plus the documented
 	# positional tolerance; `current_distance_m` is the separately-named live read.
+	# DOCUMENTED CONVENTION (Story 1.8 review): before the first resolved
+	# boundary record there is no motor resolution fact yet and `distance_m`
+	# deliberately falls back to the live read; from the first record on it is
+	# the motor's own resolution fact. `from_attachment` maps this single key.
 	var resolution_distance_m := float(facts.get("distance_m", current_distance_m))
 	facts["distance_m"] = resolution_distance_m
 	facts["current_distance_m"] = current_distance_m

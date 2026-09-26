@@ -19,6 +19,9 @@ extends Node3D
 ## `sample_anchor_state()`. It resolves the stored target-local hit offset
 ## against the anchor body's global transform - pure transform math, never a
 ## raycast or a re-selection (AC 3) - and reports bounded facts only.
+## `delta_seconds` is the elapsed time since the PREVIOUS sample (one physics
+## step when sampling runs every step); the finite-difference velocity and its
+## rate equivalence depend on that elapsed time.
 
 const COMPONENT_NODE_NAME := &"Grappleable"
 
@@ -66,13 +69,23 @@ func is_grapple_anchor_valid() -> bool:
 
 ## Stateful targets invalidate their anchor explicitly (AC 6). The next sample
 ## reports `TARGET_INVALIDATED`; the player-side sampler commits the terminal.
+## Any supplied anchor velocity expires with the invalidation (Story 1.8 review
+## fix): a dead/unusable anchor must never keep reporting phantom motion.
 func invalidate_grapple_anchor() -> void:
 	_anchor_explicitly_invalidated = true
+	clear_supplied_anchor_velocity()
+
+
+func _exit_tree() -> void:
+	clear_supplied_anchor_velocity()
 
 
 ## Explicit supplied anchor velocity (Task 2.3): target-owned runtime state for
 ## bodies that know their own velocity. When supplied, sampling reports it
 ## instead of the finite difference. Never mutates shared definitions.
+## Lifetime (Story 1.8 review fix): until `clear_supplied_anchor_velocity()`,
+## explicit invalidation, or the component leaves the tree - whichever comes
+## first; it is never reported stale after the target stops supplying it.
 func supply_anchor_velocity(velocity_mps: Vector3) -> void:
 	if not velocity_mps.is_finite():
 		return
@@ -83,6 +96,16 @@ func supply_anchor_velocity(velocity_mps: Vector3) -> void:
 func clear_supplied_anchor_velocity() -> void:
 	_has_supplied_anchor_velocity = false
 	_supplied_anchor_velocity_mps = Vector3.ZERO
+
+
+## Start a fresh finite-difference baseline for a NEW attachment occurrence
+## (Story 1.8 review fix): derived velocity must never span the gap between two
+## occurrences. The player calls this once at attachment commit; the first
+## sample of the new occurrence then reports zero derived velocity.
+func reset_anchor_sampling() -> void:
+	_has_sample = false
+	_last_sample_anchor_position = Vector3.ZERO
+	_last_sample_local_offset = Vector3.ZERO
 
 
 ## Query-only anchor sampling (Task 2.2). Resolves
@@ -125,6 +148,15 @@ func sample_anchor_state(
 			) / delta_seconds
 	# STATIC mode keeps the frozen world anchor (the initial sample) and zero
 	# velocity - the built-in static response Story 1.7 resolved against.
+	if not anchor_world_position.is_finite():
+		# Degenerate target transform (Story 1.8 review fix): fail closed with a
+		# typed reason instead of coercing the anchor to a world origin.
+		return GrappleAnchorState.invalid(
+			initial_anchor_world_position,
+			GrappleAnchorState.InvalidationReason.TARGET_INVALIDATED,
+			scope,
+			response
+		)
 	_last_sample_anchor_position = anchor_world_position
 	_last_sample_local_offset = target_local_hit_offset
 	_has_sample = true

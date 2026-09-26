@@ -38,6 +38,20 @@ class Terminal:
 	## preserves it (AC 8); it is recorded here, never applied by the record.
 	var release_velocity: Vector3
 
+	## Value-only purity (Story 1.8 review fix, AC 9): mirrors the
+	## `GrappleAnchorState` discipline - every stored field must stay a value
+	## type (int/float/bool/String/StringName/Vector3; the enum is an int).
+	func is_value_only() -> bool:
+		for property in get_property_list():
+			if (property.usage & PROPERTY_USAGE_SCRIPT_VARIABLE) == 0:
+				continue
+			match int(property.type):
+				TYPE_INT, TYPE_FLOAT, TYPE_BOOL, TYPE_STRING, TYPE_STRING_NAME, TYPE_VECTOR3:
+					continue
+				_:
+					return false
+		return true
+
 	func _init(
 		terminal_attachment_id: StringName,
 		terminal_reason: GrappleEndReason.Reason,
@@ -199,9 +213,12 @@ func _init(
 	_response_pull_multiplier = _response.pull_multiplier
 	_originating_scope_identity = attachment_originating_scope_identity
 	# The accepted hit position is the initial sample (Task 1.1): the ongoing
-	# anchor is whatever the sampling phase records each physics step.
+	# anchor is whatever the sampling phase records each physics step. The seed
+	# sample does NOT count as a sampled step (Story 1.8 review fix): the commit
+	# step's sampling phase must run for real so its scope/discontinuity checks
+	# are not short-circuited.
 	_sampled_anchor_state = GrappleAnchorState.static_default(target_seed.hit_position)
-	_sampled_anchor_step = physics_step
+	_sampled_anchor_step = -1
 
 	_authored_pull_initial_acceleration_mps2 = definition.pull_initial_acceleration_mps2
 	_authored_pull_min_acceleration_mps2 = definition.pull_min_acceleration_mps2
@@ -286,7 +303,10 @@ func get_sampled_anchor_state() -> GrappleAnchorState:
 
 
 ## The physics step the current sample was taken at (Task 3.1: exactly one
-## sample per step while the attachment is active).
+## sample per step while the attachment is active). `-1` means no sample has
+## been taken yet - the accepted hit position is the initial sample only and
+## does NOT count as a sampled step (Story 1.8 review fix, so the commit step
+## is genuinely sampled).
 func get_sampled_anchor_step() -> int:
 	return _sampled_anchor_step
 

@@ -38,8 +38,12 @@ Before the boundary the anchor transfers no motion; the one exception is a
 step in which the pair would cross the maximum within that step (the grapple
 reaches its maximum length during the step): the player then receives exactly
 the anchor's separating radial motion required to stay within the maximum
-(relative overshoot prevention), never more. The integration scenario measures
-0.0 m of pre-boundary drift at both rates with a 5 m/s separating anchor.
+(relative overshoot prevention), never more. **RATIFIED by code-review
+decision (2026-09-25):** this one-step pre-boundary carry is intended behavior
+("one step may not carry the pair past the maximum"); the separation scenario
+now measures the drag band instead of masking it and asserts the drift stays
+within one step of anchor separation plus the measurement tolerance at both
+rates (previously the assertion window excluded the band).
 
 ## Terminating-step timing
 
@@ -56,8 +60,11 @@ constraint impulse or snap is ever observable.
 sample, so callers that never run the sampling phase (Story 1.7-era direct
 controller use, retained test fixtures) still resolve the pull and boundary
 against the frozen anchor - byte-compatible Story 1.7 behavior. The player
-state layer runs the sampling phase every active step, so gameplay always
-consumes per-step samples.
+state layer runs the sampling phase every active step (Story 1.8 review fix:
+the wall-stick state now samples every step with a live command frame, not
+only on its stale-anchor path), so gameplay always consumes per-step samples,
+and the stale-sample guard refuses submissions that would consume another
+step's sample.
 
 ## Targeting evaluation while attached (Task 3.3 interpretation)
 

@@ -234,11 +234,11 @@ func test_duplicate_termination_commits_one_terminal_and_repeats_nothing() -> vo
 	var motor: PlayerMotor = motor_fixture[1]
 	assert_eq(motor.begin_motion_frame(1), PlayerMotor.FrameStatus.SUCCESS)
 	assert_eq(
-		controller.submit_motor_influences(motor, 1.0 / 60.0),
+		controller.submit_motor_influences(motor, 1.0 / 60.0, 1),
 		PlayerMotor.SubmissionStatus.NO_ACTIVE_ATTACHMENT
 	)
 	assert_eq(
-		controller.submit_speed_cap(motor),
+		controller.submit_speed_cap(motor, 1),
 		PlayerMotor.SubmissionStatus.NO_ACTIVE_ATTACHMENT
 	)
 	assert_eq(motor.get_accepted_submission_count(), 0)
@@ -527,6 +527,13 @@ func test_pull_and_boundary_share_one_documented_reference_point() -> void:
 	var target := StaticBody3D.new()
 	target.name = "ReferencePointTarget"
 	body.get_parent().add_child(target)
+	# The seed carries a stable target identity, so the anchor contract exists:
+	# a `Grappleable3D` component in STATIC mode (frozen world anchor).
+	var target_component := Grappleable3D.new()
+	target_component.name = "Grappleable"
+	target_component.target_id = &"target.contract"
+	target_component.anchor_mode = GrappleTargetResponse.AnchorMode.STATIC
+	target.add_child(target_component)
 	var definition := GrappleDefinition.new()
 	definition.definition_id = &"player.grapple.default"
 	definition.max_grapple_length_m = 35.0
@@ -563,8 +570,10 @@ func test_pull_and_boundary_share_one_documented_reference_point() -> void:
 		),
 		PlayerMotor.SubmissionStatus.SUCCESS
 	)
+	# Story 1.8 review fix: submissions consume this step's sampled state.
+	assert_true(controller.sample_anchor_state(42, 1.0 / 60.0))
 	assert_eq(
-		controller.submit_motor_influences(motor, 1.0 / 60.0),
+		controller.submit_motor_influences(motor, 1.0 / 60.0, 42),
 		PlayerMotor.SubmissionStatus.SUCCESS
 	)
 

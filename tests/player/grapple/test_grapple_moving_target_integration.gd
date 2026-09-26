@@ -90,8 +90,44 @@ func test_rotation_follow_tracks_the_target_local_hit_point() -> void:
 		var snapshot: GrappleAttachmentDiagnosticSnapshot = (
 			player.call("get_grapple_attachment_diagnostic_snapshot")
 		)
-		assert_true(snapshot.is_active, "rotation about the hit point never ends the grapple")
+		assert_true(snapshot.is_active, "rotation with the body never ends the grapple")
 		assert_almost_eq(snapshot.anchor_world_position.distance_to(expected), 0.0, 0.001)
+
+
+func test_rotation_about_the_local_hit_point_leaves_the_anchor_stationary() -> void:
+	# AC 10 scenario as specified (Story 1.8 review fix): when the body rotates
+	# AROUND the stored local hit point, the anchor stays at that world point.
+	var fixture := _new_traversal_fixture(Vector3(0.0, 6.0, 0.0))
+	var player: CharacterBody3D = fixture[0]
+	var target := _add_moving_target(
+		player.get_parent(),
+		Vector3(0.0, 6.0, -12.0),
+		Vector3(6.0, 30.0, 0.4),
+		0.1
+	)
+	await _settle_airborne(player)
+	await _start_grapple(player)
+
+	var attachment: GrappleAttachment = player.call("get_grapple_attachment")
+	var offset: Vector3 = attachment.target_local_hit_offset
+	var hit_world: Vector3 = (target as Node3D).global_transform * offset
+	for _step in range(12):
+		target.rotate(Vector3.UP, 0.05)
+		# Re-aim the body so the rotation pivots around the hit point itself.
+		target.global_position = (
+			hit_world - (target as Node3D).global_transform.basis * offset
+		)
+		await get_tree().physics_frame
+		var snapshot: GrappleAttachmentDiagnosticSnapshot = (
+			player.call("get_grapple_attachment_diagnostic_snapshot")
+		)
+		assert_true(snapshot.is_active, "rotation about the hit point never ends the grapple")
+		assert_almost_eq(
+			snapshot.anchor_world_position.distance_to(hit_world),
+			0.0,
+			0.001,
+			"the anchor stays at the hit point while the body rotates about it"
+		)
 
 
 func test_sampled_target_velocity_reflects_target_motion_at_both_rates() -> void:
@@ -142,10 +178,13 @@ func test_separating_target_carries_the_player_only_at_the_maximum() -> void:
 	var at_one_twenty := await _separation_scenario(120, 5.0)
 	Engine.physics_ticks_per_second = _saved_physics_ticks_per_second
 
-	# Before the boundary a separating anchor does not drag the player at all
-	# (AC 4 first Given).
-	assert_lte(float(at_sixty["max_pre_boundary_drift_m"]), 0.05)
-	assert_lte(float(at_one_twenty["max_pre_boundary_drift_m"]), 0.05)
+	# AC 4 as amended (Story 1.8 review decision D2): before the boundary a
+	# separating anchor does not drag the player beyond the ratified one-step
+	# exception - one step of anchor separation plus the measurement tolerance -
+	# and the drift window now includes the pre-boundary drag band, so the
+	# exception is observable and bounded instead of masked.
+	assert_lte(float(at_sixty["max_pre_boundary_drift_m"]), 5.0 / 60.0 + 0.05)
+	assert_lte(float(at_one_twenty["max_pre_boundary_drift_m"]), 5.0 / 120.0 + 0.05)
 	# At the boundary the player receives exactly the anchor's separating
 	# radial motion - no more (AC 4).
 	assert_almost_eq(float(at_sixty["boundary_carry_mps"]), 5.0, 0.35)
@@ -202,8 +241,11 @@ func _separation_scenario(tick_rate: int, separation_mps: float) -> Dictionary:
 		)
 		if boundary_engaged and boundary_hit_seconds < 0.0:
 			boundary_hit_seconds = elapsed
-		if boundary_hit_seconds < 0.0:
-			# Not yet at the maximum: the player must not be dragged.
+		if snapshot.distance_at_resolution_m < 35.0:
+			# AC 4 as amended (Story 1.8 review decision D2): drift is measured
+			# for EVERY step strictly below the maximum - including the final
+			# pre-boundary step where the ratified one-step carry exception
+			# applies - so the drag band is observable and bounded, never masked.
 			max_drift = maxf(max_drift, player.global_position.distance_to(start_position))
 		else:
 			boundary_carry = maxf(
@@ -293,7 +335,17 @@ func test_approaching_target_never_pushes_the_player() -> void:
 ## ---- AC 6/7/8: invalid targets, discontinuity, idempotent termination ---
 
 
+## AC 10 as amended (Story 1.8 review decision D1): every termination-path
+## scenario and the static-target regression run at BOTH the production 60 Hz
+## rate and the diagnostic 120 Hz rate.
 func test_freed_target_terminates_once_without_a_velocity_spike() -> void:
+	for tick_rate in [60, 120]:
+		Engine.physics_ticks_per_second = tick_rate
+		await _freed_target_scenario()
+	Engine.physics_ticks_per_second = _saved_physics_ticks_per_second
+
+
+func _freed_target_scenario() -> void:
 	var fixture := _new_traversal_fixture(Vector3(0.0, 6.0, 0.0))
 	var player: CharacterBody3D = fixture[0]
 	var motor: PlayerMotor = fixture[1]
@@ -334,6 +386,13 @@ func test_freed_target_terminates_once_without_a_velocity_spike() -> void:
 
 
 func test_explicit_invalidation_terminates_once_with_target_invalidated() -> void:
+	for tick_rate in [60, 120]:
+		Engine.physics_ticks_per_second = tick_rate
+		await _explicit_invalidation_scenario()
+	Engine.physics_ticks_per_second = _saved_physics_ticks_per_second
+
+
+func _explicit_invalidation_scenario() -> void:
 	var fixture := _new_traversal_fixture(Vector3(0.0, 6.0, 0.0))
 	var player: CharacterBody3D = fixture[0]
 	var target := _add_moving_target(
@@ -357,6 +416,13 @@ func test_explicit_invalidation_terminates_once_with_target_invalidated() -> voi
 
 
 func test_scope_mismatch_terminates_once_with_scope_mismatch() -> void:
+	for tick_rate in [60, 120]:
+		Engine.physics_ticks_per_second = tick_rate
+		await _scope_mismatch_scenario()
+	Engine.physics_ticks_per_second = _saved_physics_ticks_per_second
+
+
+func _scope_mismatch_scenario() -> void:
 	var fixture := _new_traversal_fixture(Vector3(0.0, 6.0, 0.0))
 	var player: CharacterBody3D = fixture[0]
 	var target := _add_moving_target(
@@ -383,6 +449,13 @@ func test_scope_mismatch_terminates_once_with_scope_mismatch() -> void:
 
 
 func test_severe_anchor_discontinuity_terminates_instead_of_snapping() -> void:
+	for tick_rate in [60, 120]:
+		Engine.physics_ticks_per_second = tick_rate
+		await _severe_discontinuity_scenario()
+	Engine.physics_ticks_per_second = _saved_physics_ticks_per_second
+
+
+func _severe_discontinuity_scenario() -> void:
 	var fixture := _new_traversal_fixture(Vector3(0.0, 6.0, 0.0))
 	var player: CharacterBody3D = fixture[0]
 	var motor: PlayerMotor = fixture[1]
@@ -412,6 +485,13 @@ func test_severe_anchor_discontinuity_terminates_instead_of_snapping() -> void:
 
 
 func test_overlapping_termination_paths_commit_exactly_once() -> void:
+	for tick_rate in [60, 120]:
+		Engine.physics_ticks_per_second = tick_rate
+		await _overlapping_termination_scenario()
+	Engine.physics_ticks_per_second = _saved_physics_ticks_per_second
+
+
+func _overlapping_termination_scenario() -> void:
 	var fixture := _new_traversal_fixture(Vector3(0.0, 6.0, 0.0))
 	var player: CharacterBody3D = fixture[0]
 	var motor: PlayerMotor = fixture[1]
@@ -449,6 +529,13 @@ func test_overlapping_termination_paths_commit_exactly_once() -> void:
 
 
 func test_static_target_regression_keeps_the_story_1_7_response() -> void:
+	for tick_rate in [60, 120]:
+		Engine.physics_ticks_per_second = tick_rate
+		await _static_regression_scenario()
+	Engine.physics_ticks_per_second = _saved_physics_ticks_per_second
+
+
+func _static_regression_scenario() -> void:
 	var fixture := _new_traversal_fixture(Vector3(0.0, 6.0, 0.0))
 	var player: CharacterBody3D = fixture[0]
 	var motor: PlayerMotor = fixture[1]

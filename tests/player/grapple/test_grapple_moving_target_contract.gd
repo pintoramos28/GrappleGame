@@ -276,7 +276,7 @@ func test_attachment_stores_full_response_values_and_optional_scope_identity() -
 		Vector3.ZERO,
 		0.5
 	)
-	var seed := GrappleTargetSeed.new(
+	var target_seed := GrappleTargetSeed.new(
 		&"target.moving_case",
 		Vector3.ZERO,
 		Vector3(0.0, 0.0, 1.0),
@@ -287,7 +287,7 @@ func test_attachment_stores_full_response_values_and_optional_scope_identity() -
 	controller.set_scope_identity_provider(_constant_scope(&"encounter.run_a"))
 	assert_eq(controller.get_originating_scope_identity(), &"encounter.run_a")
 	assert_eq(
-		controller.commit_attachment(seed, 3),
+		controller.commit_attachment(target_seed, 3),
 		GrappleController.CommitStatus.SUCCESS
 	)
 	var attachment: GrappleAttachment = controller.get_attachment()
@@ -314,7 +314,7 @@ func test_attachment_resolution_stays_occurrence_local_and_never_mutates_definit
 		Vector3.ZERO,
 		1.0
 	)
-	var seed := GrappleTargetSeed.new(
+	var target_seed := GrappleTargetSeed.new(
 		&"target.moving_case",
 		Vector3.ZERO,
 		Vector3(0.0, 0.0, 1.0),
@@ -322,7 +322,7 @@ func test_attachment_resolution_stays_occurrence_local_and_never_mutates_definit
 		weakref(target),
 		Vector3.ZERO
 	)
-	assert_eq(controller.commit_attachment(seed, 3), GrappleController.CommitStatus.SUCCESS)
+	assert_eq(controller.commit_attachment(target_seed, 3), GrappleController.CommitStatus.SUCCESS)
 	var attachment: GrappleAttachment = controller.get_attachment()
 	# Instability (0..1) scales the discontinuity tolerances down by at most
 	# half, occurrence-locally (Task 6.1).
@@ -393,7 +393,7 @@ func test_sampling_phase_runs_once_per_step_and_submissions_consume_the_sample()
 		PlayerMotor.SubmissionStatus.SUCCESS
 	)
 	assert_eq(
-		controller.submit_motor_influences(motor, 1.0 / 60.0),
+		controller.submit_motor_influences(motor, 1.0 / 60.0, 9),
 		PlayerMotor.SubmissionStatus.SUCCESS
 	)
 	var result := motor.resolve_and_commit()
@@ -412,6 +412,12 @@ func test_sampling_phase_runs_once_per_step_and_submissions_consume_the_sample()
 		records[0]["anchor_velocity"],
 		second_sample.target_velocity,
 		"the boundary consumes the sampled anchor velocity"
+	)
+	assert_almost_eq(
+		float(records[0]["carry_tolerance_mps"]),
+		controller.get_attachment().resolved_continuous_motion_tolerance_mps,
+		TOLERANCE,
+		"the boundary payload carries the resolved carry tolerance (review fix)"
 	)
 	var snapshot: GrappleAttachmentDiagnosticSnapshot = controller.get_diagnostic_snapshot()
 	assert_eq(snapshot.anchor_world_position, second_sample.anchor_world_position)
@@ -477,7 +483,11 @@ func test_freed_target_terminates_exactly_once_with_target_destroyed() -> void:
 	assert_eq(ended_events.size(), 1, "the terminal commits exactly once")
 	assert_false(controller.sample_anchor_state(10, 1.0 / 60.0))
 	assert_eq(ended_events.size(), 1)
-	assert_same(attachment.get_terminal(), attachment.get_terminal())
+	var terminal := attachment.get_terminal()
+	assert_not_null(terminal)
+	# Idempotency: a later read returns the SAME committed record (review fix:
+	# the previous assertion compared one getter with itself and could not fail).
+	assert_same(attachment.get_terminal(), terminal)
 
 
 func test_explicit_invalidation_terminates_with_target_invalidated() -> void:
@@ -578,6 +588,7 @@ func test_severe_anchor_discontinuity_terminates_before_any_submission() -> void
 	var scene := _new_controller_motor_fixture()
 	var controller: GrappleController = scene[0]
 	var target: StaticBody3D = scene[1]
+	var motor: PlayerMotor = scene[3]
 	var hit_position := target.global_position
 	var offset := target.global_transform.affine_inverse() * hit_position
 	assert_eq(
@@ -591,6 +602,34 @@ func test_severe_anchor_discontinuity_terminates_before_any_submission() -> void
 	assert_false(controller.sample_anchor_state(9, 1.0 / 60.0))
 	var attachment: GrappleAttachment = controller.get_attachment()
 	assert_eq(attachment.get_terminal().reason, GrappleEndReason.Reason.ANCHOR_DISCONTINUITY)
+	# "Terminates BEFORE any submission" (AC 7, review fix): the terminated step
+	# must refuse every grapple submission and the commit carries none of them.
+	assert_eq(motor.begin_motion_frame(9, 1.0 / 60.0), PlayerMotor.FrameStatus.SUCCESS)
+	assert_eq(
+		motor.select_state_policy(&"player.locomotion.grappling"),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_eq(
+		motor.submit_base_motion(
+			&"player.locomotion.grappling.base",
+			Vector3.ZERO,
+			0.0,
+			false
+		),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_eq(
+		controller.submit_motor_influences(motor, 1.0 / 60.0, 9),
+		PlayerMotor.SubmissionStatus.NO_ACTIVE_ATTACHMENT
+	)
+	assert_eq(
+		controller.submit_speed_cap(motor, 9),
+		PlayerMotor.SubmissionStatus.NO_ACTIVE_ATTACHMENT
+	)
+	var result := motor.resolve_and_commit()
+	assert_true(result.success)
+	assert_false(result.applied_constraints.has(&"player.grapple.maximum_distance"))
+	assert_false(result.applied_caps.has(&"player.grapple.speed_cap"))
 
 
 func test_continuous_anchor_motion_follows_normally() -> void:
@@ -782,6 +821,373 @@ func test_moving_anchor_follow_repeats_no_target_selection_raycast() -> void:
 				line.contains("PhysicsRayQueryParameters3D"),
 				"%s must not raycast" % path
 			)
+
+
+## ---- Story 1.8 review fixes (2026-09-25) -------------------------------
+##
+## Regression coverage for the code-review findings: stale-sample guards,
+## per-occurrence sampling baselines, commit-step sampling, carry-refusal
+## termination wiring, payload bounds, value-only purity, and read-only
+## consumer boundaries.
+
+
+func test_sampling_is_idempotent_within_one_step_and_never_re_samples() -> void:
+	var scene := _new_controller_motor_fixture()
+	var controller: GrappleController = scene[0]
+	var target: StaticBody3D = scene[1]
+	var hit_position := target.global_position
+	var offset := target.global_transform.affine_inverse() * hit_position
+	assert_eq(
+		controller.commit_attachment(_moving_seed(target, hit_position, offset), 7),
+		GrappleController.CommitStatus.SUCCESS
+	)
+	assert_true(controller.sample_anchor_state(8, 1.0 / 60.0))
+	var first_sample: GrappleAnchorState = controller.get_sampled_anchor_state()
+	target.global_position += Vector3(5.0, 0.0, 0.0)
+	assert_true(controller.sample_anchor_state(8, 1.0 / 60.0))
+	assert_same(
+		controller.get_sampled_anchor_state(),
+		first_sample,
+		"one sample per step: the second call returns the earlier verdict"
+	)
+	assert_eq(controller.get_attachment().get_sampled_anchor_step(), 8)
+
+
+func test_submissions_refuse_a_sample_from_another_step() -> void:
+	var scene := _new_controller_motor_fixture()
+	var controller: GrappleController = scene[0]
+	var target: StaticBody3D = scene[1]
+	var body: CharacterBody3D = scene[2]
+	var motor: PlayerMotor = scene[3]
+	var hit_position := target.global_position
+	var offset := target.global_transform.affine_inverse() * hit_position
+	assert_eq(
+		controller.commit_attachment(_moving_seed(target, hit_position, offset), 7),
+		GrappleController.CommitStatus.SUCCESS
+	)
+	assert_true(controller.sample_anchor_state(8, 1.0 / 60.0))
+	# Step 9 submits WITHOUT sampling step 9: nothing may be consumed from step
+	# 8's sample, and the motor receives no grapple submission at all.
+	assert_eq(motor.begin_motion_frame(9, 1.0 / 60.0), PlayerMotor.FrameStatus.SUCCESS)
+	assert_eq(
+		controller.submit_motor_influences(motor, 1.0 / 60.0, 9),
+		PlayerMotor.SubmissionStatus.STALE_ANCHOR_SAMPLE
+	)
+	assert_eq(
+		controller.submit_speed_cap(motor, 9),
+		PlayerMotor.SubmissionStatus.STALE_ANCHOR_SAMPLE
+	)
+	assert_eq(motor.get_accepted_submission_count(), 0)
+	# The same step sampled for real then submits normally.
+	assert_true(controller.sample_anchor_state(9, 1.0 / 60.0))
+	assert_eq(
+		controller.submit_motor_influences(motor, 1.0 / 60.0, 9),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_gt(motor.get_accepted_submission_count(), 0)
+
+
+func test_the_commit_step_is_genuinely_sampled() -> void:
+	var scene := _new_controller_motor_fixture()
+	var controller: GrappleController = scene[0]
+	var target: StaticBody3D = scene[1]
+	var component: Grappleable3D = Grappleable3D.find_explicit_grappleables(target)[0]
+	component.encounter_scope_identity = &"encounter.run_b"
+	controller.set_scope_identity_provider(_constant_scope(&"encounter.run_a"))
+	assert_eq(
+		controller.commit_attachment(
+			_moving_seed(target, target.global_position, Vector3.ZERO),
+			7
+		),
+		GrappleController.CommitStatus.SUCCESS
+	)
+	# The commit step's sampling phase runs for real: the seed sample no longer
+	# short-circuits the scope/discontinuity checks for that step.
+	assert_false(controller.sample_anchor_state(7, 1.0 / 60.0))
+	var attachment: GrappleAttachment = controller.get_attachment()
+	assert_eq(attachment.get_terminal().reason, GrappleEndReason.Reason.SCOPE_MISMATCH)
+
+
+func test_re_attachment_starts_a_fresh_sampling_baseline() -> void:
+	var scene := _new_controller_motor_fixture()
+	var controller: GrappleController = scene[0]
+	var target: StaticBody3D = scene[1]
+	var hit_position := target.global_position
+	var offset := target.global_transform.affine_inverse() * hit_position
+	assert_eq(
+		controller.commit_attachment(_moving_seed(target, hit_position, offset), 7),
+		GrappleController.CommitStatus.SUCCESS
+	)
+	assert_true(controller.sample_anchor_state(8, 1.0 / 60.0))
+	assert_not_null(controller.terminate(GrappleEndReason.Reason.RELEASE, 8))
+	# Release, move the target far away while unattached, re-grapple.
+	target.global_position += Vector3(30.0, 0.0, 0.0)
+	hit_position = target.global_position
+	offset = target.global_transform.affine_inverse() * hit_position
+	assert_eq(
+		controller.commit_attachment(_moving_seed(target, hit_position, offset), 9),
+		GrappleController.CommitStatus.SUCCESS
+	)
+	assert_true(controller.sample_anchor_state(10, 1.0 / 60.0))
+	var sample: GrappleAnchorState = controller.get_sampled_anchor_state()
+	assert_almost_eq(
+		sample.target_velocity.length(),
+		0.0,
+		0.001,
+		"the first sample of a new occurrence derives no stale-span velocity"
+	)
+
+
+func test_a_gap_between_samples_never_inflates_the_implied_speed() -> void:
+	var scene := _new_controller_motor_fixture()
+	var controller: GrappleController = scene[0]
+	var target: StaticBody3D = scene[1]
+	var hit_position := target.global_position
+	var offset := target.global_transform.affine_inverse() * hit_position
+	assert_eq(
+		controller.commit_attachment(_moving_seed(target, hit_position, offset), 7),
+		GrappleController.CommitStatus.SUCCESS
+	)
+	assert_true(controller.sample_anchor_state(8, 1.0 / 60.0))
+	# Sampling is skipped for 5 steps (e.g. a state that suspends the phase)
+	# while the target moves a total of 5 m: 1 m per step is continuous motion
+	# and must never classify as a severe discontinuity when sampling resumes.
+	target.global_position += Vector3(5.0, 0.0, 0.0)
+	assert_true(controller.sample_anchor_state(14, 1.0 / 60.0))
+	assert_true(controller.has_active_attachment())
+	var sample: GrappleAnchorState = controller.get_sampled_anchor_state()
+	# 5 m over the 6 elapsed steps is 50 m/s of continuous motion: gap-corrected.
+	# The stale one-step division would have reported 300 m/s and terminated.
+	assert_almost_eq(sample.target_velocity.x, 50.0, 0.5, "gap-corrected derived speed")
+
+
+func test_a_non_finite_sampled_anchor_fails_closed_with_a_typed_reason() -> void:
+	var fixture := _new_component_target(GrappleTargetResponse.AnchorMode.MOVING)
+	var component: Grappleable3D = fixture[0]
+	# Degenerate local offset (review fix): never a coerced world-origin anchor
+	# that still reports valid.
+	var from_offset := component.sample_anchor_state(
+		Vector3(INF, 0.0, 0.0),
+		1.0 / 60.0,
+		Vector3.ZERO
+	)
+	assert_false(from_offset.is_valid)
+	assert_eq(
+		from_offset.invalidation_reason,
+		GrappleAnchorState.InvalidationReason.TARGET_INVALIDATED
+	)
+	# Degenerate frozen anchor on the static path (review fix).
+	var static_component: Grappleable3D = (
+		_new_component_target(GrappleTargetResponse.AnchorMode.STATIC)[0]
+	)
+	var from_anchor := static_component.sample_anchor_state(
+		Vector3.ZERO,
+		1.0 / 60.0,
+		Vector3(INF, 0.0, 0.0)
+	)
+	assert_false(from_anchor.is_valid)
+
+
+func test_supplied_anchor_velocity_expires_with_invalidation() -> void:
+	var fixture := _new_component_target(GrappleTargetResponse.AnchorMode.MOVING)
+	var component: Grappleable3D = fixture[0]
+	component.supply_anchor_velocity(Vector3(0.0, 0.0, -6.0))
+	component.invalidate_grapple_anchor()
+	# Reviewed lifetime rule: explicit invalidation expires the supplied
+	# velocity (observed directly because an invalidated anchor no longer
+	# samples).
+	assert_false(component._has_supplied_anchor_velocity)
+	assert_eq(component._supplied_anchor_velocity_mps, Vector3.ZERO)
+
+
+func test_a_malformed_scope_provider_fails_closed_to_unscoped() -> void:
+	var fixture := _new_controller_fixture()
+	var controller: GrappleController = fixture[0]
+	controller.set_scope_identity_provider(
+		func() -> Variant:
+			return 42
+	)
+	assert_eq(
+		controller.get_originating_scope_identity(),
+		&"",
+		"only String/StringName is a stable identity"
+	)
+	controller.set_scope_identity_provider(
+		func() -> Variant:
+			return Vector3.ONE
+	)
+	assert_eq(controller.get_originating_scope_identity(), &"")
+
+
+func test_terminal_record_stays_value_only() -> void:
+	var fixture := _new_controller_fixture()
+	var controller: GrappleController = fixture[0]
+	var target: StaticBody3D = fixture[1]
+	assert_eq(
+		controller.commit_attachment(_static_seed(target, Vector3.ZERO), 7),
+		GrappleController.CommitStatus.SUCCESS
+	)
+	var terminal := controller.terminate(GrappleEndReason.Reason.RELEASE, 8)
+	assert_not_null(terminal)
+	assert_true(terminal.is_value_only(), "Terminal must stay value-only")
+
+
+func test_refused_boundary_carry_terminates_the_attachment_end_to_end() -> void:
+	# AC 4 "never snap" wiring (review fix): the motor's carry refusal reaches
+	# the single termination funnel in the SAME step, exactly once.
+	var scene := _new_controller_motor_fixture()
+	var controller: GrappleController = scene[0]
+	var target: StaticBody3D = scene[1]
+	var body: CharacterBody3D = scene[2]
+	var motor: PlayerMotor = scene[3]
+	var component: Grappleable3D = Grappleable3D.find_explicit_grappleables(target)[0]
+	# Player idle exactly at the maximum boundary; the anchor separates at
+	# 200 m/s - far above the 50 m/s continuous tolerance.
+	body.global_position = target.global_position + Vector3(0.0, 0.0, 35.0)
+	component.supply_anchor_velocity(Vector3(0.0, 0.0, -200.0))
+	var hit_position := target.global_position
+	var offset := target.global_transform.affine_inverse() * hit_position
+	assert_eq(
+		controller.commit_attachment(_moving_seed(target, hit_position, offset), 7),
+		GrappleController.CommitStatus.SUCCESS
+	)
+	var ended_events: Array = []
+	controller.attachment_ended.connect(
+		func(attachment_id: StringName, reason: GrappleEndReason.Reason) -> void:
+			ended_events.append([attachment_id, reason])
+	)
+	assert_true(controller.sample_anchor_state(8, 1.0 / 60.0))
+	assert_eq(motor.begin_motion_frame(8, 1.0 / 60.0), PlayerMotor.FrameStatus.SUCCESS)
+	assert_eq(
+		motor.select_state_policy(&"player.locomotion.grappling"),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_eq(
+		motor.submit_base_motion(
+			&"player.locomotion.grappling.base",
+			Vector3.ZERO,
+			0.0,
+			false
+		),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_eq(
+		controller.submit_motor_influences(motor, 1.0 / 60.0, 8),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	var result := motor.resolve_and_commit()
+	assert_true(result.success)
+	assert_eq(result.anchor_constraint_records.size(), 1)
+	var record: Dictionary = result.anchor_constraint_records[0]
+	assert_true(bool(record["carry_refused"]))
+	assert_almost_eq(float(record["carry_applied_mps"]), 0.0, TOLERANCE)
+	assert_gt(float(record["carry_refused_mps"]), 50.0)
+	controller.record_committed_facts(result)
+	assert_eq(ended_events.size(), 1, "the refused carry terminates exactly once")
+	var attachment: GrappleAttachment = controller.get_attachment()
+	assert_eq(attachment.get_terminal().reason, GrappleEndReason.Reason.ANCHOR_DISCONTINUITY)
+	var snapshot: GrappleAttachmentDiagnosticSnapshot = controller.get_diagnostic_snapshot()
+	assert_gt(snapshot.boundary_carry_refused_mps, 50.0)
+	assert_almost_eq(snapshot.boundary_carry_applied_mps, 0.0, TOLERANCE)
+
+
+func test_a_refused_carry_in_any_boundary_record_terminates_the_attachment() -> void:
+	# Review fix: the motor may resolve several boundary records per frame from
+	# distinct source ids; a refused carry in ANY of them must reach the funnel.
+	var scene := _new_controller_motor_fixture()
+	var controller: GrappleController = scene[0]
+	var target: StaticBody3D = scene[1]
+	var body: CharacterBody3D = scene[2]
+	var motor: PlayerMotor = scene[3]
+	body.global_position = target.global_position + Vector3(0.0, 0.0, 35.0)
+	var hit_position := target.global_position
+	var offset := target.global_transform.affine_inverse() * hit_position
+	assert_eq(
+		controller.commit_attachment(_moving_seed(target, hit_position, offset), 7),
+		GrappleController.CommitStatus.SUCCESS
+	)
+	var ended_events: Array = []
+	controller.attachment_ended.connect(
+		func(attachment_id: StringName, reason: GrappleEndReason.Reason) -> void:
+			ended_events.append([attachment_id, reason])
+	)
+	assert_true(controller.sample_anchor_state(8, 1.0 / 60.0))
+	assert_eq(motor.begin_motion_frame(8, 1.0 / 60.0), PlayerMotor.FrameStatus.SUCCESS)
+	assert_eq(
+		motor.select_state_policy(&"player.locomotion.grappling"),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	assert_eq(
+		motor.submit_base_motion(
+			&"player.locomotion.grappling.base",
+			Vector3.ZERO,
+			0.0,
+			false
+		),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	# A boundary record from ANOTHER source refuses its carry this step.
+	assert_eq(
+		motor.submit_maximum_anchor_distance(
+			&"test.secondary_boundary",
+			target.global_position,
+			35.0,
+			Vector3(0.0, 0.0, -200.0),
+			50.0
+		),
+		PlayerMotor.SubmissionStatus.SUCCESS
+	)
+	var result := motor.resolve_and_commit()
+	assert_true(result.success)
+	assert_eq(result.anchor_constraint_records.size(), 1)
+	assert_true(bool(result.anchor_constraint_records[0]["carry_refused"]))
+	controller.record_committed_facts(result)
+	assert_eq(ended_events.size(), 1, "a refused carry from any source terminates once")
+	assert_eq(
+		controller.get_attachment().get_terminal().reason,
+		GrappleEndReason.Reason.ANCHOR_DISCONTINUITY
+	)
+
+
+func test_negative_carry_tolerance_is_rejected_like_any_out_of_bound_value() -> void:
+	var motor_fixture := _new_motor_fixture()
+	var body: CharacterBody3D = motor_fixture[0]
+	var motor: PlayerMotor = motor_fixture[1]
+	body.global_position = Vector3(0.0, 0.0, 35.0)
+	assert_eq(motor.begin_motion_frame(1, 1.0 / 60.0), PlayerMotor.FrameStatus.SUCCESS)
+	assert_eq(
+		motor.submit_maximum_anchor_distance(
+			&"player.grapple.maximum_distance",
+			Vector3.ZERO,
+			35.0,
+			Vector3.ZERO,
+			-1.0
+		),
+		PlayerMotor.SubmissionStatus.INVALID_REQUEST,
+		"a negative carry tolerance is never a valid bound"
+	)
+	assert_push_error("player.motor.invalid_carry_tolerance")
+	assert_eq(motor.get_accepted_submission_count(), 0)
+
+
+func test_presentation_and_state_consumers_read_snapshots_only() -> void:
+	# AC 9 / Task 7.1 (review fix): the mutable attachment accessor is
+	# internal/test-only; external consumers read the value-only snapshots.
+	for path in [
+		"res://scripts/debug_grapple_telemetry.gd",
+		"res://scripts/player_grappling_state.gd",
+		"res://scripts/player_wall_stick_state.gd",
+		"res://scripts/player_dead_state.gd",
+	]:
+		var source := FileAccess.get_file_as_string(path)
+		for line in source.split("\n"):
+			if line.strip_edges().begins_with("#"):
+				continue
+			assert_false(
+				line.contains("get_grapple_attachment("),
+				"%s reads snapshots only" % path
+			)
+			assert_false(line.contains(".get_attachment("), "%s reads snapshots only" % path)
 
 
 ## ---- Fixtures ----------------------------------------------------------
