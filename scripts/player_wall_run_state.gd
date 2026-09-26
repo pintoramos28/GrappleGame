@@ -25,7 +25,10 @@ func _update(_delta: float) -> void:
 		agent.dispatch_locomotion_event(agent.EVENT_GRAPPLE_STARTED)
 		return
 
-	if command_frame.was_pressed(PlayerCommandFrame.Action.JUMP):
+	if (
+		command_frame.was_pressed(PlayerCommandFrame.Action.JUMP)
+		and agent.has_valid_wall_jump_relationship(reference_velocity)
+	):
 		agent.submit_base_passthrough(agent.LOCOMOTION_WALL_RUN)
 		agent.submit_wall_jump(reference_velocity)
 		agent.dispatch_locomotion_event(agent.EVENT_WALL_RUN_FINISHED)

@@ -185,10 +185,14 @@ var grapple_target: Node3D:
 var is_wall_running := false
 var wall_normal := Vector3.ZERO
 var wall_run_direction := Vector3.ZERO
+var wall_surface_identity: StringName = &""
+var wall_identity_persistent := false
 var is_wall_sticking := false
 var wall_stick_position := Vector3.ZERO
 var wall_stick_normal := Vector3.ZERO
 var wall_stick_run_direction := Vector3.ZERO
+var wall_stick_surface_identity: StringName = &""
+var wall_stick_identity_persistent := false
 var is_dead := false
 var _player_physics_step := 0
 var _current_command_frame: PlayerCommandFrame
@@ -864,18 +868,83 @@ func _get_gravity_scale() -> float:
 	return 1.0
 
 
+## Wall-run entry and maintenance consume the shared `ContactFrame` wall facts
+## only (Story 1.9 Task 1.1). No collision query, no raw body wall flag or wall
+## normal read, no slide-collision enumeration, and no hardware-input read ever
+## happens in wall policy: the contact provider answers "which wall", the
+## traversal layer answers "may we run it" (Story 1.5 AC 6 boundary).
 func _update_wall_run_state(input_dir: Vector2, reference_velocity: Vector3) -> void:
 	var contact_frame := get_previous_contact_frame()
-	if has_ground_contact() or is_grappling or contact_frame == null or not contact_frame.has_wall_contact:
+	if (
+		has_ground_contact()
+		or is_grappling
+		or not _is_runnable_wall_frame(contact_frame, _player_physics_step - 1)
+	):
 		_clear_wall_run()
 		return
 
 	if not is_wall_running and not _can_start_wall_run(reference_velocity):
 		return
 
-	_set_wall_run(contact_frame.wall_normal, reference_velocity)
+	if not _update_wall_run_relationship(contact_frame, reference_velocity):
+		return
+
 	if not _has_wall_run_input_for_direction(input_dir, wall_run_direction):
 		_clear_wall_run()
+
+
+## Fail-closed wall-fact gate (Story 1.9 Task 4.2). A carried previous-step
+## frame, an exhausted continuity loss window, `wall_contact_lost`, an
+## unavailable wall profile, or a failed wall probe must end wall running and
+## wall sticking rather than holding them: stale wall facts fail toward exit,
+## never toward staying. `expected_step` is the physics step the caller needs
+## the frame to belong to (the pre-commit step reads `ContactFrame(N-1)`, the
+## post-commit wall-stick entry reads the just-committed `ContactFrame(N)`).
+func _is_runnable_wall_frame(contact_frame: ContactFrame, expected_step: int) -> bool:
+	if contact_frame == null:
+		return false
+	if contact_frame.physics_step != expected_step:
+		return false
+	if not contact_frame.wall_probe_query_succeeded:
+		return false
+	if contact_frame.wall_contact_lost:
+		return false
+	if not contact_frame.has_wall_contact:
+		return false
+	return (
+		contact_frame.continuity_action == ContactFrame.ContinuityAction.INITIAL
+		or contact_frame.continuity_action == ContactFrame.ContinuityAction.PRESERVED
+		or contact_frame.continuity_action == ContactFrame.ContinuityAction.SWITCHED
+	)
+
+
+## Wall-relationship maintenance (Story 1.9 Tasks 1.3 / 3.1 / 3.2) given the
+## authoritative `ContactFrame` wall facts only. The relationship - identity,
+## normal, and the deterministic run direction - is established exactly once on
+## entry and re-established deliberately and only on `SWITCHED`. `PRESERVED`
+## keeps it untouched, so normal noise inside the authored `WallProbe`
+## continuity tolerance (25 degrees / 0.2 m / 2-step loss window) can never
+## re-derive or reverse the run direction (AC 3). Returns true while a
+## relationship is held afterwards.
+func _update_wall_run_relationship(
+	contact_frame: ContactFrame,
+	reference_velocity: Vector3
+) -> bool:
+	var action := contact_frame.continuity_action
+	var is_preserved := action == ContactFrame.ContinuityAction.PRESERVED
+	var is_establishing := (
+		action == ContactFrame.ContinuityAction.INITIAL
+		or action == ContactFrame.ContinuityAction.SWITCHED
+	)
+	# `PRESERVED` establishes on entry (the provider was already tracking this
+	# wall) and then holds the established relationship for the whole run.
+	if is_establishing or (is_preserved and not is_wall_running):
+		_set_wall_run(contact_frame, reference_velocity)
+		return true
+	if is_preserved:
+		return true
+	_clear_wall_run()
+	return false
 
 
 func _can_start_wall_run(check_velocity: Vector3) -> bool:
@@ -886,9 +955,14 @@ func _can_start_wall_run(check_velocity: Vector3) -> bool:
 	)
 
 
-func _set_wall_run(normal: Vector3, reference_velocity: Vector3) -> void:
-	wall_normal = normal.normalized()
+## Establish the wall relationship once per relationship (Story 1.9 Task 1.3):
+## capture the shared wall identity and derive the deterministic run direction
+## here, never every step.
+func _set_wall_run(contact_frame: ContactFrame, reference_velocity: Vector3) -> void:
+	wall_normal = contact_frame.wall_normal.normalized()
 	wall_run_direction = _get_wall_run_direction(wall_normal, reference_velocity)
+	wall_surface_identity = contact_frame.wall_surface_identity
+	wall_identity_persistent = contact_frame.wall_identity_persistent
 
 	is_wall_running = true
 
@@ -914,8 +988,13 @@ func _clear_wall_run() -> void:
 	is_wall_running = false
 	wall_normal = Vector3.ZERO
 	wall_run_direction = Vector3.ZERO
+	wall_surface_identity = &""
+	wall_identity_persistent = false
 
 
+## Grapple-assisted wall-stick entry (Story 1.9 AC 6), post-commit only. The
+## authoritative wall relationship comes from the just-committed
+## `ContactFrame`; there is deliberately no airborne-to-wall-stick path.
 func _try_start_wall_stick_from_contact(
 	input_dir: Vector2,
 	entry_velocity: Vector3,
@@ -929,7 +1008,7 @@ func _try_start_wall_stick_from_contact(
 		or not _current_command_frame.is_held(PlayerCommandFrame.Action.GRAPPLE)
 		or contact_frame == null
 		or contact_frame.is_grounded
-		or not contact_frame.has_wall_contact
+		or not _is_runnable_wall_frame(contact_frame, _player_physics_step)
 		or not _can_start_wall_run(entry_velocity)
 	):
 		return false
@@ -939,11 +1018,11 @@ func _try_start_wall_stick_from_contact(
 	if not _has_wall_run_input_for_direction(input_dir, run_direction):
 		return false
 
-	return _set_wall_stick(normal, run_direction, committed_position)
+	return _set_wall_stick(contact_frame, run_direction, committed_position)
 
 
 func _set_wall_stick(
-	normal: Vector3,
+	contact_frame: ContactFrame,
 	run_direction: Vector3,
 	committed_position: Vector3
 ) -> bool:
@@ -974,8 +1053,10 @@ func _set_wall_stick(
 
 	is_wall_sticking = true
 	wall_stick_position = committed_position
-	wall_stick_normal = normal.normalized()
+	wall_stick_normal = contact_frame.wall_normal.normalized()
 	wall_stick_run_direction = run_direction
+	wall_stick_surface_identity = contact_frame.wall_surface_identity
+	wall_stick_identity_persistent = contact_frame.wall_identity_persistent
 	_clear_wall_run()
 	return true
 
@@ -985,6 +1066,41 @@ func _clear_wall_stick() -> void:
 	wall_stick_position = Vector3.ZERO
 	wall_stick_normal = Vector3.ZERO
 	wall_stick_run_direction = Vector3.ZERO
+	wall_stick_surface_identity = &""
+	wall_stick_identity_persistent = false
+
+
+## Required wall contact for a wall-stick hold (Story 1.9 Task 7.1). Consumes
+## the same shared `ContactFrame` continuity facts the wall-run path uses, so a
+## lost or unsupported wall ends the hold instead of pinning the player to a
+## wall that is gone.
+func has_supported_wall_contact() -> bool:
+	var contact_frame := get_previous_contact_frame()
+	if not _is_runnable_wall_frame(contact_frame, _player_physics_step - 1):
+		return false
+	if not is_wall_sticking:
+		return true
+	# The hold position and jump normal belong to the wall selected at entry.
+	# A switch is not continued support for that wall, even if another wall is
+	# within probe range. End the hold rather than pinning to the old position or
+	# launching away from its cached normal. Persistent identities must agree.
+	if contact_frame.continuity_action == ContactFrame.ContinuityAction.SWITCHED:
+		return false
+	if wall_stick_identity_persistent:
+		return (
+			contact_frame.wall_identity_persistent
+			and contact_frame.wall_surface_identity == wall_stick_surface_identity
+		)
+	return true
+
+
+## A jump must use the current selected wall, not the previous run normal if
+## contact was lost or switched on the preceding commit. Preserve jump priority
+## over the movement-input gate while refreshing only the shared relationship.
+func has_valid_wall_jump_relationship(reference_velocity: Vector3) -> bool:
+	if not is_wall_running or not has_supported_wall_contact():
+		return false
+	return _update_wall_run_relationship(get_previous_contact_frame(), reference_velocity)
 
 
 func get_movement_input() -> Vector2:

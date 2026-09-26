@@ -32,6 +32,21 @@ func _update(delta: float) -> void:
 		agent.dispatch_locomotion_event(agent.EVENT_GRAPPLE_RELEASED)
 		return
 
+	# Story 1.9 Task 7.1: the required-wall-contact-loss exit. The hold needs a
+	# supported wall, and the shared `ContactFrame` continuity facts (loss
+	# window, `wall_contact_lost`, unavailable profile) are the only authority
+	# for that. A lost or unsupported wall ends the hold exactly once - the
+	# preserved `GrappleController.terminate(reason, step)` funnel runs
+	# `_clear_wall_stick()` before consumers observe "ended" - and the
+	# non-jump exit preserves the recoverable reference velocity.
+	if not agent.has_supported_wall_contact():
+		agent.terminate_grapple(GrappleEndReason.Reason.STATE_CANCELLATION)
+		agent.submit_wall_stick_release(reference_velocity)
+		agent.dispatch_locomotion_event(agent.EVENT_GRAPPLE_RELEASED)
+		return
+
+	# Jump may use the cached normal only while it is still the selected wall.
+	# Lost contact and a switched relationship take the ordinary release exit.
 	if command_frame.was_pressed(PlayerCommandFrame.Action.JUMP):
 		agent.submit_base_passthrough(agent.LOCOMOTION_WALL_STICK)
 		agent.submit_wall_stick_jump(reference_velocity)

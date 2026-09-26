@@ -659,6 +659,16 @@ func _query_wall_probe(
 		(right + forward).normalized(),
 		(-right + forward).normalized(),
 	]
+	# A wall-stick hold has no horizontal velocity. Facing-based side/forward
+	# probes can then all point away from the wall when the player looks around.
+	# Keep one of the same four queries aimed at the last selected wall so its
+	# contact remains observable without extending the continuity loss window or
+	# increasing the query budget. A truly removed wall still fails the probe.
+	if _last_wall_candidate != null and horizontal.length_squared() <= 0.000001:
+		var toward_last_wall := -_last_wall_candidate.normal
+		toward_last_wall.y = 0.0
+		if toward_last_wall.length_squared() > 0.000001:
+			directions[3] = toward_last_wall.normalized()
 	return _query_profile(
 		physics_step,
 		_wall_probe,
