@@ -61,7 +61,7 @@ development_status:
   1-7-zip-pull-within-a-true-maximum-grapple-boundary: done
   1-8-grapple-moving-and-stateful-targets-safely: done
   1-9-integrate-wall-traversal-and-mistake-recovery: done
-  1-10-complete-the-focused-traversal-validation-route: ready-for-dev
+  1-10-complete-the-focused-traversal-validation-route: in-progress
   epic-1-retrospective: optional
   epic-2: backlog
   2-1-run-every-timed-ability-through-one-lifecycle: backlog

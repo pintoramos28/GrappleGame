@@ -1,0 +1,504 @@
+[gd_scene format=3 uid="uid://djubh0hpim1s8"]
+
+[ext_resource type="Material" uid="uid://b1sa12yqtoa2c" path="res://game/levels/content/traversal_validation/deck_material.tres" id="1_p7jyo"]
+[ext_resource type="PackedScene" uid="uid://u1u36ceuo8uj" path="res://scenes/player.tscn" id="1_sr20m"]
+[ext_resource type="Material" uid="uid://bj36k72as3fue" path="res://game/levels/content/traversal_validation/anchor_material.tres" id="2_uwjgt"]
+[ext_resource type="Material" uid="uid://dghk6c3nb63qb" path="res://game/levels/content/traversal_validation/danger_material.tres" id="3_1odwr"]
+[ext_resource type="Script" uid="uid://cd6ye7j5xyvhq" path="res://game/levels/content/traversal_validation/traversal_route_moving_anchor.gd" id="4_4ymxy"]
+[ext_resource type="Script" uid="uid://g67tp0fkd4ji" path="res://game/shared/contracts/grappleable_3d.gd" id="5_a3w6f"]
+[ext_resource type="Material" uid="uid://qydwd76bifw0" path="res://game/levels/content/traversal_validation/wall_material.tres" id="6_xg8ir"]
+[ext_resource type="Material" uid="uid://c2ut70c47puk3" path="res://game/levels/content/traversal_validation/finish_material.tres" id="7_rbu56"]
+[ext_resource type="Material" uid="uid://dvmln1rr4tkdn" path="res://game/levels/content/traversal_validation/safe_material.tres" id="8_gcv26"]
+[ext_resource type="Script" uid="uid://b5a3jw0xjaofx" path="res://game/levels/content/traversal_validation/traversal_route_finish.gd" id="9_qwblo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dl1ku"]
+size = Vector3(18, 0.4, 8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dgumd"]
+size = Vector3(18, 0.4, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_48kl3"]
+size = Vector3(10, 0.4, 8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xkndo"]
+size = Vector3(10, 0.4, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f0qm2"]
+size = Vector3(0.5, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8a4db"]
+size = Vector3(0.5, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t0hm4"]
+size = Vector3(8, 0.4, 8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6x2lb"]
+size = Vector3(8, 0.4, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ukjmx"]
+size = Vector3(0.4, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_64u4d"]
+size = Vector3(0.4, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rpdw3"]
+size = Vector3(0.4, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jrkh6"]
+size = Vector3(0.4, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4u66m"]
+size = Vector3(0.6, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_usl1d"]
+size = Vector3(0.6, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p7jyo"]
+size = Vector3(20, 0.4, 8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uwjgt"]
+size = Vector3(20, 0.4, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ay7qg"]
+size = Vector3(18, 7.6, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_b1o2e"]
+size = Vector3(18, 7.6, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uwjgt"]
+size = Vector3(24, 7.6, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1odwr"]
+size = Vector3(24, 7.6, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xa4fm"]
+size = Vector3(0.5, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e3doy"]
+size = Vector3(0.5, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8aa5c"]
+size = Vector3(10, 0.4, 6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_u2qoq"]
+size = Vector3(10, 0.4, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hj6je"]
+size = Vector3(9, 3, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xtv7c"]
+size = Vector3(9, 3, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p0bmh"]
+size = Vector3(18, 0.4, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_s7gff"]
+size = Vector3(18, 0.4, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mo4lj"]
+size = Vector3(24, 0.4, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8hr3x"]
+size = Vector3(24, 0.4, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0vegi"]
+size = Vector3(20, 0.4, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5c31f"]
+size = Vector3(20, 0.4, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dwy20"]
+size = Vector3(20, 0.4, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a16pv"]
+size = Vector3(20, 0.4, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3c65q"]
+size = Vector3(12, 0.4, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_87t56"]
+size = Vector3(12, 0.4, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tnitn"]
+size = Vector3(12, 0.4, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6fk1j"]
+size = Vector3(12, 0.4, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8lrrt"]
+size = Vector3(5, 0.35, 12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_x2ljb"]
+size = Vector3(5, 0.35, 12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wwfay"]
+size = Vector3(106, 3, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ohy7m"]
+size = Vector3(106, 3, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j7m4l"]
+size = Vector3(106, 3, 0.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7gw3u"]
+size = Vector3(106, 3, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_15lmd"]
+size = Vector3(0.4, 3, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_m7tks"]
+size = Vector3(0.4, 3, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2iv8n"]
+size = Vector3(0.4, 3, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pwdxe"]
+size = Vector3(0.4, 3, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rc8u1"]
+size = Vector3(3, 3, 5)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b4guq"]
+sky_top_color = Color(0.13725491, 0.21176471, 0.33333334, 1)
+sky_horizon_color = Color(0.65, 0.67, 0.7, 1)
+ground_bottom_color = Color(0.2, 0.17, 0.13, 1)
+ground_horizon_color = Color(0.65, 0.67, 0.7, 1)
+
+[sub_resource type="Sky" id="Sky_5ljcm"]
+sky_material = SubResource("ProceduralSkyMaterial_b4guq")
+
+[sub_resource type="Environment" id="Environment_s1fpg"]
+background_mode = 2
+sky = SubResource("Sky_5ljcm")
+ambient_light_source = 3
+
+[node name="TraversalValidationRoute" type="Node3D" unique_id=1697815477]
+
+[node name="Course" type="Node3D" parent="." unique_id=249852589]
+
+[node name="StartDeck" type="StaticBody3D" parent="Course" unique_id=1482399261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, -0.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/StartDeck" unique_id=2135255402]
+shape = SubResource("BoxShape3D_dl1ku")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/StartDeck" unique_id=67858294]
+material_override = ExtResource("1_p7jyo")
+mesh = SubResource("BoxMesh_dgumd")
+
+[node name="JumpDeck" type="StaticBody3D" parent="Course" unique_id=5614049]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -0.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/JumpDeck" unique_id=1900172930]
+shape = SubResource("BoxShape3D_48kl3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/JumpDeck" unique_id=26518839]
+material_override = ExtResource("1_p7jyo")
+mesh = SubResource("BoxMesh_xkndo")
+
+[node name="NearAnchor" type="StaticBody3D" parent="Course" unique_id=977579817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 3, -3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/NearAnchor" unique_id=172970832]
+shape = SubResource("BoxShape3D_f0qm2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/NearAnchor" unique_id=1968256014]
+material_override = ExtResource("2_uwjgt")
+mesh = SubResource("BoxMesh_8a4db")
+
+[node name="NearLanding" type="StaticBody3D" parent="Course" unique_id=1087036643]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -0.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/NearLanding" unique_id=12019218]
+shape = SubResource("BoxShape3D_t0hm4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/NearLanding" unique_id=737724053]
+material_override = ExtResource("1_p7jyo")
+mesh = SubResource("BoxMesh_6x2lb")
+
+[node name="BoundaryAnchor" type="StaticBody3D" parent="Course" unique_id=2131980823]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5, 3, 7)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/BoundaryAnchor" unique_id=1988498708]
+shape = SubResource("BoxShape3D_ukjmx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/BoundaryAnchor" unique_id=418521076]
+material_override = ExtResource("2_uwjgt")
+mesh = SubResource("BoxMesh_64u4d")
+
+[node name="BeyondAnchor" type="StaticBody3D" parent="Course" unique_id=21249839]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 3, 13)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/BeyondAnchor" unique_id=128227614]
+shape = SubResource("BoxShape3D_rpdw3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/BeyondAnchor" unique_id=761053668]
+material_override = ExtResource("3_1odwr")
+mesh = SubResource("BoxMesh_jrkh6")
+
+[node name="MovingAnchor" type="StaticBody3D" parent="Course" unique_id=1375741624]
+process_physics_priority = -10
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 1.5, 2)
+script = ExtResource("4_4ymxy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/MovingAnchor" unique_id=1080692770]
+shape = SubResource("BoxShape3D_4u66m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/MovingAnchor" unique_id=814927171]
+material_override = ExtResource("2_uwjgt")
+mesh = SubResource("BoxMesh_usl1d")
+
+[node name="Grappleable" type="Node3D" parent="Course/MovingAnchor" unique_id=1294588580]
+script = ExtResource("5_a3w6f")
+target_id = &"route.validation.moving_anchor"
+anchor_mode = 1
+
+[node name="MovingLanding" type="StaticBody3D" parent="Course" unique_id=2131149877]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, -0.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/MovingLanding" unique_id=713087195]
+shape = SubResource("BoxShape3D_p7jyo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/MovingLanding" unique_id=1304467421]
+material_override = ExtResource("1_p7jyo")
+mesh = SubResource("BoxMesh_uwjgt")
+
+[node name="FirstWall" type="StaticBody3D" parent="Course" unique_id=892927540]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 3.8, -1.05)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/FirstWall" unique_id=28165558]
+shape = SubResource("BoxShape3D_ay7qg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/FirstWall" unique_id=1176192858]
+material_override = ExtResource("6_xg8ir")
+mesh = SubResource("BoxMesh_b1o2e")
+
+[node name="ObliqueWall" type="StaticBody3D" parent="Course" unique_id=2081405204]
+transform = Transform3D(0.9848077, 0, -0.17364818, 0, 1, 0, 0.17364818, 0, 0.9848077, 55, 3.8, -0.65)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/ObliqueWall" unique_id=1577076444]
+shape = SubResource("BoxShape3D_uwjgt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/ObliqueWall" unique_id=209764628]
+material_override = ExtResource("6_xg8ir")
+mesh = SubResource("BoxMesh_1odwr")
+
+[node name="WallStickAnchor" type="StaticBody3D" parent="Course" unique_id=1992751921]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 3, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/WallStickAnchor" unique_id=1237614034]
+shape = SubResource("BoxShape3D_xa4fm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/WallStickAnchor" unique_id=2026222009]
+material_override = ExtResource("2_uwjgt")
+mesh = SubResource("BoxMesh_e3doy")
+
+[node name="WallJumpLanding" type="StaticBody3D" parent="Course" unique_id=1274029602]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61, 1.3, 6)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/WallJumpLanding" unique_id=445796837]
+shape = SubResource("BoxShape3D_8aa5c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/WallJumpLanding" unique_id=2095673693]
+material_override = ExtResource("7_rbu56")
+mesh = SubResource("BoxMesh_u2qoq")
+
+[node name="UnsupportedSlope" type="StaticBody3D" parent="Course" unique_id=1966491321]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, 48, 2, 15)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/UnsupportedSlope" unique_id=1898974179]
+shape = SubResource("BoxShape3D_hj6je")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/UnsupportedSlope" unique_id=221927829]
+material_override = ExtResource("3_1odwr")
+mesh = SubResource("BoxMesh_xtv7c")
+
+[node name="JumpCatch" type="StaticBody3D" parent="Course" unique_id=16894921]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, -3.2, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/JumpCatch" unique_id=1197889291]
+shape = SubResource("BoxShape3D_p0bmh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/JumpCatch" unique_id=2033094744]
+material_override = ExtResource("8_gcv26")
+mesh = SubResource("BoxMesh_s7gff")
+
+[node name="GrappleCatch" type="StaticBody3D" parent="Course" unique_id=1341565458]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -3.2, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/GrappleCatch" unique_id=186166890]
+shape = SubResource("BoxShape3D_mo4lj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/GrappleCatch" unique_id=1057651093]
+material_override = ExtResource("8_gcv26")
+mesh = SubResource("BoxMesh_8hr3x")
+
+[node name="MovingCatch" type="StaticBody3D" parent="Course" unique_id=1063508207]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, -3.2, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/MovingCatch" unique_id=1597858443]
+shape = SubResource("BoxShape3D_0vegi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/MovingCatch" unique_id=1962851955]
+material_override = ExtResource("8_gcv26")
+mesh = SubResource("BoxMesh_5c31f")
+
+[node name="WallCatch" type="StaticBody3D" parent="Course" unique_id=1790819421]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, -3.2, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/WallCatch" unique_id=1783066041]
+shape = SubResource("BoxShape3D_dwy20")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/WallCatch" unique_id=264001897]
+material_override = ExtResource("8_gcv26")
+mesh = SubResource("BoxMesh_a16pv")
+
+[node name="WallJumpCatch" type="StaticBody3D" parent="Course" unique_id=944125508]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, -3.2, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/WallJumpCatch" unique_id=1392380075]
+shape = SubResource("BoxShape3D_3c65q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/WallJumpCatch" unique_id=242462088]
+material_override = ExtResource("8_gcv26")
+mesh = SubResource("BoxMesh_87t56")
+
+[node name="StartCatch" type="StaticBody3D" parent="Course" unique_id=605230161]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, -3.2, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/StartCatch" unique_id=219626654]
+shape = SubResource("BoxShape3D_tnitn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/StartCatch" unique_id=60922052]
+material_override = ExtResource("8_gcv26")
+mesh = SubResource("BoxMesh_6fk1j")
+
+[node name="ReturnRamp" type="StaticBody3D" parent="Course" unique_id=1453430391]
+transform = Transform3D(1, 0, 0, 0, 0.9701373, -0.24255633, 0, 0.24255633, 0.9701373, -29, -1.5, 9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/ReturnRamp" unique_id=536678334]
+shape = SubResource("BoxShape3D_8lrrt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/ReturnRamp" unique_id=434348686]
+material_override = ExtResource("8_gcv26")
+mesh = SubResource("BoxMesh_x2ljb")
+
+[node name="NorthRail" type="StaticBody3D" parent="Course" unique_id=1418590324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -1.5, -10)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/NorthRail" unique_id=840158901]
+shape = SubResource("BoxShape3D_wwfay")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/NorthRail" unique_id=1281604981]
+material_override = ExtResource("8_gcv26")
+mesh = SubResource("BoxMesh_ohy7m")
+
+[node name="SouthRail" type="StaticBody3D" parent="Course" unique_id=1998716752]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -1.5, 20)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/SouthRail" unique_id=1818748888]
+shape = SubResource("BoxShape3D_j7m4l")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/SouthRail" unique_id=334811998]
+material_override = ExtResource("8_gcv26")
+mesh = SubResource("BoxMesh_7gw3u")
+
+[node name="WestRail" type="StaticBody3D" parent="Course" unique_id=888509441]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, -1.5, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/WestRail" unique_id=1721638423]
+shape = SubResource("BoxShape3D_15lmd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/WestRail" unique_id=547954621]
+material_override = ExtResource("8_gcv26")
+mesh = SubResource("BoxMesh_m7tks")
+
+[node name="EastRail" type="StaticBody3D" parent="Course" unique_id=254793264]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, -1.5, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/EastRail" unique_id=2026734863]
+shape = SubResource("BoxShape3D_2iv8n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Course/EastRail" unique_id=990002882]
+material_override = ExtResource("8_gcv26")
+mesh = SubResource("BoxMesh_pwdxe")
+
+[node name="FinishTrigger" type="Area3D" parent="Course" unique_id=5890385]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63, 2.5, 6)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("9_qwblo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Course/FinishTrigger" unique_id=1625036111]
+shape = SubResource("BoxShape3D_rc8u1")
+
+[node name="StartGuide" type="Label3D" parent="Course" unique_id=601536881]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 3, -3)
+pixel_size = 0.009
+billboard = 1
+text = "START  /  move + jump
+Teal catch deck -> ramp behind start"
+
+[node name="JumpGuide" type="Label3D" parent="Course" unique_id=1053654785]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 3, -3)
+pixel_size = 0.009
+billboard = 1
+text = "JUMP + STEER  /  cross the gap"
+
+[node name="NearGuide" type="Label3D" parent="Course" unique_id=409493643]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4, -3)
+pixel_size = 0.009
+billboard = 1
+text = "YELLOW: aim + hold grapple
+Zip -> release with momentum"
+
+[node name="BoundaryGuide" type="Label3D" parent="Course" unique_id=849315740]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 5, 8)
+pixel_size = 0.009
+billboard = 1
+text = "35 m EDGE  /  same targeting and tether"
+
+[node name="BeyondGuide" type="Label3D" parent="Course" unique_id=2073840954]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 5, 13)
+pixel_size = 0.009
+billboard = 1
+text = "RED: beyond 35 m  /  rejected"
+
+[node name="MovingGuide" type="Label3D" parent="Course" unique_id=4232069]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 4, -3)
+pixel_size = 0.009
+billboard = 1
+text = "MOVING TARGET  /  attach, release, recover"
+
+[node name="WallGuide" type="Label3D" parent="Course" unique_id=1846630329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 5, -3)
+pixel_size = 0.009
+billboard = 1
+text = "RUN ALONG WALL  /  keep speed + aligned input"
+
+[node name="StickGuide" type="Label3D" parent="Course" unique_id=500215295]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 5, 7)
+pixel_size = 0.009
+billboard = 1
+text = "HOLD GRAPPLE NEAR WALL  /  stick"
+
+[node name="FinishGuide" type="Label3D" parent="Course" unique_id=1144771531]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63, 5, 6)
+pixel_size = 0.009
+billboard = 1
+text = "WALL JUMP OUTWARD  /  FINISH"
+
+[node name="RecoveryGuide" type="Label3D" parent="Course" unique_id=1913640516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, -1, 14)
+pixel_size = 0.009
+billboard = 1
+text = "RETURN RAMP -> START  /  no reload"
+
+[node name="Player" parent="." unique_id=467031457 instance=ExtResource("1_sr20m")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -28, 0.2, 0)
+
+[node name="SunLight" type="DirectionalLight3D" parent="." unique_id=2135642516]
+transform = Transform3D(0.7960838, -0.4740588, 0.37618992, 0, 0.62161, 0.7833269, -0.6051864, -0.62359387, 0.49485365, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=101118412]
+environment = SubResource("Environment_s1fpg")
