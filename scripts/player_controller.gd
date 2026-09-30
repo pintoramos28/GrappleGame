@@ -58,6 +58,17 @@ extends CharacterBody3D
 ## Gravity multiplier applied while grappling (context tuning, not definition
 ## tuning: `main.tscn` overrides it to 0.0 and the tutorial to 0.65).
 @export var grapple_gravity_scale := 1.0
+## Zero-input horizontal slowing while grappling. These are independent of
+## ordinary ground/air deceleration; zero preserves an angled pull from rest.
+@export var grapple_ground_deceleration := 0.0
+@export var grapple_air_deceleration := 0.0
+## Player-local Node3D used for pull and rope start. Unassigned or freed nodes
+## fall back to the body root without affecting camera-ray targeting.
+@export var grapple_origin: Node3D:
+	set(value):
+		grapple_origin = value
+		if _grapple_controller != null:
+			_grapple_controller.set_pull_origin(value)
 
 @export_group("Grapple Visuals")
 ## Radius of the grapple rope cylinder.
@@ -84,7 +95,6 @@ extends CharacterBody3D
 @onready var camera: Camera3D = $CameraPivot/SpringArm3D/Camera3D
 @onready var input_source: PlayerInputSource = $PlayerInputSource
 @onready var player_motor: PlayerMotor = get_node_or_null(^"PlayerMotor") as PlayerMotor
-@onready var player_mesh: MeshInstance3D = $MeshInstance3D
 @onready var health: CombatHealth = get_node_or_null("Health")
 @onready var attack_hitbox: CombatHitbox3D = get_node_or_null("AttackHitbox")
 @onready var attack_visual: AttackArcVisual3D = get_node_or_null("AttackVisual")
@@ -136,6 +146,8 @@ const SOURCE_JUMP_GROUND := &"player.jump.ground"
 const SOURCE_JUMP_WALL := &"player.jump.wall"
 const SOURCE_WALL_RUN_CONSTRAINT := &"player.wall_run.constraint"
 const SOURCE_WALL_STICK_HOLD := &"player.wall_stick.hold"
+## Standard Godot Vector3 components use single-precision real_t.
+const WALL_PROJECTION_COMPONENT_EPSILON := 1.1920928955078125e-7
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var camera_pitch := 0.0
@@ -517,6 +529,7 @@ func _compose_grapple_controller() -> void:
 		)
 		return
 	_grapple_controller = controller
+	controller.set_pull_origin(grapple_origin)
 	# The optional originating encounter-scope identity is resolved from the
 	# injectable provider at commit time (Story 1.8 Task 1.2).
 	controller.set_scope_identity_provider(
@@ -578,7 +591,7 @@ func submit_base_policy(
 	var grounded := has_ground_contact()
 	var max_speed := max_ground_speed if grounded else max_air_speed
 	var target_velocity := _get_horizontal_target_velocity(input_dir, max_speed)
-	var acceleration := _get_horizontal_acceleration(input_dir, grounded)
+	var acceleration := _get_horizontal_acceleration(input_dir, grounded, locomotion_state_id)
 	var source_id := _base_source_for_state(locomotion_state_id)
 	return _submit_motor_status(
 		player_motor.submit_base_motion(source_id, target_velocity, acceleration),
@@ -645,10 +658,9 @@ func sample_grapple_anchor(delta: float) -> bool:
 ## player-owned `GrappleController`: the sustained zip-pull toward the sampled
 ## anchor plus the maximum-anchor-distance boundary constraint. Both consume
 ## this step's stored `GrappleAnchorState` (Story 1.8 Task 3.2). The pull
-## direction, distance measurement, and constraint resolution all use the
-## controller's one documented reference point (body origin, Task 4.4). A dead
-## anchor terminates the attachment with a typed reason and submits nothing for
-## this step.
+## direction uses the scene-assigned pull origin (or body-root fallback); the
+## maximum-distance constraint still resolves from the body root. A dead anchor
+## terminates the attachment with a typed reason and submits nothing this step.
 func submit_grapple_pull(delta: float) -> bool:
 	if not has_valid_grapple():
 		terminate_grapple(GrappleEndReason.Reason.TARGET_INVALIDATED)
@@ -851,8 +863,14 @@ func _get_horizontal_target_velocity(input_dir: Vector2, max_speed: float) -> Ve
 	return direction * max_speed
 
 
-func _get_horizontal_acceleration(input_dir: Vector2, grounded: bool = false) -> float:
+func _get_horizontal_acceleration(
+	input_dir: Vector2,
+	grounded: bool,
+	locomotion_state_id: StringName
+) -> float:
 	if input_dir == Vector2.ZERO:
+		if locomotion_state_id == LOCOMOTION_GRAPPLING:
+			return grapple_ground_deceleration if grounded else grapple_air_deceleration
 		return ground_deceleration if grounded else air_deceleration
 
 	return ground_acceleration if grounded else air_acceleration
@@ -880,6 +898,10 @@ func _update_wall_run_state(input_dir: Vector2, reference_velocity: Vector3) -> 
 		or is_grappling
 		or not _is_runnable_wall_frame(contact_frame, _player_physics_step - 1)
 	):
+		_clear_wall_run()
+		return
+
+	if _has_outward_wall_speed(reference_velocity, contact_frame.wall_normal):
 		_clear_wall_run()
 		return
 
@@ -955,6 +977,32 @@ func _can_start_wall_run(check_velocity: Vector3) -> bool:
 	)
 
 
+## A shared traversal gate: only horizontal motion and the horizontal component
+## of the authoritative wall normal decide whether the player is separating.
+## A zero horizontal normal projects to zero and therefore cannot spuriously
+## reject traversal.
+func _has_outward_wall_speed(reference_velocity: Vector3, outward_wall_normal: Vector3) -> bool:
+	var horizontal_velocity := Vector3(reference_velocity.x, 0.0, reference_velocity.z)
+	var horizontal_normal := Vector3(
+		outward_wall_normal.x,
+		0.0,
+		outward_wall_normal.z
+	).normalized()
+	var outward_speed := (
+		horizontal_velocity.x * horizontal_normal.x
+		+ horizontal_velocity.z * horizontal_normal.z
+	)
+	var cancellation_scale := (
+		absf(horizontal_velocity.x * horizontal_normal.x)
+		+ absf(horizontal_velocity.z * horizontal_normal.z)
+	)
+	# A fast tangent can leave a few positive ULPs after the Vector3 components
+	# are rounded. Ignore only that cancellation-relative representation error;
+	# unlike a fixed m/s dead zone, this still detects small direct outward motion.
+	var projection_roundoff := 4.0 * WALL_PROJECTION_COMPONENT_EPSILON * cancellation_scale
+	return outward_speed > projection_roundoff
+
+
 ## Establish the wall relationship once per relationship (Story 1.9 Task 1.3):
 ## capture the shared wall identity and derive the deterministic run direction
 ## here, never every step.
@@ -1009,6 +1057,7 @@ func _try_start_wall_stick_from_contact(
 		or contact_frame == null
 		or contact_frame.is_grounded
 		or not _is_runnable_wall_frame(contact_frame, _player_physics_step)
+		or _has_outward_wall_speed(entry_velocity, contact_frame.wall_normal)
 		or not _can_start_wall_run(entry_velocity)
 	):
 		return false
@@ -1272,7 +1321,7 @@ func _update_grapple_visual() -> void:
 		grapple_visual.visible = false
 		return
 
-	var start := _get_player_mesh_center()
+	var start := _grapple_controller.get_pull_origin_position()
 	var end := grapple_point
 	var segment := end - start
 	var length := segment.length()
@@ -1304,11 +1353,6 @@ func _basis_from_y_axis(y_axis: Vector3) -> Basis:
 	var x := helper.cross(y).normalized()
 	var z := x.cross(y).normalized()
 	return Basis(x, y, z)
-
-
-func _get_player_mesh_center() -> Vector3:
-	var bounds: AABB = player_mesh.get_aabb()
-	return player_mesh.to_global(bounds.get_center())
 
 
 ## Idempotent, emitter-driven cleanup for a committed attachment terminal

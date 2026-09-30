@@ -513,14 +513,8 @@ func test_maximum_boundary_prevents_high_speed_overshoot_without_snapping() -> v
 	assert_almost_eq(degenerate.submitted_velocity.z, 3.0, TOLERANCE)
 
 
-## Story 1.7 review patch (finding 20): Task 4.4 requires the single documented
-## player reference point to be consistent across pull, constraint and the
-## diagnostics snapshot AND covered by tests. Only the diagnostics-distance leg
-## was pinned; this covers the pull leg and the pull-vs-boundary agreement - the
-## exact "hidden trap" the spec warns silently breaks the 10 m -> 35 m scenario
-## and the 60/120 equivalence gate. The controller and motor share one body here
-## on purpose, so the assertion is about one reference point, not two fixtures.
-func test_pull_and_boundary_share_one_documented_reference_point() -> void:
+## Without an assigned origin, both the pull and the boundary use the body root.
+func test_unassigned_pull_origin_falls_back_to_body_root() -> void:
 	var motor_fixture := _new_motor_fixture()
 	var body: CharacterBody3D = motor_fixture[0]
 	var motor: PlayerMotor = motor_fixture[1]
@@ -549,9 +543,9 @@ func test_pull_and_boundary_share_one_documented_reference_point() -> void:
 
 	body.global_position = Vector3(4.0, -1.0, 6.0)
 	var anchor := Vector3(4.0, -1.0, -6.0)
-	# The documented reference point is the owner body origin - not the rope's
-	# mesh-centre start point, which stays presentation-only.
+	# The documented boundary reference stays at the owner body origin.
 	assert_eq(controller.get_reference_position(), body.global_position)
+	assert_eq(controller.get_pull_origin_position(), body.global_position)
 	assert_eq(
 		controller.commit_attachment(_seed(target, anchor, 1.0), 41),
 		GrappleController.CommitStatus.SUCCESS
@@ -583,14 +577,14 @@ func test_pull_and_boundary_share_one_documented_reference_point() -> void:
 	assert_true(result.success)
 	controller.record_committed_facts(result)
 
-	# The boundary measured its distance from the same origin the pull used.
+	# With no origin assigned, the boundary and pull both use the body root.
 	var records := _boundary_record(result)
 	assert_almost_eq(
 		float(records[0]["distance_m"]),
 		resolution_position.distance_to(anchor),
 		POSITION_TOLERANCE
 	)
-	# The pull direction is measured from that origin too.
+	# The fallback pull direction is measured from the body root too.
 	var snapshot: GrappleAttachmentDiagnosticSnapshot = controller.get_diagnostic_snapshot()
 	assert_not_null(snapshot)
 	assert_almost_eq(snapshot.pull_direction.x, expected_pull.x, TOLERANCE)
@@ -601,6 +595,81 @@ func test_pull_and_boundary_share_one_documented_reference_point() -> void:
 		float(records[0]["distance_m"]),
 		POSITION_TOLERANCE
 	)
+
+
+func test_moving_pull_origin_changes_next_submission_without_moving_boundary_origin() -> void:
+	var motor_fixture := _new_motor_fixture()
+	var body: CharacterBody3D = motor_fixture[0]
+	var motor: PlayerMotor = motor_fixture[1]
+	body.global_position = Vector3(4.0, 2.0, 6.0)
+	var origin := Marker3D.new()
+	body.add_child(origin)
+	origin.position = Vector3(0.5, 1.2, -0.3)
+	var target := StaticBody3D.new()
+	body.get_parent().add_child(target)
+	var definition := GrappleDefinition.new()
+	definition.definition_id = &"player.grapple.default"
+	definition.max_grapple_length_m = 35.0
+	definition.acquisition_tolerance_m = 0.005
+	definition.target_query_profile = _ray_profile()
+	var controller := GrappleController.new()
+	autofree(controller)
+	assert_eq(controller.initialize(body, definition), GrappleController.InitializationStatus.SUCCESS)
+	controller.set_pull_origin(origin)
+	var anchor := Vector3(6.0, 4.0, -12.0)
+	var seed := GrappleTargetSeed.new(
+		&"", anchor, Vector3.BACK, GrappleTargetResponse.static_default(),
+		weakref(target), Vector3.ZERO
+	)
+	assert_eq(controller.commit_attachment(seed, 40), GrappleController.CommitStatus.SUCCESS)
+
+	for step in [41, 42]:
+		if step == 42:
+			origin.position = Vector3(-0.7, 1.5, -0.3)
+		var body_before := body.global_position
+		var origin_before := origin.global_position
+		assert_eq(controller.get_pull_origin_position(), origin_before)
+		assert_eq(controller.get_reference_position(), body_before)
+		assert_eq(motor.begin_motion_frame(step, 1.0 / 60.0), PlayerMotor.FrameStatus.SUCCESS)
+		assert_eq(motor.select_state_policy(&"player.locomotion.grappling"), PlayerMotor.SubmissionStatus.SUCCESS)
+		assert_eq(
+			motor.submit_base_motion(&"player.locomotion.grappling.base", Vector3.ZERO, 0.0, false),
+			PlayerMotor.SubmissionStatus.SUCCESS
+		)
+		assert_true(controller.sample_anchor_state(step, 1.0 / 60.0))
+		assert_eq(
+			controller.submit_motor_influences(motor, 1.0 / 60.0, step),
+			PlayerMotor.SubmissionStatus.SUCCESS
+		)
+		var result := motor.resolve_and_commit()
+		assert_true(result.success)
+		controller.record_committed_facts(result)
+		var snapshot := controller.get_diagnostic_snapshot()
+		var expected_pull := origin_before.direction_to(anchor)
+		assert_lt(snapshot.pull_direction.distance_to(expected_pull), TOLERANCE)
+		assert_almost_eq(
+			float(_boundary_record(result)[0]["distance_m"]),
+			body_before.distance_to(anchor),
+			POSITION_TOLERANCE
+		)
+		assert_almost_eq(
+			snapshot.current_distance_m,
+			body.global_position.distance_to(anchor),
+			POSITION_TOLERANCE
+		)
+		assert_almost_eq(snapshot.maximum_distance_m, 35.0, TOLERANCE)
+		assert_almost_eq(
+			snapshot.range_fraction,
+			snapshot.distance_at_resolution_m / snapshot.maximum_distance_m,
+			TOLERANCE
+		)
+
+	controller.set_pull_origin(null)
+	assert_eq(controller.get_pull_origin_position(), body.global_position)
+	controller.set_pull_origin(origin)
+	origin.free()
+	assert_eq(controller.get_pull_origin_position(), body.global_position)
+	assert_eq(controller.get_reference_position(), body.global_position)
 
 
 func _boundary_record(result: PlayerMotorCommitResult) -> Array[Dictionary]:

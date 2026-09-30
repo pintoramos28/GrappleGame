@@ -238,6 +238,103 @@ func test_same_step_activation_seeds_state_and_keeps_pull_playable() -> void:
 	assert_eq(latest.query_count, 1)
 
 
+func test_moving_scene_origin_does_not_change_camera_target_or_acquisition_range() -> void:
+	var fixture := _new_player_scene_fixture(Vector3(0.0, 6.0, 0.0))
+	var player: CharacterBody3D = fixture[0]
+	var origin: Marker3D = player.get_node(^"GrappleOrigin")
+	var controller: GrappleController = player.get("_grapple_controller")
+	var wall := _add_box_target(
+		player.get_parent(), Vector3(0.0, 5.0, -20.0), Vector3(20.0, 30.0, 0.4)
+	)
+	assert_same(player.get("grapple_origin"), origin)
+	assert_eq(origin.position, Vector3(0.48, 1.2, -0.32))
+	await get_tree().physics_frame
+	player.set("gravity", 0.0)
+	player.call("_physics_process", 1.0 / 60.0)
+	var first: GrappleTargetingResult = player.call("get_latest_grapple_targeting_result")
+	assert_true(first.is_accepted())
+	assert_same(first.accepted_seed.get_target(), wall)
+	origin.position += Vector3(1.0, 0.5, 0.0)
+	assert_eq(controller.get_pull_origin_position(), origin.global_position)
+	player.call("_physics_process", 1.0 / 60.0)
+	var second: GrappleTargetingResult = player.call("get_latest_grapple_targeting_result")
+	assert_true(second.is_accepted())
+	assert_same(second.accepted_seed.get_target(), wall)
+	assert_eq(second.query_count, 1)
+	assert_eq(second.query_origin, first.query_origin)
+	assert_eq(second.query_direction, first.query_direction)
+	assert_eq(second.hit_position, first.hit_position)
+	assert_almost_eq(second.range_fraction, first.range_fraction, 0.0001)
+
+
+func test_rope_uses_the_live_pull_origin_and_sampled_anchor_with_root_fallback() -> void:
+	var fixture := _new_player_scene_fixture(Vector3(0.0, 6.0, 0.0))
+	var player: CharacterBody3D = fixture[0]
+	var input_source: PlayerInputSource = player.get_node(^"PlayerInputSource")
+	var motor: PlayerMotor = player.get_node(^"PlayerMotor")
+	var origin: Marker3D = player.get_node(^"GrappleOrigin")
+	var rope: MeshInstance3D = player.get("grapple_visual")
+	var rope_mesh: CylinderMesh = player.get("grapple_visual_mesh")
+	_add_box_target(player.get_parent(), Vector3(0.0, 5.0, -20.0), Vector3(20.0, 30.0, 0.4))
+	input_source.enable_test_input_seam()
+	for _frame in range(8):
+		await get_tree().physics_frame
+		var commit: PlayerMotorCommitResult = motor.get_last_commit_result()
+		if commit != null and commit.locomotion_state_id == &"player.locomotion.airborne":
+			break
+	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)
+	player.call("_physics_process", 1.0 / 60.0)
+	assert_true(bool(player.get("is_grappling")))
+	assert_true(rope.visible)
+	_assert_rope_endpoints(player, rope, rope_mesh, origin.global_position)
+
+	origin.position += Vector3(-0.8, 0.4, 0.2)
+	var pull_start := origin.global_position
+	player.call("_physics_process", 1.0 / 60.0)
+	var snapshot: GrappleAttachmentDiagnosticSnapshot = (
+		player.call("get_grapple_attachment_diagnostic_snapshot")
+	)
+	assert_true(snapshot.is_active)
+	assert_lt(
+		snapshot.pull_direction.distance_to(pull_start.direction_to(snapshot.anchor_world_position)),
+		0.001
+	)
+	_assert_rope_endpoints(player, rope, rope_mesh, origin.global_position)
+	assert_almost_eq(
+		snapshot.current_distance_m,
+		player.global_position.distance_to(snapshot.anchor_world_position),
+		0.001
+	)
+
+	player.set("grapple_origin", null)
+	var fallback_start := player.global_position
+	player.call("_physics_process", 1.0 / 60.0)
+	snapshot = player.call("get_grapple_attachment_diagnostic_snapshot")
+	assert_true(snapshot.is_active)
+	assert_lt(
+		snapshot.pull_direction.distance_to(fallback_start.direction_to(snapshot.anchor_world_position)),
+		0.001
+	)
+	_assert_rope_endpoints(player, rope, rope_mesh, player.global_position)
+
+
+func _assert_rope_endpoints(
+	player: CharacterBody3D,
+	rope: MeshInstance3D,
+	rope_mesh: CylinderMesh,
+	expected_start: Vector3
+) -> void:
+	var snapshot: GrappleAttachmentDiagnosticSnapshot = (
+		player.call("get_grapple_attachment_diagnostic_snapshot")
+	)
+	var half_segment := rope.global_transform.basis.y.normalized() * rope_mesh.height * 0.5
+	assert_lt((rope.global_position - half_segment).distance_to(expected_start), 0.005)
+	assert_lt(
+		(rope.global_position + half_segment).distance_to(snapshot.anchor_world_position),
+		0.005
+	)
+
+
 func test_stale_or_missing_results_reject_activation_without_partial_state() -> void:
 	var fixture := _new_player_scene_fixture()
 	var player: CharacterBody3D = fixture[0]

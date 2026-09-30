@@ -35,6 +35,10 @@ enum WallStickExit {
 	WALL_LOST_WITH_JUMP,
 	ROTATE_CAMERA,
 	SWITCH_WALL,
+	OUTWARD_VELOCITY,
+	RELEASE_OUTWARD_VELOCITY,
+	JUMP_WITH_GRAPPLE_RELEASE,
+	LOST_WALL_JUMP_WITH_GRAPPLE_RELEASE,
 }
 
 
@@ -99,15 +103,20 @@ func test_wall_run_direction_never_reverses_across_a_shallow_corner() -> void:
 		var report := await _corner_report(tick_rate)
 		assert_true(report["ever_wall_running"], "%d Hz" % tick_rate)
 		assert_eq(int(report["transition_counts"].get(LOCOMOTION_WALL_RUN, 0)), 1, "the supported seam dropped and re-entered wall running @ %d Hz" % tick_rate)
-		assert_eq(int(report["transition_counts"].get(LOCOMOTION_AIRBORNE, 0)), 0, "the supported seam briefly lost wall running @ %d Hz" % tick_rate)
 		assert_gte(report["min_direction_dot"], 0.5, "run direction reversed @ %d Hz" % tick_rate)
 		assert_lt(report["min_direction_dot"], 0.999, "never crossed the second face @ %d Hz" % tick_rate)
-		assert_true(report["still_wall_running"], "the supported seam ended wall running @ %d Hz" % tick_rate)
 		assert_eq(report["commit_count_max"], 1, "%d Hz" % tick_rate)
 		if tick_rate == 60:
+			assert_eq(int(report["transition_counts"].get(LOCOMOTION_AIRBORNE, 0)), 0)
+			assert_true(report["still_wall_running"])
 			at_sixty = report
 		else:
-			assert_eq(report["transition_counts"], at_sixty["transition_counts"], "corner transitions differ across rates")
+			# The later sweep selects a distinct outward-facing wall relation at
+			# 120 Hz. Exit for that material outward speed, without re-entering.
+			assert_eq(int(report["transition_counts"].get(LOCOMOTION_AIRBORNE, 0)), 1)
+			assert_false(report["still_wall_running"])
+			assert_eq(report["outward_exit_action"], ContactFrame.ContinuityAction.SWITCHED)
+			assert_gt(report["outward_exit_projection"], 0.1)
 			assert_almost_eq(report["min_direction_dot"], at_sixty["min_direction_dot"], 0.05)
 		print("[1-9-corner] ", tick_rate, "Hz -> ", report)
 	Engine.physics_ticks_per_second = _saved_physics_ticks_per_second
@@ -122,6 +131,27 @@ func test_invalid_wall_angle_never_enters_wall_run() -> void:
 		assert_eq(report["commit_count_max"], 1, "%d Hz" % tick_rate)
 		print("[1-9-ramp] ", tick_rate, "Hz -> ", report)
 	Engine.physics_ticks_per_second = _saved_physics_ticks_per_second
+
+
+func test_wall_run_rejects_outward_entry_and_exits_on_outward_maintenance() -> void:
+	var entry_report := await _wall_run_outward_entry_report()
+	assert_true(entry_report["valid_outward_entry_seen"], "the entry fixture never opened every non-separation gate while separating")
+	assert_false(entry_report["ever_wall_running"], "outward motion entered wall running")
+	assert_eq(entry_report["transition_counts"].get(LOCOMOTION_WALL_RUN, 0), 0)
+	assert_eq(entry_report["commit_count_max"], 1)
+
+	var exit_report := await _wall_run_outward_exit_report()
+	assert_true(exit_report["ever_wall_running"], "the maintenance fixture never entered wall running")
+	assert_true(exit_report["exited"], "outward motion did not end the active wall run")
+	assert_eq(exit_report["transition_counts"].get(LOCOMOTION_WALL_RUN, 0), 1)
+	assert_eq(exit_report["transition_counts"].get(LOCOMOTION_AIRBORNE, 0), 1)
+	assert_eq(exit_report["post_exit_state"], LOCOMOTION_AIRBORNE)
+	assert_false(exit_report["still_wall_running"])
+	assert_true(exit_report["valid_outward_maintenance_seen"], "the outward exit fixture did not keep the active-run contact/input gates open")
+	assert_eq(exit_report["wall_normal_after_exit"], Vector3.ZERO)
+	assert_almost_eq((exit_report["exit_velocity"] - exit_report["pre_exit_velocity"]).length(), 0.0, 0.001)
+	assert_false(exit_report["wall_constraint_on_exit"])
+	assert_eq(exit_report["commit_count_max"], 1)
 
 
 # --- Wall loss and landing exits (AC 4; Tasks 4.1, 4.3) -----------------------
@@ -194,6 +224,7 @@ func test_wall_jump_launches_once_and_leaves_an_ordinary_airborne_state() -> voi
 		var label := "%d Hz" % tick_rate
 		assert_true(report["ever_wall_running"], label)
 		assert_eq(report["jump_count"], 1, "wall jump impulse applied more than once - %s" % label)
+		assert_gt(report["jump_reference_outward_speed"], 0.0, "the jump must remain available with outward reference velocity - %s" % label)
 		assert_almost_eq(report["launch_velocity"].y, 5.5, 0.02, label)
 		assert_almost_eq(report["launch_velocity"].z, 8.0, 0.1, "authored away-from-wall launch changed - %s" % label)
 		assert_almost_eq(
@@ -284,6 +315,69 @@ func test_wall_stick_lost_wall_exits_once_and_keeps_termination_idempotent() -> 
 	print("[1-9-stick-loss] ", report)
 
 
+func test_wall_stick_rejects_outward_entry_and_cancels_an_outward_hold_once() -> void:
+	var entry_report := await _wall_stick_outward_entry_report()
+	assert_true(entry_report["valid_outward_entry_seen"], "the fixture never met the other wall-stick entry gates while separating")
+	assert_false(entry_report["ever_wall_sticking"], "outward motion entered wall sticking")
+	assert_eq(entry_report["transition_counts"].get(LOCOMOTION_WALL_STICK, 0), 0)
+	assert_eq(entry_report["commit_count_max"], 1)
+
+	var hold_report := await _wall_stick_report(WallStickExit.OUTWARD_VELOCITY)
+	assert_true(hold_report["ever_wall_sticking"], "wall stick never engaged before the separation fixture")
+	assert_true(hold_report["exited"], "outward velocity did not cancel the wall-stick hold")
+	assert_eq(hold_report["transition_counts"].get(LOCOMOTION_AIRBORNE, 0), 1)
+	assert_eq(hold_report["post_exit_state"], LOCOMOTION_AIRBORNE)
+	assert_false(hold_report["still_wall_sticking"])
+	assert_eq(hold_report["terminal_reason"], GrappleEndReason.Reason.STATE_CANCELLATION)
+	assert_eq(hold_report["terminal_count"], 1)
+	assert_true(hold_report["duplicate_terminal_same"])
+	assert_true(hold_report["wall_cleared_before_terminal_signal"])
+	assert_false(hold_report["hold_request_on_exit"])
+	assert_eq(hold_report["hold_request_after_exit_count"], 0)
+	assert_true(hold_report["valid_outward_hold_seen"], "the cancellation step did not have supported selected-wall contact")
+	var outward_reference: Vector3 = hold_report["pre_exit_velocity"]
+	var selected_wall_normal: Vector3 = hold_report["wall_normal"]
+	var exit_velocity: Vector3 = hold_report["exit_velocity"]
+	assert_almost_eq(
+		(exit_velocity - outward_reference).length(),
+		0.0,
+		0.001,
+		"outward cancellation must preserve the transaction's recoverable velocity"
+	)
+	assert_gt(outward_reference.dot(selected_wall_normal), 0.0, "the cancellation fixture must have positive outward speed")
+	assert_eq(hold_report["commit_count_max"], 1)
+
+	var release_report := await _wall_stick_report(WallStickExit.RELEASE_OUTWARD_VELOCITY)
+	assert_true(release_report["exited"], "outward motion plus grapple release did not exit wall sticking")
+	assert_eq(release_report["post_exit_state"], LOCOMOTION_AIRBORNE)
+	assert_false(release_report["still_wall_sticking"])
+	assert_false(release_report["grapple_held_at_exit"], "the cancellation case did not actually release Grapple")
+	assert_true(release_report["valid_outward_hold_seen"], "the release case did not have supported selected-wall contact")
+	assert_eq(release_report["terminal_reason"], GrappleEndReason.Reason.STATE_CANCELLATION)
+	assert_eq(release_report["terminal_count"], 1)
+	assert_false(release_report["hold_request_on_exit"])
+	assert_eq(release_report["hold_request_after_exit_count"], 0)
+	var release_pre_velocity: Vector3 = release_report["pre_exit_velocity"]
+	var release_wall_normal: Vector3 = release_report["wall_normal"]
+	var horizontal_release_normal := Vector3(
+		release_wall_normal.x,
+		0.0,
+		release_wall_normal.z
+	).normalized()
+	assert_gt(
+		Vector3(release_pre_velocity.x, 0.0, release_pre_velocity.z).dot(horizontal_release_normal),
+		0.0,
+		"the simultaneous-release fixture must move outward"
+	)
+	assert_almost_eq(
+		(release_report["exit_velocity"] - release_pre_velocity).length(),
+		0.0,
+		0.001,
+		"outward cancellation plus grapple release must preserve recoverable velocity"
+	)
+	assert_eq(release_report["commit_count_max"], 1)
+
+
 func test_wall_stick_cannot_jump_after_the_required_wall_is_lost() -> void:
 	for tick_rate in [60, 120]:
 		Engine.physics_ticks_per_second = tick_rate
@@ -297,6 +391,17 @@ func test_wall_stick_cannot_jump_after_the_required_wall_is_lost() -> void:
 		assert_eq(report["hold_request_after_exit_count"], 0)
 		assert_eq(report["commit_count_max"], 1)
 	Engine.physics_ticks_per_second = _saved_physics_ticks_per_second
+
+	var release_report := await _wall_stick_report(WallStickExit.LOST_WALL_JUMP_WITH_GRAPPLE_RELEASE)
+	assert_true(release_report["lost_frame_seen_while_sticking"])
+	assert_true(release_report["exited"])
+	assert_eq(release_report["jump_count"], 0, "a released grapple plus jump must not use a lost wall")
+	assert_false(release_report["grapple_held_at_exit"])
+	assert_eq(release_report["post_exit_state"], LOCOMOTION_AIRBORNE)
+	assert_eq(release_report["terminal_reason"], GrappleEndReason.Reason.RELEASE)
+	assert_eq(release_report["terminal_count"], 1)
+	assert_eq(release_report["hold_request_after_exit_count"], 0)
+	assert_eq(release_report["commit_count_max"], 1)
 
 
 func test_wall_stick_keeps_a_real_wall_while_the_camera_turns_away() -> void:
@@ -339,11 +444,26 @@ func test_wall_stick_jump_uses_the_authored_up_away_and_along_wall_motion() -> v
 	assert_eq(report["hold_request_after_exit_count"], 0)
 	assert_eq(report["terminal_count"], 1)
 	assert_true(report["duplicate_terminal_same"])
+	assert_gt(report["jump_reference_outward_speed"], 0.0, "the jump must retain priority over outward-hold cancellation")
 	assert_eq(report["commit_count_max"], 1)
 	assert_almost_eq(report["exit_velocity"].y, 5.5, 0.02)
 	assert_almost_eq(report["exit_velocity"].z, 8.0, 0.1, "authored away-from-wall speed changed")
 	assert_almost_eq(report["exit_velocity"].x, 10.0, 0.1, "authored along-wall speed changed")
 	print("[1-9-stick-jump] ", report)
+
+	var release_and_jump_report := await _wall_stick_report(WallStickExit.JUMP_WITH_GRAPPLE_RELEASE)
+	assert_true(release_and_jump_report["exited"])
+	assert_eq(release_and_jump_report["post_exit_state"], LOCOMOTION_AIRBORNE)
+	assert_false(release_and_jump_report["grapple_held_at_exit"], "the jump case did not actually release Grapple")
+	assert_eq(release_and_jump_report["jump_count"], 1, "simultaneous grapple release suppressed the fresh wall jump")
+	assert_gt(release_and_jump_report["jump_reference_outward_speed"], 0.0)
+	assert_eq(release_and_jump_report["terminal_reason"], GrappleEndReason.Reason.STATE_CANCELLATION)
+	assert_eq(release_and_jump_report["terminal_count"], 1)
+	assert_false(release_and_jump_report["hold_request_on_exit"])
+	assert_eq(release_and_jump_report["hold_request_after_exit_count"], 0)
+	assert_almost_eq(release_and_jump_report["exit_velocity"].y, 5.5, 0.02)
+	assert_almost_eq(release_and_jump_report["exit_velocity"].z, 8.0, 0.1)
+	assert_almost_eq(release_and_jump_report["exit_velocity"].x, 10.0, 0.1)
 
 
 func test_wall_stick_attachment_invalidation_ends_the_hold_with_a_typed_reason() -> void:
@@ -448,6 +568,133 @@ func _wall_run_report(tick_rate: int, side: float, entry_speed: float = 8.0) -> 
 	return report
 
 
+func _wall_run_outward_entry_report() -> Dictionary:
+	var fixture := _new_world(Vector3(-3.0, 2.0, -0.25))
+	var player: CharacterBody3D = fixture["player"]
+	var input_source: PlayerInputSource = fixture["input_source"]
+	var motor: PlayerMotor = fixture["motor"]
+	_add_box(fixture["world"], Vector3(0.0, 4.0, -1.0), Vector3(40.0, 8.0, 0.2), 0.0)
+	await _settle(motor)
+
+	var report := _new_report()
+	_begin(report, motor)
+	input_source.inject_movement_strengths(0.0, 1.0, 0.0, 0.0)
+	for _i in range(24):
+		var previous_contact: ContactFrame = motor.get_previous_contact_frame()
+		var outward_normal := Vector3(0.0, 0.0, 1.0)
+		if previous_contact != null and previous_contact.has_wall_contact:
+			outward_normal = previous_contact.wall_normal
+		outward_normal.y = 0.0
+		outward_normal = outward_normal.normalized()
+		# Re-assert a tiny positive separating component each transaction so
+		# ordinary airborne acceleration cannot turn this into an inward control.
+		player.velocity = Vector3(8.0, 0.0, 0.0) + outward_normal * 0.01
+		player.call("_physics_process", 1.0 / 60.0)
+		_observe(report, player, motor)
+		var result: PlayerMotorCommitResult = motor.get_last_commit_result()
+		if result != null and result.contact_frame.has_wall_contact:
+			var frame: ContactFrame = result.contact_frame
+			var reference_velocity: Vector3 = player.call("get_motion_start_velocity")
+			var command_frame: PlayerCommandFrame = player.call("get_player_command_frame")
+			if command_frame == null:
+				continue
+			var run_direction: Vector3 = player.call(
+				"_get_wall_run_direction",
+				frame.wall_normal,
+				reference_velocity
+			)
+			var other_entry_gates_open: bool = (
+				not player.call("has_ground_contact")
+				and not bool(player.get("is_grappling"))
+				and bool(player.call("_is_runnable_wall_frame", frame, result.physics_step))
+				and bool(player.call("_can_start_wall_run", reference_velocity))
+				and bool(
+					player.call(
+						"_has_wall_run_input_for_direction",
+						command_frame.movement_axis,
+						run_direction
+					)
+				)
+			)
+			if (
+				other_entry_gates_open
+				and bool(player.call("_has_outward_wall_speed", reference_velocity, frame.wall_normal))
+			):
+				report["valid_outward_entry_seen"] = true
+	return report
+
+
+func _wall_run_outward_exit_report() -> Dictionary:
+	var fixture := _new_world(Vector3(-3.0, 2.0, 0.0))
+	var player: CharacterBody3D = fixture["player"]
+	var input_source: PlayerInputSource = fixture["input_source"]
+	var motor: PlayerMotor = fixture["motor"]
+	_add_box(fixture["world"], Vector3(0.0, 4.0, -1.0), Vector3(40.0, 8.0, 0.2), 0.0)
+	await _settle(motor)
+
+	var report := _new_report()
+	_begin(report, motor)
+	player.velocity = Vector3(8.0, 0.0, 0.0)
+	input_source.inject_movement_strengths(0.0, 1.0, 0.0, 0.0)
+	for _i in range(30):
+		player.call("_physics_process", 1.0 / 60.0)
+		_observe(report, player, motor)
+		var result: PlayerMotorCommitResult = motor.get_last_commit_result()
+		if (
+			result != null
+			and result.locomotion_state_id == LOCOMOTION_WALL_RUN
+			and bool(player.get("is_wall_running"))
+		):
+			break
+	assert_true(bool(player.get("is_wall_running")), "the fixture never reached active wall running")
+
+	var wall_normal: Vector3 = player.get("wall_normal")
+	var horizontal_normal := Vector3(wall_normal.x, 0.0, wall_normal.z).normalized()
+	var reference_velocity: Vector3 = player.call("get_committed_motion_velocity") + horizontal_normal * 0.5
+	var contact_frame: ContactFrame = motor.get_previous_contact_frame()
+	var command_frame: PlayerCommandFrame = player.call("get_player_command_frame")
+	report["valid_outward_maintenance_seen"] = (
+		bool(player.get("is_wall_running"))
+		and not bool(player.call("has_ground_contact"))
+		and not bool(player.get("is_grappling"))
+		and contact_frame != null
+		and command_frame != null
+		and not command_frame.was_pressed(PlayerCommandFrame.Action.JUMP)
+		and not command_frame.was_pressed(PlayerCommandFrame.Action.GRAPPLE)
+		and bool(
+			player.call(
+				"_is_runnable_wall_frame",
+				contact_frame,
+				int(player.get("_player_physics_step"))
+			)
+		)
+		and bool(
+			player.call(
+				"_has_wall_run_input_for_direction",
+				command_frame.movement_axis,
+				player.get("wall_run_direction")
+			)
+		)
+		and bool(player.call("_has_outward_wall_speed", reference_velocity, wall_normal))
+	)
+	player.velocity = reference_velocity
+	player.call("_physics_process", 1.0 / 60.0)
+	_observe(report, player, motor)
+	var exit_result: PlayerMotorCommitResult = motor.get_last_commit_result()
+	report["exited"] = not bool(player.get("is_wall_running"))
+	report["pre_exit_velocity"] = reference_velocity
+	report["exit_velocity"] = exit_result.submitted_velocity
+	report["wall_normal_after_exit"] = player.get("wall_normal")
+	report["wall_constraint_on_exit"] = _result_has_source(exit_result, SOURCE_WALL_RUN_CONSTRAINT)
+
+	player.call("_physics_process", 1.0 / 60.0)
+	_observe(report, player, motor)
+	var after_exit: PlayerMotorCommitResult = motor.get_last_commit_result()
+	report["post_exit_state"] = after_exit.locomotion_state_id
+	report["still_wall_running"] = bool(player.get("is_wall_running"))
+	return report
+
+
 func _corner_report(tick_rate: int) -> Dictionary:
 	var fixture := _new_world(Vector3(-7.0, 2.0, 0.0))
 	var player: CharacterBody3D = fixture["player"]
@@ -462,8 +709,8 @@ func _corner_report(tick_rate: int) -> Dictionary:
 	await _settle(motor)
 
 	var delta := 1.0 / float(tick_rate)
-	# Cross the seam while the longer second face stays within the probe, well
-	# before its far end cap (incoming momentum can exceed target speed).
+	# Cross the seam and follow the second face before the later sweep selects a
+	# different wall relation (whose normal can correctly require a separation exit).
 	var steps := int(ceil(1.45 * float(tick_rate)))
 	player.velocity = Vector3(8.0, 0.0, 0.0)
 	input_source.inject_movement_strengths(0.0, 1.0, 0.0, 0.0)
@@ -473,8 +720,16 @@ func _corner_report(tick_rate: int) -> Dictionary:
 	var first_direction := Vector3.ZERO
 	var last_direction := Vector3.ZERO
 	for _i in range(steps):
+		var was_running: bool = bool(player.get("is_wall_running"))
+		var velocity_before: Vector3 = player.velocity
+		var prior_contact: ContactFrame = motor.get_previous_contact_frame()
 		player.call("_physics_process", delta)
 		_observe(report, player, motor)
+		if was_running and not bool(player.get("is_wall_running")) and prior_contact != null:
+			var horizontal_normal := Vector3(prior_contact.wall_normal.x, 0.0, prior_contact.wall_normal.z).normalized()
+			var horizontal_velocity := Vector3(velocity_before.x, 0.0, velocity_before.z)
+			report["outward_exit_projection"] = horizontal_velocity.dot(horizontal_normal)
+			report["outward_exit_action"] = prior_contact.continuity_action
 		if bool(player.get("is_wall_running")):
 			report["active_steps"] = int(report["active_steps"]) + 1
 			var direction: Vector3 = player.get("wall_run_direction")
@@ -649,6 +904,11 @@ func _wall_jump_report(tick_rate: int) -> Dictionary:
 		0.0,
 		(player.call("get_committed_motion_velocity") as Vector3).dot(player.get("wall_run_direction"))
 	)
+	var wall_normal: Vector3 = player.get("wall_normal")
+	var horizontal_normal := Vector3(wall_normal.x, 0.0, wall_normal.z).normalized()
+	var jump_reference: Vector3 = player.call("get_committed_motion_velocity") + horizontal_normal * 0.5
+	player.velocity = jump_reference
+	report["jump_reference_outward_speed"] = jump_reference.dot(horizontal_normal)
 
 	# Occurrence-identified jump, then keep the SAME command held for many
 	# steps: neither the press-edge latch nor a second submission may apply
@@ -731,6 +991,71 @@ func _grapple_from_wall_run_report() -> Dictionary:
 	return report
 
 
+func _wall_stick_outward_entry_report() -> Dictionary:
+	var fixture := _new_world(Vector3(-3.0, 2.0, -0.25))
+	var player: CharacterBody3D = fixture["player"]
+	var input_source: PlayerInputSource = fixture["input_source"]
+	var motor: PlayerMotor = fixture["motor"]
+	var world: Node3D = fixture["world"]
+	_add_box(world, Vector3(0.0, 4.0, -1.0), Vector3(40.0, 8.0, 0.2), 0.0)
+	await _settle(motor)
+
+	var previous_contact: ContactFrame = motor.get_previous_contact_frame()
+	var outward_normal := Vector3(0.0, 0.0, 1.0)
+	if previous_contact != null and previous_contact.has_wall_contact:
+		outward_normal = previous_contact.wall_normal
+	outward_normal.y = 0.0
+	outward_normal = outward_normal.normalized()
+	# Give the seed an outward world hit position as well as an outward target;
+	# the helper's default seed point is on the inward side of this wall.
+	var anchor_position := Vector3(0.0, 2.0, 1.0) + outward_normal * 4.0
+	var anchor := _add_anchor(world, anchor_position)
+
+	var report := _new_report()
+	_begin(report, motor)
+	assert_eq(
+		_seed_grapple(player, anchor, anchor_position),
+		GrappleController.CommitStatus.SUCCESS
+	)
+	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)
+	input_source.inject_movement_strengths(0.0, 1.0, 0.0, 0.0)
+	for _i in range(24):
+		var contact_before_step: ContactFrame = motor.get_previous_contact_frame()
+		if contact_before_step != null and contact_before_step.has_wall_contact:
+			outward_normal = contact_before_step.wall_normal
+			outward_normal.y = 0.0
+			outward_normal = outward_normal.normalized()
+		player.velocity = Vector3(6.0, 0.0, 0.0) + outward_normal * 0.05
+		player.call("_physics_process", 1.0 / 60.0)
+		_observe(report, player, motor)
+		var result: PlayerMotorCommitResult = motor.get_last_commit_result()
+		if result == null or not result.contact_frame.has_wall_contact:
+			continue
+		var frame := result.contact_frame
+		var run_direction: Vector3 = player.call(
+			"_get_wall_run_direction",
+			frame.wall_normal,
+			result.submitted_velocity
+		)
+		var command_frame: PlayerCommandFrame = player.call("get_player_command_frame")
+		var all_other_entry_gates_open := (
+			result.locomotion_state_id == LOCOMOTION_GRAPPLING
+			and bool(player.get("is_grappling"))
+			and command_frame != null
+			and command_frame.is_held(PlayerCommandFrame.Action.GRAPPLE)
+			and not frame.is_grounded
+			and bool(player.call("_is_runnable_wall_frame", frame, result.physics_step))
+			and bool(player.call("_can_start_wall_run", result.submitted_velocity))
+			and bool(player.call("_has_wall_run_input_for_direction", Vector2(1.0, 0.0), run_direction))
+		)
+		if (
+			all_other_entry_gates_open
+			and bool(player.call("_has_outward_wall_speed", result.submitted_velocity, frame.wall_normal))
+		):
+			report["valid_outward_entry_seen"] = true
+	return report
+
+
 func _wall_stick_report(exit_mode: int, tick_rate: int = 60) -> Dictionary:
 	var fixture := _new_world(Vector3(-3.0, 2.0, -0.25))
 	var player: CharacterBody3D = fixture["player"]
@@ -749,7 +1074,9 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60) -> Dictionary:
 	# the attachment, and invalidating the attachment must end the hold
 	# without the wall going away.
 	var wall := _add_box(world, Vector3(0.0, 4.0, -1.0), Vector3(40.0, 8.0, 0.2), 0.0)
-	var anchor := _add_anchor(world, Vector3(0.0, 2.0, 2.0))
+	# This fixture pulls into the wall (negative against the selected +Z normal),
+	# keeping the pre-existing hold/release cases inside the new separation gate.
+	var anchor := _add_anchor(world, Vector3(0.0, 2.0, -2.0))
 	await _settle(motor)
 
 	var delta := 1.0 / float(tick_rate)
@@ -766,6 +1093,7 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60) -> Dictionary:
 		if bool(player.get("is_wall_sticking")):
 			break
 	assert_true(bool(player.get("is_wall_sticking")), "wall stick never engaged (exit mode %d)" % exit_mode)
+	report["wall_normal"] = player.get("wall_stick_normal")
 
 	for _i in range(18):
 		player.call("_physics_process", delta)
@@ -781,12 +1109,49 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60) -> Dictionary:
 	match exit_mode:
 		WallStickExit.RELEASE:
 			input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
-		WallStickExit.WALL_LOST, WallStickExit.WALL_LOST_WITH_JUMP:
+		WallStickExit.WALL_LOST, WallStickExit.WALL_LOST_WITH_JUMP, WallStickExit.LOST_WALL_JUMP_WITH_GRAPPLE_RELEASE:
 			# The supported wall goes away while the attachment stays valid:
 			# this is the Story 1.9 Task 7.1 required-wall-contact-loss exit.
 			wall.free()
-		WallStickExit.JUMP:
+		WallStickExit.JUMP, WallStickExit.JUMP_WITH_GRAPPLE_RELEASE:
+			var jump_normal: Vector3 = player.get("wall_stick_normal")
+			var horizontal_jump_normal := Vector3(jump_normal.x, 0.0, jump_normal.z).normalized()
+			var jump_reference: Vector3 = player.get("wall_stick_run_direction") * 3.0 + horizontal_jump_normal * 0.5
+			player.velocity = jump_reference
+			report["jump_reference_outward_speed"] = jump_reference.dot(horizontal_jump_normal)
 			input_source.inject_action_binding(PlayerCommandFrame.Action.JUMP, 0, true)
+			if exit_mode == WallStickExit.JUMP_WITH_GRAPPLE_RELEASE:
+				input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
+		WallStickExit.OUTWARD_VELOCITY, WallStickExit.RELEASE_OUTWARD_VELOCITY:
+			var separation_normal: Vector3 = player.get("wall_stick_normal")
+			var horizontal_separation_normal := Vector3(separation_normal.x, 0.0, separation_normal.z).normalized()
+			var outward_reference: Vector3 = player.get("wall_stick_run_direction") * 2.0 + horizontal_separation_normal * 0.5
+			var contact_before_exit: ContactFrame = motor.get_previous_contact_frame()
+			var current_step := int(player.get("_player_physics_step"))
+			var selected_contact_supported: bool = (
+				contact_before_exit != null
+				and bool(player.call("_is_runnable_wall_frame", contact_before_exit, current_step))
+				and contact_before_exit.continuity_action != ContactFrame.ContinuityAction.SWITCHED
+				and (
+					not bool(player.get("wall_stick_identity_persistent"))
+					or (
+						contact_before_exit.wall_identity_persistent
+						and contact_before_exit.wall_surface_identity == player.get("wall_stick_surface_identity")
+					)
+				)
+			)
+			var command_before_exit: PlayerCommandFrame = player.call("get_player_command_frame")
+			report["valid_outward_hold_seen"] = (
+				bool(player.get("is_wall_sticking"))
+				and selected_contact_supported
+				and command_before_exit != null
+				and command_before_exit.is_held(PlayerCommandFrame.Action.GRAPPLE)
+				and not command_before_exit.was_pressed(PlayerCommandFrame.Action.JUMP)
+				and bool(player.call("_has_outward_wall_speed", outward_reference, separation_normal))
+			)
+			player.velocity = outward_reference
+			if exit_mode == WallStickExit.RELEASE_OUTWARD_VELOCITY:
+				input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
 		WallStickExit.INVALIDATE_ATTACHMENT:
 			# Story 1.8 sampling termination: the anchor is freed mid-hold.
 			anchor.free()
@@ -810,7 +1175,14 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60) -> Dictionary:
 	for i in range(12):
 		# The velocity the next commit starts from: a non-jump exit must carry
 		# it through unchanged (Task 7.4 recoverable velocity).
-		var pre_exit_velocity: Vector3 = player.call("get_committed_motion_velocity")
+		var pre_exit_velocity: Vector3 = (
+			player.velocity
+			if (
+				exit_mode == WallStickExit.OUTWARD_VELOCITY
+				or exit_mode == WallStickExit.RELEASE_OUTWARD_VELOCITY
+			)
+			else player.call("get_committed_motion_velocity")
+		)
 		player.call("_physics_process", delta)
 		_observe(report, player, motor)
 		var result: PlayerMotorCommitResult = motor.get_last_commit_result()
@@ -820,14 +1192,37 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60) -> Dictionary:
 			if exit_mode == WallStickExit.SWITCH_WALL and result.contact_frame.continuity_action == ContactFrame.ContinuityAction.SWITCHED:
 				report["switched_frame_seen"] = true
 				report["selected_switched_normal"] = result.contact_frame.wall_normal
-			if exit_mode == WallStickExit.WALL_LOST_WITH_JUMP and result.contact_frame.wall_contact_lost and bool(player.get("is_wall_sticking")):
+			if (
+				(
+					exit_mode == WallStickExit.WALL_LOST_WITH_JUMP
+					or exit_mode == WallStickExit.LOST_WALL_JUMP_WITH_GRAPPLE_RELEASE
+				)
+				and result.contact_frame.wall_contact_lost
+				and bool(player.get("is_wall_sticking"))
+			):
 				report["lost_frame_seen_while_sticking"] = true
 				input_source.inject_action_binding(PlayerCommandFrame.Action.JUMP, 0, true)
+				if exit_mode == WallStickExit.LOST_WALL_JUMP_WITH_GRAPPLE_RELEASE:
+					input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
 		if _result_has_source(result, SOURCE_JUMP_WALL):
 			report["jump_count"] = int(report["jump_count"]) + 1
 		if not bool(player.get("is_wall_sticking")):
+			if (
+				exit_mode == WallStickExit.RELEASE_OUTWARD_VELOCITY
+				or exit_mode == WallStickExit.JUMP_WITH_GRAPPLE_RELEASE
+				or exit_mode == WallStickExit.LOST_WALL_JUMP_WITH_GRAPPLE_RELEASE
+			):
+				var exit_command: PlayerCommandFrame = player.call("get_player_command_frame")
+				report["grapple_held_at_exit"] = (
+					exit_command != null
+					and exit_command.is_held(PlayerCommandFrame.Action.GRAPPLE)
+				)
 			report["exited"] = true
 			report["exit_latency_steps"] = i + 1
+			report["hold_request_on_exit"] = (
+				result != null
+				and (result.is_hold_request or result.applied_constraints.has(SOURCE_WALL_STICK_HOLD))
+			)
 			if result != null:
 				report["exit_velocity"] = result.submitted_velocity
 				report["pre_exit_velocity"] = pre_exit_velocity
@@ -1018,9 +1413,13 @@ func _new_report() -> Dictionary:
 		"hold_request_after_exit_count": 0,
 		"commit_count_max": 0,
 		"min_direction_dot": 1.0,
+		"outward_exit_projection": 0.0,
+		"outward_exit_action": ContactFrame.ContinuityAction.NONE,
 		"corner_trace": [],
 		"jump_count": 0,
 		"hold_request_seen": false,
+		"grapple_held_at_exit": true,
+		"valid_outward_hold_seen": false,
 		"exited": false,
 		"landed": false,
 		"ever_wall_running": false,
@@ -1037,6 +1436,7 @@ func _new_report() -> Dictionary:
 		"wall_run_direction": Vector3.ZERO,
 		"launch_velocity": Vector3.ZERO,
 		"pre_jump_along_wall_speed": 0.0,
+		"jump_reference_outward_speed": 0.0,
 		"state_at_jump": &"",
 		"first_state_after_jump": &"",
 		"exit_velocity": Vector3.ZERO,
@@ -1052,6 +1452,9 @@ func _new_report() -> Dictionary:
 		"recovery_action_worked": false,
 		"lost_frame_seen_while_running": false,
 		"lost_frame_seen_while_sticking": false,
+		"valid_outward_entry_seen": false,
+		"wall_constraint_on_exit": false,
+		"hold_request_on_exit": false,
 		"wall_contact_after_turn": false,
 		"switched_frame_seen": false,
 		"selected_switched_normal": Vector3.ZERO,
@@ -1165,12 +1568,16 @@ func _add_anchor(world: Node, anchor_position: Vector3) -> StaticBody3D:
 	return anchor
 
 
-func _seed_grapple(player: CharacterBody3D, target: Node3D) -> GrappleController.CommitStatus:
+func _seed_grapple(
+	player: CharacterBody3D,
+	target: Node3D,
+	seed_hit_position: Vector3 = Vector3(0.0, 0.1, -1.0)
+) -> GrappleController.CommitStatus:
 	var controller: GrappleController = player.get("_grapple_controller")
 	assert_not_null(controller)
 	var seed := GrappleTargetSeed.new(
 		&"",
-		Vector3(0.0, 0.1, -1.0),
+		seed_hit_position,
 		Vector3(0.0, 0.0, 1.0),
 		GrappleTargetResponse.static_default(),
 		weakref(target),

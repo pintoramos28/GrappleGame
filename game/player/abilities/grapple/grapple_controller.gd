@@ -12,11 +12,10 @@ extends RefCounted
 ## `PlayerMotor` remains the only writer of `CharacterBody3D.velocity` and the
 ## only caller of `move_and_slide()`.
 ##
-## PLAYER REFERENCE POINT (Story 1.7 Task 4.4): the owner `CharacterBody3D`
-## origin (`get_reference_position()`), matching the motor's commit transform.
-## Pull direction, distance measurement, boundary resolution, and the diagnostics
-## snapshot all use this one reference point. The rope visual's mesh-center start
-## point is presentation only and is not a gameplay reference.
+## The pull direction uses the configured player-local origin (`get_pull_origin_position()`).
+## Its fallback is the owner body origin. Boundary resolution and distance
+## diagnostics retain the body-root reference (`get_reference_position()`) to
+## match the motor's commit transform; the rope uses the pull origin.
 ##
 ## Termination is requested by the owning player controller (`terminate()`); this
 ## class commits exactly one reason-coded terminal per attachment and emits
@@ -48,6 +47,7 @@ const SOURCE_SPEED_CAP: StringName = &"player.grapple.speed_cap"
 const SOURCE_MAXIMUM_DISTANCE: StringName = &"player.grapple.maximum_distance"
 
 var _owner_body: CharacterBody3D
+var _pull_origin: Node3D
 var _definition: GrappleDefinition
 var _attachment: GrappleAttachment
 var _attachment_serial := 0
@@ -103,11 +103,23 @@ func get_originating_scope_identity() -> StringName:
 	return StringName(supplied)
 
 
-## The one documented player reference point (Task 4.4).
+## Motor boundary and distance diagnostics always use the owner body origin.
 func get_reference_position() -> Vector3:
 	if _owner_body == null or not is_instance_valid(_owner_body):
 		return Vector3.ZERO
 	return _owner_body.global_position
+
+
+## Optional, scene-assigned origin for pull and presentation; no node path is
+## stored here, so instantiated player scenes retain their own assignment.
+func set_pull_origin(origin: Node3D) -> void:
+	_pull_origin = origin
+
+
+func get_pull_origin_position() -> Vector3:
+	if is_instance_valid(_pull_origin) and _pull_origin.is_inside_tree():
+		return _pull_origin.global_position
+	return get_reference_position()
 
 
 ## Commit exactly one attachment from the accepted same-step seed (AC 1, Task
@@ -362,7 +374,7 @@ func submit_motor_influences(
 	if _attachment.get_sampled_anchor_step() != physics_step:
 		return PlayerMotor.SubmissionStatus.STALE_ANCHOR_SAMPLE
 	var sample := _attachment.get_sampled_anchor_state()
-	var pull_direction := get_reference_position().direction_to(
+	var pull_direction := get_pull_origin_position().direction_to(
 		sample.anchor_world_position
 	)
 	# Byte-identical Story 1.6 pull timing (Task 2.5): the acceleration is read

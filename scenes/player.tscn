@@ -19,12 +19,12 @@
 [ext_resource type="Script" uid="uid://dldhgr0ynm12e" path="res://scripts/player_attack_active_state.gd" id="17_attackactive"]
 [ext_resource type="Script" uid="uid://ca8jcl3jv6gnx" path="res://scripts/player_attack_recovery_state.gd" id="18_attackrecovery"]
 [ext_resource type="Script" uid="uid://ctp8c3maf0y66" path="res://scripts/visuals/attack_arc_visual_3d.gd" id="19_attackarc"]
-[ext_resource type="Script" path="res://scripts/debug_grapple_telemetry.gd" id="20_grapple_debug"]
-[ext_resource type="Script" path="res://game/player/input/player_input_source.gd" id="21_input_source"]
-[ext_resource type="Script" path="res://game/player/motor/player_motor.gd" id="22_player_motor"]
-[ext_resource type="Resource" path="res://game/shared/physics/ground_probe.tres" id="23_ground_probe"]
-[ext_resource type="Resource" path="res://game/shared/physics/wall_probe.tres" id="24_wall_probe"]
-[ext_resource type="Script" path="res://game/player/abilities/grapple/presentation/grapple_target_marker.gd" id="25_grapple_marker"]
+[ext_resource type="Script" uid="uid://cqdemrx641j1p" path="res://scripts/debug_grapple_telemetry.gd" id="20_grapple_debug"]
+[ext_resource type="Script" uid="uid://deyt144deq124" path="res://game/player/input/player_input_source.gd" id="21_input_source"]
+[ext_resource type="Script" uid="uid://b08nsonkjc7rb" path="res://game/player/motor/player_motor.gd" id="22_player_motor"]
+[ext_resource type="Resource" uid="uid://dqqplmqkvf27i" path="res://game/shared/physics/ground_probe.tres" id="23_ground_probe"]
+[ext_resource type="Resource" uid="uid://jblobd7ty4bd" path="res://game/shared/physics/wall_probe.tres" id="24_wall_probe"]
+[ext_resource type="Script" uid="uid://811n7nbcqg3f" path="res://game/player/abilities/grapple/presentation/grapple_target_marker.gd" id="25_grapple_marker"]
 [ext_resource type="Resource" path="res://game/player/abilities/grapple/definitions/grapple_definition.tres" id="26_grapple_definition"]
 [ext_resource type="Resource" path="res://game/shared/physics/grapple_occlusion.tres" id="27_grapple_occlusion"]
 
@@ -43,14 +43,18 @@ height = 1.9
 [sub_resource type="BoxShape3D" id="BoxShape3D_attack"]
 size = Vector3(1.25, 1.3, 1.25)
 
-[node name="Player" type="CharacterBody3D" unique_id=467031457]
+[node name="Player" type="CharacterBody3D" unique_id=467031457 node_paths=PackedStringArray("grapple_origin")]
 collision_layer = 2
 script = ExtResource("1_cvnsp")
 max_ground_speed = 10.0
 air_deceleration = 5.0
+wall_run_min_horizontal_speed = 3.0
 wall_run_acceleration = 4.0
 wall_run_gravity_scale = 0.0
+wall_check_distance = 0.0
 pitch_max = 70.0
+grapple_gravity_scale = 0.0
+grapple_origin = NodePath("GrappleOrigin")
 grapple_definition = ExtResource("26_grapple_definition")
 grapple_occlusion_profile = ExtResource("27_grapple_occlusion")
 
@@ -74,14 +78,13 @@ spring_length = 3.0
 current = true
 fov = 70.0
 
-[node name="PlayerInputSource" type="Node" parent="."]
+[node name="PlayerInputSource" type="Node" parent="." unique_id=192931006]
 script = ExtResource("21_input_source")
 
-[node name="PlayerMotor" type="Node" parent="."]
+[node name="PlayerMotor" type="Node" parent="." unique_id=2100558634]
 script = ExtResource("22_player_motor")
 ground_probe = ExtResource("23_ground_probe")
 wall_probe = ExtResource("24_wall_probe")
-contact_lifecycle_strict = true
 
 [node name="Health" type="Node" parent="." unique_id=1561324531]
 script = ExtResource("3_8agwv")
@@ -122,15 +125,12 @@ mesh_rotation_degrees = Vector3(0, 0, -28)
 emission_energy = 2.5
 sweep_rotation_degrees = Vector3(0, 0, 36)
 
-[node name="GrappleTelemetry" type="CanvasLayer" parent="."]
+[node name="GrappleTelemetry" type="CanvasLayer" parent="." unique_id=484021452]
 layer = 50
 script = ExtResource("20_grapple_debug")
 
-[node name="GrappleTargetMarker" type="Node3D" parent="."]
+[node name="GrappleTargetMarker" type="Node3D" parent="." unique_id=2029571087]
 script = ExtResource("25_grapple_marker")
-grapple_cursor_radius = 0.2
-grapple_cursor_color = Color(1, 0.9, 0.1, 1)
-grapple_cursor_active_color = Color(0.2, 1, 0.25, 1)
 
 [node name="MovementHSM" type="LimboHSM" parent="." unique_id=917859255]
 
@@ -165,3 +165,6 @@ script = ExtResource("17_attackactive")
 
 [node name="AttackRecoveryState" type="LimboState" parent="AttackHSM" unique_id=1631786710]
 script = ExtResource("18_attackrecovery")
+
+[node name="GrappleOrigin" type="Marker3D" parent="." unique_id=1226553411]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)

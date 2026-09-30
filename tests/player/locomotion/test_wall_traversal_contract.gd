@@ -163,15 +163,58 @@ func test_unexpected_continuity_action_clears_the_relationship() -> void:
 
 func test_wall_run_entry_policy_keeps_the_authored_speed_gates() -> void:
 	var player := _new_policy_controller()
+	var minimum_horizontal_speed := float(player.get("wall_run_min_horizontal_speed"))
+	var maximum_entry_speed := float(player.get("wall_run_max_entry_speed"))
 
-	# Horizontal speed gate: below 1.0 m/s there is no wall-run entry.
-	assert_false(bool(player.call("_can_start_wall_run", Vector3(0.5, 0.0, 0.0))))
-	assert_true(bool(player.call("_can_start_wall_run", Vector3(1.0, 0.0, 0.0))))
-	# Total speed gate: above 18.0 m/s there is no wall-run entry.
-	assert_true(bool(player.call("_can_start_wall_run", Vector3(18.0, 0.0, 0.0))))
-	assert_false(bool(player.call("_can_start_wall_run", Vector3(18.5, 0.0, 0.0))))
+	# Check the configured boundaries instead of duplicating script defaults;
+	# scenes may intentionally override these authored controller exports.
+	assert_false(
+		bool(player.call("_can_start_wall_run", Vector3(minimum_horizontal_speed - 0.5, 0.0, 0.0)))
+	)
+	assert_true(
+		bool(player.call("_can_start_wall_run", Vector3(minimum_horizontal_speed, 0.0, 0.0)))
+	)
+	assert_true(bool(player.call("_can_start_wall_run", Vector3(maximum_entry_speed, 0.0, 0.0))))
+	assert_false(bool(player.call("_can_start_wall_run", Vector3(maximum_entry_speed + 0.5, 0.0, 0.0))))
 	# Vertical speed alone never satisfies the horizontal gate.
 	assert_false(bool(player.call("_can_start_wall_run", Vector3(0.0, 12.0, 0.0))))
+
+
+func test_outward_wall_speed_uses_horizontal_projection_and_filters_float_roundoff() -> void:
+	var player := _new_policy_controller()
+	# A sloped authoritative wall normal whose horizontal unit component is
+	# (0.6, 0, 0.8). Vertical velocity must not affect the projection.
+	var wall_normal := Vector3(3.0, 8.0, 4.0).normalized()
+	var horizontal_normal := Vector3(wall_normal.x, 0.0, wall_normal.z).normalized()
+	var tangent := Vector3(horizontal_normal.z, 0.0, -horizontal_normal.x)
+
+	# Positive (separating) projection remains positive despite strong downward
+	# speed. A full 3D dot would incorrectly make this inward.
+	assert_true(
+		bool(player.call("_has_outward_wall_speed", tangent + horizontal_normal * 2.0 + Vector3.DOWN * 100.0, wall_normal))
+	)
+	# The horizontal tangent is exactly orthogonal; upward velocity must not turn
+	# it into a positive projection on the sloped normal.
+	assert_false(
+		bool(player.call("_has_outward_wall_speed", tangent + Vector3.UP * 100.0, wall_normal))
+	)
+	# Fast tangential components can leave a tiny positive residual after
+	# single-precision rounding; this is numerical zero, not separating motion.
+	var rounded_tangent := Vector3(8.000001, 0.0, -5.999999)
+	assert_gt(rounded_tangent.dot(horizontal_normal), 0.0)
+	assert_false(bool(player.call("_has_outward_wall_speed", rounded_tangent, wall_normal)))
+	# A small direct outward vector has no large cancelling tangent terms, so it
+	# remains distinguishable and must still be rejected.
+	assert_true(bool(player.call("_has_outward_wall_speed", horizontal_normal * 0.000001, wall_normal)))
+	# Negative (toward-wall) projection remains inward despite strong upward
+	# speed, again proving that Y is excluded before the dot product.
+	assert_false(
+		bool(player.call("_has_outward_wall_speed", tangent - horizontal_normal * 2.0 + Vector3.UP * 100.0, wall_normal))
+	)
+	# A degenerate horizontal normal has no outward direction to reject against.
+	assert_false(
+		bool(player.call("_has_outward_wall_speed", Vector3(0.0, 0.0, 1.0), Vector3.UP))
+	)
 
 
 func test_wall_run_input_alignment_gate_uses_the_established_run_direction() -> void:

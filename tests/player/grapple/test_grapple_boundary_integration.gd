@@ -8,7 +8,8 @@ extends GutTest
 ## `move_and_slide()` integrates with the physics delta exactly as in the running
 ## game. Contract-level clipping math lives in `test_grapple_boundary_contract.gd`.
 ##
-## Momentum note: the authored pull is a central force toward the anchor, so it
+## These legacy central-force fixtures deliberately leave the optional origin
+## unassigned; the authored pull then starts at the body root, so it
 ## preserves angular momentum (`|r x v|`) while the tangential speed varies as
 ## `1 / r` - the player is faster along the tangent when closer. The boundary
 ## removes only the outward radial component, so it preserves angular momentum
@@ -16,9 +17,11 @@ extends GutTest
 ## stability while the radius is held at the boundary.
 ##
 ## Trajectory control uses documented context-tuning knobs the production scene
-## already uses (`grapple_gravity_scale` is 0.0 in `main.tscn`) plus
-## `air_deceleration = 0`, so seeded momentum, the authored pull profile, and the
-## boundary are the only influences under test.
+## already uses (`grapple_gravity_scale` is 0.0 in `main.tscn`). The optional
+## origin is unassigned and grapple deceleration defaults to zero, so seeded
+## momentum, the authored pull profile, and the boundary are the only influences
+## under test. The fixture also sets ordinary air deceleration to zero for its
+## pre-attachment setup.
 
 
 const PLAYER_SCENE: PackedScene = preload("res://scenes/player.tscn")
@@ -69,6 +72,93 @@ func test_well_inside_attachment_pulls_without_boundary_corrections() -> void:
 	)
 	assert_lte(final_snapshot.maximum_distance_m, 35.0 + 0.0001)
 	assert_true(player.call("get_grapple_attachment").is_definition_unmodified())
+
+
+func test_grapple_air_deceleration_is_independent_of_airborne_deceleration() -> void:
+	var fixture := _new_traversal_fixture(Vector3(0.0, 6.0, 0.0))
+	var player: CharacterBody3D = fixture[0]
+	var motor: PlayerMotor = fixture[1]
+	player.air_deceleration = 5.0
+	player.grapple_air_deceleration = 0.0
+	_add_grappleable_target(player.get_parent(), Vector3(0.0, 6.0, -20.0), Vector3(20.0, 30.0, 0.4), 1.0)
+	await _settle_airborne(player, motor)
+	await _start_grapple(player)
+	motor.set_diagnostics_enabled(true)
+	player.velocity = Vector3(-4.0, 0.0, -6.0)
+	await get_tree().physics_frame
+	var phase: Dictionary = motor.get_diagnostic_snapshot().phase_intermediates[
+		MotorPhase.Phase.BASE_LOCOMOTION_AND_GRAVITY
+	]
+	assert_eq(phase["id"], &"base_locomotion_and_gravity")
+	assert_almost_eq(phase["after_velocity"].x, phase["before_velocity"].x, 0.00001)
+	assert_almost_eq(phase["after_velocity"].z, phase["before_velocity"].z, 0.00001)
+
+	# Changing only grapple tuning affects the active grapple on the next frame.
+	player.grapple_air_deceleration = 3.0
+	await get_tree().physics_frame
+	phase = motor.get_diagnostic_snapshot().phase_intermediates[
+		MotorPhase.Phase.BASE_LOCOMOTION_AND_GRAVITY
+	]
+	assert_almost_eq(
+		phase["after_velocity"].x - phase["before_velocity"].x,
+		3.0 / float(Engine.physics_ticks_per_second), 0.00001
+	)
+	assert_almost_eq(
+		phase["after_velocity"].z - phase["before_velocity"].z,
+		3.0 / float(Engine.physics_ticks_per_second), 0.00001
+	)
+
+	var input_source: PlayerInputSource = player.get_node(^"PlayerInputSource")
+	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	var diagnostic := motor.get_diagnostic_snapshot()
+	assert_eq(diagnostic.locomotion_state_id, &"player.locomotion.airborne")
+	phase = diagnostic.phase_intermediates[MotorPhase.Phase.BASE_LOCOMOTION_AND_GRAVITY]
+	assert_almost_eq(
+		phase["after_velocity"].x - phase["before_velocity"].x,
+		5.0 / float(Engine.physics_ticks_per_second), 0.00001
+	)
+	assert_almost_eq(
+		phase["after_velocity"].z - phase["before_velocity"].z,
+		5.0 / float(Engine.physics_ticks_per_second), 0.00001
+	)
+
+
+func test_stationary_zero_gravity_angled_wall_pull_stays_on_aim_line_before_contact() -> void:
+	var fixture := _new_traversal_fixture(Vector3(0.0, 0.1, 0.0))
+	var player: CharacterBody3D = fixture[0]
+	var input_source: PlayerInputSource = player.get_node(^"PlayerInputSource")
+	player.grapple_origin = player.get_node(^"GrappleOrigin")
+	player.ground_deceleration = 30.0
+	player.air_deceleration = 5.0
+	assert_eq(player.grapple_ground_deceleration, 0.0)
+	assert_eq(player.grapple_air_deceleration, 0.0)
+	# A broad X-facing wall: the camera ray hits its X face diagonally, not a
+	# head-on Z face. Ordinary locomotion damping would bend this pull off-axis.
+	_add_box_target(
+		player.get_parent(), Vector3(-8.7, 3.0, -23.5), Vector3(0.4, 8.0, 23.0)
+	)
+	input_source.inject_mouse_motion(Vector2(-154.0, 0.0))
+	for _frame in range(4):
+		await get_tree().physics_frame
+	var targeting = player.call("get_latest_grapple_targeting_result")
+	assert_true(targeting.is_accepted())
+	var start: Vector3 = player.global_position
+	assert_lt(player.velocity.length(), 0.001)
+	var direction: Vector3 = (
+		targeting.hit_position - player.get_node(^"GrappleOrigin").global_position
+	).normalized()
+	await _start_grapple(player)
+	for _frame in range(60):
+		await get_tree().physics_frame
+	assert_true(player.is_grappling)
+	assert_false(player.is_on_wall(), "check the path before any wall collision")
+	assert_gt(player.velocity.length(), 10.0, "pull must actually move the player")
+	assert_lt(
+		(player.global_position - start).cross(direction).length(), 0.03,
+		"zero-input grapple deceleration must not bend the diagonal pull"
+	)
 
 
 func test_near_boundary_attachment_stays_inside_without_corrections() -> void:
@@ -644,6 +734,9 @@ func _new_traversal_fixture(player_position: Vector3) -> Array[Node]:
 
 	var player: CharacterBody3D = PLAYER_SCENE.instantiate()
 	player.set("capture_mouse_on_start", false)
+	# Isolate the original root-based central-force/boundary momentum contract.
+	# Other grapple integration tests cover the scene-assigned hand marker.
+	player.set("grapple_origin", null)
 	player.position = player_position
 	world.add_child(player)
 	# Context tuning used by the production launch scene plus a zero horizontal

@@ -373,6 +373,8 @@ func test_authored_tuning_contexts_remain_distinct_and_tutorial_reset_stays_out_
 	autofree(direct_player)
 	assert_almost_eq(direct_player.ground_deceleration, 20.0, 0.000001)
 	assert_almost_eq(direct_player.grapple_gravity_scale, 1.0, 0.000001)
+	assert_almost_eq(direct_player.grapple_ground_deceleration, 0.0, 0.000001)
+	assert_almost_eq(direct_player.grapple_air_deceleration, 0.0, 0.000001)
 
 	var main_source := FileAccess.get_file_as_string("res://main.tscn")
 	assert_true(main_source.contains("ground_deceleration = 30.0"))
@@ -426,6 +428,29 @@ func test_authored_tuning_contexts_remain_distinct_and_tutorial_reset_stays_out_
 			literal_regex.search(site_source),
 			"%s must not carry a 35.0 range literal (Story 1.6 single range source)" % path
 		)
+
+
+func test_zero_input_deceleration_selects_grapple_tuning_without_changing_other_states() -> void:
+	var player: CharacterBody3D = PLAYER_SCENE.instantiate()
+	autofree(player)
+	player.ground_deceleration = 30.0
+	player.air_deceleration = 5.0
+	player.grapple_ground_deceleration = 2.0
+	player.grapple_air_deceleration = 3.0
+
+	assert_eq(player.call("_get_horizontal_acceleration", Vector2.ZERO, true,
+		&"player.locomotion.grounded"), 30.0)
+	assert_eq(player.call("_get_horizontal_acceleration", Vector2.ZERO, false,
+		&"player.locomotion.airborne"), 5.0)
+	assert_eq(player.call("_get_horizontal_acceleration", Vector2.ZERO, true,
+		&"player.locomotion.grappling"), 2.0)
+	assert_eq(player.call("_get_horizontal_acceleration", Vector2.ZERO, false,
+		&"player.locomotion.grappling"), 3.0)
+	# Normal movement input still uses the ordinary acceleration in all states.
+	assert_eq(player.call("_get_horizontal_acceleration", Vector2.RIGHT, true,
+		&"player.locomotion.grappling"), player.ground_acceleration)
+	assert_eq(player.call("_get_horizontal_acceleration", Vector2.RIGHT, false,
+		&"player.locomotion.grappling"), player.air_acceleration)
 
 
 func _new_player_scene_fixture(
