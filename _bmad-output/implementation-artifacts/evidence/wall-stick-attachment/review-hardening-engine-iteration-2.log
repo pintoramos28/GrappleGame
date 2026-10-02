@@ -1,0 +1,197 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[godot_ai game_helper] registered mcp capture (debugger active=false, logger=true)
+---  GUT  ---
+[1m[INFO]:  [0musing [C:/Users/pinto/AppData/Roaming/Godot/app_userdata/Test Game] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.7.1
+[4m
+
+res://tests/player/locomotion/test_wall_stick_attachment.gd
+[0m[4m
+
+res://tests/player/locomotion/test_wall_stick_review_hardening.gd
+[0m* test_engine_review_repros_at_both_rates
+[31m    [Failed]:  [0msame_resource_growth @ 60 Hz: { "held_frames": 7, "entry_count": 1, "terminal_count": 1, "blocked_count": 0, "maximum_error_m": 0.00000002462184, "minimum_side_distance_m": 0.45093344449997, "overlap_count": 1, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": false, "terminal_wall_clear": true, "position": (0.0, 3.984994, 0.099319), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [{ "step": 8, "position": (0.0, 4.89316, 0.000933), "blocked": false, "collider": &"SupportingWall", "rest": { "point": (0.0, 4.84546, -0.35), "normal": (0.0, 0.0, 1.0), "rid": RID(1181116006400), "collider_id": 100109650167, "shape": 0, "linear_velocity": (0.0, 0.0, 0.0) } }], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8], "settled_overlap_step_ids": [8], "missed_overlap_step_count": 6, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "idle_status_unchanged": true, "listener_removed": true, "rejection": 2, "scenario": "same_resource_growth", "rate": 60, "additional_holds": 0, "passed": false }
+      at line 15
+[wall-stick-review-hardening] { "held_frames": 7, "entry_count": 1, "terminal_count": 1, "blocked_count": 0, "maximum_error_m": 0.00000002462184, "minimum_side_distance_m": 0.45093344449997, "overlap_count": 1, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": false, "terminal_wall_clear": true, "position": (0.0, 3.984994, 0.099319), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [{ "step": 8, "position": (0.0, 4.89316, 0.000933), "blocked": false, "collider": &"SupportingWall", "rest": { "point": (0.0, 4.84546, -0.35), "normal": (0.0, 0.0, 1.0), "rid": RID(1181116006400), "collider_id": 100109650167, "shape": 0, "linear_velocity": (0.0, 0.0, 0.0) } }], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8], "settled_overlap_step_ids": [8], "missed_overlap_step_count": 6, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "idle_status_unchanged": true, "listener_removed": true, "rejection": 2, "scenario": "same_resource_growth", "rate": 60, "additional_holds": 0, "passed": false }
+rtk : SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+At line:1 char:1
++ rtk proxy "C:\Users\pinto\Documents\Godot Projects\Godot 4.7.2\Godot_ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (SCRIPT ERROR: A... null instance.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+[wall-stick-review-hardening] { "held_frames": 0, "entry_count": 0, "terminal_count": 0, "blocked_count": 0, "maximum_error_m": 0.0, "minimum_side_distance_m": inf, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 0, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": true, "terminal_wall_clear": true, "position": (0.0, 2.417964, 0.00091), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [], "settled_overlap_step_ids": [], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": false, "selected_shape_local_y": 0.93333369493484, "scenario": "compound", "rate": 60, "additional_holds": 0, "passed": true }
+[wall-stick-review-hardening] { "held_frames": 7, "entry_count": 1, "terminal_count": 1, "blocked_count": 0, "maximum_error_m": 0.00000002462184, "minimum_side_distance_m": 0.45093344449997, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": false, "terminal_wall_clear": true, "position": (0.0, 3.813494, 0.000933), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7, 8], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "scenario": "added_owner", "rate": 60, "additional_holds": 0, "passed": true }
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+[wall-stick-review-hardening] { "held_frames": 15, "entry_count": 1, "terminal_count": 1, "blocked_count": 0, "maximum_error_m": 0.00000001583248, "minimum_side_distance_m": 0.58480130434036, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 2, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": false, "terminal_wall_clear": true, "position": (0.0, 3.984994, -0.015199), "physics_wall_position": (0.0, 4.0, -0.8), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.8), "entered_before_change": true, "legacy_winner": &"fixture.wall.neighbor", "bound_support": &"fixture.wall.stick", "query_count": 12, "value_only": true, "kept_original": true, "genuine_switch_detached": true, "scenario": "two_walls", "rate": 60, "additional_holds": 8, "passed": true }
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+[wall-stick-review-hardening] { "held_frames": 7, "entry_count": 1, "terminal_count": 0, "blocked_count": 0, "maximum_error_m": 0.0, "minimum_side_distance_m": 0.45093344449997, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 6, "jump_velocity": (0.0, 0.0, 0.0), "sticking": true, "grappling": true, "terminal_wall_clear": true, "position": (1.4, 3.99316, 0.000933), "physics_wall_position": (1.4, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7], "missed_overlap_step_count": 1, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (1.6, 4.0, -0.65), "entered_before_change": true, "first_hold_error_m": 0.0, "first_hold_displacement_m": 0.20000001788139, "speed_mps": 12.0, "scenario": "already_moving", "rate": 60, "additional_holds": 0, "passed": true }
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+       [1] bind_wall_stick_attachment (res://game/player/locomotion/contact/player_contact_provider.gd:125)
+       [2] _try_start_wall_stick_from_contact (res://scripts/player_controller.gd:1100)
+       [3] _coordinate_post_commit (res://scripts/player_controller.gd:446)
+       [4] _physics_process (res://scripts/player_controller.gd:394)
+[wall-stick-review-hardening] { "held_frames": 0, "entry_count": 0, "terminal_count": 0, "blocked_count": 0, "maximum_error_m": 0.0, "minimum_side_distance_m": inf, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 0, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": true, "terminal_wall_clear": true, "position": (0.0, 3.99316, 0.000933), "physics_wall_position": (4.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [], "settled_overlap_step_ids": [], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (4.0, 4.0, -0.65), "entered_before_change": false, "scenario": "entry_teleport", "rate": 60, "additional_holds": 0, "passed": true }
+[wall-stick-review-hardening] { "held_frames": 8, "entry_count": 1, "terminal_count": 1, "blocked_count": 0, "maximum_error_m": 0.00000061604845, "minimum_side_distance_m": 0.45093344449997, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": false, "terminal_wall_clear": true, "position": (0.0, 3.990438, 0.000933), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8, 9], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7, 8, 9], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "rejection": 2, "tilt_radians": 0.00026999998954, "scenario": "slow_roll", "rate": 60, "additional_holds": 1, "passed": true }
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+[wall-stick-review-hardening] { "held_frames": 8, "entry_count": 1, "terminal_count": 1, "blocked_count": 0, "maximum_error_m": 0.00000002462184, "minimum_side_distance_m": 0.45093344449997, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": false, "terminal_wall_clear": true, "position": (0.0, 3.990264, 0.000932), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8, 9], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7, 8, 9], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "rejection": 2, "tilt_radians": 0.00026999998954, "scenario": "slow_pitch", "rate": 60, "additional_holds": 1, "passed": true }
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+[wall-stick-review-hardening] { "held_frames": 11, "entry_count": 1, "terminal_count": 0, "blocked_count": 0, "maximum_error_m": 0.00000002462184, "minimum_side_distance_m": 0.45093344449997, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": true, "grappling": true, "terminal_wall_clear": true, "position": (0.0, 3.99316, 0.000933), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "missed_overlap_step_count": 1, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "old_shape_index": 1, "new_shape_index": 0, "scenario": "disabled_owner_removed", "rate": 60, "additional_holds": 4, "passed": true }
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+[wall-stick-review-hardening] { "held_frames": 7, "entry_count": 1, "terminal_count": 0, "blocked_count": 0, "maximum_error_m": 0.00000002462184, "minimum_side_distance_m": 0.45093344449997, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": true, "grappling": true, "terminal_wall_clear": true, "position": (0.0, 3.99316, 0.000933), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7, 8], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "delta_mismatch_blocked": true, "refused_motion_m": 0.0, "scenario": "delta_mismatch", "rate": 60, "additional_holds": 0, "passed": true }
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+[31m    [Failed]:  [0msame_resource_growth @ 120 Hz: { "held_frames": 7, "entry_count": 1, "terminal_count": 1, "blocked_count": 0, "maximum_error_m": 0.00000001298031, "minimum_side_distance_m": 0.45088725090027, "overlap_count": 1, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": false, "terminal_wall_clear": true, "position": (0.0, 3.996249, 0.099319), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [{ "step": 8, "position": (0.0, 4.89829, 0.000887), "blocked": false, "collider": &"SupportingWall", "rest": { "point": (-0.0, 4.850316, -0.35), "normal": (0.0, 0.0, 1.0), "rid": RID(8448200671232), "collider_id": 166933301521, "shape": 0, "linear_velocity": (0.0, 0.0, 0.0) } }], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7, 8], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "idle_status_unchanged": true, "listener_removed": true, "rejection": 2, "scenario": "same_resource_growth", "rate": 120, "additional_holds": 0, "passed": false }
+      at line 15
+[wall-stick-review-hardening] { "held_frames": 7, "entry_count": 1, "terminal_count": 1, "blocked_count": 0, "maximum_error_m": 0.00000001298031, "minimum_side_distance_m": 0.45088725090027, "overlap_count": 1, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": false, "terminal_wall_clear": true, "position": (0.0, 3.996249, 0.099319), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [{ "step": 8, "position": (0.0, 4.89829, 0.000887), "blocked": false, "collider": &"SupportingWall", "rest": { "point": (-0.0, 4.850316, -0.35), "normal": (0.0, 0.0, 1.0), "rid": RID(8448200671232), "collider_id": 166933301521, "shape": 0, "linear_velocity": (0.0, 0.0, 0.0) } }], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7, 8], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "idle_status_unchanged": true, "listener_removed": true, "rejection": 2, "scenario": "same_resource_growth", "rate": 120, "additional_holds": 0, "passed": false }
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+[wall-stick-review-hardening] { "held_frames": 0, "entry_count": 0, "terminal_count": 0, "blocked_count": 0, "maximum_error_m": 0.0, "minimum_side_distance_m": inf, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 0, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": true, "terminal_wall_clear": true, "position": (0.0, 3.416174, 0.000863), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [], "settled_overlap_step_ids": [], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": false, "selected_shape_local_y": 0.46666684746742, "scenario": "compound", "rate": 120, "additional_holds": 0, "passed": true }
+[wall-stick-review-hardening] { "held_frames": 7, "entry_count": 1, "terminal_count": 1, "blocked_count": 0, "maximum_error_m": 0.00000001298031, "minimum_side_distance_m": 0.45088725090027, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": false, "terminal_wall_clear": true, "position": (0.0, 3.953374, 0.000887), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7, 8], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "scenario": "added_owner", "rate": 120, "additional_holds": 0, "passed": true }
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+[wall-stick-review-hardening] { "held_frames": 15, "entry_count": 1, "terminal_count": 1, "blocked_count": 0, "maximum_error_m": 0.00000000395812, "minimum_side_distance_m": 0.59620033502579, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 2, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": false, "terminal_wall_clear": true, "position": (0.0, 3.996248, -0.0038), "physics_wall_position": (0.0, 4.0, -0.8), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.8), "entered_before_change": true, "legacy_winner": &"fixture.wall.neighbor", "bound_support": &"fixture.wall.stick", "query_count": 12, "value_only": true, "kept_original": true, "genuine_switch_detached": true, "scenario": "two_walls", "rate": 120, "additional_holds": 8, "passed": true }
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+[wall-stick-review-hardening] { "held_frames": 7, "entry_count": 1, "terminal_count": 0, "blocked_count": 0, "maximum_error_m": 0.0, "minimum_side_distance_m": 0.45088725090027, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": true, "grappling": true, "terminal_wall_clear": true, "position": (1.166667, 3.99829, 0.000887), "physics_wall_position": (1.166667, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7], "missed_overlap_step_count": 1, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (1.333333, 4.0, -0.65), "entered_before_change": true, "first_hold_error_m": 0.0, "first_hold_displacement_m": 0.16666667163372, "speed_mps": 20.0, "scenario": "already_moving", "rate": 120, "additional_holds": 0, "passed": true }
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+       [1] bind_wall_stick_attachment (res://game/player/locomotion/contact/player_contact_provider.gd:125)
+       [2] _try_start_wall_stick_from_contact (res://scripts/player_controller.gd:1100)
+       [3] _coordinate_post_commit (res://scripts/player_controller.gd:446)
+       [4] _physics_process (res://scripts/player_controller.gd:394)
+[wall-stick-review-hardening] { "held_frames": 0, "entry_count": 0, "terminal_count": 0, "blocked_count": 0, "maximum_error_m": 0.0, "minimum_side_distance_m": inf, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 0, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": true, "terminal_wall_clear": true, "position": (0.0, 3.99829, 0.000887), "physics_wall_position": (4.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [], "settled_overlap_step_ids": [], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (4.0, 4.0, -0.65), "entered_before_change": false, "scenario": "entry_teleport", "rate": 120, "additional_holds": 0, "passed": true }
+[wall-stick-review-hardening] { "held_frames": 8, "entry_count": 1, "terminal_count": 1, "blocked_count": 0, "maximum_error_m": 0.0000001544195, "minimum_side_distance_m": 0.45088725090027, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": false, "terminal_wall_clear": true, "position": (0.0, 3.99761, 0.000887), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8, 9], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7, 8, 9], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "rejection": 2, "tilt_radians": 0.00026999998954, "scenario": "slow_roll", "rate": 120, "additional_holds": 1, "passed": true }
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+[wall-stick-review-hardening] { "held_frames": 8, "entry_count": 1, "terminal_count": 1, "blocked_count": 0, "maximum_error_m": 0.00000001298031, "minimum_side_distance_m": 0.45088725090027, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": false, "terminal_wall_clear": true, "position": (0.0, 3.997434, 0.000887), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8, 9], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7, 8, 9], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "rejection": 2, "tilt_radians": 0.00026999998954, "scenario": "slow_pitch", "rate": 120, "additional_holds": 1, "passed": true }
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+[wall-stick-review-hardening] { "held_frames": 11, "entry_count": 1, "terminal_count": 0, "blocked_count": 0, "maximum_error_m": 0.00000001298031, "minimum_side_distance_m": 0.45088725090027, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": true, "grappling": true, "terminal_wall_clear": true, "position": (0.0, 3.99829, 0.000887), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "missed_overlap_step_count": 1, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "old_shape_index": 1, "new_shape_index": 0, "scenario": "disabled_owner_removed", "rate": 120, "additional_holds": 4, "passed": true }
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+[wall-stick-review-hardening] { "held_frames": 7, "entry_count": 1, "terminal_count": 0, "blocked_count": 0, "maximum_error_m": 0.00000001298031, "minimum_side_distance_m": 0.45088725090027, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": true, "grappling": true, "terminal_wall_clear": true, "position": (0.0, 3.99829, 0.000887), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7, 8], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "delta_mismatch_blocked": true, "refused_motion_m": 0.0, "scenario": "delta_mismatch", "rate": 120, "additional_holds": 0, "passed": true }
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [2] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [3] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [4] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [5] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [6] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [7] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [8] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [9] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [10] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [11] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [12] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [13] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [14] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [15] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [16] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [17] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+      at line 16
+SCRIPT ERROR: Attempt to call function 'release' in base 'null instance' on a null instance.
+   at: WallStickAttachment._notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+   GDScript backtrace (most recent call first):
+       [0] _notification (res://game/player/locomotion/wall_stick/wall_stick_attachment.gd:165)
+[1m0/1 passed.
+[0m[4m
+
+res://tests/player/locomotion/test_wall_traversal_contract.gd
+[0m[4m
+
+res://tests/player/locomotion/test_wall_traversal_integration.gd
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/player/locomotion/test_wall_stick_review_hardening.gd
+[0m- test_engine_review_repros_at_both_rates
+[31m    [Failed]:  [0msame_resource_growth @ 60 Hz: { "held_frames": 7, "entry_count": 1, "terminal_count": 1, "blocked_count": 0, "maximum_error_m": 0.00000002462184, "minimum_side_distance_m": 0.45093344449997, "overlap_count": 1, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": false, "terminal_wall_clear": true, "position": (0.0, 3.984994, 0.099319), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [{ "step": 8, "position": (0.0, 4.89316, 0.000933), "blocked": false, "collider": &"SupportingWall", "rest": { "point": (0.0, 4.84546, -0.35), "normal": (0.0, 0.0, 1.0), "rid": RID(1181116006400), "collider_id": 100109650167, "shape": 0, "linear_velocity": (0.0, 0.0, 0.0) } }], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8], "settled_overlap_step_ids": [8], "missed_overlap_step_count": 6, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "idle_status_unchanged": true, "listener_removed": true, "rejection": 2, "scenario": "same_resource_growth", "rate": 60, "additional_holds": 0, "passed": false }
+          at line 15
+[31m    [Failed]:  [0msame_resource_growth @ 120 Hz: { "held_frames": 7, "entry_count": 1, "terminal_count": 1, "blocked_count": 0, "maximum_error_m": 0.00000001298031, "minimum_side_distance_m": 0.45088725090027, "overlap_count": 1, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": false, "grappling": false, "terminal_wall_clear": true, "position": (0.0, 3.996249, 0.099319), "physics_wall_position": (0.0, 4.0, -0.65), "obsolete_pose_overlap_count": 0, "overlap_facts": [{ "step": 8, "position": (0.0, 4.89829, 0.000887), "blocked": false, "collider": &"SupportingWall", "rest": { "point": (-0.0, 4.850316, -0.35), "normal": (0.0, 0.0, 1.0), "rid": RID(8448200671232), "collider_id": 166933301521, "shape": 0, "linear_velocity": (0.0, 0.0, 0.0) } }], "hold_step_ids": [2, 3, 4, 5, 6, 7, 8], "settled_overlap_step_ids": [2, 3, 4, 5, 6, 7, 8], "missed_overlap_step_count": 0, "overlap_step_id_overflow": 0, "blocked_overlap_step_ids": [], "wall_position": (0.0, 4.0, -0.65), "entered_before_change": true, "idle_status_unchanged": true, "listener_removed": true, "rejection": 2, "scenario": "same_resource_growth", "rate": 120, "additional_holds": 0, "passed": false }
+          at line 15
+[31m    [Failed]:  [0mUnexpected Errors:
+    [1] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [2] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [3] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [4] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [5] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [6] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [7] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [8] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [9] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [10] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [11] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [12] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [13] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [14] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [15] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [16] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+    [17] <engine-2>Attempt to call function 'release' in base 'null instance' on a null instance.
+          at line 16
+
+Totals
+------
+Scripts               4
+Tests                 1
+Passing Tests      none
+Failing Tests         1
+Asserts           18/21
+Time              3.853s
+
+
+Ran Tests matching "engine_review_repros"
+[31m---- 1 failing tests ----
+[0m

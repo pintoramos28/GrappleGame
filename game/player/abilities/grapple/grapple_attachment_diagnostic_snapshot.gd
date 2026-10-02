@@ -35,6 +35,11 @@ var target_identity: StringName:
 	get:
 		return _target_identity
 
+## Intentional point replacement within the same occurrence, not motion.
+var anchor_revision: int:
+	get:
+		return _anchor_revision
+
 var is_active: bool:
 	get:
 		return _is_active
@@ -171,6 +176,7 @@ var terminal_reason_id: StringName:
 
 var _attachment_identity: StringName
 var _target_identity: StringName
+var _anchor_revision: int
 var _is_active: bool
 var _creation_physics_step: int
 var _last_physics_step: int
@@ -228,10 +234,12 @@ func _init(
 	carry_applied_mps: float,
 	carry_refused_mps: float,
 	positional_tolerance_m: float,
-	reason: GrappleEndReason.Reason
+	reason: GrappleEndReason.Reason,
+	revision: int = 0
 ) -> void:
 	_attachment_identity = attachment_identity_value
 	_target_identity = target_identity_value
+	_anchor_revision = revision
 	_is_active = is_active_value
 	_creation_physics_step = creation_step
 	_last_physics_step = last_step
@@ -328,7 +336,8 @@ static func from_attachment(
 		float(facts.get("carry_applied_mps", 0.0)),
 		float(facts.get("carry_refused_mps", 0.0)),
 		float(facts.get("positional_tolerance_m", 0.0)),
-		reason
+		reason,
+		attachment.anchor_revision
 	)
 
 

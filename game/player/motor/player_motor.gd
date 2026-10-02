@@ -132,6 +132,8 @@ var _has_next_frame_velocity_baseline := false
 var _next_frame_velocity_baseline := Vector3.ZERO
 var _diagnostics_enabled := false
 var _debug_assertions_enabled := true
+var _hold_recovery_displacement := Vector3.ZERO
+var _hold_carry_blocked := false
 var _game_log: GameLog = GameLog.new()
 
 
@@ -433,13 +435,23 @@ func submit_wall_run_constraint(
 
 func submit_wall_stick_hold(
 	source_id: StringName,
-	hold_position: Vector3
+	hold_position: Vector3,
+	error_tolerance_m: float = 0.02,
+	tether_position: Vector3 = Vector3.ZERO,
+	tether_maximum_distance_m: float = 0.0,
+	tether_velocity: Vector3 = Vector3.ZERO,
+	support_ref: WeakRef = null
 ) -> SubmissionStatus:
 	return _submit_submission(
 		PlayerMotorSubmission.wall_stick_hold(
 			_active_step,
 			source_id,
-			hold_position
+			hold_position,
+			error_tolerance_m,
+			tether_position,
+			tether_maximum_distance_m,
+			tether_velocity,
+			support_ref
 		)
 	)
 
@@ -633,6 +645,8 @@ func _submit_submission(submission: PlayerMotorSubmission) -> SubmissionStatus:
 			submission.source_id,
 			 submission
 		)
+	if submission.kind == PlayerMotorSubmission.Kind.WALL_STICK_HOLD and (submission.hold_error_tolerance_m <= 0.0 or submission.maximum_distance_m < 0.0):
+		return _reject_submission(SubmissionStatus.INVALID_REQUEST, PlayerMotorCommitResult.RejectionReason.INVALID_REQUEST, &"player.motor.invalid_hold", _active_step, submission.source_id, submission)
 	if submission.kind == PlayerMotorSubmission.Kind.WALL_RUN_CONSTRAINT:
 		if not submission.has_valid_wall_constraint_vectors():
 			return _reject_submission(
@@ -771,6 +785,20 @@ func resolve_and_commit() -> PlayerMotorCommitResult:
 	var working_velocity := _initial_velocity
 	var hold_request := false
 	var requested_hold_position := Vector3.ZERO
+	var ignored_support: PhysicsBody3D
+	var added_support_exception := false
+	var holds := _submissions_of_kind(PlayerMotorSubmission.Kind.WALL_STICK_HOLD)
+	if not holds.is_empty() and holds[0]._hold_support_ref != null:
+		ignored_support = holds[0]._hold_support_ref.get_ref() as PhysicsBody3D
+		# Production passes the supplied engine delta. Refuse a bound-support
+		# physics carry if a caller supplies a different timestep; pure algebraic
+		# idle/unit submissions are not evidence of a swept physics solve.
+		var delta_mismatch := Engine.is_in_physics_frame() and not is_equal_approx(_delta_seconds, _body.get_physics_process_delta_time())
+		if delta_mismatch or not is_instance_valid(ignored_support) or WallStickAttachment.single_active_shape_owner(ignored_support) == -1:
+			_hold_carry_blocked = true
+		elif not _body.get_collision_exceptions().has(ignored_support):
+			_body.add_collision_exception_with(ignored_support)
+			added_support_exception = true
 	_phase_intermediates.clear()
 	_applied_constraints.clear()
 	_applied_caps.clear()
@@ -828,7 +856,7 @@ func resolve_and_commit() -> PlayerMotorCommitResult:
 				if not hold_submissions.is_empty():
 					hold_request = true
 					requested_hold_position = hold_submissions[0].hold_position
-					working_velocity = Vector3.ZERO
+					working_velocity = _resolve_wall_stick_carry(hold_submissions[0])
 					_applied_constraints.append(hold_submissions[0].source_id)
 					applied_sources.append(hold_submissions[0].source_id)
 				else:
@@ -893,6 +921,8 @@ func resolve_and_commit() -> PlayerMotorCommitResult:
 		)
 
 	if not working_velocity.is_finite():
+		if added_support_exception and is_instance_valid(ignored_support):
+			_body.remove_collision_exception_with(ignored_support)
 		var non_finite_result := _reject_result(
 			_active_step,
 			PlayerMotorCommitResult.RejectionReason.NON_FINITE_VALUE,
@@ -903,10 +933,25 @@ func resolve_and_commit() -> PlayerMotorCommitResult:
 		return non_finite_result
 
 	_submitted_velocity = working_velocity
+	# Explicit stick carry owns all platform motion for this commit only. Never
+	# change wall-run/ground platform configuration or add native carry twice.
+	var previous_floor_layers := _body.platform_floor_layers
+	var previous_wall_layers := _body.platform_wall_layers
+	var previous_on_leave := _body.platform_on_leave
 	if hold_request:
-		_body.global_position = requested_hold_position
+		_body.platform_floor_layers = 0
+		_body.platform_wall_layers = 0
+		_body.platform_on_leave = CharacterBody3D.PLATFORM_ON_LEAVE_DO_NOTHING
 	_body.velocity = working_velocity
 	_body.move_and_slide()
+	if added_support_exception and is_instance_valid(ignored_support):
+		_body.remove_collision_exception_with(ignored_support)
+	if hold_request:
+		_body.platform_floor_layers = previous_floor_layers
+		_body.platform_wall_layers = previous_wall_layers
+		_body.platform_on_leave = previous_on_leave
+		var hold_submission := _submissions_of_kind(PlayerMotorSubmission.Kind.WALL_STICK_HOLD)[0]
+		_hold_carry_blocked = _hold_carry_blocked or _body.global_position.distance_to(requested_hold_position) > hold_submission.hold_error_tolerance_m
 
 	_commit_count = 1
 	_last_committed_step = _active_step
@@ -1056,6 +1101,15 @@ func get_last_commit_result() -> PlayerMotorCommitResult:
 	return _last_commit_result
 
 
+## Narrow read-only transaction predicate. Retain the completed contact stamp
+## while a new frame is open so the baseline API still owns its active-frame
+## rejection; a foreign body, wrong step or unsuccessful commit cannot arm it.
+func has_successful_commit_for(body: CharacterBody3D, physics_step: int) -> bool:
+	if not _has_usable_body() or _body != body or _last_committed_step != physics_step or _last_closed_step != physics_step:
+		return false
+	return _last_contact_frame != null and _last_contact_frame.success and _last_contact_frame.physics_step == physics_step and (_frame_open or (_last_commit_result != null and _last_commit_result.success))
+
+
 func set_diagnostics_enabled(enabled: bool) -> void:
 	_diagnostics_enabled = enabled
 
@@ -1142,6 +1196,47 @@ func _apply_base_submission(
 	if submission.zero_vertical:
 		resolved.y = 0.0
 	return resolved
+
+
+## Jolt queues StaticBody transforms: the authored pose may be one tick newer
+## than the query pose. Ignore ONLY the privately bound support's obsolete pose
+## for this one carry transaction (its validated local stand-off authorizes the
+## destination). Other geometry still wins through the sole move_and_slide.
+## Test-only recovery is evidence, not a commit; subtract unrelated recovery to
+## avoid double motion. Arbitrary teleported walls are not safe continuous carry.
+func _resolve_wall_stick_carry(submission: PlayerMotorSubmission) -> Vector3:
+	if _hold_carry_blocked:
+		return Vector3.ZERO
+	var desired_motion := submission.hold_position - _initial_position
+	if submission.maximum_distance_m > 0.0:
+		var future_anchor := submission.anchor_position + submission.anchor_velocity * _delta_seconds
+		if maxf(submission.hold_position.distance_to(submission.anchor_position), submission.hold_position.distance_to(future_anchor)) > submission.maximum_distance_m + ANCHOR_DISTANCE_POSITIONAL_TOLERANCE_M:
+			_hold_carry_blocked = true
+			return Vector3.ZERO
+	var parameters := PhysicsTestMotionParameters3D.new()
+	parameters.from = _body.global_transform
+	parameters.motion = Vector3.ZERO
+	parameters.margin = _body.safe_margin
+	parameters.recovery_as_collision = true
+	if submission._hold_support_ref != null:
+		var support := submission._hold_support_ref.get_ref() as PhysicsBody3D
+		if is_instance_valid(support):
+			parameters.exclude_bodies = [support.get_rid()]
+	var recovery := PhysicsTestMotionResult3D.new()
+	PhysicsServer3D.body_test_motion(_body.get_rid(), parameters, recovery)
+	_hold_recovery_displacement = recovery.get_travel()
+	# Guard exact end-of-sweep contact as well: float-rounded carry can end on
+	# the obstacle plane without move_and_slide reporting a sweep hit until the
+	# next tick. Test-only endpoint recovery retains the safe margin in velocity
+	# space and reports an obstruction immediately, never writing position.
+	parameters.from.origin = submission.hold_position
+	var endpoint := PhysicsTestMotionResult3D.new()
+	PhysicsServer3D.body_test_motion(_body.get_rid(), parameters, endpoint)
+	var endpoint_recovery := endpoint.get_travel()
+	if endpoint_recovery.length_squared() > 0.00000001 and desired_motion.dot(endpoint_recovery) < 0.0:
+		desired_motion += endpoint_recovery
+		_hold_carry_blocked = true
+	return (desired_motion - _hold_recovery_displacement) / _delta_seconds
 
 
 ## Relative-motion maximum-anchor-distance resolution (Story 1.7 Task 4.2
@@ -1354,7 +1449,9 @@ func _make_result(
 		_rejected_contributions_truncated,
 		_anchor_constraint_records,
 		_anchor_constraint_record_overflow_count,
-		_anchor_constraint_records_truncated
+		_anchor_constraint_records_truncated,
+		_hold_recovery_displacement,
+		_hold_carry_blocked
 	)
 
 
@@ -1419,6 +1516,8 @@ func _close_frame() -> void:
 
 
 func _clear_frame_facts() -> void:
+	_hold_recovery_displacement = Vector3.ZERO
+	_hold_carry_blocked = false
 	_submissions.clear()
 	_submission_keys.clear()
 	_one_shot_occurrence_keys.clear()

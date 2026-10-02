@@ -1,0 +1,112 @@
+{
+  "all_checks_passed": false,
+  "checks": {
+    "focused_13_groups_green": true,
+    "player_same_six_baseline_failures": false,
+    "full_same_nine_baseline_failures": true,
+    "comprehensive_gates_honestly_red": true,
+    "all_three_gates_100_passing_hardening_cases": true,
+    "no_fresh_parse_load_compile_errors": true,
+    "all_teardowns_settled_at_60hz": true
+  },
+  "canonical_regression_gate_green": false,
+  "baseline": {
+    "stem": "baseline-gut",
+    "counts": {
+      "Tests": "260",
+      "Passing Tests": "251",
+      "Failing Tests": "9",
+      "Asserts": "12063/12083",
+      "Time": "77.841s"
+    },
+    "exit_code": 1,
+    "failing_test_identities": [
+      "res://tests/levels/test_traversal_validation_route.gd::test_jump_into_real_zip_pull_reaches_the_next_upper_deck",
+      "res://tests/levels/test_traversal_validation_route.gd::test_one_unbroken_command_route_completes_every_traversal_stage_at_both_rates",
+      "res://tests/levels/test_traversal_validation_route.gd::test_real_oblique_wall_run_stick_and_jump_reach_the_physical_finish",
+      "res://tests/player/grapple/test_grapple_targeting_contract.gd::test_definition_validation_locks_authored_values_and_bounds_acquisition_tolerance",
+      "res://tests/player/grapple/test_grapple_targeting_integration.gd::test_grapple_pull_decay_reaches_the_floor_and_commits_the_speed_cap",
+      "res://tests/player/grapple/test_grapple_targeting_integration.gd::test_moving_scene_origin_does_not_change_camera_target_or_acquisition_range",
+      "res://tests/player/grapple/test_grapple_targeting_integration.gd::test_same_step_activation_seeds_state_and_keeps_pull_playable",
+      "res://tests/player/locomotion/test_wall_traversal_integration.gd::test_wall_run_direction_never_reverses_across_a_shallow_corner",
+      "res://tests/player/motor/test_player_motor_integration.gd::test_authored_tuning_contexts_remain_distinct_and_tutorial_reset_stays_out_of_band"
+    ],
+    "hardening_case_records": 0,
+    "unique_hardening_cases": 0,
+    "all_hardening_cases_pass": false,
+    "foreign_controls_pass": true,
+    "parse_load_compile_errors": [],
+    "teardown_settled_60hz": false
+  },
+  "focused": {
+    "stem": "parent-final-focused-gut",
+    "counts": {
+      "Tests": "13",
+      "Passing Tests": "13",
+      "Asserts": "100",
+      "Time": "13.785s"
+    },
+    "exit_code": 0,
+    "failing_test_identities": [],
+    "hardening_case_records": 100,
+    "unique_hardening_cases": 100,
+    "all_hardening_cases_pass": true,
+    "foreign_controls_pass": true,
+    "parse_load_compile_errors": [],
+    "teardown_settled_60hz": true
+  },
+  "player": {
+    "stem": "parent-final-player-gut",
+    "counts": {
+      "Tests": "279",
+      "Passing Tests": "272",
+      "Failing Tests": "7",
+      "Asserts": "12374/12388",
+      "Time": "61.698s"
+    },
+    "exit_code": 1,
+    "failing_test_identities": [
+      "res://tests/player/grapple/test_grapple_targeting_contract.gd::test_definition_validation_locks_authored_values_and_bounds_acquisition_tolerance",
+      "res://tests/player/grapple/test_grapple_targeting_integration.gd::test_grapple_pull_decay_reaches_the_floor_and_commits_the_speed_cap",
+      "res://tests/player/grapple/test_grapple_targeting_integration.gd::test_moving_scene_origin_does_not_change_camera_target_or_acquisition_range",
+      "res://tests/player/grapple/test_grapple_targeting_integration.gd::test_same_step_activation_seeds_state_and_keeps_pull_playable",
+      "res://tests/player/locomotion/test_wall_traversal_integration.gd::test_landing_from_a_wall_run_routes_exactly_one_landed_transition",
+      "res://tests/player/locomotion/test_wall_traversal_integration.gd::test_wall_run_direction_never_reverses_across_a_shallow_corner",
+      "res://tests/player/motor/test_player_motor_integration.gd::test_authored_tuning_contexts_remain_distinct_and_tutorial_reset_stays_out_of_band"
+    ],
+    "hardening_case_records": 100,
+    "unique_hardening_cases": 100,
+    "all_hardening_cases_pass": true,
+    "foreign_controls_pass": true,
+    "parse_load_compile_errors": [],
+    "teardown_settled_60hz": true
+  },
+  "full": {
+    "stem": "parent-final-gut",
+    "counts": {
+      "Tests": "289",
+      "Passing Tests": "280",
+      "Failing Tests": "9",
+      "Asserts": "13035/13052",
+      "Time": "101.949s"
+    },
+    "exit_code": 1,
+    "failing_test_identities": [
+      "res://tests/levels/test_traversal_validation_route.gd::test_jump_into_real_zip_pull_reaches_the_next_upper_deck",
+      "res://tests/levels/test_traversal_validation_route.gd::test_one_unbroken_command_route_completes_every_traversal_stage_at_both_rates",
+      "res://tests/levels/test_traversal_validation_route.gd::test_real_oblique_wall_run_stick_and_jump_reach_the_physical_finish",
+      "res://tests/player/grapple/test_grapple_targeting_contract.gd::test_definition_validation_locks_authored_values_and_bounds_acquisition_tolerance",
+      "res://tests/player/grapple/test_grapple_targeting_integration.gd::test_grapple_pull_decay_reaches_the_floor_and_commits_the_speed_cap",
+      "res://tests/player/grapple/test_grapple_targeting_integration.gd::test_moving_scene_origin_does_not_change_camera_target_or_acquisition_range",
+      "res://tests/player/grapple/test_grapple_targeting_integration.gd::test_same_step_activation_seeds_state_and_keeps_pull_playable",
+      "res://tests/player/locomotion/test_wall_traversal_integration.gd::test_wall_run_direction_never_reverses_across_a_shallow_corner",
+      "res://tests/player/motor/test_player_motor_integration.gd::test_authored_tuning_contexts_remain_distinct_and_tutorial_reset_stays_out_of_band"
+    ],
+    "hardening_case_records": 100,
+    "unique_hardening_cases": 100,
+    "all_hardening_cases_pass": true,
+    "foreign_controls_pass": true,
+    "parse_load_compile_errors": [],
+    "teardown_settled_60hz": true
+  }
+}

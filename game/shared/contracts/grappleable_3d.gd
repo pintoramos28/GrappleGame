@@ -108,6 +108,15 @@ func reset_anchor_sampling() -> void:
 	_last_sample_local_offset = Vector3.ZERO
 
 
+## Physical-contact bindings own their geometric/velocity baseline. Query fresh
+## policy without touching the legacy body-local acquisition sampling cache.
+func sample_surface_anchor_state(point_world_position: Vector3, point_velocity_mps: Vector3) -> GrappleAnchorState:
+	var response := build_response()
+	if not is_grapple_anchor_valid() or not has_stable_target_identity() or response == null or not response.is_finite() or not point_world_position.is_finite() or not point_velocity_mps.is_finite():
+		return GrappleAnchorState.invalid(point_world_position, GrappleAnchorState.InvalidationReason.TARGET_INVALIDATED, encounter_scope_identity, response)
+	return GrappleAnchorState.new(point_world_position, point_velocity_mps, true, GrappleAnchorState.InvalidationReason.NONE, encounter_scope_identity, response)
+
+
 ## Query-only anchor sampling (Task 2.2). Resolves
 ## `target_global_transform * target_local_hit_offset`, reports the anchor
 ## velocity (supplied, else the finite difference of sampled anchor positions
@@ -125,7 +134,7 @@ func sample_anchor_state(
 ) -> GrappleAnchorState:
 	var response := build_response()
 	var scope := encounter_scope_identity
-	if not is_grapple_anchor_valid():
+	if not is_grapple_anchor_valid() or response == null or not response.is_finite():
 		return GrappleAnchorState.invalid(
 			initial_anchor_world_position,
 			GrappleAnchorState.InvalidationReason.TARGET_INVALIDATED,
@@ -183,6 +192,10 @@ func _anchor_transform() -> Transform3D:
 ## Bounded typed response snapshot of this target's authored values. Query-only:
 ## it reads state and performs no side effects.
 func build_response() -> GrappleTargetResponse:
+	# Reject malformed authored/runtime policy before the bounded value record
+	# can sanitize it into an apparently eligible surface.
+	if not is_finite(pull_multiplier) or not is_finite(instability) or not directional_adjustment.is_finite() or int(anchor_mode) < 0 or int(anchor_mode) >= GrappleTargetResponse.AnchorMode.size() or int(hazard_response) < 0 or int(hazard_response) >= GrappleTargetResponse.HazardResponse.size():
+		return null
 	var response := GrappleTargetResponse.new(
 		eligible,
 		anchor_mode,

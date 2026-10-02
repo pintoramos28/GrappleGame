@@ -72,6 +72,10 @@ var hold_position: Vector3:
 	get:
 		return _hold_position
 
+var hold_error_tolerance_m: float:
+	get:
+		return _hold_error_tolerance_m
+
 var anchor_position: Vector3:
 	get:
 		return _anchor_position
@@ -122,6 +126,9 @@ var _velocity_delta: Vector3
 var _wall_normal: Vector3
 var _wall_direction: Vector3
 var _hold_position: Vector3
+var _hold_error_tolerance_m: float
+## INTERNAL: borrowed private weak support handle for one exclusive transaction.
+var _hold_support_ref: WeakRef
 var _anchor_position: Vector3
 var _maximum_distance_m: float
 var _anchor_velocity: Vector3
@@ -153,7 +160,9 @@ func _init(
 	anchor: Vector3 = Vector3.ZERO,
 	anchor_maximum_distance_m: float = 0.0,
 	anchor_velocity: Vector3 = Vector3.ZERO,
-	anchor_carry_tolerance_mps: float = 0.0
+	anchor_carry_tolerance_mps: float = 0.0,
+	hold_error_tolerance: float = 0.02,
+	hold_support_ref: WeakRef = null
 ) -> void:
 	_kind = submission_kind
 	_phase = submission_phase
@@ -168,6 +177,8 @@ func _init(
 	_wall_normal = normal
 	_wall_direction = direction
 	_hold_position = hold
+	_hold_error_tolerance_m = hold_error_tolerance
+	_hold_support_ref = hold_support_ref
 	_anchor_position = anchor
 	_maximum_distance_m = anchor_maximum_distance_m
 	_anchor_velocity = anchor_velocity
@@ -310,7 +321,12 @@ static func wall_run_constraint(
 static func wall_stick_hold(
 	step: int,
 	source: StringName,
-	hold: Vector3
+	hold: Vector3,
+	error_tolerance_m: float = 0.02,
+	tether_position: Vector3 = Vector3.ZERO,
+	tether_maximum_distance_m: float = 0.0,
+	tether_velocity: Vector3 = Vector3.ZERO,
+	support_ref: WeakRef = null
 ) -> PlayerMotorSubmission:
 	return PlayerMotorSubmission.new(
 		Kind.WALL_STICK_HOLD,
@@ -325,7 +341,17 @@ static func wall_stick_hold(
 		Vector3.ZERO,
 		Vector3.ZERO,
 		Vector3.ZERO,
-		hold
+		hold,
+		&"",
+		0.0,
+		true,
+		false,
+		tether_position,
+		tether_maximum_distance_m,
+		tether_velocity,
+		0.0,
+		error_tolerance_m,
+		support_ref
 	)
 
 
@@ -411,6 +437,7 @@ func is_finite_payload() -> bool:
 		and not is_inf(_maximum_distance_m)
 		and not is_nan(_carry_tolerance_mps)
 		and not is_inf(_carry_tolerance_mps)
+		and is_finite(_hold_error_tolerance_m)
 	)
 
 

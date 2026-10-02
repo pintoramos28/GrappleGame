@@ -472,9 +472,14 @@ func test_wall_stick_hold_is_motor_owned_and_exclusive() -> void:
 	var motor: PlayerMotor = fixture[1]
 	motor.set_debug_assertions_enabled(false)
 	body.global_position = Vector3(1.0, 2.0, 3.0)
-	assert_eq(motor.begin_motion_frame(5), PlayerMotor.FrameStatus.SUCCESS)
+	# move_and_slide uses the engine's current frame delta. Exercise carry on
+	# a real physics frame rather than asserting an idle-frame teleport.
+	await get_tree().physics_frame
+	assert_true(Engine.is_in_physics_frame())
+	var delta := body.get_physics_process_delta_time()
+	assert_eq(motor.begin_motion_frame(5, delta), PlayerMotor.FrameStatus.SUCCESS)
 	assert_eq(motor.select_state_policy(&"player.locomotion.wall_stick"), PlayerMotor.SubmissionStatus.SUCCESS)
-	var hold_position := Vector3(8.0, 4.0, -2.0)
+	var hold_position := body.global_position + Vector3(0.01, 0.0, 0.0)
 	assert_eq(
 		motor.submit_wall_stick_hold(&"player.wall_stick.hold", hold_position),
 		PlayerMotor.SubmissionStatus.SUCCESS
@@ -485,8 +490,9 @@ func test_wall_stick_hold_is_motor_owned_and_exclusive() -> void:
 	assert_true(result.success)
 	assert_true(result.is_hold_request)
 	assert_eq(result.hold_position, hold_position)
-	assert_eq(body.global_position, hold_position)
-	assert_eq(body.velocity, Vector3.ZERO)
+	assert_almost_eq(body.global_position.distance_to(hold_position), 0.0, 0.00001)
+	assert_almost_eq(result.submitted_velocity.x, 0.01 / delta, 0.0001)
+	assert_false(result.hold_carry_blocked)
 	assert_eq(result.commit_count, 1)
 	assert_eq(result.applied_constraints, [&"player.wall_stick.hold"])
 
@@ -508,6 +514,36 @@ func test_wall_stick_entry_arms_a_motor_owned_zero_velocity_baseline() -> void:
 	assert_true(release_result.success)
 	assert_eq(release_result.submitted_velocity, Vector3.ZERO)
 	assert_eq(body.velocity, Vector3.ZERO)
+
+
+func test_exclusive_hold_refuses_incompatible_tether_range_without_snapping() -> void:
+	var fixture := _new_fixture()
+	var body: CharacterBody3D = fixture[0]
+	var motor: PlayerMotor = fixture[1]
+	var before := body.global_position
+	assert_eq(motor.begin_motion_frame(1), PlayerMotor.FrameStatus.SUCCESS)
+	assert_eq(motor.select_state_policy(&"player.locomotion.wall_stick"), PlayerMotor.SubmissionStatus.SUCCESS)
+	assert_eq(motor.submit_wall_stick_hold(&"player.wall_stick.hold", Vector3(36.0, 0.0, 0.0), 0.02, Vector3.ZERO, 35.0), PlayerMotor.SubmissionStatus.SUCCESS)
+	var result := motor.resolve_and_commit()
+	assert_true(result.success)
+	assert_true(result.hold_carry_blocked)
+	assert_eq(body.global_position, before)
+	assert_eq(result.commit_count, 1)
+
+
+func test_hold_motion_payload_rejects_nonfinite_values() -> void:
+	var fixture := _new_fixture()
+	var motor: PlayerMotor = fixture[1]
+	assert_eq(motor.begin_motion_frame(1), PlayerMotor.FrameStatus.SUCCESS)
+	assert_eq(motor.submit_wall_stick_hold(&"player.wall_stick.invalid_position", Vector3(INF, 0.0, 0.0)), PlayerMotor.SubmissionStatus.NON_FINITE_VALUE)
+	assert_push_error("player.motor.non_finite_value")
+	# Distinct sources keep both rejection diagnostics observable; repeated
+	# same-source errors intentionally share GameLog's deduplication key.
+	assert_eq(motor.submit_wall_stick_hold(&"player.wall_stick.invalid_tolerance", Vector3.ZERO, NAN), PlayerMotor.SubmissionStatus.NON_FINITE_VALUE)
+	assert_push_error("player.motor.non_finite_value")
+	var result := motor.abort_motion_frame()
+	assert_eq(result.commit_count, 0)
+	assert_eq(result.rejected_contributions.size(), 2)
 
 
 func test_collision_priority_is_bounded_and_prefers_wall_normals_deterministically() -> void:

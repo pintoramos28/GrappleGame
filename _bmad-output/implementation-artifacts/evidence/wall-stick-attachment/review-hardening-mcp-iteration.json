@@ -1,0 +1,1880 @@
+{
+  "result": [
+    {
+      "additional_holds": 0,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": true,
+      "grappling": false,
+      "held_frames": 7,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "idle_status_unchanged": true,
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 1,
+      "listener_removed": true,
+      "maximum_commits": 1,
+      "maximum_error_m": 2.462184056e-8,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450933444499969,
+      "missed_overlap_step_count": 0,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 1,
+      "overlap_facts": [
+        {
+          "blocked": false,
+          "collider": "SupportingWall",
+          "position": {
+            "x": 0,
+            "y": 4.89316034317017,
+            "z": 0.00093344371998682
+          },
+          "rest": {
+            "collider_id": 1909851162285,
+            "linear_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "normal": {
+              "x": 0,
+              "y": 0,
+              "z": 1
+            },
+            "point": {
+              "x": 5.960464477e-8,
+              "y": 4.84545993804932,
+              "z": -0.349999994039536
+            },
+            "rid": "RID(286366944460800)",
+            "shape": 0
+          },
+          "step": 8
+        }
+      ],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 3.98499369621277,
+        "z": 0.0993192866444588
+      },
+      "rate": 60,
+      "rejection": 2,
+      "scenario": "same_resource_growth",
+      "settled_overlap_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "sticking": false,
+      "terminal_count": 1,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 0,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": false,
+      "entry_count": 0,
+      "externally_resized_geometry": false,
+      "grappling": true,
+      "held_frames": 0,
+      "hold_step_ids": [],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 0,
+      "maximum_commits": 1,
+      "maximum_error_m": 0,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": null,
+      "missed_overlap_step_count": 0,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4.00000047683716,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 2.41796374320984,
+        "z": 0.00091046444140374
+      },
+      "rate": 60,
+      "scenario": "compound",
+      "selected_shape_local_y": 0.933333694934845,
+      "settled_overlap_step_ids": [],
+      "sticking": false,
+      "terminal_count": 0,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 0,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "grappling": false,
+      "held_frames": 7,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 1,
+      "maximum_commits": 1,
+      "maximum_error_m": 2.462184056e-8,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450933444499969,
+      "missed_overlap_step_count": 0,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4.00000047683716,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 3.81349396705627,
+        "z": 0.00093344371998682
+      },
+      "rate": 60,
+      "scenario": "added_owner",
+      "settled_overlap_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "sticking": false,
+      "terminal_count": 1,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 0,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "grappling": false,
+      "held_frames": 7,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 1,
+      "maximum_commits": 1,
+      "maximum_error_m": 2.462184056e-8,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450933444499969,
+      "missed_overlap_step_count": 0,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 1,
+      "overlap_facts": [
+        {
+          "blocked": false,
+          "collider": "SupportingWall",
+          "position": {
+            "x": 0,
+            "y": 4.89316034317017,
+            "z": 0.00093344371998682
+          },
+          "rest": {
+            "collider_id": 1940318586628,
+            "linear_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "normal": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "point": {
+              "x": 2.980232238e-8,
+              "y": 4.09999990463257,
+              "z": 0.00093348097288981
+            },
+            "rid": "RID(292358423838720)",
+            "shape": 1
+          },
+          "step": 8
+        }
+      ],
+      "overlap_step_id_overflow": 0,
+      "passed": false,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 4.09918832778931,
+        "z": 0.00099893892183899
+      },
+      "rate": 60,
+      "scenario": "added_shape_same_owner",
+      "settled_overlap_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "sticking": false,
+      "terminal_count": 1,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 8,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "bound_support": "fixture.wall.stick",
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "genuine_switch_detached": true,
+      "grappling": false,
+      "held_frames": 15,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "kept_original": true,
+      "legacy_switch_count": 2,
+      "legacy_winner": "fixture.wall.neighbor",
+      "maximum_commits": 1,
+      "maximum_error_m": 1.583248376e-8,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.584801304340363,
+      "missed_overlap_step_count": 0,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.800000011920929
+      },
+      "position": {
+        "x": 0,
+        "y": 3.98499369621277,
+        "z": -0.0151986917480826
+      },
+      "query_count": 12,
+      "rate": 60,
+      "scenario": "two_walls",
+      "settled_overlap_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "sticking": false,
+      "terminal_count": 1,
+      "terminal_wall_clear": true,
+      "value_only": true,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.800000011920929
+      }
+    },
+    {
+      "additional_holds": 0,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "first_hold_displacement_m": 0.200000017881393,
+      "first_hold_error_m": 0,
+      "grappling": true,
+      "held_frames": 7,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 6,
+      "maximum_commits": 1,
+      "maximum_error_m": 0,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450933444499969,
+      "missed_overlap_step_count": 1,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 1.40000021457672,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 1.40000021457672,
+        "y": 3.99316048622131,
+        "z": 0.00093346834182739
+      },
+      "rate": 60,
+      "scenario": "already_moving",
+      "settled_overlap_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "speed_mps": 12,
+      "sticking": true,
+      "terminal_count": 0,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 1.60000026226044,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 0,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": false,
+      "entry_count": 0,
+      "externally_resized_geometry": false,
+      "grappling": true,
+      "held_frames": 0,
+      "hold_step_ids": [],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 0,
+      "maximum_commits": 1,
+      "maximum_error_m": 0,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": null,
+      "missed_overlap_step_count": 0,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 4,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 3.99316048622131,
+        "z": 0.00093344371998682
+      },
+      "rate": 60,
+      "scenario": "entry_teleport",
+      "settled_overlap_step_ids": [],
+      "sticking": false,
+      "terminal_count": 0,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 4,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 1,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "grappling": false,
+      "held_frames": 8,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 1,
+      "maximum_commits": 1,
+      "maximum_error_m": 6.1604845313e-7,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450933444499969,
+      "missed_overlap_step_count": 0,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 3.99043822288513,
+        "z": 0.00093344371998682
+      },
+      "rate": 60,
+      "rejection": 2,
+      "scenario": "slow_roll",
+      "settled_overlap_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "sticking": false,
+      "terminal_count": 1,
+      "terminal_wall_clear": true,
+      "tilt_radians": 0.00026999998954124,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 1,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "grappling": false,
+      "held_frames": 8,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 1,
+      "maximum_commits": 1,
+      "maximum_error_m": 2.462184056e-8,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450933444499969,
+      "missed_overlap_step_count": 0,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 3.99026393890381,
+        "z": 0.00093231623759493
+      },
+      "rate": 60,
+      "rejection": 2,
+      "scenario": "slow_pitch",
+      "settled_overlap_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "sticking": false,
+      "terminal_count": 1,
+      "terminal_wall_clear": true,
+      "tilt_radians": 0.00026999998954124,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 4,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "grappling": true,
+      "held_frames": 11,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 1,
+      "maximum_commits": 1,
+      "maximum_error_m": 2.462184056e-8,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450933444499969,
+      "missed_overlap_step_count": 1,
+      "new_shape_index": 0,
+      "obsolete_pose_overlap_count": 0,
+      "old_shape_index": 1,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 3.99316048622131,
+        "z": 0.00093344371998682
+      },
+      "rate": 60,
+      "scenario": "disabled_owner_removed",
+      "settled_overlap_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "sticking": true,
+      "terminal_count": 0,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 0,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "delta_mismatch_blocked": true,
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "grappling": true,
+      "held_frames": 7,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 1,
+      "maximum_commits": 1,
+      "maximum_error_m": 2.462184056e-8,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450933444499969,
+      "missed_overlap_step_count": 0,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 3.99316048622131,
+        "z": 0.00093344371998682
+      },
+      "rate": 60,
+      "refused_motion_m": 0,
+      "scenario": "delta_mismatch",
+      "settled_overlap_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "sticking": true,
+      "terminal_count": 0,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "body_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "entry_over_relative_maximum": false,
+      "entry_positive": true,
+      "expected": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "native_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "passed": true,
+      "query_count": 12,
+      "rate": 60,
+      "scenario": "owner_local",
+      "support": "fixture.wall.stick",
+      "value_only": true,
+      "wall_point_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "adjacent_not_double_counted": true,
+      "adjacent_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "body_position": {
+        "x": 0.200000017881393,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "entry_over_relative_maximum": false,
+      "entry_positive": true,
+      "expected": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "native_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "passed": true,
+      "query_count": 12,
+      "rate": 60,
+      "scenario": "rigid_first",
+      "support": "fixture.wall.rigid",
+      "value_only": true,
+      "wall_point_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "body_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "entry_over_relative_maximum": false,
+      "entry_positive": true,
+      "expected": {
+        "x": 12.3999996185303,
+        "y": 0,
+        "z": 1.7881393432e-7
+      },
+      "native_velocity": {
+        "x": 12.3999996185303,
+        "y": 0,
+        "z": 1.7881393432e-7
+      },
+      "passed": true,
+      "query_count": 12,
+      "rate": 60,
+      "scenario": "static_surface",
+      "support": "fixture.wall.stick",
+      "value_only": true,
+      "wall_point_velocity": {
+        "x": 12.3999996185303,
+        "y": 0,
+        "z": 1.7881393432e-7
+      }
+    },
+    {
+      "adjacent_not_double_counted": true,
+      "adjacent_velocity": {
+        "x": 11.9999990463257,
+        "y": 0,
+        "z": 0
+      },
+      "body_position": {
+        "x": 0.200000017881393,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "entry_over_relative_maximum": false,
+      "entry_positive": true,
+      "expected": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "native_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "passed": true,
+      "query_count": 12,
+      "rate": 60,
+      "scenario": "animatable_first",
+      "support": "fixture.wall.native",
+      "value_only": true,
+      "wall_point_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "adjacent_not_double_counted": true,
+      "adjacent_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "body_position": {
+        "x": 0.200000017881393,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "entry_over_relative_maximum": false,
+      "entry_positive": true,
+      "expected": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "native_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "passed": true,
+      "query_count": 12,
+      "rate": 60,
+      "scenario": "character_first",
+      "support": "fixture.wall.native",
+      "value_only": true,
+      "wall_point_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "additional_holds": 0,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": true,
+      "grappling": false,
+      "held_frames": 8,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "idle_status_unchanged": true,
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 1,
+      "listener_removed": true,
+      "maximum_commits": 1,
+      "maximum_error_m": 1.298030838e-8,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450887250900269,
+      "missed_overlap_step_count": 3,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 1,
+      "overlap_facts": [
+        {
+          "blocked": false,
+          "collider": "SupportingWall",
+          "position": {
+            "x": 0,
+            "y": 4.89829015731812,
+            "z": 0.00088728772243484
+          },
+          "rest": {
+            "collider_id": 2014658430849,
+            "linear_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "normal": {
+              "x": 0,
+              "y": 0,
+              "z": 1
+            },
+            "point": {
+              "x": -2.980232238e-8,
+              "y": 4.8503155708313,
+              "z": -0.349999964237213
+            },
+            "rid": "RID(308387241787392)",
+            "shape": 0
+          },
+          "step": 9
+        }
+      ],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 3.99624872207642,
+        "z": 0.0993185043334961
+      },
+      "rate": 120,
+      "rejection": 2,
+      "scenario": "same_resource_growth",
+      "settled_overlap_step_ids": [
+        2,
+        4,
+        5,
+        7,
+        9
+      ],
+      "sticking": false,
+      "terminal_count": 1,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 0,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": false,
+      "entry_count": 0,
+      "externally_resized_geometry": false,
+      "grappling": true,
+      "held_frames": 0,
+      "hold_step_ids": [],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 0,
+      "maximum_commits": 1,
+      "maximum_error_m": 0,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": null,
+      "missed_overlap_step_count": 0,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 3.99999952316284,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 3.41617441177368,
+        "z": 0.00086258124792948
+      },
+      "rate": 120,
+      "scenario": "compound",
+      "selected_shape_local_y": 0.466666847467422,
+      "settled_overlap_step_ids": [],
+      "sticking": false,
+      "terminal_count": 0,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 0,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "grappling": false,
+      "held_frames": 7,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 1,
+      "maximum_commits": 1,
+      "maximum_error_m": 1.298030838e-8,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450887250900269,
+      "missed_overlap_step_count": 2,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 3.94520711898804,
+        "z": 0.00088728772243484
+      },
+      "rate": 120,
+      "scenario": "added_owner",
+      "settled_overlap_step_ids": [
+        2,
+        3,
+        5,
+        7,
+        8
+      ],
+      "sticking": false,
+      "terminal_count": 1,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 0,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "grappling": false,
+      "held_frames": 7,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 1,
+      "maximum_commits": 1,
+      "maximum_error_m": 1.298030838e-8,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450887250900269,
+      "missed_overlap_step_count": 3,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 1,
+      "overlap_facts": [
+        {
+          "blocked": false,
+          "collider": "SupportingWall",
+          "position": {
+            "x": 0,
+            "y": 4.89829015731812,
+            "z": 0.00088728772243484
+          },
+          "rest": {
+            "collider_id": 2044756756261,
+            "linear_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "normal": {
+              "x": 0,
+              "y": 1,
+              "z": 0
+            },
+            "point": {
+              "x": -2.980232238e-8,
+              "y": 4.09999990463257,
+              "z": 0.00088730262359604
+            },
+            "rid": "RID(313257734701056)",
+            "shape": 1
+          },
+          "step": 8
+        }
+      ],
+      "overlap_step_id_overflow": 0,
+      "passed": false,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 4.09927463531494,
+        "z": 0.00099811656400561
+      },
+      "rate": 120,
+      "scenario": "added_shape_same_owner",
+      "settled_overlap_step_ids": [
+        3,
+        4,
+        6,
+        8
+      ],
+      "sticking": false,
+      "terminal_count": 1,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 8,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "bound_support": "fixture.wall.stick",
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "genuine_switch_detached": true,
+      "grappling": false,
+      "held_frames": 15,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "kept_original": true,
+      "legacy_switch_count": 2,
+      "legacy_winner": "fixture.wall.neighbor",
+      "maximum_commits": 1,
+      "maximum_error_m": 3.95812094e-9,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.596200335025787,
+      "missed_overlap_step_count": 5,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.800000011920929
+      },
+      "position": {
+        "x": 0,
+        "y": 3.99420690536499,
+        "z": -0.00379967293702066
+      },
+      "query_count": 12,
+      "rate": 120,
+      "scenario": "two_walls",
+      "settled_overlap_step_ids": [
+        2,
+        4,
+        5,
+        7,
+        8,
+        10,
+        12,
+        13,
+        15,
+        16
+      ],
+      "sticking": false,
+      "terminal_count": 1,
+      "terminal_wall_clear": true,
+      "value_only": true,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.800000011920929
+      }
+    },
+    {
+      "additional_holds": 0,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "first_hold_displacement_m": 0.16666667163372,
+      "first_hold_error_m": 0,
+      "grappling": true,
+      "held_frames": 7,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 1,
+      "maximum_commits": 1,
+      "maximum_error_m": 0,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450887250900269,
+      "missed_overlap_step_count": 3,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 1.16666662693024,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 1.16666662693024,
+        "y": 3.99829030036926,
+        "z": 0.00088727474212646
+      },
+      "rate": 120,
+      "scenario": "already_moving",
+      "settled_overlap_step_ids": [
+        2,
+        3,
+        5,
+        7
+      ],
+      "speed_mps": 20,
+      "sticking": true,
+      "terminal_count": 0,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 1.33333325386047,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 0,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": false,
+      "entry_count": 0,
+      "externally_resized_geometry": false,
+      "grappling": true,
+      "held_frames": 0,
+      "hold_step_ids": [],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 0,
+      "maximum_commits": 1,
+      "maximum_error_m": 0,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": null,
+      "missed_overlap_step_count": 0,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 4,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 3.99829030036926,
+        "z": 0.00088728772243484
+      },
+      "rate": 120,
+      "scenario": "entry_teleport",
+      "settled_overlap_step_ids": [],
+      "sticking": false,
+      "terminal_count": 0,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 4,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 1,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "grappling": false,
+      "held_frames": 8,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 1,
+      "maximum_commits": 1,
+      "maximum_error_m": 1.5441949585e-7,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450887250900269,
+      "missed_overlap_step_count": 3,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 3.99624872207642,
+        "z": 0.00088728772243484
+      },
+      "rate": 120,
+      "rejection": 2,
+      "scenario": "slow_roll",
+      "settled_overlap_step_ids": [
+        2,
+        4,
+        5,
+        7,
+        8
+      ],
+      "sticking": false,
+      "terminal_count": 1,
+      "terminal_wall_clear": true,
+      "tilt_radians": 0.00035999997635372,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 1,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "grappling": false,
+      "held_frames": 8,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 1,
+      "maximum_commits": 1,
+      "maximum_error_m": 1.298030838e-8,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450887250900269,
+      "missed_overlap_step_count": 3,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 3.99743437767029,
+        "z": 0.00088690622942522
+      },
+      "rate": 120,
+      "rejection": 2,
+      "scenario": "slow_pitch",
+      "settled_overlap_step_ids": [
+        2,
+        3,
+        5,
+        7,
+        8
+      ],
+      "sticking": false,
+      "terminal_count": 1,
+      "terminal_wall_clear": true,
+      "tilt_radians": 0.00026999998954124,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 5,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "grappling": true,
+      "held_frames": 12,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 1,
+      "maximum_commits": 1,
+      "maximum_error_m": 1.298030838e-8,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450887250900269,
+      "missed_overlap_step_count": 5,
+      "new_shape_index": 0,
+      "obsolete_pose_overlap_count": 0,
+      "old_shape_index": 1,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 3.99829030036926,
+        "z": 0.00088728772243484
+      },
+      "rate": 120,
+      "scenario": "disabled_owner_removed",
+      "settled_overlap_step_ids": [
+        2,
+        3,
+        5,
+        6,
+        8,
+        10,
+        11
+      ],
+      "sticking": true,
+      "terminal_count": 0,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "additional_holds": 0,
+      "blocked_count": 0,
+      "blocked_overlap_step_ids": [],
+      "delta_mismatch_blocked": true,
+      "entered_before_change": true,
+      "entry_count": 1,
+      "externally_resized_geometry": false,
+      "grappling": true,
+      "held_frames": 7,
+      "hold_step_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "jump_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "legacy_switch_count": 1,
+      "maximum_commits": 1,
+      "maximum_error_m": 1.298030838e-8,
+      "maximum_recovery_m": 0,
+      "minimum_side_distance_m": 0.450887250900269,
+      "missed_overlap_step_count": 2,
+      "obsolete_pose_overlap_count": 0,
+      "overlap_count": 0,
+      "overlap_facts": [],
+      "overlap_step_id_overflow": 0,
+      "passed": true,
+      "physics_wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "position": {
+        "x": 0,
+        "y": 3.99829030036926,
+        "z": 0.00088728772243484
+      },
+      "rate": 120,
+      "refused_motion_m": 0,
+      "scenario": "delta_mismatch",
+      "settled_overlap_step_ids": [
+        2,
+        4,
+        5,
+        7,
+        8
+      ],
+      "sticking": true,
+      "terminal_count": 0,
+      "terminal_wall_clear": true,
+      "wall_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      }
+    },
+    {
+      "body_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "entry_over_relative_maximum": false,
+      "entry_positive": true,
+      "expected": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "native_velocity": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "passed": true,
+      "query_count": 12,
+      "rate": 120,
+      "scenario": "owner_local",
+      "support": "fixture.wall.stick",
+      "value_only": true,
+      "wall_point_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "adjacent_not_double_counted": true,
+      "adjacent_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "body_position": {
+        "x": 0.100000008940697,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "entry_over_relative_maximum": false,
+      "entry_positive": true,
+      "expected": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "native_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "passed": true,
+      "query_count": 12,
+      "rate": 120,
+      "scenario": "rigid_first",
+      "support": "fixture.wall.rigid",
+      "value_only": true,
+      "wall_point_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "body_position": {
+        "x": 0,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "entry_over_relative_maximum": false,
+      "entry_positive": true,
+      "expected": {
+        "x": 12.3999996185303,
+        "y": 0,
+        "z": 0
+      },
+      "native_velocity": {
+        "x": 12.3999996185303,
+        "y": 0,
+        "z": 0
+      },
+      "passed": true,
+      "query_count": 12,
+      "rate": 120,
+      "scenario": "static_surface",
+      "support": "fixture.wall.stick",
+      "value_only": true,
+      "wall_point_velocity": {
+        "x": 12.3999996185303,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "adjacent_not_double_counted": true,
+      "adjacent_velocity": {
+        "x": 11.9999990463257,
+        "y": 0,
+        "z": 0
+      },
+      "body_position": {
+        "x": 0.100000008940697,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "entry_over_relative_maximum": false,
+      "entry_positive": true,
+      "expected": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "native_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "passed": true,
+      "query_count": 12,
+      "rate": 120,
+      "scenario": "animatable_first",
+      "support": "fixture.wall.native",
+      "value_only": true,
+      "wall_point_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "adjacent_not_double_counted": true,
+      "adjacent_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "body_position": {
+        "x": 0.100000008940697,
+        "y": 4,
+        "z": -0.649999976158142
+      },
+      "entry_over_relative_maximum": false,
+      "entry_positive": true,
+      "expected": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "native_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      },
+      "passed": true,
+      "query_count": 12,
+      "rate": 120,
+      "scenario": "character_first",
+      "support": "fixture.wall.native",
+      "value_only": true,
+      "wall_point_velocity": {
+        "x": 12,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ],
+  "source": "game"
+}

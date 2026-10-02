@@ -1,0 +1,14 @@
+{
+  "session_id": "testgame@17187ab35ae57813",
+  "run_id": "r168513595-35",
+  "scope": "MCP runtime reproduction with real StaticBody3D/Shape3D and the private surface-attachment seam, not full post-commit player entry",
+  "authored_test_tolerances": {"continuous_mps": 3, "severe_mps": 10, "definition_validate_success": true},
+  "cases": [
+    {"instability_change": "0 to 1", "point_speed_mps": 7.5, "incoming_severe_mps": 5, "expected_active": false, "observed_active": true, "observed_terminal": "none"},
+    {"instability_change": "1 to 0", "point_speed_mps": 7.5, "incoming_severe_mps": 10, "expected_active": true, "observed_active": false, "observed_terminal": "anchor_discontinuity"}
+  ],
+  "finding_confirmed": true,
+  "production_definition_changed": false,
+  "diagnostics": {"game_lines": 1, "only_game_line": "helper registration", "dropped_lines": 0},
+  "cleanup": {"stopped": true, "readiness_after": "ready"}
+}

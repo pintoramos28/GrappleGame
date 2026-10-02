@@ -1,0 +1,19 @@
+{
+  "session_id": "testgame@17187ab35ae57813",
+  "game_log_run_id": "r105520293-20",
+  "godot_version": "4.7.2-stable",
+  "autosave": false,
+  "native_schema_adapter": {"passed": 3, "total": 3, "assertions": 15, "duration_ms": 3, "preload_cache_warning": true, "executes_gut": false},
+  "live_motion": [
+    {"rate_hz": 60, "passed": true, "held_frames": 115, "entry_count": 1, "terminal_count": 0, "blocked_count": 0, "maximum_error_m": 2.462184056e-8, "minimum_side_distance_m": 0.450933384895325, "overlap_count": 0, "obsolete_pose_overlap_count": 36, "maximum_commits": 1, "maximum_recovery_m": 0, "anchor_only_player_motion_m": 0, "moving_grapple_anchor_x_m": 0.300000041723251, "runtime_stick_max_mps": 100},
+    {"rate_hz": 120, "passed": true, "held_frames": 224, "entry_count": 1, "terminal_count": 0, "blocked_count": 0, "maximum_error_m": 1.298030838e-8, "minimum_side_distance_m": 0.450887191295624, "overlap_count": 0, "obsolete_pose_overlap_count": 72, "maximum_commits": 1, "maximum_recovery_m": 0, "anchor_only_player_motion_m": 0, "moving_grapple_anchor_x_m": 0.300000041723251, "runtime_stick_max_mps": 100}
+  ],
+  "live_interruption_cases": {"passed": 14, "total": 14, "rates_hz": [60, 120], "scenarios": ["forward_release", "jump_release", "blocked", "destroyed", "disabled", "teleport", "shape_replaced"], "all_maximum_commits": 1, "all_sampled_settled_overlaps": 0},
+  "forward_release": {"velocity_error_mps_by_rate": [0, 0], "terminal_count_by_rate": [0, 0], "release_commit_state": "player.locomotion.wall_stick", "resumed_state": "player.locomotion.grappling", "relatched": false},
+  "jump_release": {"submitted_velocity_by_rate": [[0, 5.5, 8], [0, 5.5, 8]], "terminal_count_by_rate": [1, 1]},
+  "blocked_carry": {"blocked_count_by_rate": [1, 1], "terminal_count_by_rate": [1, 1], "maximum_error_m_by_rate": [0.0008702278137207, 0.00087499618530273]},
+  "simulated_directional_input": {"opposing_axis": [0, 0], "forward_fact_held": true, "grapple_flag_seeded_by_fixture": true, "after_release_forward_fact": false, "after_release_state": "player.locomotion.grappling", "terminal_count": 0, "entry_count": 1},
+  "final_game_logs": {"informational_entries": 17, "warnings": 0, "errors": 0, "dropped_lines": 0},
+  "final_editor_logs": {"retained_warnings": 10, "errors": 0},
+  "cleanup": {"physics_ticks_per_second": 60, "smoke_actions_released": true, "remaining_root_children": ["PhantomCameraManager", "_mcp_game_helper"], "game_stopped": true, "editor_ready": true, "editor_scene": "res://scenes/player.tscn"}
+}

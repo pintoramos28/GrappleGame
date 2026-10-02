@@ -322,6 +322,7 @@ func test_real_oblique_wall_run_stick_and_jump_reach_the_physical_finish() -> vo
 			if aimed and ran and not stuck and not bool(player.get("is_grappling")):
 				var targeting: GrappleTargetingResult = player.call("get_latest_grapple_targeting_result")
 				if targeting != null and targeting.is_accepted():
+					input_source.inject_movement_strengths(0.0, 0.0, 1.0, 0.0)
 					input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)
 			if bool(player.get("is_wall_sticking")):
 				stuck = true
@@ -484,6 +485,7 @@ func _complete_route(rate: int) -> Dictionary:
 					var targeting: GrappleTargetingResult = player.call("get_latest_grapple_targeting_result")
 					report["wall_target"] = targeting != null and targeting.is_accepted()
 					if targeting != null and targeting.is_accepted():
+						input_source.inject_movement_strengths(0.0, 0.0, 1.0, 0.0)
 						input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)
 				if bool(player.get("is_wall_sticking")):
 					stick_seen = true

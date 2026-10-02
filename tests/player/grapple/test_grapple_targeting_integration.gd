@@ -641,16 +641,15 @@ func test_rope_physics_interpolation_resets_once_per_hidden_to_visible() -> void
 	assert_eq(rope.visible, bool(player.get("is_grappling")))
 	assert_eq(int(player.get("grapple_visual_reset_count")), 2)
 
-	# The counter is a measurement seam; pin that the frozen behavior it
-	# counts still exists: exactly one interpolation reset call site in the
-	# controller, at the hidden-to-visible edge.
+	# The approved re-anchor revision deliberately extends hidden-only reset;
+	# this ordinary acquisition/release case still has exactly one reveal reset.
 	var controller_source := FileAccess.get_file_as_string("res://scripts/player_controller.gd")
 	assert_eq(
 		controller_source.count("grapple_visual.reset_physics_interpolation()"),
 		1,
 		"rope reset must remain exactly one call site (frozen spec)"
 	)
-	assert_true(controller_source.contains("if was_hidden:"))
+	assert_true(controller_source.contains("if was_hidden or revision_changed:"))
 
 
 func test_definition_is_the_sole_pull_cap_and_range_source() -> void:

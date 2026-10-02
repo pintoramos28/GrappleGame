@@ -1,0 +1,14 @@
+{
+  "session_id": "testgame@17187ab35ae57813",
+  "run_id": "r186878090-39",
+  "observer": "parent",
+  "selected_case_gate": {"passed": 31, "total": 32, "rates": [60, 120], "failed_case": "foreign_motor@120"},
+  "passing_critical_checks": ["response_tighten@60/120", "response_relax@60/120", "native_animatable@60/120", "native_character@60/120", "native_rigid@60/120", "gap_safe@60/120", "gap_oversized@60/120", "clock@60/120", "mutated_alias@60/120", "detached_original@60/120", "released_carry@60/120", "visual_detached@60/120", "visual_wrong_cylinder@60/120", "original_after_removed@60/120", "malformed_direction_inf@60/120"],
+  "native_maximum_errors": {"anchor_m": 0, "actual_marker_m": 0, "point_velocity_mps": 0, "actual_rope_endpoint_m": 2.8493575428e-6, "missing_active_visual_samples": 0},
+  "fixed_six_trial_diagnosis": {"rate": 120, "trials": 6, "all_foreign_match_controls_failed": true, "all_actual_foreign_rejections_correct": true, "all_original_and_baseline_atomic": true, "all_foreign_baselines_unchanged": true, "all_owned_restored_positive_commits_passed": true},
+  "cause": "Two independently spawned fixtures awaited the same number of physics events but accumulated different player-local commit stamps before the idle frame. The foreign-motor test assumed equal stamps and failed its positive setup control.",
+  "patch_scope": "Only the fixture's foreign-motor setup: a fresh production-player motor receives the exact required stamp from MotorStepProbe in a real physics callback. No production ownership guard, movement rule or assertion is weakened.",
+  "diagnostics": {"game_lines": 1, "only_line": "helper registration", "dropped_lines": 0},
+  "cleanup": {"physics_hz": 60, "all_six_actions_released_by_selected_gate": true, "stopped": true, "readiness_after": "ready"},
+  "acceptance_status": "Superseding final GUT and MCP gates are required after the fixture patch; these failed controls are retained, not acceptance retries."
+}

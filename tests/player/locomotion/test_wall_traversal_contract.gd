@@ -178,6 +178,108 @@ func test_wall_run_entry_policy_keeps_the_authored_speed_gates() -> void:
 	assert_false(bool(player.call("_can_start_wall_run", Vector3(maximum_entry_speed + 0.5, 0.0, 0.0))))
 	# Vertical speed alone never satisfies the horizontal gate.
 	assert_false(bool(player.call("_can_start_wall_run", Vector3(0.0, 12.0, 0.0))))
+	# Meeting the horizontal minimum still cannot bypass the total-speed cap.
+	assert_false(bool(player.call("_can_start_wall_run", Vector3(minimum_horizontal_speed, maximum_entry_speed, 0.0))))
+
+
+func test_wall_stick_actual_entry_uses_only_the_configured_upper_total_speed() -> void:
+	var configured_player := _new_policy_controller()
+	for speed_case in _wall_stick_speed_cases(configured_player):
+		var player := _new_policy_controller()
+		_add_policy_wall(player)
+		await get_tree().physics_frame
+		var velocity: Vector3 = speed_case["velocity"]
+		var result := _commit_policy_velocity(player, velocity, 1)
+		_prepare_wall_stick_entry(player, result.physics_step)
+		var frame := result.contact_frame
+		var entered := bool(player.call(
+			"_try_start_wall_stick_from_contact",
+			Vector2.RIGHT,
+			result.submitted_velocity,
+			frame,
+			result.position_after
+		))
+		assert_eq(entered, speed_case["passes"], speed_case["label"])
+		assert_eq(bool(player.get("is_wall_sticking")), entered, speed_case["label"])
+		assert_eq(
+			bool(player.call("_can_start_wall_run", result.submitted_velocity)),
+			speed_case["run_passes"],
+			"wall-run gate changed: %s" % speed_case["label"]
+		)
+		if entered:
+			assert_eq(player.get("wall_stick_position"), result.position_after)
+			assert_eq(player.get("wall_stick_surface_identity"), &"wall.stick")
+			assert_false(bool(player.call("_try_start_wall_stick_from_contact", Vector2.RIGHT, velocity, frame, result.position_after)), "entry must not re-arm an existing stick")
+
+
+func test_wall_stick_entry_speed_rejects_nonfinite_vectors() -> void:
+	var player := _new_policy_controller()
+	for velocity in [Vector3(INF, 0.0, 0.0), Vector3(-INF, 0.0, 0.0), Vector3(0.0, NAN, 0.0), Vector3(0.0, 0.0, INF)]:
+		assert_false(bool(player.call("_can_start_wall_stick", velocity)))
+
+
+func test_wall_stick_speed_telemetry_reads_real_commits_without_mutation() -> void:
+	var player := _new_policy_controller()
+	var motor: PlayerMotor = player.get("player_motor")
+	var step := 1
+	for speed_case in _wall_stick_speed_cases(player):
+		var result := _commit_policy_velocity(player, speed_case["velocity"], step)
+		assert_almost_eq((result.committed_velocity - speed_case["velocity"]).length(), 0.0, 0.00001)
+		var before_position := player.global_position
+		var before_velocity := player.velocity
+		# Unsaved body velocity is not committed truth. Both queries must read
+		# the motor's last real commit instead of this deliberately different value.
+		player.velocity = Vector3.UP * (float(player.get("wall_run_max_entry_speed")) + 1.0) if speed_case["passes"] else Vector3.ZERO
+		var uncommitted_velocity := player.velocity
+		for _query in range(2):
+			assert_eq(bool(player.call("is_wall_stick_speed_gate_open")), speed_case["passes"], speed_case["label"])
+			assert_eq(player.call("get_wall_stick_speed_gate_reason_id"), &"pass" if speed_case["passes"] else &"total_speed_high", speed_case["label"])
+		assert_eq(player.global_position, before_position)
+		assert_eq(player.velocity, uncommitted_velocity, "telemetry must not write body velocity")
+		assert_eq(motor.get_last_commit_result(), result)
+		assert_eq(motor.get_commit_count(), 1)
+		assert_false(motor.has_active_motion_frame())
+		assert_false(bool(player.get("is_wall_sticking")), "speed telemetry must not establish a stick")
+		player.velocity = before_velocity
+		step += 1
+
+
+func test_low_speed_wall_stick_actual_entry_keeps_the_other_guards() -> void:
+	for guard in ["no_grapple", "no_command", "released", "no_forward", "no_wall", "stale_wall", "lost_wall", "outward"]:
+		var player := _new_policy_controller()
+		_add_policy_wall(player)
+		await get_tree().physics_frame
+		var result := _commit_policy_velocity(player, Vector3.ZERO, 1)
+		_prepare_wall_stick_entry(player, result.physics_step)
+		var frame := result.contact_frame
+		var axis := Vector2.RIGHT
+		assert_not_null(frame.wall_support)
+		assert_true(bool(player.call("_try_start_wall_stick_from_contact", axis, result.submitted_velocity, frame, result.position_after)), "physical positive control for %s" % guard)
+		player.call("_clear_wall_stick")
+		var velocity := result.submitted_velocity
+		match guard:
+			"no_grapple":
+				player.call("terminate_grapple", GrappleEndReason.Reason.RELEASE)
+			"no_command":
+				player.set("_current_command_frame", null)
+			"released":
+				player.set("_current_command_frame", PlayerCommandFrame.new(result.physics_step, axis, 0.0, 0.0, Vector3.FORWARD, 0, 0, 0, true))
+			"no_wall":
+				frame = null
+			"stale_wall":
+				player.set("_player_physics_step", result.physics_step + 1)
+			"lost_wall":
+				frame = _with_wall_loss(frame)
+				# Retain this real publication's private body/shape/token seam, so
+				# only the loss flag (not a missing physical binding) rejects entry.
+				player.get("player_motor").get_contact_provider().set("_last_frame", frame)
+			"no_forward":
+				player.set("_current_command_frame", PlayerCommandFrame.new(result.physics_step, axis, 0.0, 0.0, Vector3.FORWARD, 0, 1 << int(PlayerCommandFrame.Action.GRAPPLE)))
+			"outward":
+				velocity = frame.wall_support.normal * (float(player.get("wall_run_min_horizontal_speed")) * 0.25)
+		assert_true(bool(player.call("is_wall_stick_speed_gate_open")), "speed is not the rejecting guard: %s" % guard)
+		assert_false(bool(player.call("_try_start_wall_stick_from_contact", axis, velocity, frame, result.position_after)), guard)
+		assert_false(bool(player.get("is_wall_sticking")), guard)
 
 
 func test_outward_wall_speed_uses_horizontal_projection_and_filters_float_roundoff() -> void:
@@ -476,6 +578,59 @@ func test_wall_traversal_states_read_only_the_immutable_command_frame_and_agent_
 
 # --- Helpers -----------------------------------------------------------------
 
+func _with_wall_loss(frame: ContactFrame) -> ContactFrame:
+	return ContactFrame.new(frame.physics_step, frame.origin, frame.status, frame.source_motor_step,
+		frame.committed_evidence_available, frame.is_grounded, frame.has_ground_surface, frame.ground_normal,
+		frame.ground_surface_identity, frame.ground_provenance, frame.has_wall_contact, frame.wall_normal,
+		frame.wall_surface_identity, frame.wall_provenance, frame.wall_relation, frame.continuity_action,
+		frame.candidates, frame.rejections, frame.scanned_collision_count, frame.reported_collision_count,
+		frame.query_count, frame.rejected_candidate_count, frame.overflow_count, frame.ground_identity_persistent,
+		frame.wall_identity_persistent, true, frame.body_probe_disagreement, frame.ground_probe_query_succeeded,
+		frame.wall_probe_query_succeeded, frame.wall_support, frame.wall_point_velocity, frame.wall_support_token)
+
+
+func _wall_stick_speed_cases(player: CharacterBody3D) -> Array[Dictionary]:
+	var minimum := float(player.get("wall_run_min_horizontal_speed"))
+	var definition: WallStickDefinition = player.get("wall_stick_definition")
+	var maximum := definition.maximum_entry_speed_mps
+	return [
+		{"label": "zero", "velocity": Vector3.ZERO, "passes": true, "run_passes": false},
+		{"label": "subminimum", "velocity": Vector3.RIGHT * minimum * 0.5, "passes": true, "run_passes": false},
+		{"label": "vertical only", "velocity": Vector3.DOWN * maximum * 0.5, "passes": true, "run_passes": false},
+		{"label": "run minimum", "velocity": Vector3.RIGHT * minimum, "passes": true, "run_passes": true},
+		{"label": "horizontal upper", "velocity": Vector3.RIGHT * maximum, "passes": true, "run_passes": true},
+		{"label": "vertical upper up", "velocity": Vector3.UP * maximum, "passes": true, "run_passes": false},
+		{"label": "vertical upper down", "velocity": Vector3.DOWN * maximum, "passes": true, "run_passes": false},
+		{"label": "mixed upper", "velocity": Vector3(maximum * 0.6, maximum * 0.8, 0.0), "passes": true, "run_passes": true},
+		{"label": "horizontal above upper", "velocity": Vector3.RIGHT * (maximum + 0.5), "passes": false, "run_passes": false},
+		{"label": "vertical above upper", "velocity": Vector3.DOWN * (maximum + 0.5), "passes": false, "run_passes": false},
+		{"label": "vertical pushes total above upper", "velocity": Vector3(minimum, maximum, 0.0), "passes": false, "run_passes": false},
+	]
+
+
+func _commit_policy_velocity(player: CharacterBody3D, committed_velocity: Vector3, step: int) -> PlayerMotorCommitResult:
+	var motor: PlayerMotor = player.get("player_motor")
+	player.velocity = committed_velocity
+	assert_eq(motor.begin_motion_frame(step), PlayerMotor.FrameStatus.SUCCESS)
+	assert_eq(motor.select_state_policy(&"player.locomotion.grappling"), PlayerMotor.SubmissionStatus.SUCCESS)
+	assert_eq(motor.submit_base_motion(&"player.locomotion.grappling.base", committed_velocity, 0.0, false), PlayerMotor.SubmissionStatus.SUCCESS)
+	var result := motor.resolve_and_commit()
+	assert_true(result.success)
+	assert_eq(result.commit_count, 1)
+	player.set("_player_physics_step", step)
+	return result
+
+
+func _prepare_wall_stick_entry(player: CharacterBody3D, step: int, with_grapple: bool = true) -> void:
+	player.set("_current_command_frame", PlayerCommandFrame.new(step, Vector2.RIGHT, 0.0, 0.0, Vector3.FORWARD, 0, 1 << int(PlayerCommandFrame.Action.GRAPPLE), 0, true))
+	if not with_grapple:
+		return
+	var anchor := StaticBody3D.new()
+	player.get_parent().add_child(anchor)
+	var controller: GrappleController = player.get("_grapple_controller")
+	var target_seed := GrappleTargetSeed.new(&"", Vector3(0.0, 2.0, -2.0), Vector3.BACK, GrappleTargetResponse.static_default(), weakref(anchor), Vector3.ZERO)
+	assert_eq(controller.commit_attachment(target_seed, step), GrappleController.CommitStatus.SUCCESS)
+
 
 func _wall_policy_paths() -> Array[String]:
 	return [
@@ -484,6 +639,18 @@ func _wall_policy_paths() -> Array[String]:
 		"res://scripts/player_wall_stick_state.gd",
 		"res://scripts/player_airborne_state.gd",
 	]
+
+
+func _add_policy_wall(player: CharacterBody3D) -> void:
+	var wall := StaticBody3D.new()
+	wall.position = Vector3(0.0, 0.0, -0.8)
+	wall.set_meta(&"physics_surface_id", &"wall.stick")
+	var collider := CollisionShape3D.new()
+	var shape := BoxShape3D.new()
+	shape.size = Vector3(400.0, 400.0, 0.4)
+	collider.shape = shape
+	wall.add_child(collider)
+	player.get_parent().add_child(wall)
 
 
 func _wall_frame(

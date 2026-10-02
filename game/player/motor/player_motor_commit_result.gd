@@ -95,6 +95,22 @@ var hold_position: Vector3:
 	get:
 		return _hold_position
 
+var hold_requested_displacement: Vector3:
+	get:
+		return _hold_position - _position_before if _is_hold_request else Vector3.ZERO
+
+var hold_recovery_displacement: Vector3:
+	get:
+		return _hold_recovery_displacement
+
+var hold_position_error_m: float:
+	get:
+		return _position_after.distance_to(_hold_position) if _is_hold_request else 0.0
+
+var hold_carry_blocked: bool:
+	get:
+		return _hold_carry_blocked
+
 var on_floor: bool:
 	get:
 		return _contact_frame.is_grounded if _contact_frame != null else false
@@ -172,6 +188,8 @@ var _position_before: Vector3
 var _position_after: Vector3
 var _is_hold_request: bool
 var _hold_position: Vector3
+var _hold_recovery_displacement: Vector3
+var _hold_carry_blocked: bool
 var _commit_count: int
 var _contact_frame: ContactFrame
 var _collision_facts_truncated := false
@@ -214,7 +232,9 @@ func _init(
 	rejected_facts_were_truncated: bool = false,
 	resolved_anchor_constraint_records: Array[Dictionary] = [],
 	anchor_overflow_count: int = 0,
-	anchor_facts_were_truncated: bool = false
+	anchor_facts_were_truncated: bool = false,
+	hold_recovery: Vector3 = Vector3.ZERO,
+	hold_blocked: bool = false
 ) -> void:
 	_physics_step = step
 	_physics_delta_seconds = delta_seconds
@@ -228,6 +248,8 @@ func _init(
 	_position_after = after_position
 	_is_hold_request = hold_request
 	_hold_position = requested_hold_position
+	_hold_recovery_displacement = hold_recovery
+	_hold_carry_blocked = hold_blocked
 	_commit_count = actual_commit_count
 	_contact_frame = frame if frame != null else ContactFrame.failure(step, ContactFrame.Status.INVALID_DATA)
 	_collision_facts_truncated = contact_facts_were_truncated or _contact_frame.overflowed

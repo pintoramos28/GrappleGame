@@ -1,0 +1,2242 @@
+{
+  "session_id": "testgame@17187ab35ae57813",
+  "observer": "parent",
+  "scope": "Fresh bounded-batch runtime after contiguous foreign-motor fixture correction. No new framebuffer/readability/feel/route claim.",
+  "launch": {
+    "autosave": false,
+    "current_run_errors": [],
+    "game_status": {
+      "active": true,
+      "editor_log_cursor": 5,
+      "elapsed_msec": 1206,
+      "helper_expected": true,
+      "helper_live": true,
+      "ready": true,
+      "ready_wait_msec": 3000,
+      "run_started_msec": 188028224,
+      "run_token": 42,
+      "session_active": true,
+      "status": "live"
+    },
+    "helper_live": true,
+    "mode": "custom",
+    "reason": "Game launched and the Godot AI game helper is live.",
+    "recent_errors": [],
+    "recent_errors_may_predate_run": false,
+    "recent_errors_scope": "none",
+    "recent_errors_truncated": false,
+    "retained_errors": [],
+    "scene": "res://tests/fixtures/wall_stick_reanchor_fixture.tscn",
+    "session_active": true,
+    "undoable": false,
+    "was_already_running": false
+  },
+  "init": {
+    "result": {
+      "host_frozen": true
+    },
+    "source": "game"
+  },
+  "hardening": {
+    "passed": 100,
+    "total": 100,
+    "cases": [
+      {
+        "case": "response_tighten",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "response_relax",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "gap_safe",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "gap_oversized",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "gap_speed",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "gap_rotation",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "gap_scale",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "gap_tilt",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "malformed_pull_nan",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "malformed_pull_inf",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "malformed_instability_nan",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "malformed_instability_inf",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "malformed_direction_nan",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "malformed_direction_inf",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "malformed_anchor_negative",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "malformed_anchor_overflow",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "malformed_hazard_negative",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "malformed_hazard_overflow",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "alias",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "mutated_alias",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "null_binding",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "null_preparation",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "stale_preparation",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "detached_original",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "original_before_invalidated",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "original_before_removed",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "original_before_ineligible",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "original_before_malformed",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "original_before_scope",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "original_before_identity",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "original_after_invalidated",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "original_after_removed",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "original_after_ineligible",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "original_after_malformed",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "original_after_scope",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "original_after_identity",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "original_surface_geometry",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "original_surface_pose",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "foreign_motor",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "wrong_completed_step",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "released_carry",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "native_animatable",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "native_character",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "native_rigid",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "visual_marker",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "visual_rope",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "visual_detached",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "visual_replaced",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "visual_wrong_cylinder",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "clock",
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "case": "response_tighten",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "response_relax",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "gap_safe",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "gap_oversized",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "gap_speed",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "gap_rotation",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "gap_scale",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "gap_tilt",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "malformed_pull_nan",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "malformed_pull_inf",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "malformed_instability_nan",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "malformed_instability_inf",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "malformed_direction_nan",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "malformed_direction_inf",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "malformed_anchor_negative",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "malformed_anchor_overflow",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "malformed_hazard_negative",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "malformed_hazard_overflow",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "alias",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "mutated_alias",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "null_binding",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "null_preparation",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "stale_preparation",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "detached_original",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "original_before_invalidated",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "original_before_removed",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "original_before_ineligible",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "original_before_malformed",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "original_before_scope",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "original_before_identity",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "original_after_invalidated",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "original_after_removed",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "original_after_ineligible",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "original_after_malformed",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "original_after_scope",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "original_after_identity",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "original_surface_geometry",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "original_surface_pose",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "foreign_motor",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "wrong_completed_step",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "released_carry",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "native_animatable",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "native_character",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "native_rigid",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "visual_marker",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "visual_rope",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "visual_detached",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "visual_replaced",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "visual_wrong_cylinder",
+        "passed": true,
+        "rate": 120
+      },
+      {
+        "case": "clock",
+        "passed": true,
+        "rate": 120
+      }
+    ],
+    "details": [
+      {
+        "actual_point_speed_mps": 7.5,
+        "case": "response_tighten",
+        "definition_validated": true,
+        "incoming_threshold_mps": 5,
+        "observed_active": false,
+        "passed": true,
+        "previous_sample_retained_for_classification": true,
+        "previous_threshold_mps": 10,
+        "rate": 60,
+        "reason": "anchor_discontinuity",
+        "terminal_count": 1
+      },
+      {
+        "actual_point_speed_mps": 7.5,
+        "case": "response_relax",
+        "definition_validated": true,
+        "incoming_threshold_mps": 10,
+        "observed_active": true,
+        "passed": true,
+        "previous_sample_retained_for_classification": true,
+        "previous_threshold_mps": 5,
+        "rate": 60,
+        "reason": "none",
+        "terminal_count": 0
+      },
+      {
+        "atomic_original_and_baseline": true,
+        "case": "foreign_motor",
+        "expected_status": 9,
+        "extra": {
+          "foreign_baseline_unchanged": true,
+          "foreign_completed_step": true,
+          "foreign_completed_step_matches": true,
+          "foreign_contiguous_commits": true,
+          "owned_restored_positive_commit": true
+        },
+        "observed_status": 9,
+        "passed": true,
+        "prepare_positive_control": true,
+        "rate": 60
+      },
+      {
+        "atomic_original_and_baseline": true,
+        "case": "wrong_completed_step",
+        "expected_status": 9,
+        "extra": {
+          "real_later_commit_succeeded": true
+        },
+        "observed_status": 9,
+        "passed": true,
+        "prepare_positive_control": true,
+        "rate": 60
+      },
+      {
+        "anchor_displacement_m": 0.499394178390503,
+        "body_type": "animatable",
+        "case": "native_animatable",
+        "clock": {
+          "actual_elapsed": 0.6,
+          "actual_pull_mps2": 28.0000002,
+          "clock_matches": true,
+          "curve_matches": true,
+          "elapsed_at_detachment": 0.416666666666667,
+          "elapsed_before_release": 0.416666666666667,
+          "expected_elapsed": 0.6,
+          "expected_pull_mps2": 28.0000002,
+          "forced_reset_would_fail": true,
+          "release_physics_step": 19,
+          "release_request_step": 18,
+          "reset_pull_mps2": 50.2222222833333,
+          "ticks_after_detachment": 11
+        },
+        "held": {
+          "anchor_samples": 18,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.416666666666667,
+          "entry_count": 1,
+          "grappling": true,
+          "last_point_velocity": {
+            "x": 1.98955631256104,
+            "y": 0.149992689490318,
+            "z": -0.0167919993400574
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 7.85803422e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.79278945922852,
+          "maximum_old_static_velocity_error_mps": 1.04479694366455,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 4.77069932e-7,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 60,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": true,
+          "terminal_count": 0,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 18
+        },
+        "passed": true,
+        "rate": 60,
+        "reason": "target_destroyed",
+        "released": {
+          "anchor_samples": 30,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.6,
+          "entry_count": 1,
+          "grappling": true,
+          "last_point_velocity": {
+            "x": 1.9880952835083,
+            "y": 0.149964079260826,
+            "z": -0.0343387424945831
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 7.85803422e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.79278945922852,
+          "maximum_old_static_velocity_error_mps": 1.04479694366455,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 4.7869616537e-7,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 60,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": false,
+          "terminal_count": 0,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 30
+        },
+        "terminal": {
+          "anchor_samples": 30,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.6,
+          "entry_count": 1,
+          "grappling": false,
+          "last_point_velocity": {
+            "x": 1.9880952835083,
+            "y": 0.149964079260826,
+            "z": -0.0343387424945831
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 7.85803422e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.79278945922852,
+          "maximum_old_static_velocity_error_mps": 1.04479694366455,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 4.7869616537e-7,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 60,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": false,
+          "terminal_count": 1,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 30
+        }
+      },
+      {
+        "anchor_displacement_m": 0.483735203742981,
+        "body_type": "character",
+        "case": "native_character",
+        "clock": {
+          "actual_elapsed": 0.6,
+          "actual_pull_mps2": 28.0000002,
+          "clock_matches": true,
+          "curve_matches": true,
+          "elapsed_at_detachment": 0.416666666666667,
+          "elapsed_before_release": 0.416666666666667,
+          "expected_elapsed": 0.6,
+          "expected_pull_mps2": 28.0000002,
+          "forced_reset_would_fail": true,
+          "release_physics_step": 19,
+          "release_request_step": 18,
+          "reset_pull_mps2": 50.2222222833333,
+          "ticks_after_detachment": 11
+        },
+        "held": {
+          "anchor_samples": 18,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.416666666666667,
+          "entry_count": 1,
+          "grappling": true,
+          "last_point_velocity": {
+            "x": 1.19999992847443,
+            "y": 0.149992689490318,
+            "z": 0
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 7.85803422e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.0049877166748,
+          "maximum_old_static_velocity_error_mps": 0,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 4.7685171011e-7,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 60,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": true,
+          "terminal_count": 0,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 18
+        },
+        "passed": true,
+        "rate": 60,
+        "reason": "target_destroyed",
+        "released": {
+          "anchor_samples": 30,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.6,
+          "entry_count": 1,
+          "grappling": true,
+          "last_point_velocity": {
+            "x": 1.20000064373016,
+            "y": 0.149964079260826,
+            "z": 0
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 7.85803422e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.0049877166748,
+          "maximum_old_static_velocity_error_mps": 0,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 4.7776757128e-7,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 60,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": false,
+          "terminal_count": 0,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 30
+        },
+        "terminal": {
+          "anchor_samples": 30,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.6,
+          "entry_count": 1,
+          "grappling": false,
+          "last_point_velocity": {
+            "x": 1.20000064373016,
+            "y": 0.149964079260826,
+            "z": 0
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 7.85803422e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.0049877166748,
+          "maximum_old_static_velocity_error_mps": 0,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 4.7776757128e-7,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 60,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": false,
+          "terminal_count": 1,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 30
+        }
+      },
+      {
+        "anchor_displacement_m": 0.481460452079773,
+        "body_type": "rigid",
+        "case": "native_rigid",
+        "clock": {
+          "actual_elapsed": 0.6,
+          "actual_pull_mps2": 28.0000002,
+          "clock_matches": true,
+          "curve_matches": true,
+          "elapsed_at_detachment": 0.416666666666667,
+          "elapsed_before_release": 0.416666666666667,
+          "expected_elapsed": 0.6,
+          "expected_pull_mps2": 28.0000002,
+          "forced_reset_would_fail": true,
+          "release_physics_step": 19,
+          "release_request_step": 18,
+          "reset_pull_mps2": 50.2222222833333,
+          "ticks_after_detachment": 11
+        },
+        "held": {
+          "anchor_samples": 18,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.416666666666667,
+          "entry_count": 1,
+          "grappling": true,
+          "last_point_velocity": {
+            "x": 1.23983931541443,
+            "y": 0.14999994635582,
+            "z": -0.00878336932510138
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 7.85803422e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.04479658603668,
+          "maximum_old_static_velocity_error_mps": 0,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 4.77069932e-7,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 60,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": true,
+          "terminal_count": 0,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 18
+        },
+        "passed": true,
+        "rate": 60,
+        "reason": "target_destroyed",
+        "released": {
+          "anchor_samples": 30,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.6,
+          "entry_count": 1,
+          "grappling": true,
+          "last_point_velocity": {
+            "x": 1.23929715156555,
+            "y": 0.14999994635582,
+            "z": -0.0183513853698969
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 7.85803422e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.04479658603668,
+          "maximum_old_static_velocity_error_mps": 0,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 4.7776757128e-7,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 60,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": false,
+          "terminal_count": 0,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 30
+        },
+        "terminal": {
+          "anchor_samples": 30,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.6,
+          "entry_count": 1,
+          "grappling": false,
+          "last_point_velocity": {
+            "x": 1.23929715156555,
+            "y": 0.14999994635582,
+            "z": -0.0183513853698969
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 7.85803422e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.04479658603668,
+          "maximum_old_static_velocity_error_mps": 0,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 4.7776757128e-7,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 60,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": false,
+          "terminal_count": 1,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 30
+        }
+      },
+      {
+        "case": "clock",
+        "clock": {
+          "actual_elapsed": 0.6,
+          "actual_pull_mps2": 14.0000001,
+          "clock_matches": true,
+          "curve_matches": true,
+          "elapsed_at_detachment": 0.416666666666667,
+          "elapsed_before_release": 0.416666666666667,
+          "expected_elapsed": 0.6,
+          "expected_pull_mps2": 14.0000001,
+          "forced_reset_would_fail": true,
+          "release_physics_step": 9,
+          "release_request_step": 8,
+          "reset_pull_mps2": 25.1111111416667,
+          "ticks_after_detachment": 11
+        },
+        "passed": true,
+        "rate": 60
+      },
+      {
+        "actual_point_speed_mps": 7.5,
+        "case": "response_tighten",
+        "definition_validated": true,
+        "incoming_threshold_mps": 5,
+        "observed_active": false,
+        "passed": true,
+        "previous_sample_retained_for_classification": true,
+        "previous_threshold_mps": 10,
+        "rate": 120,
+        "reason": "anchor_discontinuity",
+        "terminal_count": 1
+      },
+      {
+        "actual_point_speed_mps": 7.5,
+        "case": "response_relax",
+        "definition_validated": true,
+        "incoming_threshold_mps": 10,
+        "observed_active": true,
+        "passed": true,
+        "previous_sample_retained_for_classification": true,
+        "previous_threshold_mps": 5,
+        "rate": 120,
+        "reason": "none",
+        "terminal_count": 0
+      },
+      {
+        "atomic_original_and_baseline": true,
+        "case": "foreign_motor",
+        "expected_status": 9,
+        "extra": {
+          "foreign_baseline_unchanged": true,
+          "foreign_completed_step": true,
+          "foreign_completed_step_matches": true,
+          "foreign_contiguous_commits": true,
+          "owned_restored_positive_commit": true
+        },
+        "observed_status": 9,
+        "passed": true,
+        "prepare_positive_control": true,
+        "rate": 120
+      },
+      {
+        "atomic_original_and_baseline": true,
+        "case": "wrong_completed_step",
+        "expected_status": 9,
+        "extra": {
+          "real_later_commit_succeeded": true
+        },
+        "observed_status": 9,
+        "passed": true,
+        "prepare_positive_control": true,
+        "rate": 120
+      },
+      {
+        "anchor_displacement_m": 0.499395340681076,
+        "body_type": "animatable",
+        "case": "native_animatable",
+        "clock": {
+          "actual_elapsed": 0.6,
+          "actual_pull_mps2": 28.0000002,
+          "clock_matches": true,
+          "curve_matches": true,
+          "elapsed_at_detachment": 0.408333333333333,
+          "elapsed_before_release": 0.408333333333333,
+          "expected_elapsed": 0.6,
+          "expected_pull_mps2": 28.0000002,
+          "forced_reset_would_fail": true,
+          "release_physics_step": 31,
+          "release_request_step": 30,
+          "reset_pull_mps2": 49.7777778416667,
+          "ticks_after_detachment": 23
+        },
+        "held": {
+          "anchor_samples": 30,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.408333333333333,
+          "entry_count": 1,
+          "grappling": true,
+          "last_point_velocity": {
+            "x": 1.98952317237854,
+            "y": 0.15002129971981,
+            "z": -0.01719119399786
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 6.17001205e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.7927919626236,
+          "maximum_old_static_velocity_error_mps": 1.04479968547821,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 3.332000986e-8,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 120,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": true,
+          "terminal_count": 0,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 30
+        },
+        "passed": true,
+        "rate": 120,
+        "reason": "target_destroyed",
+        "released": {
+          "anchor_samples": 54,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.6,
+          "entry_count": 1,
+          "grappling": true,
+          "last_point_velocity": {
+            "x": 1.98802053928375,
+            "y": 0.15002129971981,
+            "z": -0.0347342193126678
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 6.17001205e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.7927919626236,
+          "maximum_old_static_velocity_error_mps": 1.04479968547821,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 0.0000028493575428,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 120,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": false,
+          "terminal_count": 0,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 54
+        },
+        "terminal": {
+          "anchor_samples": 54,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.6,
+          "entry_count": 1,
+          "grappling": false,
+          "last_point_velocity": {
+            "x": 1.98802053928375,
+            "y": 0.15002129971981,
+            "z": -0.0347342193126678
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 6.17001205e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.7927919626236,
+          "maximum_old_static_velocity_error_mps": 1.04479968547821,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 0.0000028493575428,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 120,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": false,
+          "terminal_count": 1,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 54
+        }
+      },
+      {
+        "anchor_displacement_m": 0.483736425638199,
+        "body_type": "character",
+        "case": "native_character",
+        "clock": {
+          "actual_elapsed": 0.6,
+          "actual_pull_mps2": 28.0000002,
+          "clock_matches": true,
+          "curve_matches": true,
+          "elapsed_at_detachment": 0.408333333333333,
+          "elapsed_before_release": 0.408333333333333,
+          "expected_elapsed": 0.6,
+          "expected_pull_mps2": 28.0000002,
+          "forced_reset_would_fail": true,
+          "release_physics_step": 32,
+          "release_request_step": 31,
+          "reset_pull_mps2": 49.7777778416667,
+          "ticks_after_detachment": 23
+        },
+        "held": {
+          "anchor_samples": 31,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.408333333333333,
+          "entry_count": 1,
+          "grappling": true,
+          "last_point_velocity": {
+            "x": 1.20000064373016,
+            "y": 0.15002129971981,
+            "z": 0
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 6.17001205e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.00499057769775,
+          "maximum_old_static_velocity_error_mps": 0,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 1.86264514e-9,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 120,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": true,
+          "terminal_count": 0,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 31
+        },
+        "passed": true,
+        "rate": 120,
+        "reason": "target_destroyed",
+        "released": {
+          "anchor_samples": 55,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.6,
+          "entry_count": 1,
+          "grappling": true,
+          "last_point_velocity": {
+            "x": 1.19999873638153,
+            "y": 0.15002129971981,
+            "z": 0
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 6.17001205e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.00499224662781,
+          "maximum_old_static_velocity_error_mps": 0,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 4.7869616537e-7,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 120,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": false,
+          "terminal_count": 0,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 55
+        },
+        "terminal": {
+          "anchor_samples": 55,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.6,
+          "entry_count": 1,
+          "grappling": false,
+          "last_point_velocity": {
+            "x": 1.19999873638153,
+            "y": 0.15002129971981,
+            "z": 0
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 6.17001205e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.00499224662781,
+          "maximum_old_static_velocity_error_mps": 0,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 4.7869616537e-7,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 120,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": false,
+          "terminal_count": 1,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 55
+        }
+      },
+      {
+        "anchor_displacement_m": 0.490487307310104,
+        "body_type": "rigid",
+        "case": "native_rigid",
+        "clock": {
+          "actual_elapsed": 0.6,
+          "actual_pull_mps2": 28.0000002,
+          "clock_matches": true,
+          "curve_matches": true,
+          "elapsed_at_detachment": 0.408333333333333,
+          "elapsed_before_release": 0.408333333333333,
+          "expected_elapsed": 0.6,
+          "expected_pull_mps2": 28.0000002,
+          "forced_reset_would_fail": true,
+          "release_physics_step": 31,
+          "release_request_step": 30,
+          "reset_pull_mps2": 49.7777778416667,
+          "ticks_after_detachment": 23
+        },
+        "held": {
+          "anchor_samples": 30,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.408333333333333,
+          "entry_count": 1,
+          "grappling": true,
+          "last_point_velocity": {
+            "x": 1.23982381820679,
+            "y": 0.14999994635582,
+            "z": -0.0091900797560811
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 6.17001205e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.04479658603668,
+          "maximum_old_static_velocity_error_mps": 0,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 3.071953003e-8,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 120,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": true,
+          "terminal_count": 0,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 30
+        },
+        "passed": true,
+        "rate": 120,
+        "reason": "target_destroyed",
+        "released": {
+          "anchor_samples": 54,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.6,
+          "entry_count": 1,
+          "grappling": true,
+          "last_point_velocity": {
+            "x": 1.23926508426666,
+            "y": 0.14999994635582,
+            "z": -0.0187651477754116
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 6.17001205e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.04479658603668,
+          "maximum_old_static_velocity_error_mps": 0,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 0.00000257514307122,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 120,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": false,
+          "terminal_count": 0,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 54
+        },
+        "terminal": {
+          "anchor_samples": 54,
+          "attachment_id": "player.grapple.attachment_1",
+          "elapsed_seconds": 0.6,
+          "entry_count": 1,
+          "grappling": false,
+          "last_point_velocity": {
+            "x": 1.23926508426666,
+            "y": 0.14999994635582,
+            "z": -0.0187651477754116
+          },
+          "marker_resets": 1,
+          "maximum_anchor_error_m": 0,
+          "maximum_carry_error_m": 6.17001205e-9,
+          "maximum_commits": 1,
+          "maximum_marker_error_m": 0,
+          "maximum_native_point_speed_mps": 1.04479658603668,
+          "maximum_old_static_velocity_error_mps": 0,
+          "maximum_point_velocity_error_mps": 0,
+          "maximum_rope_end_error_m": 0.00000257514307122,
+          "missing_visual_sample_count": 0,
+          "overlap_count": 0,
+          "rate": 120,
+          "revision": 1,
+          "rope_resets": 1,
+          "same_occurrence": true,
+          "sticking": false,
+          "terminal_count": 1,
+          "terminal_visuals_clear": true,
+          "visible_visual_samples": 54
+        }
+      },
+      {
+        "case": "clock",
+        "clock": {
+          "actual_elapsed": 0.6,
+          "actual_pull_mps2": 14.0000001,
+          "clock_matches": true,
+          "curve_matches": true,
+          "elapsed_at_detachment": 0.408333333333333,
+          "elapsed_before_release": 0.408333333333333,
+          "expected_elapsed": 0.6,
+          "expected_pull_mps2": 14.0000001,
+          "forced_reset_would_fail": true,
+          "release_physics_step": 11,
+          "release_request_step": 10,
+          "reset_pull_mps2": 24.8888889208333,
+          "ticks_after_detachment": 23
+        },
+        "passed": true,
+        "rate": 120
+      }
+    ]
+  },
+  "batch_count": 10,
+  "policies": [
+    {
+      "clock": {
+        "actual_elapsed": 0.6,
+        "actual_pull_mps2": 28.0000002,
+        "clock_matches": true,
+        "curve_matches": true,
+        "elapsed_at_detachment": 0.416666666666667,
+        "elapsed_before_release": 0.416666666666667,
+        "expected_elapsed": 0.6,
+        "expected_pull_mps2": 28.0000002,
+        "forced_reset_would_fail": true,
+        "release_physics_step": 19,
+        "release_request_step": 18,
+        "reset_pull_mps2": 50.2222222833333,
+        "ticks_after_detachment": 11
+      },
+      "contact_velocity": {
+        "x": 1.33931005001068,
+        "y": 0.150003418326378,
+        "z": -0.22452412545681
+      },
+      "held": {
+        "anchor_samples": 18,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.416666666666667,
+        "entry_count": 1,
+        "grappling": true,
+        "last_point_velocity": {
+          "x": 1.33931005001068,
+          "y": 0.150003418326378,
+          "z": -0.22452412545681
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 7.85803422e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 4.77069932e-7,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 60,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": true,
+        "terminal_count": 0,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 18
+      },
+      "passed": true,
+      "policy": "ordinary",
+      "rate": 60,
+      "reason": "target_destroyed",
+      "released_after_old_target_destroyed": {
+        "anchor_samples": 30,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.6,
+        "entry_count": 1,
+        "grappling": true,
+        "last_point_velocity": {
+          "x": 1.33711683750153,
+          "y": 0.150003418326378,
+          "z": -0.2500319480896
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 7.85803422e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 4.8054801027e-7,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 60,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": false,
+        "terminal_count": 0,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 30
+      },
+      "stand_off_velocity": {
+        "x": 1.4294205904007,
+        "y": 0.150003418326378,
+        "z": -0.227980598807335
+      },
+      "terminal": {
+        "anchor_samples": 30,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.6,
+        "entry_count": 1,
+        "grappling": false,
+        "last_point_velocity": {
+          "x": 1.33711683750153,
+          "y": 0.150003418326378,
+          "z": -0.2500319480896
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 7.85803422e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 4.8054801027e-7,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 60,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": false,
+        "terminal_count": 1,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 30
+      }
+    },
+    {
+      "clock": {
+        "actual_elapsed": 0.6,
+        "actual_pull_mps2": 28.0000002,
+        "clock_matches": true,
+        "curve_matches": true,
+        "elapsed_at_detachment": 0.416666666666667,
+        "elapsed_before_release": 0.416666666666667,
+        "expected_elapsed": 0.6,
+        "expected_pull_mps2": 28.0000002,
+        "forced_reset_would_fail": true,
+        "release_physics_step": 19,
+        "release_request_step": 18,
+        "reset_pull_mps2": 50.2222222833333,
+        "ticks_after_detachment": 11
+      },
+      "contact_velocity": {
+        "x": 1.33931005001068,
+        "y": 0.150003418326378,
+        "z": -0.22452412545681
+      },
+      "held": {
+        "anchor_samples": 18,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.416666666666667,
+        "entry_count": 1,
+        "grappling": true,
+        "last_point_velocity": {
+          "x": 1.33931005001068,
+          "y": 0.150003418326378,
+          "z": -0.22452412545681
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 7.85803422e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 4.77069932e-7,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 60,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": true,
+        "terminal_count": 0,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 18
+      },
+      "passed": true,
+      "policy": "static",
+      "rate": 60,
+      "reason": "target_invalidated",
+      "released_after_old_target_destroyed": {
+        "anchor_samples": 30,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.6,
+        "entry_count": 1,
+        "grappling": true,
+        "last_point_velocity": {
+          "x": 1.33711683750153,
+          "y": 0.150003418326378,
+          "z": -0.2500319480896
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 7.85803422e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 4.8054801027e-7,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 60,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": false,
+        "terminal_count": 0,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 30
+      },
+      "stand_off_velocity": {
+        "x": 1.4294205904007,
+        "y": 0.150003418326378,
+        "z": -0.227980598807335
+      },
+      "terminal": {
+        "anchor_samples": 30,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.6,
+        "entry_count": 1,
+        "grappling": false,
+        "last_point_velocity": {
+          "x": 1.33711683750153,
+          "y": 0.150003418326378,
+          "z": -0.2500319480896
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 7.85803422e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 4.8054801027e-7,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 60,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": false,
+        "terminal_count": 1,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 30
+      }
+    },
+    {
+      "clock": {
+        "actual_elapsed": 0.6,
+        "actual_pull_mps2": 28.0000002,
+        "clock_matches": true,
+        "curve_matches": true,
+        "elapsed_at_detachment": 0.416666666666667,
+        "elapsed_before_release": 0.416666666666667,
+        "expected_elapsed": 0.6,
+        "expected_pull_mps2": 28.0000002,
+        "forced_reset_would_fail": true,
+        "release_physics_step": 19,
+        "release_request_step": 18,
+        "reset_pull_mps2": 50.2222222833333,
+        "ticks_after_detachment": 11
+      },
+      "contact_velocity": {
+        "x": 1.33931005001068,
+        "y": 0.150003418326378,
+        "z": -0.22452412545681
+      },
+      "held": {
+        "anchor_samples": 18,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.416666666666667,
+        "entry_count": 1,
+        "grappling": true,
+        "last_point_velocity": {
+          "x": 1.33931005001068,
+          "y": 0.150003418326378,
+          "z": -0.22452412545681
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 7.85803422e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 4.77069932e-7,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 60,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": true,
+        "terminal_count": 0,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 18
+      },
+      "passed": true,
+      "policy": "moving",
+      "rate": 60,
+      "reason": "scope_mismatch",
+      "released_after_old_target_destroyed": {
+        "anchor_samples": 30,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.6,
+        "entry_count": 1,
+        "grappling": true,
+        "last_point_velocity": {
+          "x": 1.33711683750153,
+          "y": 0.150003418326378,
+          "z": -0.2500319480896
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 7.85803422e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 4.8054801027e-7,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 60,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": false,
+        "terminal_count": 0,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 30
+      },
+      "stand_off_velocity": {
+        "x": 1.4294205904007,
+        "y": 0.150003418326378,
+        "z": -0.227980598807335
+      },
+      "terminal": {
+        "anchor_samples": 30,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.6,
+        "entry_count": 1,
+        "grappling": false,
+        "last_point_velocity": {
+          "x": 1.33711683750153,
+          "y": 0.150003418326378,
+          "z": -0.2500319480896
+        },
+        "marker_resets": 2,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 7.85803422e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 4.8054801027e-7,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 60,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": false,
+        "terminal_count": 1,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 30
+      }
+    },
+    {
+      "clock": {
+        "actual_elapsed": 0.6,
+        "actual_pull_mps2": 28.0000002,
+        "clock_matches": true,
+        "curve_matches": true,
+        "elapsed_at_detachment": 0.408333333333333,
+        "elapsed_before_release": 0.408333333333333,
+        "expected_elapsed": 0.6,
+        "expected_pull_mps2": 28.0000002,
+        "forced_reset_would_fail": true,
+        "release_physics_step": 32,
+        "release_request_step": 31,
+        "reset_pull_mps2": 49.7777778416667,
+        "ticks_after_detachment": 23
+      },
+      "contact_velocity": {
+        "x": 1.33927690982819,
+        "y": 0.15003202855587,
+        "z": -0.225055202841759
+      },
+      "held": {
+        "anchor_samples": 31,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.408333333333333,
+        "entry_count": 1,
+        "grappling": true,
+        "last_point_velocity": {
+          "x": 1.33927690982819,
+          "y": 0.15003202855587,
+          "z": -0.225055202841759
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 6.17001205e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 3.332000986e-8,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 120,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": true,
+        "terminal_count": 0,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 31
+      },
+      "passed": true,
+      "policy": "ordinary",
+      "rate": 120,
+      "reason": "target_destroyed",
+      "released_after_old_target_destroyed": {
+        "anchor_samples": 55,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.6,
+        "entry_count": 1,
+        "grappling": true,
+        "last_point_velocity": {
+          "x": 1.33705604076386,
+          "y": 0.15003202855587,
+          "z": -0.250561237335205
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 6.17001205e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 4.8054801027e-7,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 120,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": false,
+        "terminal_count": 0,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 55
+      },
+      "stand_off_velocity": {
+        "x": 1.42938125133514,
+        "y": 0.15003202855587,
+        "z": -0.228588566184044
+      },
+      "terminal": {
+        "anchor_samples": 55,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.6,
+        "entry_count": 1,
+        "grappling": false,
+        "last_point_velocity": {
+          "x": 1.33705604076386,
+          "y": 0.15003202855587,
+          "z": -0.250561237335205
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 6.17001205e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 4.8054801027e-7,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 120,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": false,
+        "terminal_count": 1,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 55
+      }
+    },
+    {
+      "clock": {
+        "actual_elapsed": 0.6,
+        "actual_pull_mps2": 28.0000002,
+        "clock_matches": true,
+        "curve_matches": true,
+        "elapsed_at_detachment": 0.408333333333333,
+        "elapsed_before_release": 0.408333333333333,
+        "expected_elapsed": 0.6,
+        "expected_pull_mps2": 28.0000002,
+        "forced_reset_would_fail": true,
+        "release_physics_step": 32,
+        "release_request_step": 31,
+        "reset_pull_mps2": 49.7777778416667,
+        "ticks_after_detachment": 23
+      },
+      "contact_velocity": {
+        "x": 1.33927690982819,
+        "y": 0.15003202855587,
+        "z": -0.225055202841759
+      },
+      "held": {
+        "anchor_samples": 31,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.408333333333333,
+        "entry_count": 1,
+        "grappling": true,
+        "last_point_velocity": {
+          "x": 1.33927690982819,
+          "y": 0.15003202855587,
+          "z": -0.225055202841759
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 6.17001205e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 3.332000986e-8,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 120,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": true,
+        "terminal_count": 0,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 31
+      },
+      "passed": true,
+      "policy": "static",
+      "rate": 120,
+      "reason": "target_invalidated",
+      "released_after_old_target_destroyed": {
+        "anchor_samples": 55,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.6,
+        "entry_count": 1,
+        "grappling": true,
+        "last_point_velocity": {
+          "x": 1.33705604076386,
+          "y": 0.15003202855587,
+          "z": -0.250561237335205
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 6.17001205e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 4.8054801027e-7,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 120,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": false,
+        "terminal_count": 0,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 55
+      },
+      "stand_off_velocity": {
+        "x": 1.42938125133514,
+        "y": 0.15003202855587,
+        "z": -0.228588566184044
+      },
+      "terminal": {
+        "anchor_samples": 55,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.6,
+        "entry_count": 1,
+        "grappling": false,
+        "last_point_velocity": {
+          "x": 1.33705604076386,
+          "y": 0.15003202855587,
+          "z": -0.250561237335205
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 6.17001205e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 4.8054801027e-7,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 120,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": false,
+        "terminal_count": 1,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 55
+      }
+    },
+    {
+      "clock": {
+        "actual_elapsed": 0.6,
+        "actual_pull_mps2": 28.0000002,
+        "clock_matches": true,
+        "curve_matches": true,
+        "elapsed_at_detachment": 0.408333333333333,
+        "elapsed_before_release": 0.408333333333333,
+        "expected_elapsed": 0.6,
+        "expected_pull_mps2": 28.0000002,
+        "forced_reset_would_fail": true,
+        "release_physics_step": 32,
+        "release_request_step": 31,
+        "reset_pull_mps2": 49.7777778416667,
+        "ticks_after_detachment": 23
+      },
+      "contact_velocity": {
+        "x": 1.33927690982819,
+        "y": 0.15003202855587,
+        "z": -0.225055202841759
+      },
+      "held": {
+        "anchor_samples": 31,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.408333333333333,
+        "entry_count": 1,
+        "grappling": true,
+        "last_point_velocity": {
+          "x": 1.33927690982819,
+          "y": 0.15003202855587,
+          "z": -0.225055202841759
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 6.17001205e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 3.332000986e-8,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 120,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": true,
+        "terminal_count": 0,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 31
+      },
+      "passed": true,
+      "policy": "moving",
+      "rate": 120,
+      "reason": "scope_mismatch",
+      "released_after_old_target_destroyed": {
+        "anchor_samples": 55,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.6,
+        "entry_count": 1,
+        "grappling": true,
+        "last_point_velocity": {
+          "x": 1.33705604076386,
+          "y": 0.15003202855587,
+          "z": -0.250561237335205
+        },
+        "marker_resets": 1,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 6.17001205e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 4.8054801027e-7,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 120,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": false,
+        "terminal_count": 0,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 55
+      },
+      "stand_off_velocity": {
+        "x": 1.42938125133514,
+        "y": 0.15003202855587,
+        "z": -0.228588566184044
+      },
+      "terminal": {
+        "anchor_samples": 55,
+        "attachment_id": "player.grapple.attachment_2",
+        "elapsed_seconds": 0.6,
+        "entry_count": 1,
+        "grappling": false,
+        "last_point_velocity": {
+          "x": 1.33705604076386,
+          "y": 0.15003202855587,
+          "z": -0.250561237335205
+        },
+        "marker_resets": 2,
+        "maximum_anchor_error_m": 0,
+        "maximum_carry_error_m": 6.17001205e-9,
+        "maximum_commits": 1,
+        "maximum_marker_error_m": 0,
+        "maximum_native_point_speed_mps": 0,
+        "maximum_old_static_velocity_error_mps": 0,
+        "maximum_point_velocity_error_mps": 0,
+        "maximum_rope_end_error_m": 4.8054801027e-7,
+        "missing_visual_sample_count": 0,
+        "overlap_count": 0,
+        "rate": 120,
+        "revision": 1,
+        "rope_resets": 1,
+        "same_occurrence": true,
+        "sticking": false,
+        "terminal_count": 1,
+        "terminal_visuals_clear": true,
+        "visible_visual_samples": 55
+      }
+    }
+  ],
+  "cleanup": {
+    "result": {
+      "physics_hz": 60,
+      "right_mouse_pressed": false
+    },
+    "source": "game"
+  },
+  "inputs": {
+    "actions": {
+      "fire_grapple": false,
+      "jump": false,
+      "move_back": false,
+      "move_forward": false,
+      "move_left": false,
+      "move_right": false
+    },
+    "op": "input_state",
+    "source": "game"
+  },
+  "logs": {
+    "source": "game",
+    "lines": [
+      {
+        "level": "info",
+        "run_id": "r188028225-43",
+        "source": "game",
+        "text": "[godot_ai game_helper] registered mcp capture (debugger active=true, logger=true)\n"
+      }
+    ],
+    "total_count": 1,
+    "returned_count": 1,
+    "offset": 0,
+    "limit": 100,
+    "has_more": false,
+    "run_id": "r188028225-43",
+    "is_running": true,
+    "dropped_count": 0,
+    "stale_run_id": false,
+    "current_run_id": "r188028225-43",
+    "helper_live": true,
+    "session_active": true,
+    "game_status": {
+      "active": true,
+      "editor_log_cursor": 5,
+      "elapsed_msec": 20587,
+      "helper_expected": true,
+      "helper_live": true,
+      "ready": true,
+      "ready_wait_msec": 20000,
+      "run_started_msec": 188028224,
+      "run_token": 42,
+      "session_active": true,
+      "status": "live"
+    }
+  },
+  "editor_since_cursor_5": {
+    "source": "editor",
+    "lines": [],
+    "total_count": 5,
+    "returned_count": 0,
+    "offset": 0,
+    "limit": 30,
+    "has_more": false,
+    "run_id": "",
+    "is_running": false,
+    "dropped_count": 0,
+    "stale_run_id": false,
+    "cursor": 5,
+    "oldest_cursor": 0,
+    "next_cursor": 5,
+    "appended_total": 5,
+    "truncated": false
+  },
+  "stop": {
+    "readiness_after": "ready",
+    "reason": "Play/stop is a runtime action",
+    "stopped": true,
+    "undoable": false,
+    "was_running": true
+  },
+  "state": {
+    "current_scene": "res://game/levels/content/traversal_validation/traversal_validation_route.tscn",
+    "game_capture_ready": false,
+    "game_status": {
+      "active": false,
+      "editor_log_cursor": 5,
+      "elapsed_msec": 0,
+      "helper_expected": true,
+      "helper_live": false,
+      "ready": false,
+      "ready_wait_msec": 20000,
+      "run_started_msec": 188028224,
+      "run_token": 42,
+      "session_active": false,
+      "status": "stopped"
+    },
+    "godot_version": "4.7.2-stable (official)",
+    "helper_live": false,
+    "is_playing": false,
+    "project_name": "Test Game",
+    "readiness": "ready",
+    "session_active": false
+  }
+}

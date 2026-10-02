@@ -272,6 +272,48 @@ func test_grapple_start_from_a_wall_run_transitions_once_without_a_stale_wall() 
 # --- Grapple-assisted wall sticking (AC 6, 7; Tasks 6.1, 6.2, 7.1-7.4) -------
 
 
+func test_low_speed_grapple_assisted_stick_keeps_zero_baseline_hold_and_release_at_both_rates() -> void:
+	var configured_player: CharacterBody3D = PLAYER_SCENE.instantiate()
+	var minimum := float(configured_player.get("wall_run_min_horizontal_speed"))
+	var maximum := float(configured_player.get("wall_run_max_entry_speed"))
+	configured_player.free()
+	for tick_rate in [60, 120]:
+		Engine.physics_ticks_per_second = tick_rate
+		for initial_speed in [0.0, minimum * 0.5]:
+			var label := "initial %s m/s @ %d Hz" % [initial_speed, tick_rate]
+			var report := await _wall_stick_report(WallStickExit.RELEASE, tick_rate, initial_speed)
+			var entry_velocity: Vector3 = report["entry_velocity"]
+			assert_true(report["ever_wall_sticking"], label)
+			assert_lt(Vector3(entry_velocity.x, 0.0, entry_velocity.z).length(), minimum, "entry was not genuinely subminimum: %s" % label)
+			assert_gt(entry_velocity.length(), 0.0, "the real grapple pull must be present: %s" % label)
+			assert_lte(entry_velocity.length(), maximum, label)
+			assert_false(report["entry_run_gate_open"], label)
+			assert_true(report["entry_speed_gate_open"], label)
+			assert_eq(report["entry_speed_reason"], &"pass", label)
+			assert_eq(report["transition_counts"].get(LOCOMOTION_WALL_STICK, 0), 1, label)
+			assert_eq(report["transition_counts"].get(LOCOMOTION_WALL_RUN, 0), 0, label)
+			assert_almost_eq((report["first_hold_initial_velocity"] as Vector3).length(), 0.0, 0.00001, "zero next-frame baseline: %s" % label)
+			assert_eq(report["held_steps"], 18, label)
+			assert_eq(report["held_steps"], report["hold_constraint_applied_count"], label)
+			assert_almost_eq(report["maximum_hold_speed"], 0.0, 0.00001, label)
+			assert_lte(report["maximum_hold_position_drift"], 0.001, label)
+			assert_almost_eq(report["maximum_latch_position_drift"], 0.0, 0.00001, label)
+			assert_true(report["exited"], label)
+			assert_eq(report["transition_counts"].get(LOCOMOTION_AIRBORNE, 0), 1, label)
+			assert_eq(report["post_exit_state"], LOCOMOTION_AIRBORNE, label)
+			assert_false(report["still_wall_sticking"], label)
+			assert_false(report["hold_request_on_exit"], label)
+			assert_eq(report["hold_request_after_exit_count"], 0, label)
+			assert_eq(report["terminal_reason"], GrappleEndReason.Reason.RELEASE, label)
+			assert_eq(report["terminal_count"], 1, label)
+			assert_true(report["wall_cleared_before_terminal_signal"], label)
+			assert_true(report["duplicate_terminal_same"], label)
+			assert_almost_eq((report["exit_velocity"] - report["pre_exit_velocity"]).length(), 0.0, 0.001, label)
+			assert_eq(report["commit_count_max"], 1, label)
+			print("[wall-stick-upper-low-speed] ", label, " -> entry=", entry_velocity, " horizontal=", Vector3(entry_velocity.x, 0.0, entry_velocity.z).length(), " total=", entry_velocity.length(), " baseline=", report["first_hold_initial_velocity"], " holds=", report["held_steps"], " stick_entries=", report["transition_counts"].get(LOCOMOTION_WALL_STICK, 0), " release_entries=", report["transition_counts"].get(LOCOMOTION_AIRBORNE, 0), " commits=", report["commit_count_max"])
+	Engine.physics_ticks_per_second = _saved_physics_ticks_per_second
+
+
 func test_wall_stick_holds_through_the_motor_constraint_and_exits_on_release() -> void:
 	var report := await _wall_stick_report(WallStickExit.RELEASE)
 	assert_true(report["ever_wall_sticking"], "wall stick never engaged")
@@ -308,9 +350,9 @@ func test_wall_stick_lost_wall_exits_once_and_keeps_termination_idempotent() -> 
 	assert_eq(report["terminal_count"], 1, "grapple termination must stay idempotent")
 	assert_true(report["wall_cleared_before_terminal_signal"])
 	assert_true(report["duplicate_terminal_same"])
-	# Task 7.1 reason choice: the lost required wall contact cancels the
-	# wall-stick flow through the existing `STATE_CANCELLATION` terminal.
-	assert_eq(report["terminal_reason"], GrappleEndReason.Reason.STATE_CANCELLATION)
+	# Approved re-anchor: this physical wall is now the attachment target;
+	# its destruction reports the actual cause, not generic state cancellation.
+	assert_eq(report["terminal_reason"], GrappleEndReason.Reason.TARGET_DESTROYED)
 	assert_eq(report["commit_count_max"], 1)
 	print("[1-9-stick-loss] ", report)
 
@@ -382,11 +424,11 @@ func test_wall_stick_cannot_jump_after_the_required_wall_is_lost() -> void:
 	for tick_rate in [60, 120]:
 		Engine.physics_ticks_per_second = tick_rate
 		var report := await _wall_stick_report(WallStickExit.WALL_LOST_WITH_JUMP, tick_rate)
-		assert_true(report["lost_frame_seen_while_sticking"], "no lost-wall jump window @ %d Hz" % tick_rate)
+		assert_true(report["lost_frame_seen_while_sticking"], "fresh jump must be attempted against destroyed support @ %d Hz" % tick_rate)
 		assert_true(report["exited"], "%d Hz" % tick_rate)
 		assert_eq(report["jump_count"], 0, "wall-stick jump used a lost wall @ %d Hz" % tick_rate)
 		assert_eq(report["post_exit_state"], LOCOMOTION_AIRBORNE)
-		assert_eq(report["terminal_reason"], GrappleEndReason.Reason.STATE_CANCELLATION)
+		assert_eq(report["terminal_reason"], GrappleEndReason.Reason.TARGET_DESTROYED)
 		assert_eq(report["terminal_count"], 1)
 		assert_eq(report["hold_request_after_exit_count"], 0)
 		assert_eq(report["commit_count_max"], 1)
@@ -428,14 +470,14 @@ func test_wall_stick_exits_instead_of_using_a_switched_walls_old_normal() -> voi
 		assert_true(report["exited"], "a stick remained pinned to the old wall @ %d Hz" % tick_rate)
 		assert_false(report["still_wall_sticking"])
 		assert_eq(report["post_exit_state"], LOCOMOTION_AIRBORNE)
-		assert_eq(report["terminal_reason"], GrappleEndReason.Reason.STATE_CANCELLATION)
+		assert_eq(report["terminal_reason"], GrappleEndReason.Reason.TARGET_DESTROYED)
 		assert_eq(report["terminal_count"], 1)
 		assert_eq(report["hold_request_after_exit_count"], 0)
 		assert_eq(report["commit_count_max"], 1)
 	Engine.physics_ticks_per_second = _saved_physics_ticks_per_second
 
 
-func test_wall_stick_jump_uses_the_authored_up_away_and_along_wall_motion() -> void:
+func test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion() -> void:
 	var report := await _wall_stick_report(WallStickExit.JUMP)
 	assert_true(report["ever_wall_sticking"], "wall stick never engaged")
 	assert_true(report["exited"])
@@ -448,7 +490,7 @@ func test_wall_stick_jump_uses_the_authored_up_away_and_along_wall_motion() -> v
 	assert_eq(report["commit_count_max"], 1)
 	assert_almost_eq(report["exit_velocity"].y, 5.5, 0.02)
 	assert_almost_eq(report["exit_velocity"].z, 8.0, 0.1, "authored away-from-wall speed changed")
-	assert_almost_eq(report["exit_velocity"].x, 10.0, 0.1, "authored along-wall speed changed")
+	assert_almost_eq(report["exit_velocity"].x, 0.0, 0.001, "stick jump must remove horizontal tangent")
 	print("[1-9-stick-jump] ", report)
 
 	var release_and_jump_report := await _wall_stick_report(WallStickExit.JUMP_WITH_GRAPPLE_RELEASE)
@@ -463,7 +505,7 @@ func test_wall_stick_jump_uses_the_authored_up_away_and_along_wall_motion() -> v
 	assert_eq(release_and_jump_report["hold_request_after_exit_count"], 0)
 	assert_almost_eq(release_and_jump_report["exit_velocity"].y, 5.5, 0.02)
 	assert_almost_eq(release_and_jump_report["exit_velocity"].z, 8.0, 0.1)
-	assert_almost_eq(release_and_jump_report["exit_velocity"].x, 10.0, 0.1)
+	assert_almost_eq(release_and_jump_report["exit_velocity"].x, 0.0, 0.001)
 
 
 func test_wall_stick_attachment_invalidation_ends_the_hold_with_a_typed_reason() -> void:
@@ -1018,7 +1060,7 @@ func _wall_stick_outward_entry_report() -> Dictionary:
 		GrappleController.CommitStatus.SUCCESS
 	)
 	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)
-	input_source.inject_movement_strengths(0.0, 1.0, 0.0, 0.0)
+	input_source.inject_movement_strengths(0.0, 1.0, 1.0, 0.0)
 	for _i in range(24):
 		var contact_before_step: ContactFrame = motor.get_previous_contact_frame()
 		if contact_before_step != null and contact_before_step.has_wall_contact:
@@ -1056,7 +1098,7 @@ func _wall_stick_outward_entry_report() -> Dictionary:
 	return report
 
 
-func _wall_stick_report(exit_mode: int, tick_rate: int = 60) -> Dictionary:
+func _wall_stick_report(exit_mode: int, tick_rate: int = 60, entry_speed: float = 6.0) -> Dictionary:
 	var fixture := _new_world(Vector3(-3.0, 2.0, -0.25))
 	var player: CharacterBody3D = fixture["player"]
 	var input_source: PlayerInputSource = fixture["input_source"]
@@ -1069,10 +1111,8 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60) -> Dictionary:
 			terminal_events[0] = int(terminal_events[0]) + 1
 			terminal_events[1] = bool(terminal_events[1]) and not bool(player.get("is_wall_sticking"))
 	)
-	# The wall the player sticks to and the grapple anchor are deliberately
-	# separate bodies: losing the wall must end the hold without also ending
-	# the attachment, and invalidating the attachment must end the hold
-	# without the wall going away.
+	# Acquisition and physical wall are separate. Approved stick entry replaces
+	# the former target, so lifecycle exits operate on the current attachment.
 	var wall := _add_box(world, Vector3(0.0, 4.0, -1.0), Vector3(40.0, 8.0, 0.2), 0.0)
 	# This fixture pulls into the wall (negative against the selected +Z normal),
 	# keeping the pre-existing hold/release cases inside the new separation gate.
@@ -1081,11 +1121,16 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60) -> Dictionary:
 
 	var delta := 1.0 / float(tick_rate)
 	var report := _new_report()
+	report["first_hold_initial_velocity"] = Vector3.ZERO
+	report["maximum_hold_speed"] = 0.0
+	report["maximum_hold_position_drift"] = 0.0
+	report["maximum_latch_position_drift"] = 0.0
 	_begin(report, motor)
 	assert_eq(_seed_grapple(player, anchor), GrappleController.CommitStatus.SUCCESS)
 	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)
-	player.velocity = Vector3(6.0, 0.0, 0.0)
-	input_source.inject_movement_strengths(0.0, 1.0, 0.0, 0.0)
+	player.velocity = Vector3(entry_speed, 0.0, 0.0)
+	# Literal forward may be held with backward: net tangent remains unchanged.
+	input_source.inject_movement_strengths(0.0, 1.0, 1.0, 1.0)
 
 	for _i in range(30):
 		player.call("_physics_process", delta)
@@ -1094,12 +1139,22 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60) -> Dictionary:
 			break
 	assert_true(bool(player.get("is_wall_sticking")), "wall stick never engaged (exit mode %d)" % exit_mode)
 	report["wall_normal"] = player.get("wall_stick_normal")
+	var entry_hold_position: Vector3 = player.get("wall_stick_position")
+	report["entry_velocity"] = motor.get_last_commit_result().submitted_velocity
+	report["entry_run_gate_open"] = bool(player.call("_can_start_wall_run", report["entry_velocity"]))
+	report["entry_speed_gate_open"] = bool(player.call("is_wall_stick_speed_gate_open"))
+	report["entry_speed_reason"] = player.call("get_wall_stick_speed_gate_reason_id")
 
 	for _i in range(18):
 		player.call("_physics_process", delta)
 		_observe(report, player, motor)
 		var hold_result: PlayerMotorCommitResult = motor.get_last_commit_result()
 		if hold_result != null and hold_result.is_hold_request:
+			if _i == 0:
+				report["first_hold_initial_velocity"] = motor.get_frame_initial_velocity()
+			report["maximum_hold_speed"] = maxf(report["maximum_hold_speed"], maxf(hold_result.committed_velocity.length(), player.velocity.length()))
+			report["maximum_hold_position_drift"] = maxf(report["maximum_hold_position_drift"], (hold_result.position_after - entry_hold_position).length())
+			report["maximum_latch_position_drift"] = maxf(report["maximum_latch_position_drift"], ((player.get("wall_stick_position") as Vector3) - entry_hold_position).length())
 			report["hold_request_seen"] = true
 			report["held_steps"] = int(report["held_steps"]) + 1
 			if _result_has_source(hold_result, SOURCE_WALL_STICK_HOLD):
@@ -1110,9 +1165,13 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60) -> Dictionary:
 		WallStickExit.RELEASE:
 			input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
 		WallStickExit.WALL_LOST, WallStickExit.WALL_LOST_WITH_JUMP, WallStickExit.LOST_WALL_JUMP_WITH_GRAPPLE_RELEASE:
-			# The supported wall goes away while the attachment stays valid:
-			# this is the Story 1.9 Task 7.1 required-wall-contact-loss exit.
+			# The re-anchored physical target goes away: no hold or stale jump.
 			wall.free()
+			if exit_mode != WallStickExit.WALL_LOST:
+				report["lost_frame_seen_while_sticking"] = bool(player.get("is_wall_sticking"))
+				input_source.inject_action_binding(PlayerCommandFrame.Action.JUMP, 0, true)
+				if exit_mode == WallStickExit.LOST_WALL_JUMP_WITH_GRAPPLE_RELEASE:
+					input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
 		WallStickExit.JUMP, WallStickExit.JUMP_WITH_GRAPPLE_RELEASE:
 			var jump_normal: Vector3 = player.get("wall_stick_normal")
 			var horizontal_jump_normal := Vector3(jump_normal.x, 0.0, jump_normal.z).normalized()
@@ -1153,8 +1212,9 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60) -> Dictionary:
 			if exit_mode == WallStickExit.RELEASE_OUTWARD_VELOCITY:
 				input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
 		WallStickExit.INVALIDATE_ATTACHMENT:
-			# Story 1.8 sampling termination: the anchor is freed mid-hold.
-			anchor.free()
+			# Sampling termination must address the ACTIVE target, not the
+			# historical acquisition target (its destruction is now harmless).
+			controller.get_attachment().get_target().free()
 		WallStickExit.ROTATE_CAMERA:
 			# A held player is stationary; looking behind must not remove the
 			# unchanged required wall from the shared contact provider's probes.
@@ -1271,7 +1331,7 @@ func _death_report(mode: String) -> Dictionary:
 		assert_eq(_seed_grapple(player, wall), GrappleController.CommitStatus.SUCCESS)
 		input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)
 	player.velocity = Vector3(6.0, 0.0, 0.0)
-	input_source.inject_movement_strengths(0.0, 1.0, 0.0, 0.0)
+	input_source.inject_movement_strengths(0.0, 1.0, 1.0 if mode == "wall_stick" else 0.0, 1.0 if mode == "wall_stick" else 0.0)
 
 	for _i in range(30):
 		player.call("_physics_process", delta)
@@ -1324,7 +1384,7 @@ func _recovery_report(mistake: String) -> Dictionary:
 			assert_eq(_seed_grapple(player, wall), GrappleController.CommitStatus.SUCCESS)
 			input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)
 			player.velocity = Vector3(6.0, 0.0, 0.0)
-			input_source.inject_movement_strengths(0.0, 1.0, 0.0, 0.0)
+			input_source.inject_movement_strengths(0.0, 1.0, 1.0, 1.0)
 		"imperfect_wall_jump":
 			player.velocity = Vector3(8.0, 0.0, 0.0)
 			input_source.inject_movement_strengths(0.0, 1.0, 0.0, 0.0)

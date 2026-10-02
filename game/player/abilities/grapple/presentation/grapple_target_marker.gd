@@ -17,12 +17,16 @@ extends Node3D
 
 
 var _staged_result: GrappleTargetingResult
+var _active_snapshot: GrappleAttachmentDiagnosticSnapshot
 var _grapple_active := false
 var _marker_mesh: MeshInstance3D
 var _marker_material: StandardMaterial3D
 var _marker_visible := false
 var _presented_position := Vector3.ZERO
 var _presented_identity: StringName = &""
+var _presented_attachment_identity: StringName = &""
+var _presented_revision := -1
+var interpolation_reset_count := 0
 
 
 func _ready() -> void:
@@ -39,12 +43,20 @@ func _process(_delta: float) -> void:
 func apply_targeting_result(result: GrappleTargetingResult, grapple_active: bool) -> void:
 	_staged_result = result
 	_grapple_active = grapple_active
+	_render_presented_state()
+
+## Value-only live attachment beats the historical aim hit. No target handles,
+## new query, or independently selected endpoint reaches presentation.
+func apply_active_attachment(snapshot: GrappleAttachmentDiagnosticSnapshot) -> void:
+	_active_snapshot = snapshot
 
 
 ## The authoritative result became unavailable; drop it and hide the marker.
 func clear_targeting() -> void:
 	_staged_result = null
+	_active_snapshot = null
 	_grapple_active = false
+	_render_presented_state()
 
 
 func is_marker_visible() -> bool:
@@ -61,16 +73,28 @@ func get_presented_target_identity() -> StringName:
 
 func _render_presented_state() -> void:
 	var result := _staged_result
-	var accepted := result != null and result.is_accepted()
-	_presented_identity = result.target_identity if result != null else &""
-	_presented_position = result.hit_position if accepted else Vector3.ZERO
+	var snapshot := _active_snapshot
+	var attached := _grapple_active and snapshot != null and snapshot.is_active and snapshot.anchor_valid
+	var accepted := attached or (not _grapple_active and result != null and result.is_accepted())
+	var attachment_identity := snapshot.attachment_identity if attached else &""
+	var revision := snapshot.anchor_revision if attached else -1
+	var reset := accepted and (not _marker_visible or _presented_attachment_identity != attachment_identity or _presented_revision != revision)
+	_presented_identity = snapshot.target_identity if attached else (result.target_identity if accepted else &"")
+	_presented_position = snapshot.anchor_world_position if attached else (result.hit_position if accepted else Vector3.ZERO)
 	_marker_visible = accepted
+	_presented_attachment_identity = attachment_identity
+	_presented_revision = revision
 	if _marker_mesh == null:
 		return
 	if accepted:
 		var color := grapple_cursor_active_color if _grapple_active else grapple_cursor_color
 		_set_marker_color(color)
 		_marker_mesh.global_position = _presented_position
+		if reset:
+			_marker_mesh.reset_physics_interpolation()
+			interpolation_reset_count += 1
+	else:
+		_marker_mesh.global_position = Vector3.ZERO
 	_marker_mesh.visible = accepted
 
 

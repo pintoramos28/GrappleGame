@@ -256,7 +256,7 @@ func test_real_player_scene_routes_wall_stick_hold_and_release_once() -> void:
 	assert_true(found_airborne_state)
 
 	player.velocity = Vector3(6.0, 0.0, 0.0)
-	input_source.inject_movement_strengths(0.0, 1.0, 0.0, 0.0)
+	input_source.inject_movement_strengths(0.0, 1.0, 1.0, 1.0)
 	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)
 	player.call("_physics_process", 1.0 / 60.0)
 
@@ -276,12 +276,13 @@ func test_real_player_scene_routes_wall_stick_hold_and_release_once() -> void:
 	assert_true(hold_result.is_hold_request)
 	assert_eq(hold_result.commit_count, 1)
 
+	var reference_velocity := motor.get_committed_velocity()
 	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
 	player.call("_physics_process", 1.0 / 60.0)
 	var release_result := motor.get_last_commit_result()
 	assert_eq(release_result.locomotion_state_id, &"player.locomotion.wall_stick")
 	assert_false(release_result.is_hold_request)
-	assert_eq(release_result.submitted_velocity, Vector3.ZERO)
+	assert_almost_eq((release_result.submitted_velocity - reference_velocity).length(), 0.0, 0.00001)
 	assert_eq(release_result.commit_count, 1)
 
 
@@ -353,7 +354,8 @@ func test_player_surface_keeps_motion_commit_inside_motor() -> void:
 	var motor_source := FileAccess.get_file_as_string("res://game/player/motor/player_motor.gd")
 	assert_true(motor_source.contains("_body.move_and_slide()"))
 	assert_true(motor_source.contains("_body.velocity = working_velocity"))
-	assert_true(motor_source.contains("_body.global_position = requested_hold_position"))
+	assert_false(motor_source.contains("_body.global_position ="), "hold carry must be collision resolved, not a position snap")
+	assert_eq(motor_source.count("_body.move_and_slide()"), 1)
 
 	var attack_surface_paths: Array[String] = [
 		"res://scripts/player_attack_ready_state.gd",

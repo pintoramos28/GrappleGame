@@ -1,0 +1,21 @@
+{
+  "observer": "parent",
+  "session_id": "testgame@17187ab35ae57813",
+  "current_scene": "res://game/levels/content/traversal_validation/traversal_validation_route.tscn",
+  "readiness": "ready",
+  "is_playing": false,
+  "operations": ["script_manage.read", "script_manage.find_symbols", "scene_get_hierarchy", "node_get_properties", "resource_manage.load", "filesystem_manage.read_text", "logs_read.editor"],
+  "player_path": "/TraversalValidationRoute/Player",
+  "player_script": "res://scripts/player_controller.gd",
+  "wall_run": {"maximum_entry_speed_mps": 100, "minimum_horizontal_speed_mps": 3, "acceleration_mps2": 4, "gravity_scale": 0},
+  "stick_definition_path": "res://game/player/locomotion/wall_stick/definitions/wall_stick_definition.tres",
+  "stick": {"maximum_entry_speed_mps": 100, "jump_up_speed_mps": 5.5, "jump_away_speed_mps": 8, "maximum_support_speed_mps": 50, "maximum_support_step_m": 0.25, "carry_error_tolerance_m": 0.02},
+  "grapple_definition_path": "res://game/player/abilities/grapple/definitions/grapple_definition.tres",
+  "grapple": {"max_grapple_length_m": 35, "acquisition_tolerance_m": 0.005, "pull_initial_acceleration_mps2": 60, "pull_min_acceleration_mps2": 8, "pull_acceleration_jerk_mps3": 53.333333, "maximum_speed_mps": 22, "anchor_continuous_motion_tolerance_mps": 50, "anchor_severe_discontinuity_threshold_mps": 250},
+  "regular_editor_log": {"total_rows": 16, "retained_corrected_source_error_rows": 5, "warning_rows": 11, "logger_cursor": 5, "logs_cleared": false},
+  "fresh_editor_native_adapter": {"suite": "wall_stick", "passed": 4, "total": 4, "scope": "schema/source only", "preload_cache_warning": true},
+  "fixed_probe_run": {"run_id": "r187663530-41", "passed": 12, "total": 12, "scenarios": ["foreign_motor", "wrong_completed_step"], "rates": [60, 120], "iterations_per_scenario_rate": 3, "game_log_error_count": 0},
+  "failed_probe_attempt": {"run_id": "r187355302-40", "game_log_errors": 6, "diagnostic": "player.motor.contact_frame_failed", "cause": "Fresh strict-lifecycle motor attempted bootstrap step 0 to step 6 without intermediate commits", "acceptance_pass": false},
+  "oversized_eval_attempt": {"run_id": "r187837881-42", "error": "EVAL_HUNG", "reported_limit_seconds": 8, "stopped_before_fresh_batched_run": true, "acceptance_pass": false},
+  "limitations": ["No debugger error rows were manually cleared", "No new framebuffer capture", "No normal-view readability or movement-feel acceptance", "No full-route or green comprehensive regression claim"]
+}

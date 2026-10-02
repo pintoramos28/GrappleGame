@@ -1,0 +1,35 @@
+{
+  "baseline_snapshot": "C:/Users/pinto/AppData/Local/Temp/opencode/wall-stick-reanchor-baseline.json",
+  "baseline_snapshot_replaced": false,
+  "captured_files": 437,
+  "baseline_head": "89ead0989f319a80007cb9835fea056c5ca8bf04",
+  "current_head": "89ead0989f319a80007cb9835fea056c5ca8bf04",
+  "frozen_approval_sha256": "14e2d5fa5986b4f9dbebacd48b0e20c444724e582d8d3cc871f48d426a58504f",
+  "earlier_frozen_approval_sha256": "a5f7213f35fd07e64e5582ba99b73139432ecc5e51a55f54d9e9bea1c6324c27",
+  "old_preservation_helper": "_bmad-output/implementation-artifacts/evidence/wall-stick-attachment/verify-preservation.py",
+  "old_preservation_checks_passed": 27,
+  "old_preservation_checks_total": 27,
+  "prior_evidence_and_spec_files_checked": 39,
+  "protected_scene_resource_and_project_files_checked": 27,
+  "checks": {
+    "head_unchanged": true,
+    "frozen_hash_matches_snapshot": true,
+    "frozen_hash_matches_approved_value": true,
+    "prior_evidence_and_spec_bytes_unchanged": true,
+    "protected_scene_resource_and_project_bytes_unchanged": true,
+    "no_snapshot_files_deleted": true,
+    "old_preservation_gate_passed": true
+  },
+  "prior_mismatches": [],
+  "protected_mismatches": [],
+  "missing_snapshot_files": [],
+  "all_checks_passed": true,
+  "git_diff_check_exit_code": 0,
+  "worktree_helper_mode": "diff",
+  "worktree_helper_outputs": [
+    "C:/Users/pinto/AppData/Local/Temp/opencode/wall-stick-reanchor-incremental-full.diff",
+    "C:/Users/pinto/AppData/Local/Temp/opencode/wall-stick-reanchor-incremental-code.diff",
+    "C:/Users/pinto/AppData/Local/Temp/opencode/wall-stick-reanchor-head-tracked.diff"
+  ],
+  "git_warning": "Existing CRLF-to-LF notice for game/player/motor/player_motor.gd; file bytes unchanged relative to approved pre-feature snapshot."
+}

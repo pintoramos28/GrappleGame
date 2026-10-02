@@ -1,0 +1,70 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[godot_ai game_helper] registered mcp capture (debugger active=false, logger=true)
+---  GUT  ---
+[1m[INFO]:  [0musing [C:/Users/pinto/AppData/Roaming/Godot/app_userdata/Test Game] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.7.1
+[4m
+
+res://tests/player/contact/test_player_contact_contract.gd
+[0m* test_contact_frame_is_value_only_and_copies_bounded_records
+* test_profiles_validate_named_matrix_and_lock_authored_values
+* test_normal_classification_rejects_floor_and_ceiling_consistently
+* test_wall_selection_is_deterministic_for_permuted_candidates_and_exact_ties
+* test_ground_selection_is_deterministic_for_permuted_equal_distance_candidates
+* test_retagged_continuity_candidate_uses_current_physics_step
+* test_query_profiles_reject_hard_contact_budget_limits
+* test_ground_normal_classification_is_applied_to_authoritative_candidates
+* test_provider_bootstrap_publishes_frame_zero_and_rejects_bad_step_handoffs
+* test_required_ground_configuration_fails_closed_and_invalid_wall_is_unavailable
+* test_player_surface_reads_only_the_shared_contact_frame
+[1m11/11 passed.
+[0m[4m
+
+res://tests/player/contact/test_wall_stick_support.gd
+[0m* test_wall_point_velocity_and_controller_relative_entry_use_owner_and_native_motion
+[wall-stick-support-velocity] { "scenario": "owner_local", "rate": 60, "wall_point_velocity": (12.0, 0.0, 0.0), "expected": (12.0, 0.0, 0.0), "native_velocity": (0.0, 0.0, 0.0), "body_position": (0.0, 4.0, -0.65), "entry_positive": true, "entry_over_relative_maximum": false, "support": &"fixture.wall.stick", "query_count": 12, "value_only": true, "passed": true }
+[31m    [Failed]:  [0m{ "scenario": "rigid_first", "rate": 60, "wall_point_velocity": (12.0, 0.0, 0.0), "expected": (12.0, 0.0, 0.0), "native_velocity": (12.0, 0.0, 0.0), "body_position": (0.2, 4.0, -0.65), "entry_positive": true, "entry_over_relative_maximum": false, "support": &"fixture.wall.rigid", "query_count": 12, "value_only": true, "passed": false, "adjacent_velocity": (0.0, 0.0, 0.0), "adjacent_not_double_counted": false }
+      at line 9
+[wall-stick-support-velocity] { "scenario": "rigid_first", "rate": 60, "wall_point_velocity": (12.0, 0.0, 0.0), "expected": (12.0, 0.0, 0.0), "native_velocity": (12.0, 0.0, 0.0), "body_position": (0.2, 4.0, -0.65), "entry_positive": true, "entry_over_relative_maximum": false, "support": &"fixture.wall.rigid", "query_count": 12, "value_only": true, "passed": false, "adjacent_velocity": (0.0, 0.0, 0.0), "adjacent_not_double_counted": false }
+[wall-stick-support-velocity] { "scenario": "static_surface", "rate": 60, "wall_point_velocity": (12.4, 0.0, 0.0), "expected": (12.4, 0.0, 0.0), "native_velocity": (12.4, 0.0, 0.0), "body_position": (0.0, 4.0, -0.65), "entry_positive": true, "entry_over_relative_maximum": false, "support": &"fixture.wall.stick", "query_count": 12, "value_only": true, "passed": true }
+[wall-stick-support-velocity] { "scenario": "animatable_first", "rate": 60, "wall_point_velocity": (12.0, 0.0, 0.0), "expected": (12.0, 0.0, 0.0), "native_velocity": (12.0, 0.0, 0.0), "body_position": (0.2, 4.0, -0.65), "entry_positive": true, "entry_over_relative_maximum": false, "support": &"fixture.wall.native", "query_count": 12, "value_only": true, "passed": true, "adjacent_velocity": (12.0, 0.0, 0.0), "adjacent_not_double_counted": true }
+[wall-stick-support-velocity] { "scenario": "character_first", "rate": 60, "wall_point_velocity": (12.0, 0.0, 0.0), "expected": (12.0, 0.0, 0.0), "native_velocity": (12.0, 0.0, 0.0), "body_position": (0.2, 4.0, -0.65), "entry_positive": true, "entry_over_relative_maximum": false, "support": &"fixture.wall.native", "query_count": 12, "value_only": true, "passed": true, "adjacent_velocity": (12.0, 0.0, 0.0), "adjacent_not_double_counted": true }
+[wall-stick-support-velocity] { "scenario": "owner_local", "rate": 120, "wall_point_velocity": (12.0, 0.0, 0.0), "expected": (12.0, 0.0, 0.0), "native_velocity": (0.0, 0.0, 0.0), "body_position": (0.0, 4.0, -0.65), "entry_positive": true, "entry_over_relative_maximum": false, "support": &"fixture.wall.stick", "query_count": 12, "value_only": true, "passed": true }
+[31m    [Failed]:  [0m{ "scenario": "rigid_first", "rate": 120, "wall_point_velocity": (12.0, 0.0, 0.0), "expected": (12.0, 0.0, 0.0), "native_velocity": (12.0, 0.0, 0.0), "body_position": (0.1, 4.0, -0.65), "entry_positive": true, "entry_over_relative_maximum": false, "support": &"fixture.wall.rigid", "query_count": 12, "value_only": true, "passed": false, "adjacent_velocity": (0.0, 0.0, 0.0), "adjacent_not_double_counted": false }
+      at line 9
+[wall-stick-support-velocity] { "scenario": "rigid_first", "rate": 120, "wall_point_velocity": (12.0, 0.0, 0.0), "expected": (12.0, 0.0, 0.0), "native_velocity": (12.0, 0.0, 0.0), "body_position": (0.1, 4.0, -0.65), "entry_positive": true, "entry_over_relative_maximum": false, "support": &"fixture.wall.rigid", "query_count": 12, "value_only": true, "passed": false, "adjacent_velocity": (0.0, 0.0, 0.0), "adjacent_not_double_counted": false }
+[wall-stick-support-velocity] { "scenario": "static_surface", "rate": 120, "wall_point_velocity": (12.4, 0.0, 0.0), "expected": (12.4, 0.0, 0.0), "native_velocity": (12.4, 0.0, 0.0), "body_position": (0.0, 4.0, -0.65), "entry_positive": true, "entry_over_relative_maximum": false, "support": &"fixture.wall.stick", "query_count": 12, "value_only": true, "passed": true }
+[wall-stick-support-velocity] { "scenario": "animatable_first", "rate": 120, "wall_point_velocity": (12.0, 0.0, 0.0), "expected": (12.0, 0.0, 0.0), "native_velocity": (12.0, 0.0, 0.0), "body_position": (0.1, 4.0, -0.65), "entry_positive": true, "entry_over_relative_maximum": false, "support": &"fixture.wall.native", "query_count": 12, "value_only": true, "passed": true, "adjacent_velocity": (12.0, 0.0, 0.0), "adjacent_not_double_counted": true }
+[wall-stick-support-velocity] { "scenario": "character_first", "rate": 120, "wall_point_velocity": (12.0, 0.0, 0.0), "expected": (12.0, 0.0, 0.0), "native_velocity": (12.0, 0.0, 0.0), "body_position": (0.1, 4.0, -0.65), "entry_positive": true, "entry_over_relative_maximum": false, "support": &"fixture.wall.native", "query_count": 12, "value_only": true, "passed": true, "adjacent_velocity": (12.0, 0.0, 0.0), "adjacent_not_double_counted": true }
+* test_multiple_bindings_have_independent_weak_shape_listeners
+* test_binding_requires_the_selected_physical_publication_not_a_candidate_guess
+[1m2/3 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m[4m
+res://tests/player/contact/test_wall_stick_support.gd
+[0m- test_wall_point_velocity_and_controller_relative_entry_use_owner_and_native_motion
+[31m    [Failed]:  [0m{ "scenario": "rigid_first", "rate": 60, "wall_point_velocity": (12.0, 0.0, 0.0), "expected": (12.0, 0.0, 0.0), "native_velocity": (12.0, 0.0, 0.0), "body_position": (0.2, 4.0, -0.65), "entry_positive": true, "entry_over_relative_maximum": false, "support": &"fixture.wall.rigid", "query_count": 12, "value_only": true, "passed": false, "adjacent_velocity": (0.0, 0.0, 0.0), "adjacent_not_double_counted": false }
+          at line 9
+[31m    [Failed]:  [0m{ "scenario": "rigid_first", "rate": 120, "wall_point_velocity": (12.0, 0.0, 0.0), "expected": (12.0, 0.0, 0.0), "native_velocity": (12.0, 0.0, 0.0), "body_position": (0.1, 4.0, -0.65), "entry_positive": true, "entry_over_relative_maximum": false, "support": &"fixture.wall.rigid", "query_count": 12, "value_only": true, "passed": false, "adjacent_velocity": (0.0, 0.0, 0.0), "adjacent_not_double_counted": false }
+          at line 9
+
+Totals
+------
+Scripts               2
+Tests                14
+Passing Tests        13
+Failing Tests         1
+Asserts           116/118
+Time              1.727s
+
+
+[31m---- 1 failing tests ----
+[0m

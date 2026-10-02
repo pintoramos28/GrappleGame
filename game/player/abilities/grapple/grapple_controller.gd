@@ -40,6 +40,23 @@ enum CommitStatus {
 	ATTACHMENT_ALREADY_ACTIVE,
 }
 
+enum ReanchorStatus {
+	SUCCESS, NOT_INITIALIZED, NO_ACTIVE_ATTACHMENT, INVALID_ORIGINAL,
+	INVALID_BINDING, POLICY_REJECTED, OUT_OF_RANGE, SCOPE_MISMATCH,
+	STALE_PREPARATION, MOTOR_BASELINE_REJECTED,
+}
+
+class ReanchorPreparation:
+	extends RefCounted
+	var status := ReanchorStatus.INVALID_BINDING
+	var policy_rejection := GrappleRejection.Reason.NONE
+	var physics_step: int
+	var binding: GrappleSurfaceBinding
+	var _attachment_ref: WeakRef
+	var _controller_ref: WeakRef
+	var _revision: int
+	var _consumed := false
+
 
 ## Stable motor source identifiers (lowercase dotted namespaces).
 const SOURCE_PULL: StringName = &"player.grapple.pull"
@@ -170,6 +187,91 @@ func commit_attachment(
 func has_active_attachment() -> bool:
 	return _attachment != null and _attachment.is_active()
 
+## Prepare completely before the motor arms its zero baseline. Expected
+## rejection changes neither the original attachment nor any motor facts.
+func prepare_surface_reanchor(binding: GrappleSurfaceBinding, physics_step: int) -> ReanchorPreparation:
+	var prepared := ReanchorPreparation.new()
+	prepared.physics_step = physics_step
+	prepared.binding = binding
+	if not _initialized:
+		prepared.status = ReanchorStatus.NOT_INITIALIZED
+		return prepared
+	if not has_active_attachment():
+		prepared.status = ReanchorStatus.NO_ACTIVE_ATTACHMENT
+		return prepared
+	if not _is_original_attachment_current():
+		prepared.status = ReanchorStatus.INVALID_ORIGINAL
+		return prepared
+	if binding == null or binding == _attachment.get_surface_binding() or not binding.is_live_geometry():
+		return prepared
+	var sample := binding.get_sample()
+	if sample == null or not sample.is_valid:
+		return prepared
+	var policy := GrappleTargetResolver.resolve_surface_policy(binding.get_target(), _definition.target_query_profile, sample.anchor_world_position, binding.get_world_normal(), get_reference_position().distance_to(sample.anchor_world_position), _attachment.resolved_maximum_length_m)
+	prepared.policy_rejection = policy.rejection
+	if policy.rejection != GrappleRejection.Reason.NONE:
+		prepared.status = ReanchorStatus.OUT_OF_RANGE if policy.rejection == GrappleRejection.Reason.OUT_OF_RANGE else ReanchorStatus.POLICY_REJECTED
+		return prepared
+	binding.configure_policy(_definition.target_query_profile, policy)
+	sample = binding.get_sample()
+	if not sample.is_valid:
+		prepared.status = ReanchorStatus.POLICY_REJECTED
+		return prepared
+	if _is_scope_mismatch(sample):
+		prepared.status = ReanchorStatus.SCOPE_MISMATCH
+		return prepared
+	prepared._attachment_ref = weakref(_attachment)
+	prepared._controller_ref = weakref(self)
+	prepared._revision = _attachment.anchor_revision
+	prepared.status = ReanchorStatus.SUCCESS
+	return prepared
+
+## No yield or signal between baseline success and infallible replacement.
+## The current commit used the OLD anchor; its actual velocity is retained and
+## only old geometric pull/boundary caches are invalidated for the new revision.
+func commit_surface_reanchor(prepared: ReanchorPreparation, motor: PlayerMotor) -> ReanchorStatus:
+	if prepared == null or prepared.status != ReanchorStatus.SUCCESS or prepared._consumed or prepared._controller_ref == null or prepared._controller_ref.get_ref() != self or prepared._attachment_ref == null or prepared._attachment_ref.get_ref() != _attachment or not has_active_attachment() or prepared._revision != _attachment.anchor_revision or prepared.physics_step != _last_physics_step:
+		return ReanchorStatus.STALE_PREPARATION
+	if not _is_original_attachment_current():
+		return ReanchorStatus.INVALID_ORIGINAL
+	if prepared.binding == null or prepared.binding == _attachment.get_surface_binding() or not prepared.binding.is_prepared_state_current():
+		return ReanchorStatus.INVALID_BINDING
+	var sample := prepared.binding.get_sample()
+	if _is_scope_mismatch(sample):
+		return ReanchorStatus.SCOPE_MISMATCH
+	if not GrappleTargetResolver.is_distance_in_range(get_reference_position().distance_to(sample.anchor_world_position), _attachment.resolved_maximum_length_m, _definition.target_query_profile.point_quantization_m):
+		return ReanchorStatus.OUT_OF_RANGE
+	if not is_instance_valid(motor) or not motor.has_successful_commit_for(_owner_body, prepared.physics_step):
+		return ReanchorStatus.MOTOR_BASELINE_REJECTED
+	if motor.set_next_frame_velocity_baseline(Vector3.ZERO) != PlayerMotor.BaselineStatus.SUCCESS:
+		return ReanchorStatus.MOTOR_BASELINE_REJECTED
+	_attachment.replace_surface_binding(prepared.binding, sample, prepared.physics_step)
+	prepared._consumed = true
+	_last_pull_direction = Vector3.ZERO
+	_last_boundary_record = {}
+	return ReanchorStatus.SUCCESS
+
+
+## Pure original-side validation at BOTH transaction boundaries. In particular,
+## do not run/reset legacy finite-difference sampling or mutate installed bindings
+## when a rejected replacement must leave the original occurrence untouched.
+func _is_original_attachment_current() -> bool:
+	var original := _attachment.get_sampled_anchor_state()
+	var target := _attachment.get_target() as Node
+	if original == null or not original.is_valid or not is_instance_valid(target) or target.is_queued_for_deletion() or not target.is_inside_tree():
+		return false
+	var binding := _attachment.get_surface_binding()
+	if binding != null:
+		var current := binding.query_current_policy_state()
+		return current != null and current.is_valid and not _is_scope_mismatch(current)
+	if _attachment.target_identity == &"":
+		return true
+	var component := _find_anchor_component(target, _attachment.target_identity)
+	if not is_instance_valid(component) or component.is_queued_for_deletion() or not component.is_inside_tree():
+		return false
+	var current := component.sample_surface_anchor_state(original.anchor_world_position, original.target_velocity)
+	return current.is_valid and not _is_scope_mismatch(current)
+
 
 ## INTERNAL / TEST-ONLY accessor (Story 1.8 review fix, AC 9): the attachment
 ## record carries mutators, so presentation, diagnostics, and every external
@@ -225,7 +327,7 @@ func sample_anchor_state(physics_step: int, delta_seconds: float) -> bool:
 		)
 		_terminate_from_sample(GrappleEndReason.Reason.TARGET_DESTROYED, physics_step)
 		return false
-	var state := _sample_target_anchor_state(target, elapsed_seconds)
+	var state := _sample_target_anchor_state(target, elapsed_seconds, physics_step)
 	if state == null or not state.is_valid:
 		if state != null:
 			_attachment.record_sampled_anchor_state(state, physics_step)
@@ -234,7 +336,9 @@ func sample_anchor_state(physics_step: int, delta_seconds: float) -> bool:
 				GrappleAnchorState.InvalidationReason.TARGET_INVALIDATED,
 				physics_step
 			)
-		_terminate_from_sample(_sample_terminal_reason(state), physics_step)
+		var binding := _attachment.get_surface_binding()
+		var reason := GrappleEndReason.Reason.ANCHOR_DISCONTINUITY if binding != null and binding.status == GrappleSurfaceBinding.Status.DISCONTINUITY else _sample_terminal_reason(state)
+		_terminate_from_sample(reason, physics_step)
 		return false
 	if _is_scope_mismatch(state):
 		_attachment.record_sampled_anchor_state(state, physics_step)
@@ -272,8 +376,12 @@ func _record_invalid_sample(
 ## since the previous sample (see `sample_anchor_state`).
 func _sample_target_anchor_state(
 	target: Object,
-	elapsed_seconds: float
+	elapsed_seconds: float,
+	physics_step: int
 ) -> GrappleAnchorState:
+	var binding := _attachment.get_surface_binding()
+	if binding != null:
+		return binding.sample(physics_step, elapsed_seconds)
 	var identity := _attachment.target_identity
 	var initial_anchor := _attachment.get_sampled_anchor_state().anchor_world_position
 	if identity == &"":
@@ -345,7 +453,10 @@ func _is_severe_anchor_discontinuity(
 	var implied_speed := (
 		state.anchor_world_position - previous.anchor_world_position
 	).length() / elapsed_seconds
-	return implied_speed >= _attachment.resolved_severe_discontinuity_threshold_mps
+	var threshold := _attachment.resolved_severe_discontinuity_threshold_mps
+	if _attachment.get_surface_binding() != null:
+		threshold = _attachment.get_surface_severe_threshold_mps(state.response)
+	return implied_speed >= threshold
 
 
 func _terminate_from_sample(

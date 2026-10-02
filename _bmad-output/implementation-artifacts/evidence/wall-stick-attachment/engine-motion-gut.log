@@ -1,0 +1,40 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[godot_ai game_helper] registered mcp capture (debugger active=false, logger=true)
+---  GUT  ---
+[1m[INFO]:  [0musing [C:/Users/pinto/AppData/Roaming/Godot/app_userdata/Test Game] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.7.1
+[4m
+
+res://tests/player/locomotion/test_wall_stick_attachment.gd
+[0m* test_definition_is_validated_locked_and_independent_of_run_tuning
+* test_real_continuous_transform_walls_carry_on_the_same_side_at_60_and_120
+[wall-stick-engine-motion] 60 Hz { "held_frames": 97, "entry_count": 1, "terminal_count": 0, "blocked_count": 0, "maximum_error_m": 0.00000002462184, "minimum_side_distance_m": 0.45093338489532, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": true, "grappling": true, "terminal_wall_clear": true, "position": (0.339033, 3.99316, -0.300238), "physics_wall_position": (0.3, 4.0, -0.95), "obsolete_pose_overlap_count": 36, "overlap_facts": [], "wall_position": (0.3, 4.0, -0.95) }
+[wall-stick-engine-motion] 120 Hz { "held_frames": 185, "entry_count": 1, "terminal_count": 0, "blocked_count": 0, "maximum_error_m": 0.00000001298031, "minimum_side_distance_m": 0.45088713169098, "overlap_count": 0, "maximum_commits": 1, "maximum_recovery_m": 0.0, "legacy_switch_count": 1, "jump_velocity": (0.0, 0.0, 0.0), "sticking": true, "grappling": true, "terminal_wall_clear": true, "position": (0.33903, 3.99829, -0.300284), "physics_wall_position": (0.3, 4.0, -0.95), "obsolete_pose_overlap_count": 72, "overlap_facts": [], "wall_position": (0.3, 4.0, -0.95) }
+* test_forward_release_preserves_live_grapple_and_does_not_relatch
+* test_jump_removes_player_and_wall_tangent_and_wins_both_releases
+* test_distinct_grapple_anchor_motion_never_carries_the_wall_attachment
+* test_blocked_carry_detaches_without_snapping_through_an_obstacle
+* test_support_destruction_disabled_shape_and_teleports_fail_closed
+* test_same_shape_motion_may_switch_legacy_world_point_but_not_stick_support
+[1m8/8 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               1
+Tests                 8
+Passing Tests         8
+Asserts             144
+Time              7.06s
+
+
+[32m---- All tests passed! ----
+[0m

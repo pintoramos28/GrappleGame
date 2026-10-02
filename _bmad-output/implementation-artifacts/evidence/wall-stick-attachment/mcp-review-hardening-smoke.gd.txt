@@ -1,0 +1,14 @@
+var tree = get_tree()
+var original = tree.current_scene
+if is_instance_valid(original):
+	original.queue_free()
+await tree.process_frame
+var reports = []
+for rate in [60, 120]:
+	for scenario in WallStickReviewCases.CASES:
+		reports.append(await WallStickReviewCases.run(tree, scenario, rate))
+	for scenario in ["owner_local", "rigid_first", "static_surface", "animatable_first", "character_first"]:
+		reports.append(await WallStickReviewCases.run_support_velocity(tree, scenario, rate))
+tree.root.set_meta("wall_stick_review_hardening_reports", reports)
+Engine.physics_ticks_per_second = 60
+return reports

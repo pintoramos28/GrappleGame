@@ -94,6 +94,10 @@ var target_identity: StringName:
 	get:
 		return _target_identity
 
+var anchor_revision: int:
+	get:
+		return _anchor_revision
+
 var target_local_hit_offset: Vector3:
 	get:
 		return _target_local_hit_offset
@@ -166,6 +170,8 @@ var _initial_anchor_world_position: Vector3
 var _target_identity: StringName
 var _target_local_hit_offset: Vector3
 var _target_reference: WeakRef
+var _surface_binding: GrappleSurfaceBinding
+var _anchor_revision := 0
 var _response: GrappleTargetResponse
 var _response_pull_multiplier: float
 var _originating_scope_identity: StringName
@@ -268,6 +274,40 @@ func get_target() -> Object:
 		return null
 	return _target_reference.get_ref()
 
+func get_surface_binding() -> GrappleSurfaceBinding:
+	return _surface_binding
+
+## Controller-only, prepared synchronous commit. Geometric state changes, not
+## occurrence identity, clock, scope, immutable definition, range or speed cap.
+func replace_surface_binding(binding: GrappleSurfaceBinding, state: GrappleAnchorState, physics_step: int) -> void:
+	if _surface_binding != null:
+		_surface_binding.release()
+	_surface_binding = binding
+	_target_reference = weakref(binding.get_target())
+	_target_identity = binding.target_identity
+	_target_local_hit_offset = binding.get_local_contact_point()
+	_initial_anchor_world_position = state.anchor_world_position
+	_anchor_revision += 1
+	record_sampled_anchor_state(state, physics_step)
+	_resolve_surface_response(state.response)
+	# No old-anchor force is attributed to this revision.
+	_applied_acceleration_mps2 = 0.0
+
+func _resolve_surface_response(effective_response: GrappleTargetResponse) -> void:
+	_response = effective_response
+	_response_pull_multiplier = _response.pull_multiplier
+	_resolved_pull_initial_acceleration_mps2 = _authored_pull_initial_acceleration_mps2 * _response_pull_multiplier
+	_resolved_pull_min_acceleration_mps2 = _authored_pull_min_acceleration_mps2 * _response_pull_multiplier
+	_resolved_pull_acceleration_jerk_mps3 = _authored_pull_acceleration_jerk_mps3 * _response_pull_multiplier
+	var instability_scale := 1.0 - 0.5 * clampf(_response.instability, 0.0, 1.0)
+	_resolved_continuous_motion_tolerance_mps = _authored_continuous_motion_tolerance_mps * instability_scale
+	_resolved_severe_discontinuity_threshold_mps = get_surface_severe_threshold_mps(effective_response)
+
+## Query the incoming surface policy against occurrence-captured tuning without
+## overwriting the previous anchor/response needed for displacement classification.
+func get_surface_severe_threshold_mps(effective_response: GrappleTargetResponse) -> float:
+	return _authored_severe_discontinuity_threshold_mps * (1.0 - 0.5 * clampf(effective_response.instability, 0.0, 1.0))
+
 
 func has_live_target() -> bool:
 	return is_instance_valid(get_target())
@@ -319,6 +359,8 @@ func record_sampled_anchor_state(state: GrappleAnchorState, physics_step: int) -
 		return
 	_sampled_anchor_state = state
 	_sampled_anchor_step = physics_step
+	if _surface_binding != null and state.is_valid:
+		_resolve_surface_response(state.response)
 
 
 ## Definition-immutability contract (AC 10, NFR13): the occurrence resolved its
@@ -357,6 +399,9 @@ func commit_terminal(
 	if not GrappleEndReason.is_valid_reason(int(reason)):
 		return null
 	_terminal = Terminal.new(_attachment_id, reason, physics_step, release_velocity)
+	if _surface_binding != null:
+		_surface_binding.release()
+	_surface_binding = null
 	return _terminal
 
 

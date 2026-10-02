@@ -1,0 +1,59 @@
+extends RefCounted
+## Executed through MCP game_eval in a fresh editor-launched game, not CLI.
+## Fixtures use their explicit input injection seam; standalone proof additionally
+## exercises MCP mouse/action events through the production input boundary.
+
+static func run(tree: SceneTree) -> Array[Dictionary]:
+	var reports: Array[Dictionary] = []
+	var packed: PackedScene = load("res://tests/fixtures/wall_stick_reanchor_fixture.tscn")
+	for rate in [60, 120]:
+		Engine.physics_ticks_per_second = rate
+		for policy in ["ordinary", "static", "moving"]:
+			var viewport := SubViewport.new()
+			viewport.size = Vector2i(64, 64)
+			viewport.world_3d = World3D.new()
+			tree.root.add_child(viewport)
+			var fixture := packed.instantiate() as WallStickReanchorFixture
+			fixture.wall_policy = policy
+			fixture.initial_scope = &"fixture.live.original"
+			fixture.wall_scope = &"fixture.live.original"
+			viewport.add_child(fixture)
+			await ticks(tree, 6)
+			fixture.wall.set("motion_velocity", Vector3(1.0, 0.1, -0.2))
+			fixture.wall.set("yaw_rate_rps", 0.2)
+			fixture.wall.set("owner_motion_velocity", Vector3(0.3, 0.05, 0.0))
+			await ticks(tree, int(rate * 0.2))
+			var held := fixture.reanchor_report()
+			var carry: WallStickAttachment = fixture.player.get("_wall_stick_attachment")
+			var contact_velocity := fixture.original_attachment.get_sampled_anchor_state().target_velocity
+			var carry_velocity := carry.point_velocity if carry != null else Vector3.ZERO
+			fixture.input_source.inject_movement_strengths(0.0, 0.0, 0.0, 0.0)
+			fixture.anchor.queue_free()
+			await ticks(tree, int(rate * 0.2))
+			var released := fixture.reanchor_report()
+			fixture.wall.set("motion_velocity", Vector3.ZERO)
+			fixture.wall.set("yaw_rate_rps", 0.0)
+			fixture.wall.set("owner_motion_velocity", Vector3.ZERO)
+			var expected_reason := GrappleEndReason.Reason.TARGET_DESTROYED
+			match policy:
+				"ordinary": fixture.wall.queue_free()
+				"static":
+					fixture.wall_component.eligible = false
+					expected_reason = GrappleEndReason.Reason.TARGET_INVALIDATED
+				"moving":
+					fixture.wall_component.encounter_scope_identity = &"fixture.live.other"
+					expected_reason = GrappleEndReason.Reason.SCOPE_MISMATCH
+			await ticks(tree, 5)
+			var terminal := fixture.reanchor_report()
+			var ended := fixture.original_attachment.get_terminal()
+			var passed: bool = held.sticking and held.grappling and released.grappling and not released.sticking and released.same_occurrence and released.revision == 1 and released.entry_count == 1 and released.terminal_count == 0 and released.maximum_anchor_error_m < 0.0001 and released.maximum_marker_error_m < 0.0001 and released.maximum_rope_end_error_m < 0.0001 and released.maximum_point_velocity_error_mps < 0.005 and contact_velocity.distance_to(carry_velocity) > 0.03 and released.rope_resets == held.rope_resets and released.marker_resets == held.marker_resets and terminal.terminal_count == 1 and terminal.terminal_visuals_clear and ended != null and ended.reason == expected_reason and terminal.maximum_commits == 1
+			reports.append({"rate": rate, "policy": policy, "held": held, "released_after_old_target_destroyed": released, "terminal": terminal, "reason": ended.reason_id if ended != null else &"none", "contact_velocity": contact_velocity, "stand_off_velocity": carry_velocity, "passed": passed})
+			viewport.queue_free()
+			await tree.process_frame
+	Engine.physics_ticks_per_second = 60
+	return reports
+
+static func ticks(tree: SceneTree, count: int) -> void:
+	for i in range(count):
+		await tree.physics_frame
+	await tree.process_frame

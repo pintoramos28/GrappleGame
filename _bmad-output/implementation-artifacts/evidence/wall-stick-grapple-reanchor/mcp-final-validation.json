@@ -1,0 +1,125 @@
+{
+  "session_id": "testgame@17187ab35ae57813",
+  "godot_version": "4.7.2-stable (official)",
+  "fresh_run_id": "r166780006-32",
+  "autosave": false,
+  "scene": "res://tests/fixtures/wall_stick_reanchor_fixture.tscn",
+  "filesystem_scan": {"scan_completed": true, "scan_settle": "settled", "global_class_count": 134, "global_classes_registered_delta": 0},
+  "native_adapter": {
+    "suite": "wall_stick",
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "skipped": 0,
+    "duration_ms": 8,
+    "tests": [
+      "test_authored_stick_definition_is_independent",
+      "test_hold_schema_keeps_single_commit_and_forward_fact",
+      "test_public_contact_schema_remains_value_only",
+      "test_reanchor_schema_has_independent_binding_revision_and_shared_active_visuals"
+    ],
+    "coverage": "Schema/source checks only; not GUT or gameplay coverage.",
+    "cache_warning": "Preloaded GDScript dependencies may be stale after source edits. Restart the editor before treating this run as validation of dependency changes. ResourceLoader cache modes do not invalidate GDScript's preload cache."
+  },
+  "live_recheck": {
+    "execution": "live-cases.gd.txt compiled as a transient GDScript and awaited through MCP game_eval in the fresh game process",
+    "input_path": "Explicit fixture injection seam; production player, controller, motor and actual marker/rope nodes",
+    "cases": [
+      {"rate": 60, "policy": "ordinary", "passed": true, "reason": "target_destroyed"},
+      {"rate": 60, "policy": "static", "passed": true, "reason": "target_invalidated"},
+      {"rate": 60, "policy": "moving", "passed": true, "reason": "scope_mismatch"},
+      {"rate": 120, "policy": "ordinary", "passed": true, "reason": "target_destroyed"},
+      {"rate": 120, "policy": "static", "passed": true, "reason": "target_invalidated"},
+      {"rate": 120, "policy": "moving", "passed": true, "reason": "scope_mismatch"}
+    ],
+    "observed_in_every_case": {
+      "held_sticking": true,
+      "released_grappling": true,
+      "released_sticking": false,
+      "same_occurrence": true,
+      "revision": 1,
+      "entry_count": 1,
+      "elapsed_after_release_seconds": 0.6,
+      "maximum_anchor_error_m": 0,
+      "maximum_marker_error_m": 0,
+      "maximum_rope_end_error_m": 4.8054801027e-7,
+      "maximum_point_velocity_error_mps": 0,
+      "maximum_commits": 1,
+      "overlap_count": 0,
+      "terminal_count": 1,
+      "terminal_visuals_clear": true
+    },
+    "contact_velocity_60_mps": [1.33931005001068, 0.150003418326378, -0.22452412545681],
+    "stand_off_velocity_60_mps": [1.4294205904007, 0.150003418326378, -0.227980598807335],
+    "contact_velocity_120_mps": [1.33927690982819, 0.15003202855587, -0.225055202841759],
+    "stand_off_velocity_120_mps": [1.42938125133514, 0.15003202855587, -0.228588566184044],
+    "restored_physics_rate": 60
+  },
+  "prior_standalone_smoke": {
+    "run_id": "r165999924-31",
+    "input_path": "MCP right-mouse events latched the production grapple boundary; MCP movement action events exercised forward hold/release after neutral rearm",
+    "last_observation": {
+      "anchor_samples": 40786,
+      "attachment_id": "player.grapple.attachment_1",
+      "elapsed_seconds": 601.433333333145,
+      "entry_count": 1,
+      "grappling": true,
+      "sticking": false,
+      "same_occurrence": true,
+      "revision": 1,
+      "terminal_count": 0,
+      "maximum_commits": 1,
+      "maximum_anchor_error_m": 0,
+      "maximum_marker_error_m": 0,
+      "maximum_point_velocity_error_mps": 0,
+      "maximum_rope_end_error_m": 0.00000490535740027,
+      "maximum_carry_error_m": 1.426087692e-8,
+      "overlap_count": 0,
+      "rope_resets": 2,
+      "marker_resets": 2,
+      "old_target_valid": false,
+      "wall_valid": true,
+      "rate": 60
+    },
+    "screenshot": "mcp-contact-visual-proof.png",
+    "screenshot_conditions": "Actual MCP viewport capture. Only the fixture player's opaque capsule presentation mesh was hidden to expose the green active marker and cyan rope. Collision capsule, production marker/rope geometry, anchor and movement were unchanged. Diagnostic proof, not normal-view readability/feel acceptance."
+  },
+  "diagnostic_attempts": [
+    "Initial source validation found Variant-inferred weakref declarations; corrected to explicit WeakRef. Three retained source-error rows remain in the editor, in addition to two pre-feature historical rows.",
+    "Some no-op MCP script_patch reload checks returned fallback error code 43. Player controller reload succeeded. Fresh CLI parsing and fresh MCP-launched game instances, not the schema adapter's preload cache, validate final dependencies.",
+    "An earlier transient game_eval mixed tabs and spaces; stopped/relaunched and corrected before the successful live cases.",
+    "The optional final standalone wall-destruction eval used a nonexistent GrappleTerminal type and entered a parser break before any mutations. A corrected eval could not run in that break. Stopped through MCP and launched a fresh autosave=false game.",
+    "The fresh standalone fixture did not re-enter stick after launch focus neutralization (revision 0, entry count 0). Its destruction check only verified ordinary terminal cleanup; it is not counted as a re-anchor pass. The subsequent controlled six-case live recheck in that same fresh process passed all re-anchor cases.",
+    "A read-only resource lookup omitted the definitions directory and returned RESOURCE_NOT_FOUND; inspection at the actual scene-referenced path succeeded."
+  ],
+  "final_diagnostics": {
+    "game_log_run_id": "r166780006-32",
+    "game_log_lines": [{"level": "info", "text": "[godot_ai game_helper] registered mcp capture (debugger active=true, logger=true)"}],
+    "game_log_dropped_count": 0,
+    "new_editor_entries_since_cursor_5": 0,
+    "retained_editor_error_rows": 5,
+    "retained_editor_warning_rows": 10,
+    "logs_cleared": false
+  },
+  "cleanup": {
+    "right_mouse_released": true,
+    "input_sequence_completed": true,
+    "all_checked_actions_released": ["fire_grapple", "move_forward", "move_back", "move_left", "move_right", "jump"],
+    "physics_rate_restored": 60,
+    "playback_stopped": true,
+    "editor_readiness": "ready",
+    "current_editor_scene": "res://game/levels/content/traversal_validation/traversal_validation_route.tscn",
+    "user_scenes_saved_or_discarded": false
+  },
+  "final_editor_inspection": {
+    "player_script": "res://scripts/player_controller.gd",
+    "stick_definition": "res://game/player/locomotion/wall_stick/definitions/wall_stick_definition.tres",
+    "stick_maximum_entry_speed_mps": 100,
+    "stick_jump_up_speed_mps": 5.5,
+    "stick_jump_away_speed_mps": 8,
+    "grapple_definition": "res://game/player/abilities/grapple/definitions/grapple_definition.tres",
+    "grapple_maximum_length_m": 35,
+    "grapple_pull_initial_acceleration_mps2": 60,
+    "grapple_maximum_speed_mps": 22
+  }
+}

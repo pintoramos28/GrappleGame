@@ -480,7 +480,7 @@ text = "RUN ALONG WALL  /  keep speed + aligned input"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 5, 7)
 pixel_size = 0.009
 billboard = 1
-text = "HOLD GRAPPLE NEAR WALL  /  stick"
+text = "HOLD FORWARD + GRAPPLE NEAR WALL  /  stick"
 
 [node name="FinishGuide" type="Label3D" parent="Course" unique_id=1144771531]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63, 5, 6)

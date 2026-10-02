@@ -188,6 +188,20 @@ var wall_probe_query_succeeded: bool:
 	get:
 		return _wall_probe_query_succeeded
 
+## Physical evidence compatible with the selected wall, never a collider ref.
+## BODY_FACT may win legacy run selection; its physical corroboration is separate.
+var wall_support: ContactCandidate:
+	get:
+		return _wall_support
+
+var wall_point_velocity: Vector3:
+	get:
+		return _wall_point_velocity
+
+var wall_support_token: int:
+	get:
+		return _wall_support_token
+
 
 var _physics_step: int
 var _source_motor_step: int
@@ -218,6 +232,9 @@ var _wall_contact_lost: bool
 var _body_probe_disagreement: bool
 var _ground_probe_query_succeeded: bool
 var _wall_probe_query_succeeded: bool
+var _wall_support: ContactCandidate
+var _wall_point_velocity: Vector3
+var _wall_support_token: int
 
 
 func _init(
@@ -249,9 +266,14 @@ func _init(
 	wall_was_lost: bool = false,
 	probe_disagreement: bool = false,
 	ground_query_succeeded: bool = false,
-	wall_query_succeeded: bool = false
+	wall_query_succeeded: bool = false,
+	physical_wall_support: ContactCandidate = null,
+	physical_wall_point_velocity: Vector3 = Vector3.ZERO,
+	physical_wall_support_token: int = 0
 ) -> void:
 	var validation_failed := false
+	if not physical_wall_point_velocity.is_finite() or (physical_wall_support != null and (not physical_wall_support.is_finite() or physical_wall_support.physics_step != step)):
+		validation_failed = true
 	var normalized_ground_normal := Vector3.ZERO
 	if has_ground_surface:
 		if support_normal.is_finite() and support_normal.length_squared() > 0.000001:
@@ -306,6 +328,9 @@ func _init(
 	_body_probe_disagreement = probe_disagreement
 	_ground_probe_query_succeeded = ground_query_succeeded
 	_wall_probe_query_succeeded = wall_query_succeeded
+	_wall_support = physical_wall_support
+	_wall_point_velocity = physical_wall_point_velocity
+	_wall_support_token = physical_wall_support_token
 
 
 static func failure(

@@ -1,0 +1,93 @@
+var tree = get_tree()
+var previous = tree.root.get_node_or_null("WallStickSmoke120")
+if is_instance_valid(previous):
+	previous.queue_free()
+	await tree.process_frame
+var reports = []
+for rate in [60, 120]:
+	Engine.physics_ticks_per_second = rate
+	for scenario in ["forward_release", "jump_release", "blocked", "destroyed", "disabled", "teleport", "shape_replaced"]:
+		var viewport = SubViewport.new()
+		viewport.size = Vector2i(64, 64)
+		viewport.world_3d = World3D.new()
+		tree.root.add_child(viewport)
+		tree.current_scene = viewport
+		var fixture = load("res://tests/fixtures/wall_stick_motion_fixture.tscn").instantiate()
+		viewport.add_child(fixture)
+		for i in range(8):
+			await tree.physics_frame
+		await tree.process_frame
+		var entered = bool(fixture.player.get("is_wall_sticking"))
+		var extra = {}
+		if scenario == "forward_release":
+			fixture.wall.set("motion_velocity", Vector3.RIGHT)
+			for i in range(8):
+				await tree.physics_frame
+			await tree.process_frame
+			fixture.input_source.inject_movement_strengths(0, 0, 0, 0)
+			await tree.physics_frame
+			await tree.process_frame
+			var release = fixture.detachment_commit
+			extra["release_velocity_error_mps"] = (release.submitted_velocity - fixture.detachment_reference_velocity).length()
+			extra["release_is_hold"] = release.is_hold_request
+			extra["release_commit_state"] = release.locomotion_state_id
+			for i in range(8):
+				await tree.physics_frame
+			await tree.process_frame
+			extra["resumed_state"] = fixture.motor.get_last_commit_result().locomotion_state_id
+		elif scenario == "jump_release":
+			fixture.wall.set("motion_velocity", Vector3.RIGHT * 3)
+			for i in range(8):
+				await tree.physics_frame
+			await tree.process_frame
+			fixture.player.velocity = Vector3(7, -2, 0.5)
+			fixture.input_source.inject_action_binding(PlayerCommandFrame.Action.JUMP, 0, true)
+			fixture.input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
+			fixture.input_source.inject_movement_strengths(0, 0, 0, 0)
+			for i in range(5):
+				await tree.physics_frame
+			await tree.process_frame
+		elif scenario == "blocked":
+			fixture.add_blocker()
+			var initial_y = fixture.player.global_position.y
+			fixture.wall.set("motion_velocity", Vector3.UP * 2)
+			for i in range(int(rate * 0.5)):
+				await tree.physics_frame
+			await tree.process_frame
+			extra["vertical_displacement_m"] = fixture.player.global_position.y - initial_y
+		else:
+			match scenario:
+				"destroyed":
+					fixture.wall.queue_free()
+				"disabled":
+					fixture.wall.get_child(0).disabled = true
+				"teleport":
+					fixture.wall.position.x += 4
+				"shape_replaced":
+					var replacement = BoxShape3D.new()
+					replacement.size = Vector3(16, 16, 0.4)
+					fixture.wall.get_child(0).shape = replacement
+			for i in range(3):
+				await tree.physics_frame
+			await tree.process_frame
+		var report = fixture.report()
+		report.merge(extra)
+		report["scenario"] = scenario
+		report["rate"] = rate
+		report["entered"] = entered
+		var passed = entered and report.maximum_commits == 1 and report.overlap_count == 0
+		if scenario == "forward_release":
+			passed = passed and not report.sticking and report.grappling and report.terminal_count == 0 and report.entry_count == 1 and report.release_velocity_error_mps < 0.001 and not report.release_is_hold and report.resumed_state == &"player.locomotion.grappling"
+		elif scenario == "jump_release":
+			passed = passed and not report.sticking and not report.grappling and report.terminal_count == 1 and report.terminal_wall_clear and report.jump_velocity.distance_to(Vector3(0, 5.5, 8)) < 0.0001
+		elif scenario == "blocked":
+			passed = passed and not report.sticking and report.terminal_count == 1 and report.blocked_count == 1 and report.vertical_displacement_m <= 0.401
+		else:
+			passed = passed and not report.sticking and report.terminal_count == 1 and report.terminal_wall_clear and absf(fixture.player.global_position.x) < 0.01
+		report["passed"] = passed
+		reports.append(report)
+		print("[mcp-wall-stick-interruption] ", report)
+		viewport.queue_free()
+		await tree.process_frame
+tree.root.set_meta("wall_stick_interruption_reports", reports)
+return reports

@@ -17,7 +17,7 @@ extends CharacterBody3D
 @export var jump_velocity := 4.5
 
 @export_group("Wall Running")
-## Highest total speed that can still enter a wall run or wall stick.
+## Highest total speed that can still enter a wall run.
 @export var wall_run_max_entry_speed := 18.0
 ## Minimum horizontal speed required to start or keep wall running.
 @export var wall_run_min_horizontal_speed := 1.0
@@ -39,6 +39,9 @@ extends CharacterBody3D
 @export var wall_jump_up_velocity := 5.5
 ## Horizontal velocity applied away from the wall during a wall jump.
 @export var wall_jump_away_velocity := 8.0
+
+@export_group("Wall Sticking")
+@export var wall_stick_definition: WallStickDefinition
 
 @export_group("Camera And Input")
 ## Mouse-look sensitivity for captured mouse motion.
@@ -121,6 +124,7 @@ const EVENT_WALL_RUN_STARTED := &"wall_run_started"
 const EVENT_WALL_RUN_FINISHED := &"wall_run_finished"
 const EVENT_WALL_STICK_STARTED := &"wall_stick_started"
 const EVENT_WALL_STICK_JUMPED := &"wall_stick_jumped"
+const EVENT_WALL_STICK_RELEASED := &"wall_stick_released"
 const EVENT_DIED := &"died"
 const EVENT_ATTACK_STARTED := &"attack_started"
 const EVENT_ATTACK_PHASE_FINISHED := &"attack_phase_finished"
@@ -153,8 +157,10 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var camera_pitch := 0.0
 var grapple_visual: MeshInstance3D
 var grapple_visual_mesh: CylinderMesh
-## Hidden->visible rope resets, counted where `reset_physics_interpolation()` runs.
+## Reveal/revision rope resets, counted at the single reset call site.
 var grapple_visual_reset_count: int = 0
+var _grapple_visual_attachment_identity: StringName = &""
+var _grapple_visual_revision := -1
 
 ## Read-through views of the player-owned `GrappleAttachment` (Story 1.7 Task
 ## 2.2): the attachment is the single grapple runtime authority and these are
@@ -205,6 +211,10 @@ var wall_stick_normal := Vector3.ZERO
 var wall_stick_run_direction := Vector3.ZERO
 var wall_stick_surface_identity: StringName = &""
 var wall_stick_identity_persistent := false
+var _wall_stick_attachment: WallStickAttachment
+var _wall_stick_committed_velocity := Vector3.ZERO
+var _wall_stick_has_committed_hold := false
+var _last_wall_stick_reanchor_status := GrappleController.ReanchorStatus.SUCCESS
 var is_dead := false
 var _player_physics_step := 0
 var _current_command_frame: PlayerCommandFrame
@@ -233,6 +243,10 @@ func _ready() -> void:
 	_setup_grapple_visual()
 	_compose_grapple_targeting()
 	_compose_grapple_controller()
+	if wall_stick_definition == null or wall_stick_definition.validate() != WallStickDefinition.ValidationStatus.SUCCESS:
+		push_error("PlayerController requires a valid WallStickDefinition.")
+		_deactivate_player()
+		return
 
 	if health:
 		health.damaged.connect(_on_health_damaged)
@@ -304,6 +318,7 @@ func _init_player_state_machines() -> void:
 	movement_hsm.add_transition(wall_run_state, grappling_state, EVENT_GRAPPLE_STARTED)
 	movement_hsm.add_transition(wall_stick_state, airborne_state, EVENT_GRAPPLE_RELEASED)
 	movement_hsm.add_transition(wall_stick_state, airborne_state, EVENT_WALL_STICK_JUMPED)
+	movement_hsm.add_transition(wall_stick_state, grappling_state, EVENT_WALL_STICK_RELEASED)
 	movement_hsm.add_transition(movement_hsm.ANYSTATE, dead_state, EVENT_DIED)
 	movement_hsm.initialize(self)
 	movement_hsm.set_active(true)
@@ -393,9 +408,9 @@ func _deactivate_player() -> void:
 	_player_initialized = false
 	if input_source:
 		input_source.set_enabled(false)
-	if movement_hsm:
+	if movement_hsm and movement_hsm.is_active():
 		movement_hsm.set_active(false)
-	if attack_hsm:
+	if attack_hsm and attack_hsm.is_active():
 		attack_hsm.set_active(false)
 	_current_targeting_result = null
 	if grapple_marker:
@@ -423,6 +438,14 @@ func _coordinate_post_commit(result: PlayerMotorCommitResult) -> void:
 		)
 		_deactivate_player()
 		return
+
+	if result.is_hold_request and is_wall_sticking:
+		_wall_stick_committed_velocity = result.committed_velocity
+		_wall_stick_has_committed_hold = true
+		if result.hold_carry_blocked:
+			terminate_grapple(GrappleEndReason.Reason.STATE_CANCELLATION)
+			dispatch_locomotion_event(EVENT_GRAPPLE_RELEASED)
+			return
 
 	if _submitted_locomotion_state_id == LOCOMOTION_GRAPPLING and is_grappling and not contact_frame.is_grounded:
 		var started_wall_stick := _try_start_wall_stick_from_contact(
@@ -730,10 +753,16 @@ func submit_wall_jump(reference_velocity: Vector3) -> bool:
 
 
 func submit_wall_stick_hold() -> bool:
+	var attachment := get_grapple_attachment()
+	var anchor_state := attachment.get_sampled_anchor_state() if _is_live_attachment(attachment) else null
+	if anchor_state == null:
+		return false
 	return _submit_motor_status(
-		player_motor.submit_wall_stick_hold(
+		_wall_stick_attachment.submit_hold(
+			player_motor,
 			SOURCE_WALL_STICK_HOLD,
-			wall_stick_position
+			anchor_state,
+			attachment.resolved_maximum_length_m
 		),
 		SOURCE_WALL_STICK_HOLD
 	)
@@ -752,11 +781,11 @@ func submit_wall_stick_release(reference_velocity: Vector3) -> bool:
 
 
 func submit_wall_stick_jump(reference_velocity: Vector3) -> bool:
-	var along_wall_velocity := wall_stick_run_direction * wall_run_speed
-	var desired_velocity := wall_stick_normal * wall_jump_away_velocity + along_wall_velocity
-	desired_velocity.y = wall_jump_up_velocity
-	_clear_wall_stick()
+	var outward := Vector3(wall_stick_normal.x, 0.0, wall_stick_normal.z).normalized()
+	var desired_velocity := outward * wall_stick_definition.jump_away_speed_mps
+	desired_velocity.y = wall_stick_definition.jump_up_speed_mps
 	terminate_grapple(GrappleEndReason.Reason.STATE_CANCELLATION)
+	_clear_wall_stick()
 	return _submit_motor_status(
 		player_motor.submit_one_shot_impulse(
 			SOURCE_JUMP_WALL,
@@ -1040,40 +1069,59 @@ func _clear_wall_run() -> void:
 	wall_identity_persistent = false
 
 
+## Inclusive incoming total-speed gate in the supporting wall's frame.
+func _can_start_wall_stick(check_velocity: Vector3, wall_velocity: Vector3 = Vector3.ZERO) -> bool:
+	return wall_stick_definition != null and wall_stick_definition.is_locked() and check_velocity.is_finite() and wall_velocity.is_finite() and (check_velocity - wall_velocity).length() <= wall_stick_definition.maximum_entry_speed_mps
+
+
 ## Grapple-assisted wall-stick entry (Story 1.9 AC 6), post-commit only. The
 ## authoritative wall relationship comes from the just-committed
 ## `ContactFrame`; there is deliberately no airborne-to-wall-stick path.
 func _try_start_wall_stick_from_contact(
-	input_dir: Vector2,
+	_input_dir: Vector2,
 	entry_velocity: Vector3,
 	contact_frame: ContactFrame,
 	committed_position: Vector3
 ) -> bool:
 	if (
-		is_wall_sticking
+		wall_stick_definition == null
+		or not wall_stick_definition.is_locked()
+		or is_wall_sticking
 		or not is_grappling
 		or _current_command_frame == null
 		or not _current_command_frame.is_held(PlayerCommandFrame.Action.GRAPPLE)
+		or not _current_command_frame.move_forward_held
 		or contact_frame == null
 		or contact_frame.is_grounded
 		or not _is_runnable_wall_frame(contact_frame, _player_physics_step)
-		or _has_outward_wall_speed(entry_velocity, contact_frame.wall_normal)
-		or not _can_start_wall_run(entry_velocity)
+		or contact_frame.wall_support == null
+		or absf(contact_frame.wall_support.normal.y) > wall_stick_definition.maximum_abs_normal_y
+		or _has_outward_wall_speed(entry_velocity - contact_frame.wall_point_velocity, contact_frame.wall_support.normal)
+		or not _can_start_wall_stick(entry_velocity, contact_frame.wall_point_velocity)
 	):
 		return false
 
-	var normal := contact_frame.wall_normal
-	var run_direction := _get_wall_run_direction(normal, entry_velocity)
-	if not _has_wall_run_input_for_direction(input_dir, run_direction):
+	var provider := player_motor.get_contact_provider()
+	var attachment := provider.bind_wall_stick_attachment(contact_frame, committed_position, wall_stick_definition)
+	if attachment == null:
 		return false
 
-	return _set_wall_stick(contact_frame, run_direction, committed_position)
+	var binding := attachment.create_grapple_surface_binding(contact_frame)
+	var prepared := _grapple_controller.prepare_surface_reanchor(binding, _player_physics_step)
+	_last_wall_stick_reanchor_status = prepared.status
+	if prepared.status != GrappleController.ReanchorStatus.SUCCESS:
+		attachment.release()
+		if binding != null:
+			binding.release()
+		return false
+	return _set_wall_stick(contact_frame, attachment, committed_position, prepared)
 
 
 func _set_wall_stick(
 	contact_frame: ContactFrame,
-	run_direction: Vector3,
-	committed_position: Vector3
+	attachment: WallStickAttachment,
+	committed_position: Vector3,
+	prepared: GrappleController.ReanchorPreparation
 ) -> bool:
 	if player_motor == null or not is_instance_valid(player_motor):
 		_player_log.record_invariant(
@@ -1087,31 +1135,38 @@ func _set_wall_stick(
 		_deactivate_player()
 		return false
 
-	var baseline_status := player_motor.set_next_frame_velocity_baseline(Vector3.ZERO)
-	if baseline_status != PlayerMotor.BaselineStatus.SUCCESS:
-		_player_log.record_invariant(
-			&"player.controller.wall_stick_baseline_failed",
-			DiagnosticContext.new(
-				_player_physics_step,
-				LOCOMOTION_WALL_STICK,
-				StringName(PlayerMotor.BaselineStatus.keys()[int(baseline_status)].to_lower())
-			)
-		)
-		_deactivate_player()
+	_last_wall_stick_reanchor_status = _grapple_controller.commit_surface_reanchor(prepared, player_motor)
+	if _last_wall_stick_reanchor_status != GrappleController.ReanchorStatus.SUCCESS:
+		attachment.release()
+		prepared.binding.release()
 		return false
 
 	is_wall_sticking = true
+	_wall_stick_attachment = attachment
+	player_motor.get_contact_provider().set_wall_stick_attachment(attachment)
+	# Entry already committed movement with the old revision. Do not rewrite its
+	# reported velocity; zero is only the next-frame motor baseline.
+	_wall_stick_committed_velocity = player_motor.get_committed_velocity()
+	_wall_stick_has_committed_hold = false
 	wall_stick_position = committed_position
-	wall_stick_normal = contact_frame.wall_normal.normalized()
-	wall_stick_run_direction = run_direction
-	wall_stick_surface_identity = contact_frame.wall_surface_identity
-	wall_stick_identity_persistent = contact_frame.wall_identity_persistent
+	wall_stick_normal = attachment.world_normal
+	wall_stick_run_direction = wall_stick_normal.cross(Vector3.UP).normalized()
+	wall_stick_surface_identity = contact_frame.wall_support.surface_identity
+	wall_stick_identity_persistent = contact_frame.wall_support.has_authored_identity()
+	player_motor.get_contact_provider().set_wall_stick_probe_normal(wall_stick_normal)
 	_clear_wall_run()
 	return true
 
 
 func _clear_wall_stick() -> void:
 	is_wall_sticking = false
+	if _wall_stick_attachment != null:
+		_wall_stick_attachment.release()
+	_wall_stick_attachment = null
+	_wall_stick_committed_velocity = Vector3.ZERO
+	_wall_stick_has_committed_hold = false
+	if player_motor != null and player_motor.get_contact_provider() != null:
+		player_motor.get_contact_provider().set_wall_stick_probe_normal(Vector3.ZERO)
 	wall_stick_position = Vector3.ZERO
 	wall_stick_normal = Vector3.ZERO
 	wall_stick_run_direction = Vector3.ZERO
@@ -1129,18 +1184,31 @@ func has_supported_wall_contact() -> bool:
 		return false
 	if not is_wall_sticking:
 		return true
-	# The hold position and jump normal belong to the wall selected at entry.
-	# A switch is not continued support for that wall, even if another wall is
-	# within probe range. End the hold rather than pinning to the old position or
-	# launching away from its cached normal. Persistent identities must agree.
-	if contact_frame.continuity_action == ContactFrame.ContinuityAction.SWITCHED:
+	return _wall_stick_attachment != null and _wall_stick_attachment.status == WallStickAttachment.Status.VALID and _wall_stick_attachment.matches_contact(contact_frame)
+
+
+func sample_wall_stick_support(delta: float) -> bool:
+	if _wall_stick_attachment == null or not _wall_stick_attachment.sample(get_previous_contact_frame(), _player_physics_step, delta):
 		return false
-	if wall_stick_identity_persistent:
-		return (
-			contact_frame.wall_identity_persistent
-			and contact_frame.wall_surface_identity == wall_stick_surface_identity
-		)
+	wall_stick_position = _wall_stick_attachment.target_world_position
+	wall_stick_normal = _wall_stick_attachment.world_normal
+	player_motor.get_contact_provider().set_wall_stick_probe_normal(wall_stick_normal)
 	return true
+
+
+func has_outward_wall_stick_motion(reference_velocity: Vector3) -> bool:
+	# Recovery can consume approaching carry without leaving body velocity.
+	# Compare to the last hold's actual commit, not a guessed platform velocity.
+	# Before the first hold, the motor intentionally consumes the armed ZERO
+	# baseline. Compare to that baseline, not to the old-revision entry commit.
+	var carry_reference := _wall_stick_committed_velocity if _wall_stick_has_committed_hold else Vector3.ZERO
+	return _has_outward_wall_speed(reference_velocity - carry_reference, wall_stick_normal)
+
+
+func release_wall_stick_to_grapple(reference_velocity: Vector3) -> void:
+	_clear_wall_stick()
+	submit_wall_stick_release(reference_velocity)
+	dispatch_locomotion_event(EVENT_WALL_STICK_RELEASED)
 
 
 ## A jump must use the current selected wall, not the previous run normal if
@@ -1160,8 +1228,9 @@ func get_movement_input() -> Vector2:
 
 
 func update_grapple_feedback() -> void:
-	_update_grapple_visual()
-	_update_grapple_marker()
+	var snapshot := get_grapple_attachment_diagnostic_snapshot()
+	_update_grapple_visual(snapshot)
+	_update_grapple_marker(snapshot)
 
 
 func dispatch_locomotion_after_grapple_clear() -> void:
@@ -1284,22 +1353,22 @@ func get_grapple_attachment_diagnostic_snapshot() -> GrappleAttachmentDiagnostic
 
 
 ## Typed read-only wall-stick entry gate status (dev overlay consumption).
+## Speed only: uses the same incoming transaction and wall frame as entry.
 func is_wall_stick_speed_gate_open() -> bool:
-	return _can_start_wall_run(get_committed_motion_velocity())
+	var result := player_motor.get_last_commit_result() if player_motor != null else null
+	return result != null and _can_start_wall_stick(result.submitted_velocity, result.contact_frame.wall_point_velocity)
 
 
 func get_wall_stick_speed_gate_reason_id() -> StringName:
-	var committed_velocity := get_committed_motion_velocity()
-	if Vector3(committed_velocity.x, 0.0, committed_velocity.z).length() < wall_run_min_horizontal_speed:
-		return &"horizontal_speed_low"
-	if committed_velocity.length() > wall_run_max_entry_speed:
-		return &"total_speed_high"
-	# Derived from the same evaluation as `is_wall_stick_speed_gate_open()`, so
-	# the two queries can never disagree: a non-speed block (contact, alignment)
-	# reports `blocked`, never `pass`.
-	if not is_wall_stick_speed_gate_open():
+	var result := player_motor.get_last_commit_result() if player_motor != null else null
+	if result == null:
 		return &"blocked"
-	return &"pass"
+	var incoming_velocity := result.submitted_velocity
+	if _can_start_wall_stick(incoming_velocity, result.contact_frame.wall_point_velocity):
+		return &"pass"
+	if not incoming_velocity.is_finite() or not result.contact_frame.wall_point_velocity.is_finite():
+		return &"non_finite_speed"
+	return &"total_speed_high"
 
 
 func get_latest_grapple_targeting_result() -> GrappleTargetingResult:
@@ -1316,13 +1385,15 @@ func get_grapple_targeting_diagnostic_snapshot() -> GrappleTargetingDiagnosticSn
 	return GrappleTargetingDiagnosticSnapshot.from_result(_current_targeting_result)
 
 
-func _update_grapple_visual() -> void:
-	if not is_grappling:
-		grapple_visual.visible = false
+func _update_grapple_visual(snapshot: GrappleAttachmentDiagnosticSnapshot = null) -> void:
+	if snapshot == null:
+		snapshot = get_grapple_attachment_diagnostic_snapshot()
+	if snapshot == null or not snapshot.is_active or not snapshot.anchor_valid:
+		_clear_grapple_visual()
 		return
 
 	var start := _grapple_controller.get_pull_origin_position()
-	var end := grapple_point
+	var end := snapshot.anchor_world_position
 	var segment := end - start
 	var length := segment.length()
 	if length <= 0.001:
@@ -1330,17 +1401,34 @@ func _update_grapple_visual() -> void:
 		return
 
 	var was_hidden := not grapple_visual.visible
+	var revision_changed := _grapple_visual_attachment_identity != snapshot.attachment_identity or _grapple_visual_revision != snapshot.anchor_revision
 	grapple_visual_mesh.height = length
+	grapple_visual.mesh = grapple_visual_mesh
 	grapple_visual.global_transform = Transform3D(_basis_from_y_axis(segment), start + segment * 0.5)
-	if was_hidden:
+	if was_hidden or revision_changed:
 		grapple_visual.reset_physics_interpolation()
 		grapple_visual_reset_count += 1
+	_grapple_visual_attachment_identity = snapshot.attachment_identity
+	_grapple_visual_revision = snapshot.anchor_revision
 	grapple_visual.visible = true
 
+func _clear_grapple_visual() -> void:
+	if grapple_visual != null:
+		grapple_visual.visible = false
+		grapple_visual.global_transform = Transform3D.IDENTITY
+		# Detach geometry rather than building a zero-height cylinder (which
+		# generates non-finite normals). Hidden presentation has no endpoints.
+		grapple_visual.mesh = null
+		grapple_visual_mesh.height = 1.0
+	_grapple_visual_attachment_identity = &""
+	_grapple_visual_revision = -1
 
-func _update_grapple_marker() -> void:
+func _update_grapple_marker(snapshot: GrappleAttachmentDiagnosticSnapshot = null) -> void:
 	if grapple_marker == null:
 		return
+	if snapshot == null:
+		snapshot = get_grapple_attachment_diagnostic_snapshot()
+	grapple_marker.apply_active_attachment(snapshot)
 	grapple_marker.apply_targeting_result(_current_targeting_result, is_grappling)
 
 
@@ -1364,8 +1452,10 @@ func _on_grapple_attachment_ended(
 	_reason: GrappleEndReason.Reason
 ) -> void:
 	_clear_wall_stick()
-	if grapple_visual:
-		grapple_visual.visible = false
+	_clear_grapple_visual()
+	_current_targeting_result = null
+	if grapple_marker != null:
+		grapple_marker.clear_targeting()
 
 
 ## Request exactly one reason-coded attachment terminal (Story 1.7 Task 3.3).

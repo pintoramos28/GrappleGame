@@ -1,0 +1,57 @@
+var tree = get_tree()
+var original = tree.current_scene
+if is_instance_valid(original):
+	original.queue_free()
+await tree.process_frame
+tree.root.set_meta("wall_stick_saved_rate", Engine.physics_ticks_per_second)
+var reports = []
+for rate in [60, 120]:
+	Engine.physics_ticks_per_second = rate
+	var viewport = SubViewport.new()
+	viewport.name = "WallStickSmoke%d" % rate
+	viewport.size = Vector2i(64, 64)
+	viewport.world_3d = World3D.new()
+	tree.root.add_child(viewport)
+	tree.current_scene = viewport
+	var fixture = load("res://tests/fixtures/wall_stick_motion_fixture.tscn").instantiate()
+	fixture.name = "Fixture"
+	fixture.moving_grapple_anchor = true
+	viewport.add_child(fixture)
+	for i in range(8):
+		await tree.physics_frame
+	await tree.process_frame
+	var before = fixture.player.global_position
+	fixture.anchor.set("motion_velocity", Vector3.RIGHT)
+	for i in range(int(rate * 0.3)):
+		await tree.physics_frame
+	await tree.process_frame
+	var anchor_only_player_motion = fixture.player.global_position.distance_to(before)
+	var grapple_anchor_x = fixture.player.call("get_grapple_attachment").anchor_world_position.x
+	fixture.anchor.set("motion_velocity", Vector3.ZERO)
+	for motion in [Vector3(1, 0, -1), Vector3(1, 0, 1), Vector3.ZERO, Vector3(-1, 0, -1)]:
+		fixture.wall.set("motion_velocity", motion)
+		for i in range(int(rate * 0.3)):
+			await tree.physics_frame
+		await tree.process_frame
+	fixture.wall.set("motion_velocity", Vector3.ZERO)
+	fixture.wall.set("yaw_rate_rps", 0.2)
+	fixture.input_source.inject_mouse_motion(Vector2(-PI / fixture.input_source.mouse_sensitivity, 0))
+	for i in range(int(rate * 0.3)):
+		await tree.physics_frame
+	await tree.process_frame
+	fixture.wall.set("yaw_rate_rps", 0.0)
+	var report = fixture.report()
+	report["rate"] = rate
+	report["anchor_only_player_motion_m"] = anchor_only_player_motion
+	report["moving_grapple_anchor_x_m"] = grapple_anchor_x
+	report["runtime_stick_max_mps"] = fixture.player.get("wall_stick_definition").maximum_entry_speed_mps
+	report["command_forward_held"] = fixture.player.call("get_player_command_frame").move_forward_held
+	report["command_axis"] = fixture.player.call("get_player_command_frame").movement_axis
+	report["passed"] = report.sticking and report.grappling and report.entry_count == 1 and report.terminal_count == 0 and report.blocked_count == 0 and report.overlap_count == 0 and report.minimum_side_distance_m >= 0.45 and report.maximum_error_m <= 0.003 and report.maximum_commits == 1 and anchor_only_player_motion < 0.001 and grapple_anchor_x > 0.2
+	reports.append(report)
+	print("[mcp-wall-stick-motion] ", report)
+	if rate == 60:
+		viewport.queue_free()
+		await tree.process_frame
+tree.root.set_meta("wall_stick_motion_reports", reports)
+return reports

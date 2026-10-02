@@ -1,0 +1,33 @@
+﻿{
+  "checks": {
+    "controller._can_start_wall_run.equals_head": true,
+    "controller._update_wall_run_state.equals_head": true,
+    "controller._update_wall_run_relationship.equals_head": true,
+    "controller._set_wall_run.equals_head": true,
+    "controller._get_wall_run_direction.equals_head": true,
+    "controller._has_wall_run_input_for_direction.equals_head": true,
+    "controller._has_outward_wall_speed.equals_head": true,
+    "controller._clear_wall_run.equals_head": true,
+    "controller.submit_wall_jump.equals_head": true,
+    "controller.has_valid_wall_jump_relationship.equals_head": true,
+    "controller._is_runnable_wall_frame.equals_head": true,
+    "scripts/player_wall_run_state.gd.equals_head": true,
+    "scripts/player_airborne_state.gd.equals_head": true,
+    "legacy_wall_selection.equals_head": true,
+    "route.equals_head_except_stick_guide": true,
+    "recorded_scene_value.max_air_speed": true,
+    "recorded_scene_value.air_acceleration": true,
+    "recorded_scene_value.ground_deceleration": true,
+    "recorded_scene_value.air_deceleration": true,
+    "recorded_scene_value.wall_run_max_entry_speed": true,
+    "recorded_scene_value.wall_run_min_horizontal_speed": true,
+    "recorded_scene_value.wall_run_acceleration": true,
+    "recorded_scene_value.wall_run_gravity_scale": true,
+    "recorded_scene_value.wall_check_distance": true,
+    "recorded_scene_value.grapple_gravity_scale": true,
+    "recorded_grapple_acceleration_60": true,
+    "approval_hash_matches": true
+  },
+  "all_checks_passed": true,
+  "frozen_approval_sha256": "a5f7213f35fd07e64e5582ba99b73139432ecc5e51a55f54d9e9bea1c6324c27"
+}

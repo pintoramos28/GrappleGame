@@ -1,0 +1,807 @@
+{
+  "session_id": "testgame@17187ab35ae57813",
+  "preflight": {
+    "original_scene": "res://game/levels/content/traversal_validation/traversal_validation_route.tscn",
+    "ready": true,
+    "stopped": true,
+    "editor_cursor": 5,
+    "added_editor_rows": 0
+  },
+  "final_dependency_scan": {
+    "global_class_count": 135,
+    "global_classes_registered_delta": 0,
+    "reason": "Filesystem scan is an editor operation",
+    "scan_completed": true,
+    "scan_settle": "settled",
+    "undoable": false,
+    "was_already_scanning": false
+  },
+  "reload": [
+    {
+      "path": "res://game/player/motor/player_motor.gd",
+      "diagnostics": [
+        {
+          "details": {
+            "code": "gdscript_reload_failed",
+            "error_code": 43,
+            "fallback_line": true,
+            "source": {
+              "line": 1629,
+              "path": "res://game/player/motor/player_motor.gd"
+            }
+          },
+          "function": "GDScript::reload",
+          "level": "error",
+          "line": 1629,
+          "path": "res://game/player/motor/player_motor.gd",
+          "source": "editor",
+          "text": "GDScript reload failed with error code 43."
+        }
+      ],
+      "diagnostics_detail": "fallback",
+      "diagnostics_scope": "this_file",
+      "diagnostics_status": "checked",
+      "language": "gdscript",
+      "old_size": 55601,
+      "reason": "File system operations cannot be undone via editor undo",
+      "reload_reason": "parse_error",
+      "reloaded": false,
+      "replacements": 1,
+      "size": 55601,
+      "undoable": false
+    },
+    {
+      "path": "res://game/shared/contracts/grappleable_3d.gd",
+      "diagnostics": [
+        {
+          "details": {
+            "code": "gdscript_reload_failed",
+            "error_code": 43,
+            "fallback_line": true,
+            "source": {
+              "line": 221,
+              "path": "res://game/shared/contracts/grappleable_3d.gd"
+            }
+          },
+          "function": "GDScript::reload",
+          "level": "error",
+          "line": 221,
+          "path": "res://game/shared/contracts/grappleable_3d.gd",
+          "source": "editor",
+          "text": "GDScript reload failed with error code 43."
+        }
+      ],
+      "diagnostics_detail": "fallback",
+      "diagnostics_scope": "this_file",
+      "diagnostics_status": "checked",
+      "language": "gdscript",
+      "old_size": 9669,
+      "reason": "File system operations cannot be undone via editor undo",
+      "reload_reason": "parse_error",
+      "reloaded": false,
+      "replacements": 1,
+      "size": 9669,
+      "undoable": false
+    },
+    {
+      "path": "res://game/player/locomotion/wall_stick/wall_stick_attachment.gd",
+      "diagnostics": [
+        {
+          "details": {
+            "code": "gdscript_reload_failed",
+            "error_code": 43,
+            "fallback_line": true,
+            "source": {
+              "line": 222,
+              "path": "res://game/player/locomotion/wall_stick/wall_stick_attachment.gd"
+            }
+          },
+          "function": "GDScript::reload",
+          "level": "error",
+          "line": 222,
+          "path": "res://game/player/locomotion/wall_stick/wall_stick_attachment.gd",
+          "source": "editor",
+          "text": "GDScript reload failed with error code 43."
+        }
+      ],
+      "diagnostics_detail": "fallback",
+      "diagnostics_scope": "this_file",
+      "diagnostics_status": "checked",
+      "language": "gdscript",
+      "old_size": 12495,
+      "reason": "File system operations cannot be undone via editor undo",
+      "reload_reason": "parse_error",
+      "reloaded": false,
+      "replacements": 1,
+      "size": 12495,
+      "undoable": false
+    },
+    {
+      "path": "res://game/player/abilities/grapple/grapple_surface_binding.gd",
+      "diagnostics": [
+        {
+          "details": {
+            "code": "gdscript_reload_failed",
+            "error_code": 43,
+            "fallback_line": true,
+            "source": {
+              "line": 183,
+              "path": "res://game/player/abilities/grapple/grapple_surface_binding.gd"
+            }
+          },
+          "function": "GDScript::reload",
+          "level": "error",
+          "line": 183,
+          "path": "res://game/player/abilities/grapple/grapple_surface_binding.gd",
+          "source": "editor",
+          "text": "GDScript reload failed with error code 43."
+        }
+      ],
+      "diagnostics_detail": "fallback",
+      "diagnostics_scope": "this_file",
+      "diagnostics_status": "checked",
+      "language": "gdscript",
+      "old_size": 9132,
+      "reason": "File system operations cannot be undone via editor undo",
+      "reload_reason": "parse_error",
+      "reloaded": false,
+      "replacements": 1,
+      "size": 9132,
+      "undoable": false
+    },
+    {
+      "path": "res://game/player/abilities/grapple/grapple_attachment.gd",
+      "diagnostics": [
+        {
+          "details": {
+            "code": "gdscript_reload_failed",
+            "error_code": 43,
+            "fallback_line": true,
+            "source": {
+              "line": 413,
+              "path": "res://game/player/abilities/grapple/grapple_attachment.gd"
+            }
+          },
+          "function": "GDScript::reload",
+          "level": "error",
+          "line": 413,
+          "path": "res://game/player/abilities/grapple/grapple_attachment.gd",
+          "source": "editor",
+          "text": "GDScript reload failed with error code 43."
+        }
+      ],
+      "diagnostics_detail": "fallback",
+      "diagnostics_scope": "this_file",
+      "diagnostics_status": "checked",
+      "language": "gdscript",
+      "old_size": 16456,
+      "reason": "File system operations cannot be undone via editor undo",
+      "reload_reason": "parse_error",
+      "reloaded": false,
+      "replacements": 1,
+      "size": 16456,
+      "undoable": false
+    },
+    {
+      "path": "res://game/player/abilities/grapple/grapple_controller.gd",
+      "diagnostics": [
+        {
+          "details": {
+            "code": "gdscript_reload_failed",
+            "error_code": 43,
+            "fallback_line": true,
+            "source": {
+              "line": 630,
+              "path": "res://game/player/abilities/grapple/grapple_controller.gd"
+            }
+          },
+          "function": "GDScript::reload",
+          "level": "error",
+          "line": 630,
+          "path": "res://game/player/abilities/grapple/grapple_controller.gd",
+          "source": "editor",
+          "text": "GDScript reload failed with error code 43."
+        }
+      ],
+      "diagnostics_detail": "fallback",
+      "diagnostics_scope": "this_file",
+      "diagnostics_status": "checked",
+      "language": "gdscript",
+      "old_size": 27704,
+      "reason": "File system operations cannot be undone via editor undo",
+      "reload_reason": "parse_error",
+      "reloaded": false,
+      "replacements": 1,
+      "size": 27704,
+      "undoable": false
+    },
+    {
+      "path": "res://tests/fixtures/wall_stick_motion_fixture.gd",
+      "diagnostics": [
+        {
+          "details": {
+            "code": "gdscript_reload_failed",
+            "error_code": 43,
+            "fallback_line": true,
+            "source": {
+              "line": 238,
+              "path": "res://tests/fixtures/wall_stick_motion_fixture.gd"
+            }
+          },
+          "function": "GDScript::reload",
+          "level": "error",
+          "line": 238,
+          "path": "res://tests/fixtures/wall_stick_motion_fixture.gd",
+          "source": "editor",
+          "text": "GDScript reload failed with error code 43."
+        }
+      ],
+      "diagnostics_detail": "fallback",
+      "diagnostics_scope": "this_file",
+      "diagnostics_status": "checked",
+      "language": "gdscript",
+      "old_size": 11330,
+      "reason": "File system operations cannot be undone via editor undo",
+      "reload_reason": "parse_error",
+      "reloaded": false,
+      "replacements": 1,
+      "size": 11330,
+      "undoable": false
+    },
+    {
+      "path": "res://tests/fixtures/wall_stick_reanchor_fixture.gd",
+      "diagnostics": [
+        {
+          "details": {
+            "code": "gdscript_reload_failed",
+            "error_code": 43,
+            "fallback_line": true,
+            "source": {
+              "line": 193,
+              "path": "res://tests/fixtures/wall_stick_reanchor_fixture.gd"
+            }
+          },
+          "function": "GDScript::reload",
+          "level": "error",
+          "line": 193,
+          "path": "res://tests/fixtures/wall_stick_reanchor_fixture.gd",
+          "source": "editor",
+          "text": "GDScript reload failed with error code 43."
+        }
+      ],
+      "diagnostics_detail": "fallback",
+      "diagnostics_scope": "this_file",
+      "diagnostics_status": "checked",
+      "language": "gdscript",
+      "old_size": 12573,
+      "reason": "File system operations cannot be undone via editor undo",
+      "reload_reason": "parse_error",
+      "reloaded": false,
+      "replacements": 1,
+      "size": 12573,
+      "undoable": false
+    },
+    {
+      "path": "res://tests/fixtures/wall_stick_native_reanchor_fixture.gd",
+      "diagnostics": [
+        {
+          "details": {
+            "code": "gdscript_reload_failed",
+            "error_code": 43,
+            "fallback_line": true,
+            "source": {
+              "line": 60,
+              "path": "res://tests/fixtures/wall_stick_native_reanchor_fixture.gd"
+            }
+          },
+          "function": "GDScript::reload",
+          "level": "error",
+          "line": 60,
+          "path": "res://tests/fixtures/wall_stick_native_reanchor_fixture.gd",
+          "source": "editor",
+          "text": "GDScript reload failed with error code 43."
+        }
+      ],
+      "diagnostics_detail": "fallback",
+      "diagnostics_scope": "this_file",
+      "diagnostics_status": "checked",
+      "language": "gdscript",
+      "old_size": 2051,
+      "reason": "File system operations cannot be undone via editor undo",
+      "reload_reason": "parse_error",
+      "reloaded": false,
+      "replacements": 1,
+      "size": 2051,
+      "undoable": false
+    },
+    {
+      "path": "res://tests/fixtures/wall_stick_reanchor_hardening_cases.gd",
+      "diagnostics": [],
+      "diagnostics_detail": "none",
+      "diagnostics_scope": "this_file",
+      "diagnostics_status": "checked",
+      "language": "gdscript",
+      "old_size": 23775,
+      "reason": "File system operations cannot be undone via editor undo",
+      "reload_reason": "already_current",
+      "reloaded": true,
+      "replacements": 1,
+      "size": 23775,
+      "undoable": false
+    },
+    {
+      "path": "res://tests/player/grapple/test_wall_stick_reanchor_hardening.gd",
+      "diagnostics": [],
+      "diagnostics_detail": "none",
+      "diagnostics_scope": "this_file",
+      "diagnostics_status": "checked",
+      "language": "gdscript",
+      "old_size": 3047,
+      "reason": "File system operations cannot be undone via editor undo",
+      "reload_reason": "already_current",
+      "reloaded": true,
+      "replacements": 1,
+      "size": 3047,
+      "undoable": false
+    },
+    {
+      "path": "res://tests/player/grapple/test_wall_stick_reanchor.gd",
+      "diagnostics": [],
+      "diagnostics_detail": "none",
+      "diagnostics_scope": "this_file",
+      "diagnostics_status": "checked",
+      "language": "gdscript",
+      "old_size": 18538,
+      "reason": "File system operations cannot be undone via editor undo",
+      "reload_reason": "already_current",
+      "reloaded": true,
+      "replacements": 1,
+      "size": 18538,
+      "undoable": false
+    }
+  ],
+  "adapter": {
+    "cache_warning": "Preloaded GDScript dependencies may be stale after source edits. Restart the editor before treating this run as validation of dependency changes. ResourceLoader cache modes do not invalidate GDScript's preload cache.",
+    "duration_ms": 7,
+    "edited_scene": "res://game/levels/content/traversal_validation/traversal_validation_route.tscn",
+    "failed": 0,
+    "passed": 4,
+    "results": [
+      {
+        "assertion_count": 5,
+        "duration_ms": 1,
+        "message": "",
+        "passed": true,
+        "suite": "wall_stick",
+        "test": "test_authored_stick_definition_is_independent"
+      },
+      {
+        "assertion_count": 6,
+        "duration_ms": 2,
+        "message": "",
+        "passed": true,
+        "suite": "wall_stick",
+        "test": "test_hold_schema_keeps_single_commit_and_forward_fact"
+      },
+      {
+        "assertion_count": 4,
+        "duration_ms": 0,
+        "message": "",
+        "passed": true,
+        "suite": "wall_stick",
+        "test": "test_public_contact_schema_remains_value_only"
+      },
+      {
+        "assertion_count": 11,
+        "duration_ms": 4,
+        "message": "",
+        "passed": true,
+        "suite": "wall_stick",
+        "test": "test_reanchor_schema_has_independent_binding_revision_and_shared_active_visuals"
+      }
+    ],
+    "skipped": 0,
+    "suite_count": 1,
+    "suites_run": [
+      "wall_stick"
+    ],
+    "total": 4
+  },
+  "editor_after_reload": {
+    "source": "editor",
+    "lines": [],
+    "total_count": 5,
+    "returned_count": 0,
+    "offset": 0,
+    "limit": 100,
+    "has_more": false,
+    "run_id": "",
+    "is_running": false,
+    "dropped_count": 0,
+    "stale_run_id": false,
+    "cursor": 5,
+    "oldest_cursor": 0,
+    "next_cursor": 5,
+    "appended_total": 5,
+    "truncated": false
+  },
+  "state_after_reload": {
+    "current_scene": "res://game/levels/content/traversal_validation/traversal_validation_route.tscn",
+    "game_capture_ready": false,
+    "game_status": {
+      "active": false,
+      "editor_log_cursor": 5,
+      "elapsed_msec": 0,
+      "helper_expected": true,
+      "helper_live": false,
+      "ready": false,
+      "ready_wait_msec": 20000,
+      "run_started_msec": 168513594,
+      "run_token": 34,
+      "session_active": false,
+      "status": "stopped"
+    },
+    "godot_version": "4.7.2-stable (official)",
+    "helper_live": false,
+    "is_playing": false,
+    "project_name": "Test Game",
+    "readiness": "ready",
+    "session_active": false
+  },
+  "first_live_run": {
+    "run_id": "r183946704-36",
+    "hardening_passed": 100,
+    "hardening_total": 100,
+    "existing_live_passed": 6,
+    "existing_live_total": 6,
+    "logs": {
+      "source": "game",
+      "lines": [
+        {
+          "level": "info",
+          "run_id": "r183946704-36",
+          "source": "game",
+          "text": "[godot_ai game_helper] registered mcp capture (debugger active=true, logger=true)\n"
+        }
+      ],
+      "total_count": 1,
+      "returned_count": 1,
+      "offset": 0,
+      "limit": 200,
+      "has_more": false,
+      "run_id": "r183946704-36",
+      "is_running": true,
+      "dropped_count": 0,
+      "stale_run_id": false,
+      "current_run_id": "r183946704-36",
+      "helper_live": true,
+      "session_active": true,
+      "game_status": {
+        "active": true,
+        "editor_log_cursor": 5,
+        "elapsed_msec": 438461,
+        "helper_expected": true,
+        "helper_live": true,
+        "ready": true,
+        "ready_wait_msec": 20000,
+        "run_started_msec": 183946703,
+        "run_token": 35,
+        "session_active": true,
+        "status": "live"
+      }
+    },
+    "editor_since_preflight": {
+      "source": "editor",
+      "lines": [],
+      "total_count": 5,
+      "returned_count": 0,
+      "offset": 0,
+      "limit": 100,
+      "has_more": false,
+      "run_id": "",
+      "is_running": false,
+      "dropped_count": 0,
+      "stale_run_id": false,
+      "cursor": 5,
+      "oldest_cursor": 0,
+      "next_cursor": 5,
+      "appended_total": 5,
+      "truncated": false
+    },
+    "cleanup_inputs": {
+      "actions": {
+        "fire_grapple": false,
+        "jump": false,
+        "move_back": false,
+        "move_forward": false,
+        "move_left": false,
+        "move_right": false
+      },
+      "op": "input_state",
+      "source": "game"
+    },
+    "stop": {
+      "readiness_after": "ready",
+      "reason": "Play/stop is a runtime action",
+      "stopped": true,
+      "undoable": false,
+      "was_running": true
+    },
+    "limitations": "Frozen transaction/sample probes and test fixture input injection are distinct from full route/production-input checks. The final rerun adds explicit alias binding-active assertions and restores valid ordinary tether setup in the older native entry fixture."
+  },
+  "final_live_run": {
+    "run_id": "r184426936-37",
+    "hardening_passed": 100,
+    "hardening_total": 100,
+    "existing_live_passed": 6,
+    "existing_live_total": 6,
+    "native_entry_passed": 10,
+    "native_entry_total": 10,
+    "hardening_native_continuation_release_count": 6,
+    "body_types": [
+      "AnimatableBody3D",
+      "CharacterBody3D",
+      "RigidBody3D"
+    ],
+    "sample_rates": [
+      60,
+      120
+    ],
+    "schema_adapter_is_not_behavioral": true,
+    "scene_tree": {
+      "nodes": [
+        {
+          "children_count": 5,
+          "name": "WallStickReanchorFixture",
+          "path": "/WallStickReanchorFixture",
+          "type": "Node3D"
+        },
+        {
+          "children_count": 1,
+          "name": "SupportingWall",
+          "path": "/WallStickReanchorFixture/SupportingWall",
+          "type": "StaticBody3D"
+        },
+        {
+          "children_count": 1,
+          "name": "WallShape",
+          "path": "/WallStickReanchorFixture/SupportingWall/WallShape",
+          "type": "CollisionShape3D"
+        },
+        {
+          "children_count": 1,
+          "name": "DistinctGrappleAnchor",
+          "path": "/WallStickReanchorFixture/DistinctGrappleAnchor",
+          "type": "StaticBody3D"
+        },
+        {
+          "children_count": 0,
+          "name": "@CollisionShape3D@3",
+          "path": "/WallStickReanchorFixture/DistinctGrappleAnchor/@CollisionShape3D@3",
+          "type": "CollisionShape3D"
+        },
+        {
+          "children_count": 16,
+          "name": "Player",
+          "path": "/WallStickReanchorFixture/Player",
+          "type": "CharacterBody3D"
+        },
+        {
+          "children_count": 0,
+          "name": "CollisionShape3D",
+          "path": "/WallStickReanchorFixture/Player/CollisionShape3D",
+          "type": "CollisionShape3D"
+        },
+        {
+          "children_count": 0,
+          "name": "MeshInstance3D",
+          "path": "/WallStickReanchorFixture/Player/MeshInstance3D",
+          "type": "MeshInstance3D"
+        },
+        {
+          "children_count": 1,
+          "name": "CameraPivot",
+          "path": "/WallStickReanchorFixture/Player/CameraPivot",
+          "type": "Node3D"
+        },
+        {
+          "children_count": 0,
+          "name": "PlayerInputSource",
+          "path": "/WallStickReanchorFixture/Player/PlayerInputSource",
+          "type": "Node"
+        },
+        {
+          "children_count": 0,
+          "name": "PlayerMotor",
+          "path": "/WallStickReanchorFixture/Player/PlayerMotor",
+          "type": "Node"
+        },
+        {
+          "children_count": 0,
+          "name": "Health",
+          "path": "/WallStickReanchorFixture/Player/Health",
+          "type": "Node"
+        },
+        {
+          "children_count": 0,
+          "name": "CombatStats",
+          "path": "/WallStickReanchorFixture/Player/CombatStats",
+          "type": "Node"
+        },
+        {
+          "children_count": 1,
+          "name": "Hurtbox",
+          "path": "/WallStickReanchorFixture/Player/Hurtbox",
+          "type": "Area3D"
+        },
+        {
+          "children_count": 1,
+          "name": "AttackHitbox",
+          "path": "/WallStickReanchorFixture/Player/AttackHitbox",
+          "type": "Area3D"
+        },
+        {
+          "children_count": 1,
+          "name": "AttackVisual",
+          "path": "/WallStickReanchorFixture/Player/AttackVisual",
+          "type": "Node3D"
+        },
+        {
+          "children_count": 1,
+          "name": "GrappleTelemetry",
+          "path": "/WallStickReanchorFixture/Player/GrappleTelemetry",
+          "type": "CanvasLayer"
+        },
+        {
+          "children_count": 1,
+          "name": "GrappleTargetMarker",
+          "path": "/WallStickReanchorFixture/Player/GrappleTargetMarker",
+          "type": "Node3D"
+        },
+        {
+          "children_count": 6,
+          "name": "MovementHSM",
+          "path": "/WallStickReanchorFixture/Player/MovementHSM",
+          "type": "LimboHSM"
+        },
+        {
+          "children_count": 4,
+          "name": "AttackHSM",
+          "path": "/WallStickReanchorFixture/Player/AttackHSM",
+          "type": "LimboHSM"
+        },
+        {
+          "children_count": 0,
+          "name": "GrappleOrigin",
+          "path": "/WallStickReanchorFixture/Player/GrappleOrigin",
+          "type": "Marker3D"
+        },
+        {
+          "children_count": 0,
+          "name": "GrappleVisual",
+          "path": "/WallStickReanchorFixture/Player/GrappleVisual",
+          "type": "MeshInstance3D"
+        },
+        {
+          "children_count": 0,
+          "name": "@DirectionalLight3D@6",
+          "path": "/WallStickReanchorFixture/@DirectionalLight3D@6",
+          "type": "DirectionalLight3D"
+        },
+        {
+          "children_count": 0,
+          "name": "@Camera3D@7",
+          "path": "/WallStickReanchorFixture/@Camera3D@7",
+          "type": "Camera3D"
+        }
+      ],
+      "op": "get_scene_tree",
+      "root": "/WallStickReanchorFixture",
+      "source": "game",
+      "total_count": 24
+    },
+    "logs": {
+      "source": "game",
+      "lines": [
+        {
+          "level": "info",
+          "run_id": "r184426936-37",
+          "source": "game",
+          "text": "[godot_ai game_helper] registered mcp capture (debugger active=true, logger=true)\n"
+        }
+      ],
+      "total_count": 1,
+      "returned_count": 1,
+      "offset": 0,
+      "limit": 500,
+      "has_more": false,
+      "run_id": "r184426936-37",
+      "is_running": true,
+      "dropped_count": 0,
+      "stale_run_id": false,
+      "current_run_id": "r184426936-37",
+      "helper_live": true,
+      "session_active": true,
+      "game_status": {
+        "active": true,
+        "editor_log_cursor": 5,
+        "elapsed_msec": 740477,
+        "helper_expected": true,
+        "helper_live": true,
+        "ready": true,
+        "ready_wait_msec": 20000,
+        "run_started_msec": 184426935,
+        "run_token": 36,
+        "session_active": true,
+        "status": "live"
+      }
+    },
+    "editor_since_preflight": {
+      "source": "editor",
+      "lines": [],
+      "total_count": 5,
+      "returned_count": 0,
+      "offset": 0,
+      "limit": 100,
+      "has_more": false,
+      "run_id": "",
+      "is_running": false,
+      "dropped_count": 0,
+      "stale_run_id": false,
+      "cursor": 5,
+      "oldest_cursor": 0,
+      "next_cursor": 5,
+      "appended_total": 5,
+      "truncated": false
+    },
+    "cleanup": {
+      "result": {
+        "physics_rate": 60
+      },
+      "source": "game"
+    },
+    "mouse": {
+      "button": "right",
+      "event": "button",
+      "op": "input_mouse",
+      "position": {
+        "x": 576,
+        "y": 324
+      },
+      "pressed": false,
+      "sent": true,
+      "source": "game"
+    },
+    "inputs": {
+      "actions": {
+        "fire_grapple": false,
+        "jump": false,
+        "move_back": false,
+        "move_forward": false,
+        "move_left": false,
+        "move_right": false
+      },
+      "op": "input_state",
+      "source": "game"
+    },
+    "stop": {
+      "readiness_after": "ready",
+      "reason": "Play/stop is a runtime action",
+      "stopped": true,
+      "undoable": false,
+      "was_running": true
+    },
+    "operations": [
+      "script_patch final fixture sources before launch (no CLI overlap)",
+      "filesystem_manage scan (135 classes)",
+      "project_run custom fixture autosave=false",
+      "editor_manage game_eval final framework-neutral hardening cases (100/100)",
+      "editor_manage game_eval stricter six original live cases (6/6)",
+      "editor_manage game_eval restored-valid-tether native entry probes (10/10)",
+      "game_manage get_scene_tree and input inspection",
+      "logs_read game/editor",
+      "game_manage right mouse release and project_manage stop"
+    ],
+    "limitation": "A filesystem evidence write after launching was refused EDITOR_PLAYING; no source or gameplay mutation failed. Final record is saved only after stop. Frozen transaction/sample probes are not full route claims; native body velocity is authoritative, not posedelta plus native velocity."
+  }
+}

@@ -48,6 +48,50 @@ func test_action_progression_is_press_then_held_then_release_then_neutral() -> v
 	assert_false(neutral.was_released(PlayerCommandFrame.Action.JUMP))
 
 
+func test_literal_forward_survives_opposing_movement_and_clears_on_focus_loss() -> void:
+	var source := _new_source()
+	source.inject_movement_strengths(0.0, 0.0, 1.0, 1.0)
+	var opposing := source.capture_command_frame(1)
+	assert_eq(opposing.movement_axis, Vector2.ZERO)
+	assert_true(opposing.move_forward_held)
+	source.notify_focus_lost()
+	assert_false(source.capture_command_frame(2).move_forward_held)
+	assert_true(opposing.move_forward_held, "published facts are immutable")
+	source.notify_focus_restored()
+	assert_false(source.capture_command_frame(3).move_forward_held)
+	source.inject_movement_strengths(0.0, 0.0, 1.0, 0.0)
+	assert_eq(source.capture_command_frame(4).movement_axis, Vector2.ZERO, "opposing keys must not prematurely rearm")
+	source.inject_movement_strengths(1.0, 1.0, 0.0, 0.0)
+	assert_eq(source.capture_command_frame(5).movement_axis, Vector2.ZERO)
+	source.inject_movement_strengths(0.0, 0.0, 0.0, 0.0)
+	source.capture_command_frame(6)
+	source.inject_movement_strengths(0.0, 0.0, 1.0, 0.0)
+	assert_true(source.capture_command_frame(7).move_forward_held)
+	assert_eq(source.capture_command_frame(7).movement_axis, Vector2.UP)
+	source.inject_movement_strengths(0.0, 0.0, 0.0, 1.0)
+	assert_false(source.capture_command_frame(8).move_forward_held)
+
+
+func test_hardware_forward_fact_does_not_depend_on_net_axis_and_rearms_all_keys() -> void:
+	var source := _new_source()
+	source.set("_test_input_seam_enabled", false)
+	Input.action_press(&"move_forward")
+	Input.action_press(&"move_back")
+	var opposing := source.capture_command_frame(1)
+	assert_true(opposing.move_forward_held)
+	assert_eq(opposing.movement_axis, Vector2.ZERO)
+	source.notify_focus_lost()
+	source.notify_focus_restored()
+	assert_false(source.capture_command_frame(2).move_forward_held)
+	Input.action_release(&"move_back")
+	assert_eq(source.capture_command_frame(3).movement_axis, Vector2.ZERO)
+	Input.action_release(&"move_forward")
+	source.capture_command_frame(4)
+	Input.action_press(&"move_forward")
+	assert_true(source.capture_command_frame(5).move_forward_held)
+	Input.action_release(&"move_forward")
+
+
 func test_short_tap_keeps_both_edges_in_one_frame() -> void:
 	var source := _new_source()
 	source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)

@@ -50,6 +50,7 @@ var _cached_frame: PlayerCommandFrame
 
 var _test_input_seam_enabled := false
 var _test_movement_raw := Vector2.ZERO
+var _test_movement_strengths := Vector4.ZERO
 var _test_action_binding_masks: Array[int] = [0, 0, 0]
 var _test_mouse_mode_override := -1
 
@@ -146,6 +147,7 @@ func capture_command_frame(physics_step: int) -> PlayerCommandFrame:
 		return null
 
 	var movement_axis := Vector2.ZERO
+	var forward_held := false
 	var pressed_flags := 0
 	var held_flags := 0
 	var released_flags := 0
@@ -158,6 +160,7 @@ func capture_command_frame(physics_step: int) -> PlayerCommandFrame:
 				_rearm_required = false
 		else:
 			movement_axis = _get_movement_axis()
+			forward_held = _is_move_forward_held()
 			pressed_flags = _pending_pressed_flags
 			held_flags = _held_flags
 			released_flags = _pending_released_flags
@@ -170,7 +173,8 @@ func capture_command_frame(physics_step: int) -> PlayerCommandFrame:
 		_build_aim_world_direction(),
 		pressed_flags,
 		held_flags,
-		released_flags
+		released_flags,
+		forward_held
 	)
 	_pending_pressed_flags = 0
 	_pending_released_flags = 0
@@ -191,7 +195,8 @@ func set_test_mouse_captured(captured: bool) -> void:
 
 func inject_movement_strengths(left: float, right: float, forward: float, back: float) -> void:
 	_test_input_seam_enabled = true
-	_test_movement_raw = Vector2(right - left, back - forward)
+	_test_movement_strengths = Vector4(clampf(left, 0.0, 1.0), clampf(right, 0.0, 1.0), clampf(forward, 0.0, 1.0), clampf(back, 0.0, 1.0))
+	_test_movement_raw = Vector2(_test_movement_strengths.y - _test_movement_strengths.x, _test_movement_strengths.w - _test_movement_strengths.z)
 
 
 func inject_action_binding(
@@ -331,18 +336,25 @@ func _apply_circular_deadzone(raw_axis: Vector2, deadzone: float) -> Vector2:
 func _controls_are_neutral() -> bool:
 	if _test_input_seam_enabled:
 		return (
-			_test_movement_raw == Vector2.ZERO
+			_test_movement_strengths == Vector4.ZERO
 			and _test_action_binding_masks[0] == 0
 			and _test_action_binding_masks[1] == 0
 			and _test_action_binding_masks[2] == 0
 		)
-	if _get_movement_axis() != Vector2.ZERO:
-		return false
+	for action_name in [&"move_left", &"move_right", &"move_forward", &"move_back"]:
+		if Input.is_action_pressed(action_name):
+			return false
 	return (
 		not Input.is_action_pressed(&"jump")
 		and not Input.is_action_pressed(&"fire_grapple")
 		and not Input.is_action_pressed(&"attack")
 	)
+
+
+func _is_move_forward_held() -> bool:
+	if _test_input_seam_enabled:
+		return _test_movement_strengths.z > 0.5
+	return Input.is_action_pressed(&"move_forward")
 
 
 func _build_aim_world_direction() -> Vector3:

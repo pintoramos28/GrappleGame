@@ -18,6 +18,11 @@ var movement_axis: Vector2:
 	get:
 		return _movement_axis
 
+## Literal action fact, independent of the net movement axis (W + S is held).
+var move_forward_held: bool:
+	get:
+		return _move_forward_held
+
 var view_yaw_radians: float:
 	get:
 		return _view_yaw_radians
@@ -32,6 +37,7 @@ var aim_world_direction: Vector3:
 
 var _physics_step: int
 var _movement_axis: Vector2
+var _move_forward_held: bool
 var _view_yaw_radians: float
 var _view_pitch_radians: float
 var _aim_world_direction: Vector3
@@ -48,10 +54,12 @@ func _init(
 	aim_direction: Vector3,
 	pressed_flags: int = 0,
 	held_flags: int = 0,
-	released_flags: int = 0
+	released_flags: int = 0,
+	forward_held: bool = false
 ) -> void:
 	_physics_step = step
 	_movement_axis = axis.limit_length(1.0)
+	_move_forward_held = forward_held
 	_view_yaw_radians = yaw_radians
 	_view_pitch_radians = pitch_radians
 	_aim_world_direction = aim_direction.normalized() if aim_direction.length_squared() > 0.000001 else Vector3.FORWARD

@@ -36,6 +36,52 @@ enum HitKind {
 const SURFACE_NORMAL_EPSILON_SQUARED := 0.000001
 
 
+## Private typed policy result, not a ray hit or a historical targeting result.
+class SurfacePolicy:
+	extends RefCounted
+	var rejection := GrappleRejection.Reason.NONE
+	var target_identity: StringName = &""
+	var response: GrappleTargetResponse
+	var component: Grappleable3D
+
+## Classify corroborated physical contact with the SAME range/response policy,
+## without performing or publishing a second acquisition query.
+static func resolve_surface_policy(body: CollisionObject3D, profile: PhysicsQueryProfile, point: Vector3, normal: Vector3, distance_m: float, maximum_length_m: float) -> SurfacePolicy:
+	var policy := SurfacePolicy.new()
+	if not is_instance_valid(body) or body.is_queued_for_deletion() or not body.is_inside_tree() or profile == null:
+		policy.rejection = GrappleRejection.Reason.TARGET_INVALID
+		return policy
+	if not point.is_finite() or not normal.is_finite() or normal.length_squared() <= SURFACE_NORMAL_EPSILON_SQUARED or not is_finite(distance_m) or not is_finite(maximum_length_m) or maximum_length_m <= 0.0:
+		policy.rejection = GrappleRejection.Reason.MALFORMED_TARGET_DATA
+		return policy
+	policy.component = select_grappleable(Grappleable3D.find_explicit_grappleables(body), profile, distance_m, point, normal)
+	if policy.component == null and (body.collision_layer & profile.get_collision_mask()) == 0:
+		policy.rejection = GrappleRejection.Reason.INVALID_SURFACE
+		return policy
+	if not is_distance_in_range(distance_m, maximum_length_m, profile.point_quantization_m):
+		policy.rejection = GrappleRejection.Reason.OUT_OF_RANGE
+		return policy
+	if policy.component != null:
+		policy.target_identity = policy.component.get_target_id()
+		policy.response = policy.component.build_response()
+		policy.rejection = _explicit_policy_rejection(body, policy.component, policy.response)
+	else:
+		policy.response = GrappleTargetResponse.static_default()
+	return policy
+
+static func is_distance_in_range(distance_m: float, maximum_length_m: float, quantization_m: float) -> bool:
+	return is_finite(distance_m) and distance_m >= 0.0 and is_finite(maximum_length_m) and maximum_length_m > 0.0 and _quantize_value(distance_m, quantization_m) <= maximum_length_m
+
+static func _explicit_policy_rejection(target: Object, component: Grappleable3D, response: GrappleTargetResponse) -> GrappleRejection.Reason:
+	if not is_instance_valid(target) or not is_instance_valid(component):
+		return GrappleRejection.Reason.TARGET_INVALID
+	if response == null or not response.is_finite() or component.get_target_id() == &"":
+		return GrappleRejection.Reason.MALFORMED_TARGET_DATA
+	if not response.eligible or not component.is_grapple_anchor_valid():
+		return GrappleRejection.Reason.POLICY_REJECTED
+	return GrappleRejection.Reason.NONE
+
+
 var _body: CharacterBody3D
 var _definition: GrappleDefinition
 var _candidate_profile: PhysicsQueryProfile
@@ -488,7 +534,7 @@ static func resolve_hit_result(
 				occlusion_profile_id,
 				query_count
 			)
-		if not response.eligible:
+		if _explicit_policy_rejection(target, explicit_grappleable, response) != GrappleRejection.Reason.NONE:
 			return _make_result(
 				physics_step,
 				command_frame_step,
@@ -792,7 +838,7 @@ static func _grappleable_selection_key(
 		_quantize_int(contact_point.y, profile.point_quantization_m),
 		_quantize_int(contact_point.z, profile.point_quantization_m),
 		_identity_key(candidate.get_target_id()),
-		response.get_stable_content_key(),
+		response.get_stable_content_key() if response != null else "malformed",
 	]
 
 
@@ -806,7 +852,7 @@ static func _grappleable_deduplication_key(
 	var response := candidate.build_response()
 	return "%s|%s|%d|%d,%d,%d" % [
 		_identity_key(candidate.get_target_id()),
-		response.get_stable_content_key(),
+		response.get_stable_content_key() if response != null else "malformed",
 		_quantize_int(contact_distance_m, profile.point_quantization_m),
 		_quantize_int(contact_normal.x, profile.normal_quantization),
 		_quantize_int(contact_normal.y, profile.normal_quantization),

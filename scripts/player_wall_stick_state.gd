@@ -9,22 +9,20 @@ func _update(delta: float) -> void:
 		agent.dispatch_locomotion_event(agent.EVENT_DIED)
 		return
 	var command_frame: PlayerCommandFrame = agent.get_player_command_frame()
-	if command_frame == null:
-		agent.submit_wall_stick_hold()
+	var supported: bool = agent.sample_wall_stick_support(delta) and agent.has_supported_wall_contact()
+	# A supported fresh jump wins simultaneous forward/grapple release and
+	# outward cancellation; it never inherits platform or player tangent speed.
+	if command_frame != null and supported and command_frame.was_pressed(PlayerCommandFrame.Action.JUMP):
+		if command_frame.is_held(PlayerCommandFrame.Action.GRAPPLE) and (not agent.sample_grapple_anchor(delta) or not agent.has_valid_grapple()):
+			agent.terminate_grapple(GrappleEndReason.Reason.TARGET_INVALIDATED)
+			agent.submit_wall_stick_release(reference_velocity)
+			agent.dispatch_locomotion_event(agent.EVENT_GRAPPLE_RELEASED)
+			return
+		_dispatch_wall_stick_jump(reference_velocity)
 		return
 
-	if not command_frame.is_held(PlayerCommandFrame.Action.GRAPPLE):
-		if (
-			command_frame.was_pressed(PlayerCommandFrame.Action.JUMP)
-			# While sticking, this also validates the selected wall continuity and
-			# persistent identity; another supported wall cannot authorize the jump.
-			and agent.has_supported_wall_contact()
-		):
-			_dispatch_wall_stick_jump(reference_velocity)
-		elif (
-			not command_frame.was_pressed(PlayerCommandFrame.Action.JUMP)
-			and agent._has_outward_wall_speed(reference_velocity, agent.wall_stick_normal)
-		):
+	if command_frame == null or not command_frame.is_held(PlayerCommandFrame.Action.GRAPPLE):
+		if supported and agent.has_outward_wall_stick_motion(reference_velocity):
 			_cancel_for_outward_wall_motion(reference_velocity)
 		else:
 			agent.terminate_grapple(GrappleEndReason.Reason.RELEASE)
@@ -45,31 +43,20 @@ func _update(delta: float) -> void:
 		agent.dispatch_locomotion_event(agent.EVENT_GRAPPLE_RELEASED)
 		return
 
-	# Story 1.9 Task 7.1: the required-wall-contact-loss exit. The hold needs a
-	# supported wall, and the shared `ContactFrame` continuity facts (loss
-	# window, `wall_contact_lost`, unavailable profile) are the only authority
-	# for that. A lost or unsupported wall ends the hold exactly once - the
-	# preserved `GrappleController.terminate(reason, step)` funnel runs
-	# `_clear_wall_stick()` before consumers observe "ended" - and the
-	# non-jump exit preserves the recoverable reference velocity.
-	if not agent.has_supported_wall_contact():
+	# Physical support lifetime and local-face validation supplement the shared
+	# frame. World-point SWITCHED alone is not a switch of the attached shape.
+	if not supported:
 		agent.terminate_grapple(GrappleEndReason.Reason.STATE_CANCELLATION)
 		agent.submit_wall_stick_release(reference_velocity)
 		agent.dispatch_locomotion_event(agent.EVENT_GRAPPLE_RELEASED)
 		return
 
-	# Jump may use the cached normal only while it is still the selected wall.
-	# Lost contact and a switched relationship take the ordinary release exit.
-	if command_frame.was_pressed(PlayerCommandFrame.Action.JUMP):
-		_dispatch_wall_stick_jump(reference_velocity)
+	if not command_frame.move_forward_held:
+		agent.release_wall_stick_to_grapple(reference_velocity)
 		return
 
-	# `wall_stick_normal` is the normalized authoritative ContactFrame normal
-	# captured when this wall was selected. Keep measuring against that stable
-	# relationship across preserved-contact normal noise; a fresh jump
-	# intentionally launches outward, so the gate applies only to a continuing
-	# hold after the jump branch.
-	if agent._has_outward_wall_speed(reference_velocity, agent.wall_stick_normal):
+	# Ignore native carry/recovery when detecting new outward player motion.
+	if agent.has_outward_wall_stick_motion(reference_velocity):
 		_cancel_for_outward_wall_motion(reference_velocity)
 		return
 

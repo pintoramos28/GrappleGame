@@ -31,6 +31,14 @@ var _last_wall_step := -1
 var _wall_loss_steps := 0
 var _strict_lifecycle := true
 var _last_diagnostic_snapshot: ContactDiagnosticSnapshot
+## Ephemeral provenance, outside the value-only public ContactFrame.
+var _candidate_supports: Dictionary = {}
+var _selected_support_ref: WeakRef
+var _support_token := 0
+var _support_motion_samples: Dictionary = {}
+var _stick_probe_normal := Vector3.ZERO
+var _active_stick_attachment_ref: WeakRef
+var _last_delta_seconds := 0.0
 
 
 func initialize(
@@ -69,6 +77,9 @@ func initialize(
 	_last_wall_candidate = null
 	_last_wall_step = -1
 	_wall_loss_steps = 0
+	_active_stick_attachment_ref = null
+	_stick_probe_normal = Vector3.ZERO
+	_support_motion_samples.clear()
 	return InitializationStatus.SUCCESS
 
 
@@ -94,6 +105,24 @@ func get_ground_probe() -> GroundProbe:
 
 func get_wall_probe() -> WallProbe:
 	return _wall_probe
+
+
+func set_wall_stick_probe_normal(normal: Vector3) -> void:
+	_stick_probe_normal = normal.normalized() if normal.is_finite() else Vector3.ZERO
+	if _stick_probe_normal == Vector3.ZERO:
+		_active_stick_attachment_ref = null
+
+func set_wall_stick_attachment(attachment: WallStickAttachment) -> void:
+	_active_stick_attachment_ref = weakref(attachment) if attachment != null else null
+
+
+## Bind only this publication's selected, physically corroborated support.
+## Never infer a collider from a diagnostic RID or the grapple target.
+func bind_wall_stick_attachment(frame: ContactFrame, player_position: Vector3, definition: WallStickDefinition) -> WallStickAttachment:
+	if frame == null or frame != _last_frame or frame.wall_support == null or frame.wall_support_token != _support_token or _selected_support_ref == null:
+		return null
+	var body := _selected_support_ref.get_ref() as CollisionObject3D
+	return WallStickAttachment.bind(body, frame.wall_support, player_position, definition, _wall_probe.get_collision_mask(), deg_to_rad(_wall_probe.continuity_angle_degrees), _last_delta_seconds)
 
 
 func set_strict_lifecycle(enabled: bool) -> void:
@@ -345,6 +374,8 @@ func _build_frame(
 	pre_commit_velocity: Vector3,
 	include_committed_evidence: bool
 ) -> ContactFrame:
+	_candidate_supports.clear()
+	_last_delta_seconds = delta_seconds
 	var candidates: Array[ContactCandidate] = []
 	var rejections: Array[ContactRejection] = []
 	var scanned_collision_count := 0
@@ -408,7 +439,8 @@ func _build_frame(
 				_body.global_position.distance_to(collision_point),
 				0.0,
 				_approach_opposition(pre_commit_velocity, normal),
-				_transient_surface_identity(collider)
+				_transient_surface_identity(collider),
+				collider
 			))
 
 		if body_reports_floor:
@@ -572,6 +604,11 @@ func _build_frame(
 				_last_wall_step = physics_step
 				_wall_loss_steps = 0
 
+	var physical_support := _select_physical_support(selected_wall, wall_candidates)
+	_selected_support_ref = _candidate_supports.get(physical_support.get_instance_id()) if physical_support != null else null
+	_support_token += 1
+	var wall_point_velocity := _sample_wall_point_velocity(physical_support, physics_step, delta_seconds)
+	_record_support_transforms(physics_step, candidates)
 	var bounded_candidates := _bound_candidates(candidates, _wall_probe if _wall_available else _ground_probe, rejections, physics_step)
 	var overflow_count := scan_overflow_count + maxi(0, candidates.size() - bounded_candidates.size())
 	var status := ContactFrame.Status.INVALID_DATA if invalid_authoritative_contact else ContactFrame.Status.SUCCESS
@@ -604,7 +641,10 @@ func _build_frame(
 		wall_contact_lost,
 		body_probe_disagreement,
 		ground_query.success,
-		wall_query.success
+		wall_query.success,
+		physical_support,
+		wall_point_velocity,
+		_support_token
 	)
 	_last_diagnostic_snapshot = ContactDiagnosticSnapshot.new(
 		frame,
@@ -664,8 +704,8 @@ func _query_wall_probe(
 	# Keep one of the same four queries aimed at the last selected wall so its
 	# contact remains observable without extending the continuity loss window or
 	# increasing the query budget. A truly removed wall still fails the probe.
-	if _last_wall_candidate != null and horizontal.length_squared() <= 0.000001:
-		var toward_last_wall := -_last_wall_candidate.normal
+	if _stick_probe_normal != Vector3.ZERO or (_last_wall_candidate != null and horizontal.length_squared() <= 0.000001):
+		var toward_last_wall := -_stick_probe_normal if _stick_probe_normal != Vector3.ZERO else -_last_wall_candidate.normal
 		toward_last_wall.y = 0.0
 		if toward_last_wall.length_squared() > 0.000001:
 			directions[3] = toward_last_wall.normalized()
@@ -828,7 +868,8 @@ func _candidate_from_hit(
 		actual_distance,
 		time_of_impact,
 		_approach_opposition(sample_velocity, normal),
-		_transient_surface_identity(collider)
+		_transient_surface_identity(collider),
+		collider if not hit.get("_synthetic_geometry", false) else null
 	)
 
 
@@ -844,10 +885,11 @@ func _make_candidate(
 		distance: float,
 		time_of_impact: float,
 		approach_opposition: float,
-		transient_identity: StringName = &""
+		transient_identity: StringName = &"",
+		physical_collider: Object = null
 ) -> ContactCandidate:
 	var normalized := normal.normalized()
-	return ContactCandidate.new(
+	var candidate := ContactCandidate.new(
 		physics_step,
 		source,
 		classification,
@@ -861,6 +903,9 @@ func _make_candidate(
 		maxf(approach_opposition, 0.0),
 		transient_identity
 	)
+	if physical_collider is CollisionObject3D and shape_index >= 0:
+		_candidate_supports[candidate.get_instance_id()] = weakref(physical_collider)
+	return candidate
 
 
 static func _select_ground_candidate(candidates: Array[ContactCandidate], profile: GroundProbe) -> ContactCandidate:
@@ -940,11 +985,99 @@ func _dictionary_with_fallback(
 	fallback_normal: Vector3
 ) -> Dictionary:
 	var result := primary.duplicate(true) if not primary.is_empty() else secondary.duplicate(true)
+	result["_synthetic_geometry"] = (not result.has("normal") or (not result.has("point") and not result.has("position")))
 	if not result.has("point") and not result.has("position"):
 		result["point"] = fallback_point
 	if not result.has("normal"):
 		result["normal"] = fallback_normal
 	return result
+
+
+func _select_physical_support(selected: ContactCandidate, candidates: Array[ContactCandidate]) -> ContactCandidate:
+	if _active_stick_attachment_ref != null:
+		var attachment := _active_stick_attachment_ref.get_ref() as WallStickAttachment
+		if attachment == null:
+			return null
+		var bound_candidates: Array[ContactCandidate] = []
+		for candidate in candidates:
+			var support_ref: WeakRef = _candidate_supports.get(candidate.get_instance_id())
+			var body := support_ref.get_ref() as CollisionObject3D if support_ref != null else null
+			if attachment.matches_physical_candidate(candidate, body):
+				bound_candidates.append(candidate)
+		return select_wall_candidate(bound_candidates, _wall_probe, null)
+	if selected == null or not _wall_available:
+		return null
+	if _candidate_supports.has(selected.get_instance_id()):
+		return selected
+	# Only an identity-less synthetic BODY_FACT may be corroborated by physical
+	# evidence. A retagged loss-window candidate never manufactures fresh support.
+	if selected.source != ContactCandidate.Source.BODY_FACT:
+		return null
+	var compatible: Array[ContactCandidate] = []
+	for candidate in candidates:
+		if _candidate_supports.has(candidate.get_instance_id()) and candidate.normal.angle_to(selected.normal) <= deg_to_rad(_wall_probe.continuity_angle_degrees):
+			compatible.append(candidate)
+	return select_wall_candidate(compatible, _wall_probe, null)
+
+
+func _sample_wall_point_velocity(candidate: ContactCandidate, step: int, delta: float) -> Vector3:
+	if candidate == null or _selected_support_ref == null or delta <= 0.0:
+		return Vector3.ZERO
+	var body := _selected_support_ref.get_ref() as CollisionObject3D
+	if not is_instance_valid(body):
+		return Vector3.ZERO
+	var owner_id := body.shape_find_owner(candidate.shape_index)
+	var body_transform := WallStickAttachment.physical_body_transform(body)
+	var owner_transform := body.shape_owner_get_transform(owner_id)
+	var physical_transform := body_transform * owner_transform
+	if not WallStickAttachment._usable_transform(physical_transform):
+		return Vector3(INF, 0.0, 0.0)
+	var previous: Dictionary = _support_motion_samples.get(_support_motion_key(body, owner_id), {})
+	if body is RigidBody3D or body is CharacterBody3D or body is AnimatableBody3D:
+		var state := PhysicsServer3D.body_get_direct_state(body.get_rid())
+		if state == null:
+			# Unknown native motion is not a stationary wall. Refuse entry.
+			return Vector3(INF, 0.0, 0.0)
+		# Godot defines this offset from the body origin in GLOBAL axes. Native
+		# motion is authoritative even when the query pose has not caught up.
+		var velocity := state.get_velocity_at_local_position(candidate.point - state.transform.origin)
+		if previous.get("step", -2) == step - 1:
+			var local_point := physical_transform.affine_inverse() * candidate.point
+			var previous_owner: Transform3D = previous["owner_transform"]
+			velocity += body_transform.basis * (owner_transform * local_point - previous_owner * local_point) / delta
+		# Add only owner-relative motion, never native + body pose delta.
+		return velocity
+	if previous.get("step", -2) == step - 1:
+		var local_point := physical_transform.affine_inverse() * candidate.point
+		var previous_transform: Transform3D = previous["transform"]
+		var velocity := (candidate.point - previous_transform * local_point) / delta
+		# A StaticBody's conveyor velocity is additional surface motion, not a
+		# pose delta; it must survive adjacent body/owner samples.
+		if body is StaticBody3D:
+			velocity += body.constant_linear_velocity + body.constant_angular_velocity.cross(candidate.point - body_transform.origin)
+		return velocity
+	if body is StaticBody3D:
+		return body.constant_linear_velocity + body.constant_angular_velocity.cross(candidate.point - body_transform.origin)
+	return Vector3.ZERO
+
+
+func _record_support_transforms(step: int, candidates: Array[ContactCandidate]) -> void:
+	var next_samples: Dictionary = {}
+	for candidate in candidates:
+		var support_ref: WeakRef = _candidate_supports.get(candidate.get_instance_id())
+		if support_ref == null:
+			continue
+		var body := support_ref.get_ref() as CollisionObject3D
+		if is_instance_valid(body):
+			var owner_id := body.shape_find_owner(candidate.shape_index)
+			var owner_transform := body.shape_owner_get_transform(owner_id)
+			var physical_transform := WallStickAttachment.physical_body_transform(body) * owner_transform
+			if WallStickAttachment._usable_transform(physical_transform):
+				next_samples[_support_motion_key(body, owner_id)] = {"step": step, "transform": physical_transform, "owner_transform": owner_transform}
+	_support_motion_samples = next_samples
+
+func _support_motion_key(body: CollisionObject3D, owner_id: int) -> String:
+	return "%d:%d" % [body.get_instance_id(), owner_id]
 
 
 func _surface_identity(collider: Object) -> StringName:

@@ -1,0 +1,21 @@
+{
+  "session_id": "testgame@17187ab35ae57813",
+  "run_id": "r167646100-33",
+  "observer": "parent",
+  "launch": {"mode": "custom", "scene": "res://tests/fixtures/wall_stick_reanchor_fixture.tscn", "autosave": false, "helper_live": true, "current_run_errors": []},
+  "operations": ["project_run", "game_manage.get_scene_tree", "editor_manage.game_eval", "logs_read.game", "logs_read.editor", "game_manage.input_state", "project_manage.stop"],
+  "runner": "live-cases.gd.txt executed through MCP game_eval in a fresh process; isolated real-Jolt viewports with production player and explicit input seam",
+  "cases": [
+    {"rate": 60, "policy": "ordinary", "passed": true, "release_grappling": true, "revision": 1, "entry_count": 1, "same_occurrence": true, "terminals": 1, "reason": "target_destroyed"},
+    {"rate": 60, "policy": "static", "passed": true, "release_grappling": true, "revision": 1, "entry_count": 1, "same_occurrence": true, "terminals": 1, "reason": "target_invalidated"},
+    {"rate": 60, "policy": "moving", "passed": true, "release_grappling": true, "revision": 1, "entry_count": 1, "same_occurrence": true, "terminals": 1, "reason": "scope_mismatch"},
+    {"rate": 120, "policy": "ordinary", "passed": true, "release_grappling": true, "revision": 1, "entry_count": 1, "same_occurrence": true, "terminals": 1, "reason": "target_destroyed"},
+    {"rate": 120, "policy": "static", "passed": true, "release_grappling": true, "revision": 1, "entry_count": 1, "same_occurrence": true, "terminals": 1, "reason": "target_invalidated"},
+    {"rate": 120, "policy": "moving", "passed": true, "release_grappling": true, "revision": 1, "entry_count": 1, "same_occurrence": true, "terminals": 1, "reason": "scope_mismatch"}
+  ],
+  "maximum_observed_errors": {"anchor_m": 0, "actual_marker_m": 0, "actual_rope_endpoint_m": 4.8054801027e-7, "point_velocity_mps": 0},
+  "game_logs": {"total_count": 1, "dropped_count": 0, "only_line": "[godot_ai game_helper] registered mcp capture (debugger active=true, logger=true)"},
+  "editor_logs": {"since_cursor": 5, "next_cursor": 5, "new_entries": [], "truncated": false},
+  "cleanup": {"physics_hz": 60, "all_six_simulated_actions_released": true, "stopped": true, "readiness_after": "ready"},
+  "limits": ["Measured runtime transform agreement, not every rendered frame or normal-view readability/feel.", "Reused the implementation fixture/runner; not an independent oracle or GUT replacement.", "Prior corrected-source diagnostic rows retained, not cleared."]
+}

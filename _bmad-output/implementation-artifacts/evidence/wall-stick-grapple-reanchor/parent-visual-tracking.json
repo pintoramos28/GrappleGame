@@ -1,0 +1,17 @@
+{
+  "session_id": "testgame@17187ab35ae57813",
+  "run_id": "r168128726-34",
+  "observer": "parent",
+  "physics_hz": 60,
+  "launch": {"scene": "res://tests/fixtures/wall_stick_reanchor_fixture.tscn", "autosave": false, "helper_live": true, "current_run_errors": []},
+  "setup": "Parked original task fixture 1000 m away and disabled its physics. Added a fresh task-owned production-player fixture, hid only its opaque capsule presentation mesh; left physics, marker and rope unchanged.",
+  "operations": ["project_run", "editor_manage.game_eval", "editor_screenshot.game", "logs_read", "project_manage.stop"],
+  "capture": {"screenshot_stale_frame": false, "root_framebuffer_png_before_save_status": 0, "root_framebuffer_png_after_save_status": 0},
+  "movement": {"wall_velocity_mps": [1, 0, 0], "awaited_physics_frames": 120, "before_anchor_m": [0, 4.44931125640869, -0.449999988079071], "after_anchor_m": [1.98333215713501, 4.44931125640869, -0.449999988079071]},
+  "after": {"same_occurrence": true, "revision": 1, "entry_count": 1, "terminal_count": 0, "sticking": true, "grappling": true, "maximum_commits": 1, "maximum_anchor_error_m": 0, "maximum_marker_error_m": 0, "maximum_rope_end_error_m": 4.768371582e-7, "rope_resets": 1, "marker_resets": 1, "sampled_overlaps": 0},
+  "images": ["parent-visual-before.png", "parent-visual-after.png"],
+  "observed_visual": "Green marker and cyan rope segment change screen position with the translated blue wall while staying together at its surface.",
+  "limits": ["Diagnostic fixed-camera views with opaque capsule hidden, not shipping readability or movement-feel acceptance.", "An inert original-fixture telemetry canvas also remains behind the tracked-fixture canvas.", "Rendering/interpolation may show a frame prior to the returned physics sample; transform agreement and image evidence are distinct."],
+  "diagnostics": {"game_lines": 1, "only_game_line": "helper registration", "dropped_lines": 0, "editor_since_cursor": 5, "editor_next_cursor": 5, "new_editor_entries": []},
+  "cleanup": {"terminal_visuals_clear": true, "all_six_actions_released": true, "physics_hz": 60, "stopped": true, "readiness_after": "ready"}
+}

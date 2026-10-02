@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="WallStickDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://game/player/locomotion/wall_stick/definitions/wall_stick_definition.gd" id="1_definition"]
+
+[resource]
+script = ExtResource("1_definition")
+maximum_entry_speed_mps = 100.0
+jump_up_speed_mps = 5.5
+jump_away_speed_mps = 8.0
