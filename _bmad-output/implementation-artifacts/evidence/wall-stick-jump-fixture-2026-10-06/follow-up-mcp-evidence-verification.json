@@ -1,0 +1,277 @@
+{
+  "captured_at": "2026-10-07T05:08:39.791819+00:00",
+  "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+  "checks": [
+    {
+      "check": "loaded final hash and barrier",
+      "ok": true
+    },
+    {
+      "check": "six same-helper matrix observations",
+      "ok": true
+    },
+    {
+      "check": "matrix 1: inherited opposite callback",
+      "ok": true
+    },
+    {
+      "check": "matrix 1: pre-spawn and first hold",
+      "ok": true
+    },
+    {
+      "check": "matrix 1: maintained holds and unchanged tolerances",
+      "ok": true
+    },
+    {
+      "check": "matrix 1: step tuple and authored launch",
+      "ok": true
+    },
+    {
+      "check": "matrix 1: terminal and cleanup",
+      "ok": true
+    },
+    {
+      "check": "matrix 2: inherited opposite callback",
+      "ok": true
+    },
+    {
+      "check": "matrix 2: pre-spawn and first hold",
+      "ok": true
+    },
+    {
+      "check": "matrix 2: maintained holds and unchanged tolerances",
+      "ok": true
+    },
+    {
+      "check": "matrix 2: step tuple and authored launch",
+      "ok": true
+    },
+    {
+      "check": "matrix 2: terminal and cleanup",
+      "ok": true
+    },
+    {
+      "check": "matrix 3: inherited opposite callback",
+      "ok": true
+    },
+    {
+      "check": "matrix 3: pre-spawn and first hold",
+      "ok": true
+    },
+    {
+      "check": "matrix 3: maintained holds and unchanged tolerances",
+      "ok": true
+    },
+    {
+      "check": "matrix 3: step tuple and authored launch",
+      "ok": true
+    },
+    {
+      "check": "matrix 3: terminal and cleanup",
+      "ok": true
+    },
+    {
+      "check": "matrix 4: inherited opposite callback",
+      "ok": true
+    },
+    {
+      "check": "matrix 4: pre-spawn and first hold",
+      "ok": true
+    },
+    {
+      "check": "matrix 4: maintained holds and unchanged tolerances",
+      "ok": true
+    },
+    {
+      "check": "matrix 4: step tuple and authored launch",
+      "ok": true
+    },
+    {
+      "check": "matrix 4: terminal and cleanup",
+      "ok": true
+    },
+    {
+      "check": "matrix 5: inherited opposite callback",
+      "ok": true
+    },
+    {
+      "check": "matrix 5: pre-spawn and first hold",
+      "ok": true
+    },
+    {
+      "check": "matrix 5: maintained holds and unchanged tolerances",
+      "ok": true
+    },
+    {
+      "check": "matrix 5: step tuple and authored launch",
+      "ok": true
+    },
+    {
+      "check": "matrix 5: terminal and cleanup",
+      "ok": true
+    },
+    {
+      "check": "matrix 6: inherited opposite callback",
+      "ok": true
+    },
+    {
+      "check": "matrix 6: pre-spawn and first hold",
+      "ok": true
+    },
+    {
+      "check": "matrix 6: maintained holds and unchanged tolerances",
+      "ok": true
+    },
+    {
+      "check": "matrix 6: step tuple and authored launch",
+      "ok": true
+    },
+    {
+      "check": "matrix 6: terminal and cleanup",
+      "ok": true
+    },
+    {
+      "check": "inactive actual-release fixture and both modes",
+      "ok": true
+    },
+    {
+      "check": "supported fixture and eight checks",
+      "ok": true
+    },
+    {
+      "check": "inactive mode 2: explicit reject without any mutation",
+      "ok": true
+    },
+    {
+      "check": "inactive mode 2: no later jump",
+      "ok": true
+    },
+    {
+      "check": "inactive mode 9: explicit reject without any mutation",
+      "ok": true
+    },
+    {
+      "check": "inactive mode 9: no later jump",
+      "ok": true
+    },
+    {
+      "check": "delta_mismatch mode 2: explicit reject without any mutation",
+      "ok": true
+    },
+    {
+      "check": "delta_mismatch mode 2: active, grapple remains held",
+      "ok": true
+    },
+    {
+      "check": "delta_mismatch mode 2: mismatched requested delta only",
+      "ok": true
+    },
+    {
+      "check": "delta_mismatch mode 9: explicit reject without any mutation",
+      "ok": true
+    },
+    {
+      "check": "delta_mismatch mode 9: active, grapple remains held",
+      "ok": true
+    },
+    {
+      "check": "delta_mismatch mode 9: mismatched requested delta only",
+      "ok": true
+    },
+    {
+      "check": "incomplete_holds mode 2: explicit reject without any mutation",
+      "ok": true
+    },
+    {
+      "check": "incomplete_holds mode 2: active, grapple remains held",
+      "ok": true
+    },
+    {
+      "check": "incomplete_holds mode 2: history guard isolated on valid support",
+      "ok": true
+    },
+    {
+      "check": "incomplete_holds mode 9: explicit reject without any mutation",
+      "ok": true
+    },
+    {
+      "check": "incomplete_holds mode 9: active, grapple remains held",
+      "ok": true
+    },
+    {
+      "check": "incomplete_holds mode 9: history guard isolated on valid support",
+      "ok": true
+    },
+    {
+      "check": "prior_loss mode 2: explicit reject without any mutation",
+      "ok": true
+    },
+    {
+      "check": "prior_loss mode 2: active, grapple remains held",
+      "ok": true
+    },
+    {
+      "check": "prior_loss mode 2: history guard isolated on valid support",
+      "ok": true
+    },
+    {
+      "check": "prior_loss mode 9: explicit reject without any mutation",
+      "ok": true
+    },
+    {
+      "check": "prior_loss mode 9: active, grapple remains held",
+      "ok": true
+    },
+    {
+      "check": "prior_loss mode 9: history guard isolated on valid support",
+      "ok": true
+    },
+    {
+      "check": "destroyed_support mode 2: explicit reject without any mutation",
+      "ok": true
+    },
+    {
+      "check": "destroyed_support mode 2: active, grapple remains held",
+      "ok": true
+    },
+    {
+      "check": "destroyed_support mode 2: same pre-transaction window, bound support invalid",
+      "ok": true
+    },
+    {
+      "check": "destroyed_support mode 9: explicit reject without any mutation",
+      "ok": true
+    },
+    {
+      "check": "destroyed_support mode 9: active, grapple remains held",
+      "ok": true
+    },
+    {
+      "check": "destroyed_support mode 9: same pre-transaction window, bound support invalid",
+      "ok": true
+    },
+    {
+      "check": "supported final transaction has no jump or grapple release",
+      "ok": true
+    },
+    {
+      "check": "eight original automatic/private-world fixture players",
+      "ok": true
+    },
+    {
+      "check": "helper clean and all temporary objects freed",
+      "ok": true
+    },
+    {
+      "check": "60Hz configured/cached runtime restored and editor stopped ready",
+      "ok": true
+    },
+    {
+      "check": "editor baseline cursor and historical visible rows retained",
+      "ok": true
+    }
+  ],
+  "passed": 67,
+  "total": 67,
+  "game_log_cleanliness": "unknown; read timed out, never treated as clean"
+}

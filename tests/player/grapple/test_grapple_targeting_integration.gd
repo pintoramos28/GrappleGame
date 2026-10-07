@@ -224,7 +224,7 @@ func test_same_step_activation_seeds_state_and_keeps_pull_playable() -> void:
 	assert_eq(player.get("grapple_point"), result.accepted_seed.hit_position)
 	assert_eq(player.get("grapple_target"), result.accepted_seed.get_target())
 	assert_almost_eq(float(player.get("grapple_elapsed")), 0.0, 0.0001)
-	assert_almost_eq(float(player.get("grapple_applied_acceleration")), 48.0, 0.0001)
+	assert_almost_eq(float(player.get("grapple_applied_acceleration")), 60.0, 0.0001)
 	assert_eq(player.call("get_last_activation_rejection"), GrappleRejection.Reason.NONE)
 
 	for _frame in range(10):
@@ -247,7 +247,7 @@ func test_moving_scene_origin_does_not_change_camera_target_or_acquisition_range
 		player.get_parent(), Vector3(0.0, 5.0, -20.0), Vector3(20.0, 30.0, 0.4)
 	)
 	assert_same(player.get("grapple_origin"), origin)
-	assert_eq(origin.position, Vector3(0.48, 1.2, -0.32))
+	assert_eq(origin.position, Vector3(0.0, 0.9, 0.0))
 	await get_tree().physics_frame
 	player.set("gravity", 0.0)
 	player.call("_physics_process", 1.0 / 60.0)
@@ -564,9 +564,13 @@ func test_grapple_pull_decay_reaches_the_floor_and_commits_the_speed_cap() -> vo
 	var initial_accel := definition.pull_initial_acceleration_mps2
 	var min_accel := definition.pull_min_acceleration_mps2
 	var jerk := definition.pull_acceleration_jerk_mps3
+	assert_gt(jerk, 0.0, "authored pull decay must reach its floor")
+	var decay_sample_steps := ceili(
+		maxf(initial_accel - min_accel, 0.0) / maxf(jerk, 0.000001) / step_delta
+	) + 2
 	var previous_acceleration := float(player.get("grapple_applied_acceleration"))
 	var observed_floor := false
-	for _step in range(56):
+	for _step in range(decay_sample_steps):
 		# Mirror submit_grapple_pull(): the acceleration is computed from the
 		# pre-increment elapsed time, then grapple_elapsed advances by delta.
 		var elapsed_before := float(player.get("grapple_elapsed"))
@@ -676,7 +680,7 @@ func test_definition_is_the_sole_pull_cap_and_range_source() -> void:
 	)
 	# Positive control: the guard must match what it forbids.
 	assert_not_null(
-		pull_token_regex.search("grapple_initial_acceleration = 48.0"),
+		pull_token_regex.search("grapple_initial_acceleration = 60.0"),
 		"pull token regex must match"
 	)
 	assert_null(

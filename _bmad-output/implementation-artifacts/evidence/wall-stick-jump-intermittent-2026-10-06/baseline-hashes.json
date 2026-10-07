@@ -1,0 +1,1227 @@
+﻿[
+    {
+        "path":  "_bmad-output/implementation-artifacts/deferred-work.md",
+        "sha256":  "7B1AFBA1F95F9B73BAD6455437148156319C23CA682B2C8BC5AF2630E7A79F5E",
+        "length":  9192
+    },
+    {
+        "path":  "_bmad-output/implementation-artifacts/evidence/1-10/review-fixes-2026-10-02.md",
+        "sha256":  "93A30393627FA3F686CAEA8A29AD120A86A48142A8ECF65A444EF5C5265268E6",
+        "length":  33898
+    },
+    {
+        "path":  "_bmad-output/implementation-artifacts/spec-r12-regression-expectation-follow-up.md",
+        "sha256":  "87CD7B5714AF2BCB3F73A2FB84989BD0856B25F8F6096C4BE6C30ADD1BABFE99",
+        "length":  2566
+    },
+    {
+        "path":  "AGENTS.md",
+        "sha256":  "350CD50F74E2A0595E64F44840C5561669A68F743045DF04E3DE96A72F282B97",
+        "length":  3553
+    },
+    {
+        "path":  "game/app/logging/diagnostic_context.gd",
+        "sha256":  "DCEF68765E905D979C68F84A7C61F34B33773C2A3072D55A175B7F5DA1AEEB67",
+        "length":  1030
+    },
+    {
+        "path":  "game/app/logging/diagnostic_context.gd.uid",
+        "sha256":  "0DD8CE61A02B37093267BB4CA8BC0767565A938A9D7ECB1364894C7FB4BF744F",
+        "length":  20
+    },
+    {
+        "path":  "game/app/logging/diagnostic_event.gd",
+        "sha256":  "A89B0A8E281729DB7E4F3D9A6FE5EF9C72336F7EF250B08A7BEDEE810072980B",
+        "length":  534
+    },
+    {
+        "path":  "game/app/logging/diagnostic_event.gd.uid",
+        "sha256":  "4642AB51B6965AD28E52461808799502605069683F15F86D6FC7213BDC308275",
+        "length":  20
+    },
+    {
+        "path":  "game/app/logging/game_log.gd",
+        "sha256":  "71D667BC3016BB4C1F7F5A13639C983243363A402E535838A13B99E42BFB7C0E",
+        "length":  1116
+    },
+    {
+        "path":  "game/app/logging/game_log.gd.uid",
+        "sha256":  "780844090C401E4879D716C751C99D118376F0F8D2C214D389CF739DA89BE710",
+        "length":  19
+    },
+    {
+        "path":  "game/levels/content/traversal_validation/anchor_material.tres",
+        "sha256":  "54A5513C3612D6A3403671AE9A3D01195B4E119AAF7AE8B0B900FE526A6AF714",
+        "length":  147
+    },
+    {
+        "path":  "game/levels/content/traversal_validation/danger_material.tres",
+        "sha256":  "D1FE3D396C43D83F087C03370D38C3E92F472759445EF1DD73DC89B6AC8519C7",
+        "length":  146
+    },
+    {
+        "path":  "game/levels/content/traversal_validation/deck_material.tres",
+        "sha256":  "67EE7F100DEAD48E7DD0495AB47E75B772002D7801DB508EDDE600F47A69351E",
+        "length":  139
+    },
+    {
+        "path":  "game/levels/content/traversal_validation/finish_material.tres",
+        "sha256":  "9B49D3EACC3DF7354C90C7BB54668C7411811C4205FD399D113E4600B89016E0",
+        "length":  145
+    },
+    {
+        "path":  "game/levels/content/traversal_validation/safe_material.tres",
+        "sha256":  "C8C8A85782E2F94024A10239E761B8DFABCDEF69ABCA6261E8A5C388C91A687B",
+        "length":  146
+    },
+    {
+        "path":  "game/levels/content/traversal_validation/traversal_route_finish.gd",
+        "sha256":  "7632EE590E5CADCADFF1428736A8E8A2137039844D5AF7DDFE8AAE02D9F46A6A",
+        "length":  425
+    },
+    {
+        "path":  "game/levels/content/traversal_validation/traversal_route_finish.gd.uid",
+        "sha256":  "8A6CBF8EE994EA5857CFF93000BBC5805ECC26631DD96C8AEB5022B6FEEDCE99",
+        "length":  20
+    },
+    {
+        "path":  "game/levels/content/traversal_validation/traversal_route_moving_anchor.gd",
+        "sha256":  "E49C9DF5B8CCCBB45754F6FFF6ABF588863B293B84F57A83FED98292F14D3CDA",
+        "length":  773
+    },
+    {
+        "path":  "game/levels/content/traversal_validation/traversal_route_moving_anchor.gd.uid",
+        "sha256":  "D9CF93A27D808A3EB76D6060C7C5DE28169328EE5A2FD34E88C2603C420C7695",
+        "length":  20
+    },
+    {
+        "path":  "game/levels/content/traversal_validation/traversal_validation_route.tscn",
+        "sha256":  "0799F4C7511C06A99C68BA79876338FC9A308E2762CB269598CCCDC80BD4D5A2",
+        "length":  20781
+    },
+    {
+        "path":  "game/levels/content/traversal_validation/wall_material.tres",
+        "sha256":  "732884573CC26F72343659A30F83E1DCF5B99D8C8A9EBF7F1DCCF4FF03780FA7",
+        "length":  144
+    },
+    {
+        "path":  "game/player/abilities/grapple/definitions/grapple_definition.gd",
+        "sha256":  "894C278C558E405FA6D4D76BD2715D05E298D214EECAEFF3B6B60BE87AFF97A3",
+        "length":  6317
+    },
+    {
+        "path":  "game/player/abilities/grapple/definitions/grapple_definition.gd.uid",
+        "sha256":  "8359F28B7571757CCFAEA6F229E4F83D72626C7B46E7CC47DAE70D43381BE978",
+        "length":  19
+    },
+    {
+        "path":  "game/player/abilities/grapple/definitions/grapple_definition.tres",
+        "sha256":  "53A72C4F95AC6D38B4948582CC8719DA56729415145D3009E67F36C6CD590DA0",
+        "length":  521
+    },
+    {
+        "path":  "game/player/abilities/grapple/grapple_attachment.gd",
+        "sha256":  "9BE15943D0F0B3812F6726226954E5E7C02CAE8DFC9F9AC09838DD34EE8C7039",
+        "length":  16456
+    },
+    {
+        "path":  "game/player/abilities/grapple/grapple_attachment.gd.uid",
+        "sha256":  "CF2288B6603EBFF8053BDD1D5BF8F5BEFED95BD1403EA57147573E91C1F48778",
+        "length":  20
+    },
+    {
+        "path":  "game/player/abilities/grapple/grapple_attachment_diagnostic_snapshot.gd",
+        "sha256":  "76599AE053D939CC1146A757FB40981D5D80093FDE38031D5D3107DF14CBD328",
+        "length":  12472
+    },
+    {
+        "path":  "game/player/abilities/grapple/grapple_attachment_diagnostic_snapshot.gd.uid",
+        "sha256":  "B3F3E0CB7EBA99A6DE2F825C56FE9B034745DF575229914C6BC9F5CAA0A5DB7D",
+        "length":  20
+    },
+    {
+        "path":  "game/player/abilities/grapple/grapple_controller.gd",
+        "sha256":  "6531A6F413E8EBB896AEFC3CBC65F010FF3345BC0E39FB03ABF76782D51D2C7F",
+        "length":  27704
+    },
+    {
+        "path":  "game/player/abilities/grapple/grapple_controller.gd.uid",
+        "sha256":  "2D178C7F996AAAEB1665BFC2852522019C6CE6950DD3DEE08BB55292E213C026",
+        "length":  20
+    },
+    {
+        "path":  "game/player/abilities/grapple/grapple_end_reason.gd",
+        "sha256":  "1A72E3C1956948CD3FE7A672F51DD2240D06228CE9D5C018C48B1776F0335C43",
+        "length":  2618
+    },
+    {
+        "path":  "game/player/abilities/grapple/grapple_end_reason.gd.uid",
+        "sha256":  "FB47CC7B0E1C521BCB04D00E0184894D6EC8ABEB0569653D970760D9CFDCEB3D",
+        "length":  19
+    },
+    {
+        "path":  "game/player/abilities/grapple/grapple_surface_binding.gd",
+        "sha256":  "CDACDA9B2896D2D4AF4998923549673F240147A0814ABEF7DDAEDAF4BFA92EFE",
+        "length":  9132
+    },
+    {
+        "path":  "game/player/abilities/grapple/grapple_surface_binding.gd.uid",
+        "sha256":  "E30F139A1D798DBAB9BD5EA811B20B5A01A4B1C161B135948D41F9E70D9B080A",
+        "length":  20
+    },
+    {
+        "path":  "game/player/abilities/grapple/grapple_target_resolver.gd",
+        "sha256":  "09323FCB401A3E67B4ED6A9F307BD0ED2824C08DDAE3D9C129F6F0FB2AD43CEB",
+        "length":  25570
+    },
+    {
+        "path":  "game/player/abilities/grapple/grapple_target_resolver.gd.uid",
+        "sha256":  "64234BB5ED6E35043CA8593698C3F0475DF2C4CC9CD2D92D1ED8AEBFC82E170A",
+        "length":  19
+    },
+    {
+        "path":  "game/player/abilities/grapple/presentation/grapple_target_marker.gd",
+        "sha256":  "B3AA10A7FF55CF0AF40E0B7444266D218E5345F900DBFC72A2A029E565D98FBD",
+        "length":  4432
+    },
+    {
+        "path":  "game/player/abilities/grapple/presentation/grapple_target_marker.gd.uid",
+        "sha256":  "E532FAED24A4622B54E372DB3754198C5B5AB7F2C23F13C1980BB1A91A02362E",
+        "length":  19
+    },
+    {
+        "path":  "game/player/input/player_command_frame.gd",
+        "sha256":  "E5CBE5C0578F573C303FFB0CF804821A424565131B80A254E2BFC955B803D309",
+        "length":  1836
+    },
+    {
+        "path":  "game/player/input/player_command_frame.gd.uid",
+        "sha256":  "B4EA966D8EC38CBAA09FFB226C3CEAAF0A115BEB8101CC28EB9F4AA95AB70E12",
+        "length":  20
+    },
+    {
+        "path":  "game/player/input/player_input_source.gd",
+        "sha256":  "8002B4DCF480B1D8EF36AE7492876EF7F2E534704C0AFB69CED383E5041789EC",
+        "length":  12591
+    },
+    {
+        "path":  "game/player/input/player_input_source.gd.uid",
+        "sha256":  "C62DF43062EA5B80AE0F348C9C06B83AEB29CF85921837019C969820E0A4FEF4",
+        "length":  20
+    },
+    {
+        "path":  "game/player/locomotion/contact/player_contact_provider.gd",
+        "sha256":  "7C916C771C73FE734851705AE3C9D7AB01C59CB99742010FA9E2FD32F9FCE049",
+        "length":  44643
+    },
+    {
+        "path":  "game/player/locomotion/contact/player_contact_provider.gd.uid",
+        "sha256":  "6B7EDB8C0CA2AC95D2BF6B9A5E46703A78FD50E0E40CACBE8BE1894108E2169D",
+        "length":  20
+    },
+    {
+        "path":  "game/player/locomotion/wall_stick/definitions/wall_stick_definition.gd",
+        "sha256":  "92ED8854FB6D8FB00DE42F67C61D7A327D55D371EC5013E2809F5B3DC87BBF54",
+        "length":  2057
+    },
+    {
+        "path":  "game/player/locomotion/wall_stick/definitions/wall_stick_definition.gd.uid",
+        "sha256":  "3BD5D5FBE84D7D6E9B8FA313F2B705CFE58F502EC3566A3E3FE623DD99A8A1D8",
+        "length":  20
+    },
+    {
+        "path":  "game/player/locomotion/wall_stick/definitions/wall_stick_definition.tres",
+        "sha256":  "7DEFA1A95AA506D5FCEB06D4296AD406A56500E0E12FEB9032A995791231A7A5",
+        "length":  350
+    },
+    {
+        "path":  "game/player/locomotion/wall_stick/wall_stick_attachment.gd",
+        "sha256":  "98B7907B4F5CCB94BCEC9F47EA950B812644E2D63E42CFBA2F4DD46942636AE2",
+        "length":  12495
+    },
+    {
+        "path":  "game/player/locomotion/wall_stick/wall_stick_attachment.gd.uid",
+        "sha256":  "FE8F5008308BBAF4F4B08B0B51252E3E01052B513EDD4B48C03CA9D1569FBE0E",
+        "length":  20
+    },
+    {
+        "path":  "game/player/motor/motor_phase.gd",
+        "sha256":  "D2BAE30EE190559BF09DC68113DE4676FF5A4F70EA48A8832691991E3D40925E",
+        "length":  1243
+    },
+    {
+        "path":  "game/player/motor/motor_phase.gd.uid",
+        "sha256":  "7A1D5C8803B932F4ACF5739988592BF262B75FA778A57AF0ABD88DFCD414723E",
+        "length":  20
+    },
+    {
+        "path":  "game/player/motor/player_motor.gd",
+        "sha256":  "C3B4A66977C0A6DB99341B6FDF37E206F2147F280272AD9EEA48F882B9490E64",
+        "length":  55601
+    },
+    {
+        "path":  "game/player/motor/player_motor.gd.uid",
+        "sha256":  "670A5863F6A21BE1A27831413FC1FEF454623BC959D739DF8F5EEEE19918C47C",
+        "length":  20
+    },
+    {
+        "path":  "game/player/motor/player_motor_commit_result.gd",
+        "sha256":  "3AEE6B8C69AD7EC1D4B05FC5374B35AD3A866BCFF18A574106F5C9C9AAD929CA",
+        "length":  7583
+    },
+    {
+        "path":  "game/player/motor/player_motor_commit_result.gd.uid",
+        "sha256":  "A1C2E943E7BFC0C30FCACA427FB583BC4EE5B09D8EAF6BAA103C034FD0D2CDF6",
+        "length":  20
+    },
+    {
+        "path":  "game/player/motor/player_motor_diagnostic_snapshot.gd",
+        "sha256":  "3828AA45EC02A66E216B97F1B74695C4648DB4B06DEEA281FDF0D22812F0E14B",
+        "length":  5423
+    },
+    {
+        "path":  "game/player/motor/player_motor_diagnostic_snapshot.gd.uid",
+        "sha256":  "B7C8BC63BD6587F4335F2B223766BAC68F809E6049157BCA76CDB3609B245DB2",
+        "length":  20
+    },
+    {
+        "path":  "game/player/motor/player_motor_submission.gd",
+        "sha256":  "E7A23A2C76839FAE254A6D7E19C0B292FF3205A6B6121F6DE4050B538BAEC5C1",
+        "length":  10259
+    },
+    {
+        "path":  "game/player/motor/player_motor_submission.gd.uid",
+        "sha256":  "D2E9AF9664C2F9F7BD137CDB8092E201857A8D909CFB53F72498AEF335B0247D",
+        "length":  20
+    },
+    {
+        "path":  "game/shared/contracts/grapple_anchor_state.gd",
+        "sha256":  "EE27AC5FBAD49CBAFEFF79AA5D6365EC2C280F08EF2AB6F6787B1CAB71CC7C93",
+        "length":  5334
+    },
+    {
+        "path":  "game/shared/contracts/grapple_anchor_state.gd.uid",
+        "sha256":  "C0D7B8E242D73001D42BB396B527191D7AAFEAE2AE4A12F8302B3B86CED2FC55",
+        "length":  20
+    },
+    {
+        "path":  "game/shared/contracts/grapple_rejection.gd",
+        "sha256":  "46C92ADC9D68436A999E055AC0090D7ACCC8BDF020157AEF1923D065462AD4DB",
+        "length":  1445
+    },
+    {
+        "path":  "game/shared/contracts/grapple_rejection.gd.uid",
+        "sha256":  "71FC08B0546330AFC4A46E92D53530803CBE17ECA00AF8EAC1E39F16F1AEB165",
+        "length":  19
+    },
+    {
+        "path":  "game/shared/contracts/grapple_target_response.gd",
+        "sha256":  "7CEC0A3A894C4A968B1F25FBB19BE412702EEF61F33BD8798A15F8F7C195F617",
+        "length":  3810
+    },
+    {
+        "path":  "game/shared/contracts/grapple_target_response.gd.uid",
+        "sha256":  "F8284ACE0A3C2F276BA46FD1455ABC671B9326F4EF520EB31AA257ED95D714B1",
+        "length":  20
+    },
+    {
+        "path":  "game/shared/contracts/grapple_target_seed.gd",
+        "sha256":  "31030148C651D0CE869114B251F0D4C29DF3A7DD08D9EB8CA702525E4E9D1F59",
+        "length":  4144
+    },
+    {
+        "path":  "game/shared/contracts/grapple_target_seed.gd.uid",
+        "sha256":  "81266DDB0BDEAD3420EC13AA63F53532AB94854A43F6FBFAF0EF7EA339F1BFBA",
+        "length":  19
+    },
+    {
+        "path":  "game/shared/contracts/grapple_targeting_diagnostic_snapshot.gd",
+        "sha256":  "234EEF419D761C65B744225EECF975903FC2E9182FF7074FE2578DEF8C74F1C7",
+        "length":  4143
+    },
+    {
+        "path":  "game/shared/contracts/grapple_targeting_diagnostic_snapshot.gd.uid",
+        "sha256":  "44E4E058DE8066DF06BBEE80554EEFF9BCC9783A13F950DAC3134AF6F9DD7CF4",
+        "length":  20
+    },
+    {
+        "path":  "game/shared/contracts/grapple_targeting_result.gd",
+        "sha256":  "A778480A577B9449C52B1B9E0D6D20235CF2DD8C9C7F5EFD7D9D0B90D6D62CA8",
+        "length":  6326
+    },
+    {
+        "path":  "game/shared/contracts/grapple_targeting_result.gd.uid",
+        "sha256":  "F541DFBAAD4340E58258725D7ACCBE704C6E730F2C9424A0F45B7C99542EFB23",
+        "length":  19
+    },
+    {
+        "path":  "game/shared/contracts/grappleable_3d.gd",
+        "sha256":  "04973F53D00241FE64E1EBCC0175A57FDBCB108A1E083D2F24A344E9D218D05C",
+        "length":  9669
+    },
+    {
+        "path":  "game/shared/contracts/grappleable_3d.gd.uid",
+        "sha256":  "CAF902ABC8CC51E362705CB4FF7EAA18024F2237621B52E2E0384EA8EC7A0DC3",
+        "length":  19
+    },
+    {
+        "path":  "game/shared/physics/contact_candidate.gd",
+        "sha256":  "0CD1AC4DB8CCE95F623F1BF1849465DE2AD4282C211C9C2B37B146008EE9B3A5",
+        "length":  3489
+    },
+    {
+        "path":  "game/shared/physics/contact_candidate.gd.uid",
+        "sha256":  "41B24CA58EA859A31F81537296D5BA0A14FB46C6BECEAF1297877C9F5D0D9520",
+        "length":  20
+    },
+    {
+        "path":  "game/shared/physics/contact_diagnostic_snapshot.gd",
+        "sha256":  "499F42E1844241598BBD48132074C5B1778B5495ADF75E9BE5C6E335FAAF0858",
+        "length":  5033
+    },
+    {
+        "path":  "game/shared/physics/contact_diagnostic_snapshot.gd.uid",
+        "sha256":  "3A25F73DE53FE8F6131249CA1137BB0F4AB32A4447A0C3F91DFE4BCB228C3D8C",
+        "length":  20
+    },
+    {
+        "path":  "game/shared/physics/contact_frame.gd",
+        "sha256":  "B8954EEADBF7A0972B6DAC6484F6EE8B05DD622E39B7BDC2CCE3915742E6940D",
+        "length":  9492
+    },
+    {
+        "path":  "game/shared/physics/contact_frame.gd.uid",
+        "sha256":  "0B65526B127A681008F8B40A558A1C145C9B40A76E0AD408F255D2A569B88437",
+        "length":  20
+    },
+    {
+        "path":  "game/shared/physics/contact_rejection.gd",
+        "sha256":  "01310F784B4739214E445D4B35E0D95FCAB51DC74B4D21DD356E80E39031B9B7",
+        "length":  1029
+    },
+    {
+        "path":  "game/shared/physics/contact_rejection.gd.uid",
+        "sha256":  "4D70BF001E22DCC04D1DC99AE3C9EEC5BF8EC586EF8E0266A6DE7CCB9984B7C3",
+        "length":  20
+    },
+    {
+        "path":  "game/shared/physics/grapple_candidate.tres",
+        "sha256":  "693F6C5C68796856BEDCA2A71642F7FBB0E971FB5B6F58741689C4EAC5569C82",
+        "length":  464
+    },
+    {
+        "path":  "game/shared/physics/grapple_occlusion.tres",
+        "sha256":  "12BDF5862AAD6B2367CF4E44EBAF91FE72A9E7F466CFFF451575A592FA9E1564",
+        "length":  478
+    },
+    {
+        "path":  "game/shared/physics/ground_probe.gd",
+        "sha256":  "01FEA96EB69AE905979DF0B9C7E833BC992E4AC005C4884E897C18FB7006BC62",
+        "length":  369
+    },
+    {
+        "path":  "game/shared/physics/ground_probe.gd.uid",
+        "sha256":  "9822CE8722B8B0F373A4B8566632C8200B44067555B4F482119BB19516362100",
+        "length":  20
+    },
+    {
+        "path":  "game/shared/physics/ground_probe.tres",
+        "sha256":  "87F210D5717AE95F2CB68AC90D991EC4BDC8F0D03F7BBA169FC863A1EF68F300",
+        "length":  590
+    },
+    {
+        "path":  "game/shared/physics/physics_query_profile.gd",
+        "sha256":  "75F5CE322D0A97DADE0ED69F514C582B994329A2B67586823E152CE7038944E3",
+        "length":  7449
+    },
+    {
+        "path":  "game/shared/physics/physics_query_profile.gd.uid",
+        "sha256":  "196C0FBEF45808B09BCBF97CA9743E6C23C0EEADBFB5F2C9FE14D01F7117C4D8",
+        "length":  19
+    },
+    {
+        "path":  "game/shared/physics/wall_probe.gd",
+        "sha256":  "30FE16D6418D6968B61B96B6C32AE581D8ADFACDE4C00AFCFC3A11BD8725E79F",
+        "length":  453
+    },
+    {
+        "path":  "game/shared/physics/wall_probe.gd.uid",
+        "sha256":  "91635900E3FC6D77AC4A033C1813834A5420A34E228D9AE4158D4C935803F420",
+        "length":  20
+    },
+    {
+        "path":  "game/shared/physics/wall_probe.tres",
+        "sha256":  "1D83057D3ACFB744D838A218E82FB436F8CDABD1C5A21F1D9E0A7D946796E380",
+        "length":  627
+    },
+    {
+        "path":  "main.tscn",
+        "sha256":  "B29AF7BF43B5603EFB25AB6AA1CABAB06DEC868D617CE4C467492D289124AD32",
+        "length":  5054
+    },
+    {
+        "path":  "project.godot",
+        "sha256":  "20BF4D175C6C3AE4E4D3489F1907237BCF3FA42B15C4CFD8786899FB00E75BB3",
+        "length":  5438
+    },
+    {
+        "path":  "resources/attacks/enemy_basic_attack.tres",
+        "sha256":  "14F18EF2D78309BD2899FAB91DFF2967AEBFCFC4DAD393A64EACA90AE7270B61",
+        "length":  360
+    },
+    {
+        "path":  "resources/attacks/enemy_ranged_attack.tres",
+        "sha256":  "00143D5489C28241C1EB714B792771488FB9B8CF25B2BCFAA1CCD2C9968C5B5C",
+        "length":  387
+    },
+    {
+        "path":  "resources/attacks/player_basic_attack.tres",
+        "sha256":  "11E0493F0CBF51B0317124F78F8F8816E541D15C51DA6453106DAC51C815471D",
+        "length":  389
+    },
+    {
+        "path":  "resources/enemies/direct_ranged_enemy_definition.tres",
+        "sha256":  "AB0F668886FF796AA02C33BCE1AD5DBC7762714EA1BB09AC5175631A377B951E",
+        "length":  972
+    },
+    {
+        "path":  "resources/enemies/melee_enemy_definition.tres",
+        "sha256":  "A6A5116F936DC9D5BA781355C7DCD3DD4E5F88B5C8D8C2E8447B53D3450F5428",
+        "length":  681
+    },
+    {
+        "path":  "resources/enemies/ranged_enemy_definition.tres",
+        "sha256":  "C09AC8525993121D83CD308C00B2184C73D0E1EE35819831F4B774EEF89899BC",
+        "length":  885
+    },
+    {
+        "path":  "resources/stats/enemy_base_stats.tres",
+        "sha256":  "89796A94DB60A8E14B452BFEF21DE9D217A93CE7BD8B02C63E6BF463609A4DF4",
+        "length":  300
+    },
+    {
+        "path":  "resources/stats/player_base_stats.tres",
+        "sha256":  "B1F12F78A2B71473A48E3F1ECB90D3FB7AEB0C26F1E6C8344E6BD9C6F73F2D4A",
+        "length":  305
+    },
+    {
+        "path":  "scenes/building.tscn",
+        "sha256":  "564032A89E868B1C471A1AE5AC894451A669D71EB5341A6281D2C71A871BA91B",
+        "length":  934
+    },
+    {
+        "path":  "scenes/enemy.tscn",
+        "sha256":  "EB18C4673FC8C9D7F385C02C0A477BD4075CC77A5AD1A62E244F8F8D3F5F333B",
+        "length":  6096
+    },
+    {
+        "path":  "scenes/player.tscn",
+        "sha256":  "E51F9E41D47ED29BF2BE234B8B6B91AEDED9B36B56E90BF22165793611721606",
+        "length":  8921
+    },
+    {
+        "path":  "scenes/projectile.tscn",
+        "sha256":  "908B26EEF70D11A92C5393D3B2DE9F622835F27299C4321E0F342A720E116341",
+        "length":  894
+    },
+    {
+        "path":  "scenes/tree_grapple_tutorial.tscn",
+        "sha256":  "F9AB9A33562A99B7CA5498BC995DA897DEFBD3B5531D066E9CEABAFE5D2E4303",
+        "length":  210
+    },
+    {
+        "path":  "scripts/building.gd",
+        "sha256":  "E7CFFE215BFEFDA8D991B2CF186BF7EECC26539F9883D33BD1CE608878060900",
+        "length":  1326
+    },
+    {
+        "path":  "scripts/building.gd.uid",
+        "sha256":  "5843D9A7A5DB4023E249F88F6AEB6A75E6808D47AE64CF84866ADD64BAD0A4DD",
+        "length":  19
+    },
+    {
+        "path":  "scripts/combat/attack_data.gd",
+        "sha256":  "F093647463EE3F5918284D0299FFCE0A2C8ACCF7B46B41880F0DBAA5CDAB380B",
+        "length":  1407
+    },
+    {
+        "path":  "scripts/combat/attack_data.gd.uid",
+        "sha256":  "612EADA91DDE69D1BFF73A30CBA6DB35BD37BF2281932CA965B235F5151489BB",
+        "length":  20
+    },
+    {
+        "path":  "scripts/combat/combat_health.gd",
+        "sha256":  "5FD3351654D2864D4CA5F5EED0FB7C514298015B46D4279F1A74A6511769A189",
+        "length":  1254
+    },
+    {
+        "path":  "scripts/combat/combat_health.gd.uid",
+        "sha256":  "0FA7DEEF0E31DD7C2075E0A3317D5ECAB669C1CD29006DF39DACB66B60F23989",
+        "length":  20
+    },
+    {
+        "path":  "scripts/combat/combat_hitbox_3d.gd",
+        "sha256":  "69906B873A272F86489488446408C8C2737634D2C2B735E79F1DD940CC3D4D75",
+        "length":  2125
+    },
+    {
+        "path":  "scripts/combat/combat_hitbox_3d.gd.uid",
+        "sha256":  "891B1BE0B44D6D31F1CB6C1E170DEDADCDAA5FA9B1EFFEA450A92DA1D423B2B2",
+        "length":  19
+    },
+    {
+        "path":  "scripts/combat/combat_hurtbox_3d.gd",
+        "sha256":  "89341D44CD601A228E0C21AE2DC956AFA30E16A9DDF688F5B604A120455E596E",
+        "length":  979
+    },
+    {
+        "path":  "scripts/combat/combat_hurtbox_3d.gd.uid",
+        "sha256":  "5E638E194C645B038499D9D65707EFC4BB9A3F81B3E9834A8DDE29A86979EE17",
+        "length":  19
+    },
+    {
+        "path":  "scripts/combat/combat_modifier.gd",
+        "sha256":  "0038E67BA985729D48F621013001E01E8C2120ED2A9E3B58A500379B90BA8D64",
+        "length":  276
+    },
+    {
+        "path":  "scripts/combat/combat_modifier.gd.uid",
+        "sha256":  "E9C8ADCFDE0B6EADF275FA0E223524F199E02D96D0B6BA968957B4A6C0424BAD",
+        "length":  20
+    },
+    {
+        "path":  "scripts/combat/combat_stats.gd",
+        "sha256":  "117E056DD58FF9F92B140919E60DAE2CEC696FE019AEE69471DFF46955BB6493",
+        "length":  918
+    },
+    {
+        "path":  "scripts/combat/combat_stats.gd.uid",
+        "sha256":  "A0F53F49F94EB1761773D7860EF47782DD09AD67E70F61FCA967B06F17592211",
+        "length":  20
+    },
+    {
+        "path":  "scripts/combat/combat_stats_data.gd",
+        "sha256":  "FE6046F2038A6B2C0A42CC1B595D0A2D238F612036F2B96801B00500B16C38BB",
+        "length":  1364
+    },
+    {
+        "path":  "scripts/combat/combat_stats_data.gd.uid",
+        "sha256":  "40CE9CCDC700EFAB3D627385107766324931221D6862FF4CC1CA6DD375EEA08C",
+        "length":  20
+    },
+    {
+        "path":  "scripts/combat/damage_instance.gd",
+        "sha256":  "7F0BE78F9C800822B9F9A5B6AAAC5FC709BA209FDCC9B23D182A98D5BA3EA312",
+        "length":  699
+    },
+    {
+        "path":  "scripts/combat/damage_instance.gd.uid",
+        "sha256":  "A1069AC4E1BD305E4AE4CC21C8AB9F2249388919098015865E2F2C568E377BCB",
+        "length":  20
+    },
+    {
+        "path":  "scripts/combat/damage_resolver.gd",
+        "sha256":  "08F24DBD411A6A67983BF8656EDA05ED800B89520F12B9862E12D0B7BCD755B8",
+        "length":  6017
+    },
+    {
+        "path":  "scripts/combat/damage_resolver.gd.uid",
+        "sha256":  "0C9CA39B99C2B73BD8BF36B432A63E3E28E8EFD4FF68574DE98BBED5A71154F5",
+        "length":  20
+    },
+    {
+        "path":  "scripts/combat/projectile_3d.gd",
+        "sha256":  "1114345AD6D8C1A09A6F640C28B0BCAC8E55DD9AB04E6E24A993B388AA2AD0D9",
+        "length":  2224
+    },
+    {
+        "path":  "scripts/combat/projectile_3d.gd.uid",
+        "sha256":  "2F3BDB60B711FD908F142C0DFD710648A17E9F2B410FE55F3FC493432E2230EC",
+        "length":  20
+    },
+    {
+        "path":  "scripts/debug_grapple_telemetry.gd",
+        "sha256":  "C590C8846FE9C89C7CEE3B6CA24F39F71F37629C1BD0440F97F2164E6B6740EE",
+        "length":  7682
+    },
+    {
+        "path":  "scripts/debug_grapple_telemetry.gd.uid",
+        "sha256":  "418317650E3C8A3B9B45089CC9031045118A2117832FD3C346720A7945A3C124",
+        "length":  20
+    },
+    {
+        "path":  "scripts/enemy/enemy_definition.gd",
+        "sha256":  "32EF7EC87234846C8A8C51BDD650986FB6639D4C88D289DB0DF7085588588CD1",
+        "length":  1735
+    },
+    {
+        "path":  "scripts/enemy/enemy_definition.gd.uid",
+        "sha256":  "B6887FC7A31AAE350094912B54DCF75C01733196BB70C5D3C1C746FC7D285C45",
+        "length":  19
+    },
+    {
+        "path":  "scripts/enemy/enemy_movement_3d.gd",
+        "sha256":  "0E870C80912767E00DFAC4569E648CF12C400F28B893E716CEFAD18F3204E22B",
+        "length":  1741
+    },
+    {
+        "path":  "scripts/enemy/enemy_movement_3d.gd.uid",
+        "sha256":  "47F476BE199115A375914966FD04C9C346D0585714DD5C27D09CD2F6BB086C9A",
+        "length":  19
+    },
+    {
+        "path":  "scripts/enemy/enemy_vision_3d.gd",
+        "sha256":  "1AB1DF8025200E6DC79A7FD4F1756B23BBC15602835EB977AF4B15F4BE1E1439",
+        "length":  5018
+    },
+    {
+        "path":  "scripts/enemy/enemy_vision_3d.gd.uid",
+        "sha256":  "3BC9C2FCCA2142D43091C0A4EE7AF7B0593296EB576A28075B485B7C4F5CB424",
+        "length":  20
+    },
+    {
+        "path":  "scripts/enemy/states/enemy_attack_active_state.gd",
+        "sha256":  "931D2DC173B35669F7BBFBE87015B1FF6B546CBA58A75F9BF407C274412C6F95",
+        "length":  508
+    },
+    {
+        "path":  "scripts/enemy/states/enemy_attack_active_state.gd.uid",
+        "sha256":  "48A2F73662FEFB76C5CBA9841A303D6CCA70DB598172BD893AD3E4027B1226A6",
+        "length":  20
+    },
+    {
+        "path":  "scripts/enemy/states/enemy_attack_recovery_state.gd",
+        "sha256":  "EA63026BBD5495641931E84B308CE19EFB937B5AAE1540B67F5F1F4C199CBACA",
+        "length":  380
+    },
+    {
+        "path":  "scripts/enemy/states/enemy_attack_recovery_state.gd.uid",
+        "sha256":  "7824759242FFDC86268B60C6D46AD20D0CBAA36AFD51C7A7226645A335B94EB1",
+        "length":  19
+    },
+    {
+        "path":  "scripts/enemy/states/enemy_attack_windup_state.gd",
+        "sha256":  "EC533530317F5DA146165C976E80E08D2E463345A6B3D6C1454AA1A0BB060D2D",
+        "length":  442
+    },
+    {
+        "path":  "scripts/enemy/states/enemy_attack_windup_state.gd.uid",
+        "sha256":  "598E731BB2CA8E305DC91E7A43D5190CEE8C5E12DCC39865FCA8424D89B64D56",
+        "length":  20
+    },
+    {
+        "path":  "scripts/enemy/states/enemy_dead_state.gd",
+        "sha256":  "DDF505F362BE7700C1BF7CCB2162480363319567D4FE1DD67A58BE5EABEDF212",
+        "length":  159
+    },
+    {
+        "path":  "scripts/enemy/states/enemy_dead_state.gd.uid",
+        "sha256":  "FB3306CBAC1100023D2F5B50E3BDE51D2D76EBEEA0176EDEFD8E2B7B44BB8D40",
+        "length":  20
+    },
+    {
+        "path":  "scripts/enemy/states/enemy_ready_state.gd",
+        "sha256":  "0487AF1D28A69FEF6917D64223AA470F747D4705A5786A85B1C72D4E8DA8B89A",
+        "length":  128
+    },
+    {
+        "path":  "scripts/enemy/states/enemy_ready_state.gd.uid",
+        "sha256":  "68AC5F5ABAD281620803BF4DEF186DF1D57A6CEFA810845C6E5CA99050C070D6",
+        "length":  20
+    },
+    {
+        "path":  "scripts/enemy_controller.gd",
+        "sha256":  "B1EAA8BB6F1B6F07BD7C999940E011FB6988584311C7FA133C9A302C0DAA18A2",
+        "length":  8489
+    },
+    {
+        "path":  "scripts/enemy_controller.gd.uid",
+        "sha256":  "D7E4DB2BA19E93760219256881A57D60D85EC94F117D606EF24FAF0215F73248",
+        "length":  20
+    },
+    {
+        "path":  "scripts/levels/tree_grapple_tutorial.gd",
+        "sha256":  "8251408AAF9310987A759417B45FB54F296B02FE449122E49B6A572995437495",
+        "length":  12228
+    },
+    {
+        "path":  "scripts/levels/tree_grapple_tutorial.gd.uid",
+        "sha256":  "043F8AA4AAF9BA7371DC72209C5EFCCAD3B4041F1B8185391F1377B7F21763A4",
+        "length":  20
+    },
+    {
+        "path":  "scripts/player_airborne_state.gd",
+        "sha256":  "2191DDDC1D412AE82C0C8087C79ED8B24B489E293B972680CAC2CCE9851AA343",
+        "length":  1243
+    },
+    {
+        "path":  "scripts/player_airborne_state.gd.uid",
+        "sha256":  "3C98E777AFE238A82B4670B26AA347E0FC718FF3BC63A2FE295CE3D4B4AEEAC6",
+        "length":  20
+    },
+    {
+        "path":  "scripts/player_attack_active_state.gd",
+        "sha256":  "CFE002A086ECE357D322D43D0E0ABBFB2CE2DC850F5EC7B64E6276E93E20455D",
+        "length":  538
+    },
+    {
+        "path":  "scripts/player_attack_active_state.gd.uid",
+        "sha256":  "EC29E7C47A5EF153B07823A26500DAFB4068090E206EE367AADB38604ED9802E",
+        "length":  20
+    },
+    {
+        "path":  "scripts/player_attack_ready_state.gd",
+        "sha256":  "F46DEF19158AA7EB3B0327D226B61F21D6612E810C976EC1E1B62D822ACB60EC",
+        "length":  417
+    },
+    {
+        "path":  "scripts/player_attack_ready_state.gd.uid",
+        "sha256":  "B3F77DF5A2E126EA510C05907E4D8E014AFB9BF9FE43F25B9278CEF11B64DD35",
+        "length":  20
+    },
+    {
+        "path":  "scripts/player_attack_recovery_state.gd",
+        "sha256":  "D974E0979463A891A18647181EB31F88006ED741E0BC33C2C268EF9AC992AF2C",
+        "length":  389
+    },
+    {
+        "path":  "scripts/player_attack_recovery_state.gd.uid",
+        "sha256":  "03AB043378670E4B9E4B73EB9F992751A6FFFE807A120BE9106F945592D8057A",
+        "length":  20
+    },
+    {
+        "path":  "scripts/player_attack_windup_state.gd",
+        "sha256":  "D4D69DF86A62D4EFADD6D448936E6B1B397DD7873314C4B40BF61553DD2399B3",
+        "length":  333
+    },
+    {
+        "path":  "scripts/player_attack_windup_state.gd.uid",
+        "sha256":  "CB7069F82D911F0D1F449C04480B762DC939A59CD8336D1C614F95500B9C82B5",
+        "length":  19
+    },
+    {
+        "path":  "scripts/player_controller.gd",
+        "sha256":  "C2A974001A3E62BB7FA261E26119448DA3074D775E0809658EF9531FAD73F1BD",
+        "length":  57193
+    },
+    {
+        "path":  "scripts/player_controller.gd.uid",
+        "sha256":  "FA0B679D74712602BF7353BE33C124FA3D773BA3F7EABE6C4729CE7922A89247",
+        "length":  19
+    },
+    {
+        "path":  "scripts/player_dead_state.gd",
+        "sha256":  "29097B57735B211EA75F980B3D5435226F1D4701269D436DD623B93FB074AAED",
+        "length":  331
+    },
+    {
+        "path":  "scripts/player_dead_state.gd.uid",
+        "sha256":  "29C1533EF5BF966C9C007DECA68D239681476064241020565DB1846A6FEFA374",
+        "length":  20
+    },
+    {
+        "path":  "scripts/player_grappling_state.gd",
+        "sha256":  "BC91AEF2FF81816CA0A19A9BF3553627494E4D7F09DB37B8057C5AFB4F23C4F3",
+        "length":  2320
+    },
+    {
+        "path":  "scripts/player_grappling_state.gd.uid",
+        "sha256":  "CDEE217453D1305B30DCB3BB2FFA2F81581A3D6B51A182E9009AEFB3DB2B4BFA",
+        "length":  20
+    },
+    {
+        "path":  "scripts/player_grounded_state.gd",
+        "sha256":  "E6A505420508321AAEABCE5F8CFD562E8532751252FCA55C77440046A4E7EFEB",
+        "length":  1247
+    },
+    {
+        "path":  "scripts/player_grounded_state.gd.uid",
+        "sha256":  "861BAF97FAD36E5322CBA98B3B2E5BF8DF85C76A1694B0BC128ACD7F6C0F0912",
+        "length":  19
+    },
+    {
+        "path":  "scripts/player_wall_run_state.gd",
+        "sha256":  "FF4F28FD5ED372EF5FFEA4937A19696385FE4387D9454FFA78804D4E25680690",
+        "length":  1665
+    },
+    {
+        "path":  "scripts/player_wall_run_state.gd.uid",
+        "sha256":  "B72D712D87572D179A18C28D09BCEAC9A21268A6E8B7A6329A297FF2561A6175",
+        "length":  20
+    },
+    {
+        "path":  "scripts/player_wall_stick_state.gd",
+        "sha256":  "8DE2FCA2D5A1C1BBBA2C9A344859A84484C46184E0F0C7AE42E69BCB3D815733",
+        "length":  3641
+    },
+    {
+        "path":  "scripts/player_wall_stick_state.gd.uid",
+        "sha256":  "3F03928C76E4738EF55E3C9FC0229D9EFDF9EEB550CCE4536ABAAFC50E032785",
+        "length":  20
+    },
+    {
+        "path":  "scripts/visuals/attack_arc_visual_3d.gd",
+        "sha256":  "8D49D9675AF8FAA8838E3EB59D6A1DA6D52FBD5B337D0823CEFC4F2BBEB7B878",
+        "length":  3802
+    },
+    {
+        "path":  "scripts/visuals/attack_arc_visual_3d.gd.uid",
+        "sha256":  "E8A875F0C02212824AA9A6030B55A1D1C4F0841903742C436D040DBD9C60EC29",
+        "length":  20
+    },
+    {
+        "path":  "tests/fixtures/traversal_boundary_probe.gd",
+        "sha256":  "4F101963B56770472F900BF2C9D72DC9EBF213FA9B5D75FDE51045F53932C4EA",
+        "length":  15212
+    },
+    {
+        "path":  "tests/fixtures/traversal_boundary_probe.gd.uid",
+        "sha256":  "2478AE234D89EA74C7D35EC9B441E29CB41FAE9A15D53A11C2B34A3A6DF87781",
+        "length":  19
+    },
+    {
+        "path":  "tests/fixtures/traversal_route_driver.gd",
+        "sha256":  "F569F83E54550B71AE2C6F39FDCAF33A5C03FBB3F503FE41164036736868EB38",
+        "length":  28876
+    },
+    {
+        "path":  "tests/fixtures/traversal_route_driver.gd.uid",
+        "sha256":  "610C902949A56EA36ACBEB7F0929E42D4B7F5AF5D7884CB78F94A97CFF8C034D",
+        "length":  19
+    },
+    {
+        "path":  "tests/fixtures/wall_stick_motion_fixture.gd",
+        "sha256":  "63E653885D85A9EE841A5A14A2056B08C5C8C8F6F38C5EC1F2245167351AF34F",
+        "length":  11330
+    },
+    {
+        "path":  "tests/fixtures/wall_stick_motion_fixture.gd.uid",
+        "sha256":  "7B5DEC017107EC8EF9B6BF29526B681BC791D27D3F33FA06AFEDF266881EEF5E",
+        "length":  19
+    },
+    {
+        "path":  "tests/fixtures/wall_stick_motion_fixture.tscn",
+        "sha256":  "3E1533E76C3A6E230F0A0629EE1527D7F3C9ED8966D269E8248446B777E434F2",
+        "length":  221
+    },
+    {
+        "path":  "tests/fixtures/wall_stick_native_reanchor_fixture.gd",
+        "sha256":  "EA7BC742A07CE8C03CF1A5BAD25D539846951150C1F2D6F6D232EC4B7194A0FD",
+        "length":  2051
+    },
+    {
+        "path":  "tests/fixtures/wall_stick_native_reanchor_fixture.gd.uid",
+        "sha256":  "AFCF1A7184D04E2E5E4D453B90A76E7EEBE4EDFC8BE898AFBF40BBD13CAFF607",
+        "length":  19
+    },
+    {
+        "path":  "tests/fixtures/wall_stick_native_reanchor_fixture.tscn",
+        "sha256":  "596B7FEE7877CFFCAAA64702F0824F9797C3072306D812EE9BF12614435AFA13",
+        "length":  238
+    },
+    {
+        "path":  "tests/fixtures/wall_stick_reanchor_fixture.gd",
+        "sha256":  "295BF69C8EAA6DA34D625D78A301335A6F9D98211E7889688B67F2680E157E6A",
+        "length":  12573
+    },
+    {
+        "path":  "tests/fixtures/wall_stick_reanchor_fixture.gd.uid",
+        "sha256":  "B4D6E3EE849F56A6FE076F6BAC9027D1477C163C37BF0F2EC07F8CD867FCC7A0",
+        "length":  20
+    },
+    {
+        "path":  "tests/fixtures/wall_stick_reanchor_fixture.tscn",
+        "sha256":  "E43DF8A0167E0F60B5784BCD35693E4D35B4461F296D69467ACEBC3C913429A6",
+        "length":  225
+    },
+    {
+        "path":  "tests/fixtures/wall_stick_reanchor_hardening_cases.gd",
+        "sha256":  "5E84E9F5A7987B26A00D2604E1766D285D2713F19F31BD30480FE5BF17CADF62",
+        "length":  25301
+    },
+    {
+        "path":  "tests/fixtures/wall_stick_reanchor_hardening_cases.gd.uid",
+        "sha256":  "D38E3CDA4D4CC68B5B3D7B6A1282F97FAEF57294518050ED99AB7F707B86344A",
+        "length":  20
+    },
+    {
+        "path":  "tests/fixtures/wall_stick_review_cases.gd",
+        "sha256":  "9BDD25899381EE8BDF1FCDB98A9015C76A3A5A61BBAAE1DC0E233D2467C9D822",
+        "length":  15771
+    },
+    {
+        "path":  "tests/fixtures/wall_stick_review_cases.gd.uid",
+        "sha256":  "7C8D1ADC5A6168A2BA4E6EB4141456CA01AFD0BD9F07AEC8D2B3389AFD74ADCB",
+        "length":  20
+    },
+    {
+        "path":  "tests/fixtures/wall_stick_support_mover.gd",
+        "sha256":  "30ADEC56E1CFE27BD531D85D5ED87C81D788A87536DB373EE23E42F8D4BA131D",
+        "length":  847
+    },
+    {
+        "path":  "tests/fixtures/wall_stick_support_mover.gd.uid",
+        "sha256":  "58AAEA71FF1DB7CF793B6709535E45C693C7FB3AC92C0FFBDC47D918CD910CD8",
+        "length":  20
+    },
+    {
+        "path":  "tests/levels/test_traversal_validation_route.gd",
+        "sha256":  "0DB6CA90A824A508A0C9AD5CF727CB1236ADC4AB473BD0F0A53BBDC3F3607D09",
+        "length":  23535
+    },
+    {
+        "path":  "tests/levels/test_traversal_validation_route.gd.uid",
+        "sha256":  "F127C3D36913BE785F9E600BD3FD1C5E31678EA06A04A35C7DE97AFEFFF1E8D4",
+        "length":  20
+    },
+    {
+        "path":  "tests/player/contact/test_player_contact_contract.gd",
+        "sha256":  "8AF6AE84F570EEF7477B129C11193F0C14C263F301598E10764EB175089B138D",
+        "length":  12706
+    },
+    {
+        "path":  "tests/player/contact/test_player_contact_contract.gd.uid",
+        "sha256":  "837C0792DC151EA313C74F3F9BE8AC29E2B7F672214C59DCE6B339EC9A139C1C",
+        "length":  20
+    },
+    {
+        "path":  "tests/player/contact/test_wall_stick_support.gd",
+        "sha256":  "48D5B96C3B797F86D4C2030E433AC56E3BDF599C867E07B3E1B9A6FA83077516",
+        "length":  3745
+    },
+    {
+        "path":  "tests/player/contact/test_wall_stick_support.gd.uid",
+        "sha256":  "E17FD117FD30E287AA050D8E58BE221915CF1489306157A8A7F340F97961FA72",
+        "length":  20
+    },
+    {
+        "path":  "tests/player/grapple/test_grapple_active_visuals.gd",
+        "sha256":  "B575A85AC691AEB42EC96D46F04708A7A3FE4350974B160C906518BF9BA90340",
+        "length":  4900
+    },
+    {
+        "path":  "tests/player/grapple/test_grapple_active_visuals.gd.uid",
+        "sha256":  "535AEA61A578374CC06C0790C51D97FCDB06DF457C8AC66C1C729AABD644D07C",
+        "length":  20
+    },
+    {
+        "path":  "tests/player/grapple/test_grapple_boundary_contract.gd",
+        "sha256":  "C2D859689BF4B9350BDE4EF3D564AA0D9862C40461D7B9ECE4B2204AE4BA8A49",
+        "length":  29146
+    },
+    {
+        "path":  "tests/player/grapple/test_grapple_boundary_contract.gd.uid",
+        "sha256":  "56C2C708FA105545799345CA96CCEED3B758AF888351C04CDFB41059A25558A1",
+        "length":  19
+    },
+    {
+        "path":  "tests/player/grapple/test_grapple_boundary_integration.gd",
+        "sha256":  "2F9C88394CEB2F5A30BC8E3FADE682A7109D78C7ED077C5C8746CEC3DEC56CC2",
+        "length":  29862
+    },
+    {
+        "path":  "tests/player/grapple/test_grapple_boundary_integration.gd.uid",
+        "sha256":  "36DE8D5F953A5D409F95B17328698D4D1B4C2E72B1DB36B29173DCF618428D9C",
+        "length":  20
+    },
+    {
+        "path":  "tests/player/grapple/test_grapple_moving_target_contract.gd",
+        "sha256":  "409F64CF56203F58CE7E29E155C5F1CCECC0A4055AE47B1E0717752BC3766614",
+        "length":  52987
+    },
+    {
+        "path":  "tests/player/grapple/test_grapple_moving_target_contract.gd.uid",
+        "sha256":  "CEB1A238F40F5550B738727736962384BA00DB93F4DFBBDF98F3A69EA4F4EEF3",
+        "length":  20
+    },
+    {
+        "path":  "tests/player/grapple/test_grapple_moving_target_integration.gd",
+        "sha256":  "6B75B6608E7FC08EBD2427957084198EDC49A7CFEE12C5B7706B5E649BF7B8D2",
+        "length":  29914
+    },
+    {
+        "path":  "tests/player/grapple/test_grapple_moving_target_integration.gd.uid",
+        "sha256":  "6C7C6683F601258F6680549A122C3FD45C2410FC91CA6031A18755903C81BA72",
+        "length":  19
+    },
+    {
+        "path":  "tests/player/grapple/test_grapple_targeting_contract.gd",
+        "sha256":  "7BCF24AB849C64B86A9380D410692A1C7AE7CF6619678E958398D755FDC393C8",
+        "length":  30786
+    },
+    {
+        "path":  "tests/player/grapple/test_grapple_targeting_contract.gd.uid",
+        "sha256":  "08ED5BEC4F2FE34548D4F0538D7F38685913DC9BD1690B773B12950F253DD751",
+        "length":  20
+    },
+    {
+        "path":  "tests/player/grapple/test_grapple_targeting_integration.gd",
+        "sha256":  "6F880881987A673E760DE132733DABDD4823ED4A211FBFD95F61DADEB4005E5D",
+        "length":  36298
+    },
+    {
+        "path":  "tests/player/grapple/test_grapple_targeting_integration.gd.uid",
+        "sha256":  "B5203030CC374BF6B88E609C65907C3C12E78567CDAF5DD7907D6848C98074C7",
+        "length":  20
+    },
+    {
+        "path":  "tests/player/grapple/test_wall_stick_reanchor.gd",
+        "sha256":  "AB7E6D0620888855C8BC388EDBED77C63A9149950186C9B410712C24DCE16BA0",
+        "length":  18538
+    },
+    {
+        "path":  "tests/player/grapple/test_wall_stick_reanchor.gd.uid",
+        "sha256":  "05C3ECE673FE8A4AEE57A91E1370DA4AA51BE5E85BAA9E9F8B579E71A6ED58B6",
+        "length":  20
+    },
+    {
+        "path":  "tests/player/grapple/test_wall_stick_reanchor_hardening.gd",
+        "sha256":  "356A3DC0B017A61312BBFAE66B55BA12BB6EF4D34E74CBE2F85655B055FF2D0E",
+        "length":  3539
+    },
+    {
+        "path":  "tests/player/grapple/test_wall_stick_reanchor_hardening.gd.uid",
+        "sha256":  "EA9E1B211F05EE92A2F3DAD7CC6972BA027E79BF657BCDD30EF0B8A80090B2AB",
+        "length":  20
+    },
+    {
+        "path":  "tests/player/input/test_player_command_frame.gd",
+        "sha256":  "CE1FEF9A079DB3BAFE8D114A28A42A5A50FA51D997D8C7F4C208259D473819BE",
+        "length":  2468
+    },
+    {
+        "path":  "tests/player/input/test_player_command_frame.gd.uid",
+        "sha256":  "B5D872201B361ECD23DBE960265975B5E9350249E688D307B80161E79C57B464",
+        "length":  19
+    },
+    {
+        "path":  "tests/player/input/test_player_controller_command_sequence.gd",
+        "sha256":  "D3EA760AF6DB0D9D05673114A1D7922A152B0A94D27F4AE670D154A8BDB40212",
+        "length":  2252
+    },
+    {
+        "path":  "tests/player/input/test_player_controller_command_sequence.gd.uid",
+        "sha256":  "8CA1901EA532F032BB3833FD0802A48C36A97671CACA028CE79F890921039572",
+        "length":  19
+    },
+    {
+        "path":  "tests/player/input/test_player_input_source.gd",
+        "sha256":  "85B26E6FE9EEBC2E0923A1AB6E662FDC9198617AFC08D593B2966F67237028C0",
+        "length":  14290
+    },
+    {
+        "path":  "tests/player/input/test_player_input_source.gd.uid",
+        "sha256":  "E1C9B4E4C480C768C5219C9BBB240F46AE3547A8391789FAE2F057564AB06EF2",
+        "length":  20
+    },
+    {
+        "path":  "tests/player/locomotion/test_wall_stick_attachment.gd",
+        "sha256":  "845D1DBA438D850964CDAAC17EA96668EA12518F259E21B77E72A1AF2AB90D6B",
+        "length":  12477
+    },
+    {
+        "path":  "tests/player/locomotion/test_wall_stick_attachment.gd.uid",
+        "sha256":  "95E9E1F6500125DA936338EF98437923651651B709ACE330BC59BB19B47124E0",
+        "length":  20
+    },
+    {
+        "path":  "tests/player/locomotion/test_wall_stick_review_hardening.gd",
+        "sha256":  "7A122FE4221C3B9ECAC1500532655849CF58B29ADF962F4BBECAC222A7AEFC5A",
+        "length":  2236
+    },
+    {
+        "path":  "tests/player/locomotion/test_wall_stick_review_hardening.gd.uid",
+        "sha256":  "990C1D312873A7E29F88C130AA36F02C86403BF5B6B3BE79E04F11B056891B6D",
+        "length":  19
+    },
+    {
+        "path":  "tests/player/locomotion/test_wall_traversal_contract.gd",
+        "sha256":  "99CCB37B7BB6001C0EEFFB5BDD473010EF7C62D5AE65779010D5BBAE078FBA43",
+        "length":  34997
+    },
+    {
+        "path":  "tests/player/locomotion/test_wall_traversal_contract.gd.uid",
+        "sha256":  "59F2054C83DA0893DC39678EB34D2F83736EB574DC0B16B68266850691AC6E40",
+        "length":  20
+    },
+    {
+        "path":  "tests/player/locomotion/test_wall_traversal_integration.gd",
+        "sha256":  "D9A041423616C73E10CA9CBB6B40FB8E2E55D1FA8300337E51607B43D298B83C",
+        "length":  78739
+    },
+    {
+        "path":  "tests/player/locomotion/test_wall_traversal_integration.gd.uid",
+        "sha256":  "D218DDA4F3D4EF25905D27ABA34B55E656873DC396B04FFD96AE4087CCC0AC5E",
+        "length":  19
+    },
+    {
+        "path":  "tests/player/motor/test_player_motor.gd",
+        "sha256":  "9110E60F74AEAA06D98BC66D5830A453F2DC4345BD8CF0449214B5FB09B69FEF",
+        "length":  28387
+    },
+    {
+        "path":  "tests/player/motor/test_player_motor.gd.uid",
+        "sha256":  "DA7A20AD53FB7D82680A6DCC9E983169EEAB02DE4E995A7717457EB572C45727",
+        "length":  19
+    },
+    {
+        "path":  "tests/player/motor/test_player_motor_integration.gd",
+        "sha256":  "CAB203479A90AB1F584F2D00AA71F843D0422C4723F3D3D3D297049A05D49D46",
+        "length":  22768
+    },
+    {
+        "path":  "tests/player/motor/test_player_motor_integration.gd.uid",
+        "sha256":  "6EB7BF43241865335EE4D300A226485CD95EE9F3D0828419342313C07407DE7C",
+        "length":  20
+    },
+    {
+        "path":  "tests/player/motor/test_player_motor_semantic_contract.gd",
+        "sha256":  "5F121EFB44C59C0E21EFB576002AA6C04CC5EC223549E385C96417571080D2FD",
+        "length":  13684
+    },
+    {
+        "path":  "tests/player/motor/test_player_motor_semantic_contract.gd.uid",
+        "sha256":  "F1B2959532ECC291EE3753758257CC065F697970A8580004F5A98AF1AFB562A0",
+        "length":  19
+    },
+    {
+        "path":  "tests/test_grapple_boundary_mcp.gd",
+        "sha256":  "F4E59E1E72F2EA42B8C5FD482B3C77A22962D4CE447BBB99626C349C4DD0D293",
+        "length":  10716
+    },
+    {
+        "path":  "tests/test_grapple_boundary_mcp.gd.uid",
+        "sha256":  "F014B4E5AE7D38A983D814E3B47BA273EAD4F52B319A71DE9A89874A50C4598B",
+        "length":  20
+    },
+    {
+        "path":  "tests/test_grapple_moving_target_mcp.gd",
+        "sha256":  "1D1BC4B6DD4181C24D27531B7A0954483FFE19D816E203516B1D40A810F74CF2",
+        "length":  9190
+    },
+    {
+        "path":  "tests/test_grapple_moving_target_mcp.gd.uid",
+        "sha256":  "6541C3330404E268DFFB8CBEC5354081E41FF60AFA5685EC7BFB1A9E3DA29783",
+        "length":  19
+    },
+    {
+        "path":  "tests/test_grapple_targeting_mcp.gd",
+        "sha256":  "35ACF5D495737E430F531200531FCDBD72CDBE23B1E346834C9B6570E392C615",
+        "length":  4720
+    },
+    {
+        "path":  "tests/test_grapple_targeting_mcp.gd.uid",
+        "sha256":  "176FADCB2676001B56B2E5E94BBE3006B3ED5539D9C5028DDF9A129CF69C430F",
+        "length":  20
+    },
+    {
+        "path":  "tests/test_wall_stick_mcp.gd",
+        "sha256":  "C30EDD83F7354E1BF769E0269CF168A45C902191CCB57BF2BF954954421F69BD",
+        "length":  3213
+    },
+    {
+        "path":  "tests/test_wall_stick_mcp.gd.uid",
+        "sha256":  "604D072BBBA6D8AC1AC63D722654D8B8402C979D0CD515B39AB3EE58A8C40856",
+        "length":  20
+    }
+]

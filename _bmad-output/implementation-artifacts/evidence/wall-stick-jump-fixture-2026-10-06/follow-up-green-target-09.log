@@ -1,0 +1,33 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[godot_ai game_helper] registered mcp capture (debugger active=false, logger=true)
+---  GUT  ---
+[1m[INFO]:  [0musing [C:/Users/pinto/AppData/Roaming/Godot/app_userdata/Test Game] for temporary output.
+Godot version:  4.7.2
+GUT version:  9.7.1
+[4m
+
+res://tests/player/locomotion/test_wall_traversal_integration.gd
+[0m* test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion
+[1-9-stick-jump] { "transition_counts": { &"player.locomotion.grappling": 1, &"player.locomotion.wall_stick": 1, &"player.locomotion.airborne": 1 }, "prev_state": &"player.locomotion.airborne", "active_steps": 0, "held_steps": 18, "constraint_applied_count": 0, "hold_constraint_applied_count": 18, "hold_request_after_exit_count": 0, "commit_count_max": 1, "min_direction_dot": 1.0, "outward_exit_projection": 0.0, "outward_exit_action": 0, "corner_trace": [], "jump_count": 1, "hold_request_seen": true, "grapple_held_at_exit": true, "valid_outward_hold_seen": false, "exited": true, "landed": false, "ever_wall_running": false, "ever_wall_sticking": true, "still_wall_running": false, "still_wall_sticking": false, "reached_mode": false, "exit_latency_steps": 1, "post_exit_state": &"player.locomotion.airborne", "end_along_wall_speed": 0.0, "entry_along_wall_speed": 0.0, "first_wall_run_speed": -1.0, "wall_normal": (0.0, 0.0, 1.0), "wall_run_direction": (0.0, 0.0, 0.0), "launch_velocity": (0.0, 0.0, 0.0), "pre_jump_along_wall_speed": 0.0, "jump_reference_outward_speed": 0.5, "state_at_jump": &"", "first_state_after_jump": &"", "exit_velocity": (0.0, 5.5, 8.0), "pre_exit_velocity": (0.0, 0.0, 0.0), "terminal_reason": 4, "terminal_count": 1, "duplicate_terminal_same": true, "wall_cleared_before_terminal_signal": true, "airborne_steering_available": false, "grapple_acquisition_available": false, "grapple_started_after_jump": false, "recovery_option_available": false, "recovery_action_worked": false, "lost_frame_seen_while_running": false, "lost_frame_seen_while_sticking": false, "valid_outward_entry_seen": false, "wall_constraint_on_exit": false, "hold_request_on_exit": false, "wall_contact_after_turn": false, "switched_frame_seen": false, "selected_switched_normal": (0.0, 0.0, 0.0), "level_restarted": false, "entry_was_missed": false, "exited_wall_early": false, "released_grapple": false, "requested_rate": 60, "requested_delta": 0.01666666666667, "pre_spawn": { "requested_delta": 0.01666666666667, "cached_delta": 0.01666666666667, "delta_aligned": true, "configured_rate": 60, "engine_frame": 17, "in_physics": true }, "entry_step": 3, "first_hold": { "ready": true, "current_step": 4, "engine_frame": 19, "in_physics": true, "configured_rate": 60, "requested_delta": 0.01666666666667, "cached_delta": 0.01666666666667, "delta_aligned": true, "commit_delta": 0.01666666666667, "commit_delta_aligned": true, "active": true, "successful_hold": true, "supported": true, "held_command": true, "binding_status": 0, "contact_step": 4, "result_step": 4, "result_success": true, "hold_requested": true, "hold_carry_blocked": false, "hold_source": true, "submitted_velocity": (0.0, 0.0, 0.0), "committed_velocity": (0.0, 0.0, 0.0), "body_velocity": (0.0, 0.0, 0.0) }, "first_failed_hold": {  }, "hold_checks_count": 18, "aligned_hold_count": 18, "valid_hold_count": 18, "jump_ready": true, "jump_reference_tangent_speed": 3.0, "jump_readiness": { "ready": true, "current_step": 21, "engine_frame": 19, "in_physics": true, "configured_rate": 60, "requested_delta": 0.01666666666667, "cached_delta": 0.01666666666667, "delta_aligned": true, "commit_delta": 0.01666666666667, "commit_delta_aligned": true, "active": true, "successful_hold": true, "supported": true, "held_command": true, "binding_status": 0, "contact_step": 21, "result_step": 21, "result_success": true, "hold_requested": true, "hold_carry_blocked": false, "hold_source": true, "submitted_velocity": (0.0, 0.0, 0.0), "committed_velocity": (0.0, 0.0, 0.0), "body_velocity": (0.0, 0.0, 0.0) }, "readiness_step": 21, "prepared_jump_step": 22, "launch_step": 22, "terminal_step": 22, "first_hold_initial_velocity": (0.0, 0.0, 0.0), "maximum_hold_speed": 0.0, "maximum_hold_position_drift": 0.0, "maximum_latch_position_drift": 0.0, "entry_velocity": (6.686125, -0.670842, -0.179865), "entry_run_gate_open": true, "entry_speed_gate_open": true, "entry_speed_reason": &"pass" }
+[1m1/1 passed.
+[0m
+
+
+
+[33m==============================================
+[0m[33m= Run Summary
+[0m[33m==============================================
+[0m
+Totals
+------
+Scripts               1
+Tests                 1
+Passing Tests         1
+Asserts              40
+Time              0.603s
+
+
+Ran Tests matching "test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion"
+[32m---- All tests passed! ----
+[0m

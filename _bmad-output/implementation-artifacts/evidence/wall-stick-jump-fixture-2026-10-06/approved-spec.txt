@@ -1,0 +1,77 @@
+---
+title: 'Synchronize the wall-stick jump test fixture'
+type: 'bugfix'
+created: '2026-10-06'
+status: 'in-progress'
+baseline_commit: '5d128486cf695f92dd4a370a6ee4ca6fb594b10f'
+context:
+  - '{project-root}/AGENTS.md'
+  - '{project-root}/_bmad-output/project-context.md'
+  - '{project-root}/_bmad-output/implementation-artifacts/investigations/wall-stick-jump-intermittent-investigation.md'
+---
+
+<frozen-after-approval reason="human-owned intent — do not modify unless human renegotiates">
+
+## Intent
+
+**Problem:** Manual fixture steps can request a new timestep inside an old-rate physics callback. The motor correctly cancels the unsafe hold, but the helper then prepares a jump from cleared stick vectors and mislabels ordinary airborne motion as a failed launch.
+
+**Approach:** Synchronize the helper's rate before fixture creation, validate maintained support before jump preparation, and add rate-transition regression coverage. Test infrastructure only.
+
+## Boundaries & Constraints
+
+**Always:** Edit only the test source below and new implementation/evidence documents. Retain the real player, SubViewport/World3D, geometry, input seam, automatic settling, synchronous manual transactions, both jump branches, and rate restoration. Preserve every existing assertion/tolerance, user change and investigation artifact. Use MCP plus pinned recursive GUT.
+
+**Ask First:** Production/geometry/tuning edits, wider hook synchronization, unrelated fixes, or an MCP exception.
+
+**Never:** Bypass the motor guard; permit stale/airborne wall jumps; accept zero reference; weaken expectations; disable automatic player callbacks; commit, push or discard changes.
+
+## I/O & Edge-Case Matrix
+
+| Scenario | Input / State | Expected Output / Behavior | Error Handling |
+| --- | --- | --- | --- |
+| Inherited callback | Opposite-rate callback, request 60/120/60 Hz | Aligned deltas; 18 valid holds | Retain first-loss evidence |
+| Supported jump | Held grapple and current support | One impulse, `(0, 5.5, 8)`, one terminal/airborne transition | Original assertions |
+| Simultaneous release | Supported JUMP plus grapple release | Same launch | Original release expectations |
+| Premature hold loss | Inactive/blocked/stale/unsupported hold | Fail before velocity overwrite/JUMP injection | Explicit GUT failure and failure report |
+
+</frozen-after-approval>
+
+## Code Map
+
+- `tests/player/locomotion/test_wall_traversal_integration.gd` — target at baseline 480; helper 1101; settling 1564; construction 1575. Sole source edit.
+- `game/player/motor/player_motor.gd:796–798` — read-only delta safety guard.
+- `scripts/player_controller.gd:954–969,1181–1187` — read-only support gates. Production pre-commit support expects N−1; fixture readiness must inspect just-committed N.
+- `game/player/locomotion/wall_stick/wall_stick_attachment.gd` — read-only binding `status`/`matches_contact`.
+- `_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/` — new verification artifacts.
+
+## Tasks & Acceptance
+
+**Execution:**
+- [ ] `tests/player/locomotion/test_wall_traversal_integration.gd` — add first-hold/first-loss/readiness/launch-step evidence, a read-only readiness guard, and opposite-rate regression for both jump modes; establish pre-barrier red evidence.
+- [ ] Same test — select requested rate, await process then physics before `_new_world`; no waits inside manual bursts.
+- [ ] New evidence directory above — retain focused repetitions, complete-file/recursive GUT, MCP and preservation results.
+- [ ] This spec — record separate harness outcomes, diagnostics and remaining failures.
+
+**Acceptance Criteria:**
+- Given inherited opposite-rate callbacks, when both jump modes run at 60/120/60, then deltas align, 18 holds persist, readiness passes and each authored launch occurs once.
+- Given premature hold failure, when preparing JUMP, then fail before velocity/input mutation and retain earliest evidence.
+- Given the existing target/group, when GUT and MCP execute, then original launch, terminal, cleanup and one-commit expectations hold.
+- Given the dirty baseline, when finishing, then protected production/user/investigation hashes are unchanged.
+- Given recursive GUT, when reporting results, then distinguish unrelated failures and do not claim finite passes eliminate historical intermittency.
+
+## Spec Change Log
+
+## Design Notes
+
+`physics_frame` precedes node callbacks. Cross process then physics boundaries before spawning, avoiding extra falling ticks. This scheduling control yielded 10/10 investigation launches. Readiness checks the successful, unblocked current hold/contact against its binding, without support resampling.
+
+## Verification
+
+All commands use `rtk` and the pinned 4.7.2 console executable recorded in the investigation.
+- GUT base: `--headless --path <checkout> -s res://addons/gut/gut_cmdln.gd -gexit`.
+- Add `-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd` and exact target/regression filter: red before barrier, green afterward. Also run `wall_stick_` filter and complete file.
+- Recursive: `-gdir=res://tests/player -ginclude_subdirs`; document unrelated failures.
+- `rtk git diff --check` plus SHA-256 preservation comparison.
+
+MCP session `testgame@17187ab35ae57813`: preflight, scan/source verification, current-route launch without autosave, same-helper transitions/readiness in temporary GUT context, runtime/log inspection, cleanup, restore 60 Hz and stop. MCP-native tests do not cover recursive GUT; timed-out logs are not clean-log evidence.

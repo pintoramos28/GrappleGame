@@ -1,0 +1,56 @@
+{
+  "session_id": "testgame@17187ab35ae57813",
+  "stop": {
+    "readiness_after": "ready",
+    "reason": "Play/stop is a runtime action",
+    "stopped": true,
+    "undoable": false,
+    "was_running": true
+  },
+  "state": {
+    "current_scene": "res://game/levels/content/traversal_validation/traversal_validation_route.tscn",
+    "game_capture_ready": false,
+    "game_status": {
+      "active": false,
+      "editor_log_cursor": 6,
+      "elapsed_msec": 0,
+      "helper_expected": true,
+      "helper_live": false,
+      "ready": false,
+      "ready_wait_msec": 20000,
+      "run_started_msec": 610662267,
+      "run_token": 76,
+      "session_active": false,
+      "status": "stopped"
+    },
+    "godot_version": "4.7.2-stable (official)",
+    "helper_live": false,
+    "is_playing": false,
+    "project_name": "Test Game",
+    "readiness": "ready",
+    "session_active": false
+  },
+  "prior_runtime_node_inspection": {
+    "path": "/TraversalValidationRoute/Player",
+    "type": "CharacterBody3D",
+    "children_count": 16,
+    "groups": [
+      "player"
+    ],
+    "found": true
+  },
+  "diagnostics": {
+    "follow_up_game_log_read": "Command get_logs timed out after 5.0s",
+    "game_log_cleanliness": "unknown; original two implementation-phase timeouts remain disclosed",
+    "new_editor_logger_entries": 0,
+    "editor_cursor": [
+      6,
+      6
+    ],
+    "prior_eval_attempt": {
+      "run_token": 75,
+      "error": "EVAL_GAME_NOT_READY: liveness probe did not answer within 250ms",
+      "recovery": "stop/relaunch then immediate same-helper eval succeeded, run token 76"
+    }
+  }
+}

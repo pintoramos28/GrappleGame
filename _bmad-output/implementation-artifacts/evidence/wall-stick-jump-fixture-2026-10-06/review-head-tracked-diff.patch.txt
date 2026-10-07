@@ -1,0 +1,544 @@
+diff --git a/_bmad-output/implementation-artifacts/deferred-work.md b/_bmad-output/implementation-artifacts/deferred-work.md
+index 9ab7840..92dfe31 100644
+--- a/_bmad-output/implementation-artifacts/deferred-work.md
++++ b/_bmad-output/implementation-artifacts/deferred-work.md
+@@ -34,6 +34,7 @@
+ 
+ ## Deferred from: code review of 1-10-complete-the-focused-traversal-validation-route (2026-10-02)
+ 
+-- R12 — The current pinned recursive player gate passes **272/279**, with seven failures outside the scoped route implementation: grapple definition/activation tuning, moving scene-origin expectation, pull-decay expectation, shallow-corner continuity, wall-stick jump precedence, and authored motor-context expectations. Existing baseline records report related failures and intermittent wall outcomes. Preserve current approved movement; investigate or reconcile these in separately authorized work, without attributing their cause to this story. The three failing **route** cases are separately recorded as Story 1.10 review patch R1, not deferred by this entry. [Fresh review evidence](evidence/1-10/code-review-2026-10-02.md).
++- R12 — The initial review found seven failures outside the scoped route implementation. After the authorized 2026-10-06 test-expectation updates, the pinned recursive player gate is **278/279 tests**, **12,413/12,414 assertions**, exit **1**. Only the shallow-corner continuity test still fails; the earlier intermittent wall-stick-jump failure did not recur in this latest run and is not declared fixed. Preserve current approved movement; do not attribute these outcomes to Story 1.10 or retune production. The three failing **route** cases are separately recorded as Story 1.10 review patch R1, not deferred by this entry. [Fresh review evidence](evidence/1-10/code-review-2026-10-02.md).
+   - **Review-fix verification (2026-10-02):** the normal-speed recursive rerun remains **272/279**, **12375/12388 assertions**, exit **1**, with the same seven named failure identities as the review. An earlier fix-phase run was **273/279**; the wall-stick jump failure did not occur then but recurred now, and was not repaired or retried into a pass. Shutdown still reports eight leaked ObjectDB instances and one resource in use. The separately run MCP-native `grapple_boundary` schema suite is **4/5** (including a rerun with `main.tscn` open); its authored-pull test still expects **48** while the preserved definition reads **60 m/s²**. These external expectation/regression failures are not included in the route-fix pass claim. [Separate fix evidence](evidence/1-10/review-fixes-2026-10-02.md).
++- **Targeted expectation follow-up (2026-10-06):** the authored 60 m/s² pull checks, moving-origin marker, pull-decay sampling window and player-scene tuning expectations now match current authored values. Per Pinto's direction, the remaining `test_wall_run_direction_never_reverses_across_a_shallow_corner` mismatch is documented but left unchanged: the test expects `SWITCHED` (3), while the latest GUT run observed `PRESERVED` (2). The wall-stick-jump test passed in that run; its earlier intermittent failure still needs the separate investigation prompt. MCP `grapple_boundary` is now **5/5** (102 assertions). MCP `grapple_targeting` remains **3/4**, including when `main.tscn` is open, because its unchanged text oracle expects default-valued definition/range/tuning properties to be serialized in the `.tres`; those values are supplied by the loaded script defaults, and only the initial acceleration and target profile are explicitly serialized. Details and MCP session evidence are in [the follow-up record](evidence/1-10/review-fixes-2026-10-02.md#l213).
+ - R13 — The canonical GDD still says OD-009 blocks formal M0 acceptance, and Stories 1.4/1.5 remain `review`. Pinto's manual confirmation that the route and movement are good is valid qualitative evidence, not an invented rate-specific recovery log, measured OD-009 approval or Epic 1 closure. Record the required decision/evidence and reconcile the sibling gates under their owning work. [Fresh review evidence](evidence/1-10/code-review-2026-10-02.md).
+diff --git a/_bmad-output/implementation-artifacts/evidence/1-10/review-fixes-2026-10-02.md b/_bmad-output/implementation-artifacts/evidence/1-10/review-fixes-2026-10-02.md
+index a5d20c1..4ea8d34 100644
+--- a/_bmad-output/implementation-artifacts/evidence/1-10/review-fixes-2026-10-02.md
++++ b/_bmad-output/implementation-artifacts/evidence/1-10/review-fixes-2026-10-02.md
+@@ -209,3 +209,11 @@ Final MCP cleanup rechecked the authored route hierarchy (no saved driver or pro
+ | R11 | Post-commit diagnostics use stamped frame N and current support/query/loss facts; tests check the matching phase/step contract. |
+ 
+ **Scoped fixes complete, story not closed.** R12 (seven external GUT failures, native authored-value expectation and shutdown leakage) and R13 (formal M0/OD-009, specified human-rate/recovery evidence and sibling-story gates) remain explicit in [deferred work](../../deferred-work.md). The user's qualitative movement/route approval remains valid; automated results are not relabeled as a human playtest. No staging, commit, push, dependency change or production source/scene save was performed.
++
++## 2026-10-06 targeted R12 expectation follow-up
++
++Only stale test expectations were updated: authored grapple pull is **60 m/s²** (including its GUT/MCP mirrors), the scene-origin marker is **(0, 0.9, 0)**, pull-decay sampling derives enough 60 Hz steps from the authored initial/floor/jerk values, and the player tuning test now checks the player scene's **50 m/s²** ground deceleration and **0** grapple-gravity scale while recognizing that `main.tscn` overrides deceleration to 30 and inherits gravity. Production definitions, movement, scenes and geometry were not changed.
++
++The pinned recursive player GUT command (`Godot_v4.7.2-stable_win64_console.exe --headless --path . -s res://addons/gut/gut_cmdln.gd -gdir=res://tests/player -ginclude_subdirs -gexit`) reports **278/279 tests**, **12,413/12,414 assertions**, exit **1**, **62.584 s**. Its only failure is `test_wall_run_direction_never_reverses_across_a_shallow_corner` at `tests/player/locomotion/test_wall_traversal_integration.gd:118`: latest 120 Hz outward-exit action was `PRESERVED` (2), while the unchanged assertion expects `SWITCHED` (3). Per Pinto's direction, this was noted without changing the expectation or production contact/wall-run behavior. The previously intermittent `test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion` passed in this run; the earlier failure remains unexplained, not resolved. Shutdown still reports eight leaked ObjectDB instances and one resource in use.
++
++Godot AI MCP session **`testgame@17187ab35ae57813`** was ready/stopped before validation and restored to the authored traversal route afterward. `script_patch` parse-checked all five changed GDScript tests with **empty diagnostics**; four already-loaded scripts reloaded in place, and the remaining script was not loaded. The editor remained ready. Native `grapple_boundary` passed **5/5 tests, 102 assertions**. Native `grapple_targeting` was **3/4** both with the route open and after opening `main.tscn`. Its unchanged text oracle expects default-valued definition/range/tuning fields (including `definition_id`) to be explicitly serialized in the `.tres`; those values come from `GrappleDefinition` defaults, while the resource serializes only the initial acceleration and target profile. This separate source-text oracle issue was not changed here. The MCP runner also returned its standard preload-cache warning; opening the main scene removed the scene warning but did not change the result. Editor log rows included unrelated existing script diagnostics; they were not cleared. The current scene was restored to `res://game/levels/content/traversal_validation/traversal_validation_route.tscn`, play state stopped, editor readiness ready.
+diff --git a/tests/player/grapple/test_grapple_targeting_contract.gd b/tests/player/grapple/test_grapple_targeting_contract.gd
+index f673703..e7c8e39 100644
+--- a/tests/player/grapple/test_grapple_targeting_contract.gd
++++ b/tests/player/grapple/test_grapple_targeting_contract.gd
+@@ -328,7 +328,7 @@ func test_definition_validation_locks_authored_values_and_bounds_acquisition_tol
+ 	assert_eq(authored.validate(), GrappleDefinition.ValidationStatus.SUCCESS)
+ 	assert_eq(authored.definition_id, &"player.grapple.default")
+ 	assert_almost_eq(authored.max_grapple_length_m, 35.0, 0.000001)
+-	assert_almost_eq(authored.pull_initial_acceleration_mps2, 48.0, 0.000001)
++	assert_almost_eq(authored.pull_initial_acceleration_mps2, 60.0, 0.000001)
+ 	assert_almost_eq(authored.pull_min_acceleration_mps2, 8.0, 0.000001)
+ 	assert_almost_eq(authored.pull_acceleration_jerk_mps3, 53.333333, 0.000001)
+ 	assert_almost_eq(authored.maximum_speed_mps, 22.0, 0.000001)
+diff --git a/tests/player/grapple/test_grapple_targeting_integration.gd b/tests/player/grapple/test_grapple_targeting_integration.gd
+index 9f69162..ab24bc3 100644
+--- a/tests/player/grapple/test_grapple_targeting_integration.gd
++++ b/tests/player/grapple/test_grapple_targeting_integration.gd
+@@ -224,7 +224,7 @@ func test_same_step_activation_seeds_state_and_keeps_pull_playable() -> void:
+ 	assert_eq(player.get("grapple_point"), result.accepted_seed.hit_position)
+ 	assert_eq(player.get("grapple_target"), result.accepted_seed.get_target())
+ 	assert_almost_eq(float(player.get("grapple_elapsed")), 0.0, 0.0001)
+-	assert_almost_eq(float(player.get("grapple_applied_acceleration")), 48.0, 0.0001)
++	assert_almost_eq(float(player.get("grapple_applied_acceleration")), 60.0, 0.0001)
+ 	assert_eq(player.call("get_last_activation_rejection"), GrappleRejection.Reason.NONE)
+ 
+ 	for _frame in range(10):
+@@ -247,7 +247,7 @@ func test_moving_scene_origin_does_not_change_camera_target_or_acquisition_range
+ 		player.get_parent(), Vector3(0.0, 5.0, -20.0), Vector3(20.0, 30.0, 0.4)
+ 	)
+ 	assert_same(player.get("grapple_origin"), origin)
+-	assert_eq(origin.position, Vector3(0.48, 1.2, -0.32))
++	assert_eq(origin.position, Vector3(0.0, 0.9, 0.0))
+ 	await get_tree().physics_frame
+ 	player.set("gravity", 0.0)
+ 	player.call("_physics_process", 1.0 / 60.0)
+@@ -564,9 +564,13 @@ func test_grapple_pull_decay_reaches_the_floor_and_commits_the_speed_cap() -> vo
+ 	var initial_accel := definition.pull_initial_acceleration_mps2
+ 	var min_accel := definition.pull_min_acceleration_mps2
+ 	var jerk := definition.pull_acceleration_jerk_mps3
++	assert_gt(jerk, 0.0, "authored pull decay must reach its floor")
++	var decay_sample_steps := ceili(
++		maxf(initial_accel - min_accel, 0.0) / maxf(jerk, 0.000001) / step_delta
++	) + 2
+ 	var previous_acceleration := float(player.get("grapple_applied_acceleration"))
+ 	var observed_floor := false
+-	for _step in range(56):
++	for _step in range(decay_sample_steps):
+ 		# Mirror submit_grapple_pull(): the acceleration is computed from the
+ 		# pre-increment elapsed time, then grapple_elapsed advances by delta.
+ 		var elapsed_before := float(player.get("grapple_elapsed"))
+@@ -676,7 +680,7 @@ func test_definition_is_the_sole_pull_cap_and_range_source() -> void:
+ 	)
+ 	# Positive control: the guard must match what it forbids.
+ 	assert_not_null(
+-		pull_token_regex.search("grapple_initial_acceleration = 48.0"),
++		pull_token_regex.search("grapple_initial_acceleration = 60.0"),
+ 		"pull token regex must match"
+ 	)
+ 	assert_null(
+diff --git a/tests/player/locomotion/test_wall_traversal_integration.gd b/tests/player/locomotion/test_wall_traversal_integration.gd
+index ab8703b..4e4762c 100644
+--- a/tests/player/locomotion/test_wall_traversal_integration.gd
++++ b/tests/player/locomotion/test_wall_traversal_integration.gd
+@@ -479,6 +479,7 @@ func test_wall_stick_exits_instead_of_using_a_switched_walls_old_normal() -> voi
+ 
+ func test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion() -> void:
+ 	var report := await _wall_stick_report(WallStickExit.JUMP)
++	assert_true(report["jump_ready"], "supported jump was prepared without a maintained hold")
+ 	assert_true(report["ever_wall_sticking"], "wall stick never engaged")
+ 	assert_true(report["exited"])
+ 	assert_eq(report["transition_counts"].get(LOCOMOTION_AIRBORNE, 0), 1)
+@@ -494,6 +495,7 @@ func test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion() ->
+ 	print("[1-9-stick-jump] ", report)
+ 
+ 	var release_and_jump_report := await _wall_stick_report(WallStickExit.JUMP_WITH_GRAPPLE_RELEASE)
++	assert_true(release_and_jump_report["jump_ready"], "simultaneous release was prepared without a maintained hold")
+ 	assert_true(release_and_jump_report["exited"])
+ 	assert_eq(release_and_jump_report["post_exit_state"], LOCOMOTION_AIRBORNE)
+ 	assert_false(release_and_jump_report["grapple_held_at_exit"], "the jump case did not actually release Grapple")
+@@ -508,6 +510,76 @@ func test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion() ->
+ 	assert_almost_eq(release_and_jump_report["exit_velocity"].x, 0.0, 0.001)
+ 
+ 
++func test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks() -> void:
++	for tick_rate in [60, 120, 60]:
++		for exit_mode in [WallStickExit.JUMP, WallStickExit.JUMP_WITH_GRAPPLE_RELEASE]:
++			var inherited_rate := 120 if tick_rate == 60 else 60
++			Engine.physics_ticks_per_second = inherited_rate
++			await get_tree().process_frame
++			await get_tree().physics_frame
++			var inherited_delta := get_physics_process_delta_time()
++			var label := "%d -> %d Hz, mode %d" % [inherited_rate, tick_rate, exit_mode]
++			assert_true(Engine.is_in_physics_frame(), "not an inherited physics callback: %s" % label)
++			assert_almost_eq(inherited_delta, 1.0 / float(inherited_rate), 0.000001, label)
++			# Changing the rate integer cannot replace this callback's cached delta.
++			Engine.physics_ticks_per_second = tick_rate
++			var report := await _wall_stick_report(exit_mode, tick_rate)
++			print("[wall-stick-fixture-transition] ", label, " inherited_delta=", inherited_delta, " -> ", report)
++			assert_almost_eq(report["first_hold"]["cached_delta"], report["requested_delta"], 0.000001, label)
++			assert_true(report["first_hold"]["ready"], label)
++			assert_eq(report["first_failed_hold"], {}, "premature hold loss: %s" % label)
++			assert_eq(report["hold_checks_count"], 18, label)
++			assert_eq(report["aligned_hold_count"], 18, label)
++			assert_eq(report["valid_hold_count"], 18, label)
++			assert_eq(report["held_steps"], 18, label)
++			assert_eq(report["hold_constraint_applied_count"], 18, label)
++			assert_true(report["jump_ready"], label)
++			assert_true(report["jump_readiness"]["ready"], label)
++			assert_eq(report["jump_readiness"]["contact_step"], report["readiness_step"], label)
++			assert_eq(report["readiness_step"], report["first_hold"]["current_step"] + 17, label)
++			assert_eq(report["prepared_jump_step"], report["readiness_step"] + 1, label)
++			assert_eq(report["launch_step"], report["prepared_jump_step"], label)
++			assert_eq(report["terminal_step"], report["launch_step"], label)
++			assert_eq(report["jump_count"], 1, label)
++			assert_gt(report["jump_reference_outward_speed"], 0.0, label)
++			assert_almost_eq(report["exit_velocity"].x, 0.0, 0.001, label)
++			assert_almost_eq(report["exit_velocity"].y, 5.5, 0.02, label)
++			assert_almost_eq(report["exit_velocity"].z, 8.0, 0.1, label)
++			assert_true(report["exited"], label)
++			assert_eq(report["transition_counts"].get(LOCOMOTION_WALL_STICK, 0), 1, label)
++			assert_eq(report["transition_counts"].get(LOCOMOTION_AIRBORNE, 0), 1, label)
++			assert_eq(report["post_exit_state"], LOCOMOTION_AIRBORNE, label)
++			assert_false(report["still_wall_sticking"], label)
++			assert_false(report["hold_request_on_exit"], label)
++			assert_eq(report["hold_request_after_exit_count"], 0, label)
++			assert_eq(report["terminal_reason"], GrappleEndReason.Reason.STATE_CANCELLATION, label)
++			assert_eq(report["terminal_count"], 1, label)
++			assert_true(report["wall_cleared_before_terminal_signal"], label)
++			assert_true(report["duplicate_terminal_same"], label)
++			assert_eq(report["commit_count_max"], 1, label)
++			if exit_mode == WallStickExit.JUMP_WITH_GRAPPLE_RELEASE:
++				assert_false(report["grapple_held_at_exit"], label)
++	Engine.physics_ticks_per_second = _saved_physics_ticks_per_second
++
++
++func test_wall_stick_jump_readiness_rejects_inactive_support_without_mutation() -> void:
++	var report := await _wall_stick_jump_readiness_negative_report()
++	assert_true(report["ready_before_release"], "the real fixture never maintained supported holds")
++	assert_false(report["active_after_release"])
++	assert_false(report["hold_after_release"])
++	for check in report["checks"]:
++		assert_false(check["prepared"], "inactive support prepared mode %d" % check["mode"])
++		assert_eq(check["explicit_failures"], 1, "the guard must explicitly fail, not silently skip")
++		assert_false(check["readiness"]["ready"])
++		assert_eq(check["prepared_jump_step"], -1)
++		assert_eq(check["velocity_after"], check["velocity_before"], "guard overwrote velocity")
++		assert_eq(check["step_after"], check["step_before"], "readiness advanced gameplay")
++		assert_true(check["same_command"], "readiness replaced the current immutable command")
++		assert_false(check["jump_pressed_after_step"], "guard injected a fresh jump")
++		assert_false(check["jump_source_after_step"], "inactive support fabricated a launch")
++	print("[wall-stick-fixture-negative] ", report)
++
++
+ func test_wall_stick_attachment_invalidation_ends_the_hold_with_a_typed_reason() -> void:
+ 	var report := await _wall_stick_report(WallStickExit.INVALIDATE_ATTACHMENT)
+ 	assert_true(report["ever_wall_sticking"], "wall stick never engaged")
+@@ -1099,17 +1171,25 @@ func _wall_stick_outward_entry_report() -> Dictionary:
+ 
+ 
+ func _wall_stick_report(exit_mode: int, tick_rate: int = 60, entry_speed: float = 6.0) -> Dictionary:
++	# A rate setter does not change the inherited physics callback's cached
++	# delta. Cross both boundaries BEFORE spawning; retain automatic settling
++	# and the synchronous entry/hold/jump transactions below.
++	Engine.physics_ticks_per_second = tick_rate
++	await get_tree().process_frame
++	await get_tree().physics_frame
+ 	var fixture := _new_world(Vector3(-3.0, 2.0, -0.25))
+ 	var player: CharacterBody3D = fixture["player"]
+ 	var input_source: PlayerInputSource = fixture["input_source"]
+ 	var motor: PlayerMotor = fixture["motor"]
+ 	var world: Node3D = fixture["world"]
+ 	var controller: GrappleController = player.get("_grapple_controller")
+-	var terminal_events := [0, true]
++	var terminal_events := [0, true, -1]
+ 	controller.attachment_ended.connect(
+ 		func(_attachment_id: StringName, _reason: GrappleEndReason.Reason) -> void:
+ 			terminal_events[0] = int(terminal_events[0]) + 1
+ 			terminal_events[1] = bool(terminal_events[1]) and not bool(player.get("is_wall_sticking"))
++			if int(terminal_events[2]) == -1:
++				terminal_events[2] = int(player.get("_player_physics_step"))
+ 	)
+ 	# Acquisition and physical wall are separate. Approved stick entry replaces
+ 	# the former target, so lifecycle exits operate on the current attachment.
+@@ -1121,6 +1201,22 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60, entry_speed: float
+ 
+ 	var delta := 1.0 / float(tick_rate)
+ 	var report := _new_report()
++	report.merge({
++		"requested_rate": tick_rate,
++		"requested_delta": delta,
++		"entry_step": -1,
++		"first_hold": {},
++		"first_failed_hold": {},
++		"hold_checks_count": 0,
++		"aligned_hold_count": 0,
++		"valid_hold_count": 0,
++		"jump_ready": false,
++		"jump_readiness": {},
++		"readiness_step": -1,
++		"prepared_jump_step": -1,
++		"launch_step": -1,
++		"terminal_step": -1,
++	})
+ 	report["first_hold_initial_velocity"] = Vector3.ZERO
+ 	report["maximum_hold_speed"] = 0.0
+ 	report["maximum_hold_position_drift"] = 0.0
+@@ -1138,6 +1234,7 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60, entry_speed: float
+ 		if bool(player.get("is_wall_sticking")):
+ 			break
+ 	assert_true(bool(player.get("is_wall_sticking")), "wall stick never engaged (exit mode %d)" % exit_mode)
++	report["entry_step"] = int(player.get("_player_physics_step"))
+ 	report["wall_normal"] = player.get("wall_stick_normal")
+ 	var entry_hold_position: Vector3 = player.get("wall_stick_position")
+ 	report["entry_velocity"] = motor.get_last_commit_result().submitted_velocity
+@@ -1159,6 +1256,18 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60, entry_speed: float
+ 			report["held_steps"] = int(report["held_steps"]) + 1
+ 			if _result_has_source(hold_result, SOURCE_WALL_STICK_HOLD):
+ 				report["hold_constraint_applied_count"] = int(report["hold_constraint_applied_count"]) + 1
++		var hold_evidence := _wall_stick_hold_evidence(player, motor, delta)
++		report["hold_checks_count"] = int(report["hold_checks_count"]) + 1
++		if _i == 0:
++			report["first_hold"] = hold_evidence
++		if hold_evidence["delta_aligned"]:
++			report["aligned_hold_count"] = int(report["aligned_hold_count"]) + 1
++		if hold_evidence["ready"]:
++			report["valid_hold_count"] = int(report["valid_hold_count"]) + 1
++		else:
++			# Retain the first loss immediately; no later airborne calls may mask it.
++			report["first_failed_hold"] = hold_evidence
++			break
+ 	assert_true(report["hold_request_seen"], "the wall-stick hold was never requested")
+ 
+ 	match exit_mode:
+@@ -1173,14 +1282,8 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60, entry_speed: float
+ 				if exit_mode == WallStickExit.LOST_WALL_JUMP_WITH_GRAPPLE_RELEASE:
+ 					input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
+ 		WallStickExit.JUMP, WallStickExit.JUMP_WITH_GRAPPLE_RELEASE:
+-			var jump_normal: Vector3 = player.get("wall_stick_normal")
+-			var horizontal_jump_normal := Vector3(jump_normal.x, 0.0, jump_normal.z).normalized()
+-			var jump_reference: Vector3 = player.get("wall_stick_run_direction") * 3.0 + horizontal_jump_normal * 0.5
+-			player.velocity = jump_reference
+-			report["jump_reference_outward_speed"] = jump_reference.dot(horizontal_jump_normal)
+-			input_source.inject_action_binding(PlayerCommandFrame.Action.JUMP, 0, true)
+-			if exit_mode == WallStickExit.JUMP_WITH_GRAPPLE_RELEASE:
+-				input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
++			if not _prepare_wall_stick_jump(report, player, motor, input_source, exit_mode, delta):
++				return _finish_wall_stick_report(report, player, motor, controller, terminal_events)
+ 		WallStickExit.OUTWARD_VELOCITY, WallStickExit.RELEASE_OUTWARD_VELOCITY:
+ 			var separation_normal: Vector3 = player.get("wall_stick_normal")
+ 			var horizontal_separation_normal := Vector3(separation_normal.x, 0.0, separation_normal.z).normalized()
+@@ -1266,6 +1369,8 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60, entry_speed: float
+ 					input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
+ 		if _result_has_source(result, SOURCE_JUMP_WALL):
+ 			report["jump_count"] = int(report["jump_count"]) + 1
++			if int(report["launch_step"]) == -1:
++				report["launch_step"] = result.physics_step
+ 		if not bool(player.get("is_wall_sticking")):
+ 			if (
+ 				exit_mode == WallStickExit.RELEASE_OUTWARD_VELOCITY
+@@ -1291,6 +1396,8 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60, entry_speed: float
+ 	player.call("_physics_process", delta)
+ 	_observe(report, player, motor)
+ 	var after_exit: PlayerMotorCommitResult = motor.get_last_commit_result()
++	if _result_has_source(after_exit, SOURCE_JUMP_WALL):
++		report["jump_count"] = int(report["jump_count"]) + 1
+ 	if exit_mode == WallStickExit.ROTATE_CAMERA and after_exit.contact_frame != null:
+ 		report["wall_contact_after_turn"] = after_exit.contact_frame.has_wall_contact
+ 	report["post_exit_state"] = after_exit.locomotion_state_id
+@@ -1298,6 +1405,120 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60, entry_speed: float
+ 		after_exit.is_hold_request or after_exit.applied_constraints.has(SOURCE_WALL_STICK_HOLD)
+ 	)
+ 
++	return _finish_wall_stick_report(report, player, motor, controller, terminal_events)
++
++
++func _wall_stick_hold_evidence(player: CharacterBody3D, motor: PlayerMotor, delta: float) -> Dictionary:
++	# This is POST-commit N. The public has_supported_wall_contact() expects
++	# PRE-commit N-1, so use the existing frame gate with the just-committed N.
++	# No support sampling, new queries, or gameplay mutation belongs here.
++	var current_step := int(player.get("_player_physics_step"))
++	var result: PlayerMotorCommitResult = motor.get_last_commit_result()
++	var contact: ContactFrame = motor.get_previous_contact_frame()
++	var binding: WallStickAttachment = player.get("_wall_stick_attachment")
++	var command: PlayerCommandFrame = player.call("get_player_command_frame")
++	var controller: GrappleController = player.get("_grapple_controller")
++	var cached_delta := player.get_physics_process_delta_time()
++	var active := bool(player.get("is_wall_sticking"))
++	var successful_hold := (
++		result != null
++		and result.success
++		and result.physics_step == current_step
++		and result.locomotion_state_id == LOCOMOTION_WALL_STICK
++		and result.is_hold_request
++		and not result.hold_carry_blocked
++		and result.commit_count == 1
++		and _result_has_source(result, SOURCE_WALL_STICK_HOLD)
++		and result.applied_constraints.has(SOURCE_WALL_STICK_HOLD)
++	)
++	var supported := (
++		contact != null
++		and bool(player.call("_is_runnable_wall_frame", contact, current_step))
++		and not contact.is_grounded
++		and contact.continuity_action != ContactFrame.ContinuityAction.SWITCHED
++		and binding != null
++		and binding.status == WallStickAttachment.Status.VALID
++		and binding.matches_contact(contact)
++	)
++	var held_command := (
++		command != null
++		and command.physics_step == current_step
++		and command.is_held(PlayerCommandFrame.Action.GRAPPLE)
++		and command.move_forward_held
++		and not command.was_pressed(PlayerCommandFrame.Action.JUMP)
++	)
++	var normal: Vector3 = player.get("wall_stick_normal")
++	return {
++		"ready": active and successful_hold and supported and held_command and controller.has_active_attachment() and Vector3(normal.x, 0.0, normal.z).length_squared() > 0.0,
++		"current_step": current_step,
++		"engine_frame": Engine.get_physics_frames(),
++		"in_physics": Engine.is_in_physics_frame(),
++		"configured_rate": Engine.physics_ticks_per_second,
++		"requested_delta": delta,
++		"cached_delta": cached_delta,
++		"delta_aligned": is_equal_approx(delta, cached_delta),
++		"active": active,
++		"successful_hold": successful_hold,
++		"supported": supported,
++		"held_command": held_command,
++		"binding_status": binding.status if binding != null else -1,
++		"contact_step": contact.physics_step if contact != null else -1,
++		"result_step": result.physics_step if result != null else -1,
++		"result_success": result != null and result.success,
++		"hold_requested": result != null and result.is_hold_request,
++		"hold_carry_blocked": result != null and result.hold_carry_blocked,
++		"hold_source": _result_has_source(result, SOURCE_WALL_STICK_HOLD),
++		"submitted_velocity": result.submitted_velocity if result != null else Vector3.ZERO,
++		"committed_velocity": result.committed_velocity if result != null else Vector3.ZERO,
++		"body_velocity": player.velocity,
++	}
++
++
++func _prepare_wall_stick_jump(
++	report: Dictionary,
++	player: CharacterBody3D,
++	motor: PlayerMotor,
++	input_source: PlayerInputSource,
++	exit_mode: int,
++	delta: float
++) -> bool:
++	var readiness := _wall_stick_hold_evidence(player, motor, delta)
++	report["jump_readiness"] = readiness
++	report["readiness_step"] = readiness["current_step"]
++	report["prepared_jump_step"] = -1
++	report["jump_ready"] = (
++		readiness["ready"]
++		and int(report["valid_hold_count"]) == 18
++		and report["first_failed_hold"].is_empty()
++	)
++	assert_true(report["jump_ready"], "wall-stick fixture lost maintained support before jump preparation: first_loss=%s readiness=%s" % [report["first_failed_hold"], readiness])
++	if not report["jump_ready"]:
++		return false
++	# Guard before either velocity overwrite or input injection: cleared stick
++	# vectors must never fabricate an ordinary airborne transaction as a launch.
++	var jump_normal: Vector3 = player.get("wall_stick_normal")
++	var horizontal_jump_normal := Vector3(jump_normal.x, 0.0, jump_normal.z).normalized()
++	var jump_reference: Vector3 = player.get("wall_stick_run_direction") * 3.0 + horizontal_jump_normal * 0.5
++	report["prepared_jump_step"] = int(readiness["current_step"]) + 1
++	player.velocity = jump_reference
++	report["jump_reference_outward_speed"] = jump_reference.dot(horizontal_jump_normal)
++	input_source.inject_action_binding(PlayerCommandFrame.Action.JUMP, 0, true)
++	if exit_mode == WallStickExit.JUMP_WITH_GRAPPLE_RELEASE:
++		input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
++	return true
++
++
++func _finish_wall_stick_report(
++	report: Dictionary,
++	player: CharacterBody3D,
++	motor: PlayerMotor,
++	controller: GrappleController,
++	terminal_events: Array
++) -> Dictionary:
++	report["still_wall_sticking"] = bool(player.get("is_wall_sticking"))
++	var result: PlayerMotorCommitResult = motor.get_last_commit_result()
++	if result != null:
++		report["post_exit_state"] = result.locomotion_state_id
+ 	var attachment: GrappleAttachment = player.call("get_grapple_attachment")
+ 	if attachment != null and attachment.has_committed_terminal():
+ 		var terminal := attachment.get_terminal()
+@@ -1307,9 +1528,74 @@ func _wall_stick_report(exit_mode: int, tick_rate: int = 60, entry_speed: float
+ 		)
+ 	report["terminal_count"] = int(terminal_events[0])
+ 	report["wall_cleared_before_terminal_signal"] = bool(terminal_events[1])
++	report["terminal_step"] = int(terminal_events[2])
+ 	return report
+ 
+ 
++func _wall_stick_jump_readiness_negative_report() -> Dictionary:
++	Engine.physics_ticks_per_second = 60
++	await get_tree().process_frame
++	await get_tree().physics_frame
++	var fixture := _new_world(Vector3(-3.0, 2.0, -0.25))
++	var player: CharacterBody3D = fixture["player"]
++	var input_source: PlayerInputSource = fixture["input_source"]
++	var motor: PlayerMotor = fixture["motor"]
++	_add_box(fixture["world"], Vector3(0.0, 4.0, -1.0), Vector3(40.0, 8.0, 0.2), 0.0)
++	var anchor := _add_anchor(fixture["world"], Vector3(0.0, 2.0, -2.0))
++	await _settle(motor)
++	assert_eq(_seed_grapple(player, anchor), GrappleController.CommitStatus.SUCCESS)
++	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, true)
++	input_source.inject_movement_strengths(0.0, 1.0, 1.0, 1.0)
++	player.velocity = Vector3(6.0, 0.0, 0.0)
++	for _i in range(30):
++		player.call("_physics_process", 1.0 / 60.0)
++		if bool(player.get("is_wall_sticking")):
++			break
++	var ready_before_release := true
++	for _i in range(18):
++		player.call("_physics_process", 1.0 / 60.0)
++		ready_before_release = ready_before_release and bool(_wall_stick_hold_evidence(player, motor, 1.0 / 60.0)["ready"])
++	# A real release transaction clears the maintained support; no production
++	# fields, result objects, motor guards, or geometry are overridden.
++	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
++	player.call("_physics_process", 1.0 / 60.0)
++	var negative := {
++		"ready_before_release": ready_before_release,
++		"active_after_release": bool(player.get("is_wall_sticking")),
++		"hold_after_release": motor.get_last_commit_result().is_hold_request,
++		"checks": [],
++	}
++	# A separate real GutTest instance records the expected guard assertion in
++	# its own summary (gut stays null), without failing the enclosing test.
++	var probe: GutTest = load(get_script().resource_path).new()
++	add_child_autofree(probe)
++	for exit_mode in [WallStickExit.JUMP, WallStickExit.JUMP_WITH_GRAPPLE_RELEASE]:
++		var report := {"valid_hold_count": 18, "first_failed_hold": {}}
++		var velocity_before := player.velocity
++		var step_before := int(player.get("_player_physics_step"))
++		var command_before: PlayerCommandFrame = player.call("get_player_command_frame")
++		var failures_before: int = probe.get_fail_count()
++		var prepared: bool = probe.call("_prepare_wall_stick_jump", report, player, motor, input_source, exit_mode, 1.0 / 60.0)
++		var check := {
++			"mode": exit_mode,
++			"prepared": prepared,
++			"explicit_failures": probe.get_fail_count() - failures_before,
++			"readiness": report["jump_readiness"],
++			"prepared_jump_step": report["prepared_jump_step"],
++			"velocity_before": velocity_before,
++			"velocity_after": player.velocity,
++			"step_before": step_before,
++			"step_after": int(player.get("_player_physics_step")),
++			"same_command": command_before == player.call("get_player_command_frame"),
++		}
++		player.call("_physics_process", 1.0 / 60.0)
++		var command_after: PlayerCommandFrame = player.call("get_player_command_frame")
++		check["jump_pressed_after_step"] = command_after.was_pressed(PlayerCommandFrame.Action.JUMP)
++		check["jump_source_after_step"] = _result_has_source(motor.get_last_commit_result(), SOURCE_JUMP_WALL)
++		negative["checks"].append(check)
++	return negative
++
++
+ func _death_report(mode: String) -> Dictionary:
+ 	var fixture := _new_world(Vector3(-3.0, 2.0, -0.25))
+ 	var player: CharacterBody3D = fixture["player"]
+diff --git a/tests/player/motor/test_player_motor_integration.gd b/tests/player/motor/test_player_motor_integration.gd
+index 435fe98..7300a38 100644
+--- a/tests/player/motor/test_player_motor_integration.gd
++++ b/tests/player/motor/test_player_motor_integration.gd
+@@ -373,14 +373,17 @@ func test_player_surface_keeps_motion_commit_inside_motor() -> void:
+ func test_authored_tuning_contexts_remain_distinct_and_tutorial_reset_stays_out_of_band() -> void:
+ 	var direct_player: CharacterBody3D = PLAYER_SCENE.instantiate()
+ 	autofree(direct_player)
+-	assert_almost_eq(direct_player.ground_deceleration, 20.0, 0.000001)
+-	assert_almost_eq(direct_player.grapple_gravity_scale, 1.0, 0.000001)
++	assert_almost_eq(direct_player.ground_deceleration, 50.0, 0.000001)
++	assert_almost_eq(direct_player.grapple_gravity_scale, 0.0, 0.000001)
+ 	assert_almost_eq(direct_player.grapple_ground_deceleration, 0.0, 0.000001)
+ 	assert_almost_eq(direct_player.grapple_air_deceleration, 0.0, 0.000001)
+ 
+ 	var main_source := FileAccess.get_file_as_string("res://main.tscn")
+ 	assert_true(main_source.contains("ground_deceleration = 30.0"))
+-	assert_true(main_source.contains("grapple_gravity_scale = 0.0"))
++	assert_false(
++		main_source.contains("grapple_gravity_scale ="),
++		"main inherits the player's zero grapple-gravity value instead of overriding it"
++	)
+ 
+ 	var tutorial_source := FileAccess.get_file_as_string(
+ 		"res://scripts/levels/tree_grapple_tutorial.gd"
+diff --git a/tests/test_grapple_boundary_mcp.gd b/tests/test_grapple_boundary_mcp.gd
+index 09a37fe..b841fea 100644
+--- a/tests/test_grapple_boundary_mcp.gd
++++ b/tests/test_grapple_boundary_mcp.gd
+@@ -57,7 +57,7 @@ func test_authored_definition_is_the_one_range_and_pull_authority() -> void:
+ 	assert_true(definition.get("definition_id") == &"player.grapple.default")
+ 	assert_true(_near(float(definition.get("max_grapple_length_m")), 35.0))
+ 	assert_true(_near(float(definition.get("acquisition_tolerance_m")), 0.005, 0.000001))
+-	assert_true(_near(float(definition.get("pull_initial_acceleration_mps2")), 48.0))
++	assert_true(_near(float(definition.get("pull_initial_acceleration_mps2")), 60.0))
+ 	assert_true(_near(float(definition.get("pull_min_acceleration_mps2")), 8.0))
+ 	assert_true(_near(float(definition.get("pull_acceleration_jerk_mps3")), 53.333333, 0.00001))
+ 	assert_true(_near(float(definition.get("maximum_speed_mps")), 22.0))
+diff --git a/tests/test_grapple_targeting_mcp.gd b/tests/test_grapple_targeting_mcp.gd
+index 35cd73a..a9cdf8f 100644
+--- a/tests/test_grapple_targeting_mcp.gd
++++ b/tests/test_grapple_targeting_mcp.gd
+@@ -32,7 +32,7 @@ func test_authored_definition_carries_the_single_authoritative_range() -> void:
+ 	assert_true(text.contains("definition_id = &\"player.grapple.default\""))
+ 	assert_true(text.contains("max_grapple_length_m = 35.0"), "one authored acquisition range")
+ 	assert_true(text.contains("acquisition_tolerance_m = 0.005"))
+-	assert_true(text.contains("pull_initial_acceleration_mps2 = 48.0"))
++	assert_true(text.contains("pull_initial_acceleration_mps2 = 60.0"))
+ 	assert_true(text.contains("pull_min_acceleration_mps2 = 8.0"))
+ 	assert_true(text.contains("pull_acceleration_jerk_mps3 = 53.333333"))
+ 	assert_true(text.contains("maximum_speed_mps = 22.0"))

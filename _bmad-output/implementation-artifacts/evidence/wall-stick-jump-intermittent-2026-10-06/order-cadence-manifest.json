@@ -1,0 +1,572 @@
+﻿[
+    {
+        "name":  "file-fixed30-no-paint-01",
+        "started":  "2026-10-06T22:52:02.6929535-04:00",
+        "ended":  "2026-10-06T22:52:05.2979009-04:00",
+        "seconds":  2.6049474,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30",
+                          "-gpaint_after=100000"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed30-no-paint-01.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        17",
+                        "Failing Tests         4",
+                        "Asserts           574/589",
+                        "Time              1.148s"
+                    ]
+    },
+    {
+        "name":  "file-fixed30-no-paint-02",
+        "started":  "2026-10-06T22:52:05.3699992-04:00",
+        "ended":  "2026-10-06T22:52:07.9582843-04:00",
+        "seconds":  2.5882851,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30",
+                          "-gpaint_after=100000"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed30-no-paint-02.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        17",
+                        "Failing Tests         4",
+                        "Asserts           574/589",
+                        "Time              1.144s"
+                    ]
+    },
+    {
+        "name":  "file-fixed30-no-paint-03",
+        "started":  "2026-10-06T22:52:07.9773325-04:00",
+        "ended":  "2026-10-06T22:52:10.5628973-04:00",
+        "seconds":  2.5855647999999998,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30",
+                          "-gpaint_after=100000"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed30-no-paint-03.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        17",
+                        "Failing Tests         4",
+                        "Asserts           574/589",
+                        "Time              1.146s"
+                    ]
+    },
+    {
+        "name":  "file-fixed30-no-paint-04",
+        "started":  "2026-10-06T22:52:10.5750058-04:00",
+        "ended":  "2026-10-06T22:52:13.1612464-04:00",
+        "seconds":  2.5862406,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30",
+                          "-gpaint_after=100000"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed30-no-paint-04.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        17",
+                        "Failing Tests         4",
+                        "Asserts           574/589",
+                        "Time              1.169s"
+                    ]
+    },
+    {
+        "name":  "file-fixed30-no-paint-05",
+        "started":  "2026-10-06T22:52:13.1732727-04:00",
+        "ended":  "2026-10-06T22:52:15.7618084-04:00",
+        "seconds":  2.5885357,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30",
+                          "-gpaint_after=100000"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed30-no-paint-05.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        17",
+                        "Failing Tests         4",
+                        "Asserts           574/589",
+                        "Time              1.143s"
+                    ]
+    },
+    {
+        "name":  "file-fixed15-no-paint-01",
+        "started":  "2026-10-06T22:52:15.7798074-04:00",
+        "ended":  "2026-10-06T22:52:18.3721630-04:00",
+        "seconds":  2.5923556,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "15",
+                          "-gpaint_after=100000"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed15-no-paint-01.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        14",
+                        "Failing Tests         7",
+                        "Asserts           566/589",
+                        "Time              1.14s"
+                    ]
+    },
+    {
+        "name":  "file-fixed15-no-paint-02",
+        "started":  "2026-10-06T22:52:18.3846804-04:00",
+        "ended":  "2026-10-06T22:52:20.9731378-04:00",
+        "seconds":  2.5884574,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "15",
+                          "-gpaint_after=100000"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed15-no-paint-02.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        14",
+                        "Failing Tests         7",
+                        "Asserts           566/589",
+                        "Time              1.152s"
+                    ]
+    },
+    {
+        "name":  "file-fixed15-no-paint-03",
+        "started":  "2026-10-06T22:52:20.9861414-04:00",
+        "ended":  "2026-10-06T22:52:23.5765979-04:00",
+        "seconds":  2.5904564999999997,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "15",
+                          "-gpaint_after=100000"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed15-no-paint-03.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        14",
+                        "Failing Tests         7",
+                        "Asserts           566/589",
+                        "Time              1.148s"
+                    ]
+    },
+    {
+        "name":  "file-fixed15-no-paint-04",
+        "started":  "2026-10-06T22:52:23.5881047-04:00",
+        "ended":  "2026-10-06T22:52:26.1787962-04:00",
+        "seconds":  2.5906914999999997,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "15",
+                          "-gpaint_after=100000"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed15-no-paint-04.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        14",
+                        "Failing Tests         7",
+                        "Asserts           566/589",
+                        "Time              1.147s"
+                    ]
+    },
+    {
+        "name":  "file-fixed15-no-paint-05",
+        "started":  "2026-10-06T22:52:26.1917156-04:00",
+        "ended":  "2026-10-06T22:52:28.7793490-04:00",
+        "seconds":  2.5876334,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "15",
+                          "-gpaint_after=100000"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed15-no-paint-05.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        14",
+                        "Failing Tests         7",
+                        "Asserts           566/589",
+                        "Time              1.151s"
+                    ]
+    },
+    {
+        "name":  "file-fixed30-default-paint-01",
+        "started":  "2026-10-06T22:52:28.7948560-04:00",
+        "ended":  "2026-10-06T22:52:31.3862664-04:00",
+        "seconds":  2.5914104,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed30-default-paint-01.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        18",
+                        "Failing Tests         3",
+                        "Asserts           578/589",
+                        "Time              1.152s"
+                    ]
+    },
+    {
+        "name":  "file-fixed30-default-paint-02",
+        "started":  "2026-10-06T22:52:31.3982810-04:00",
+        "ended":  "2026-10-06T22:52:33.9889518-04:00",
+        "seconds":  2.5906708,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed30-default-paint-02.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        17",
+                        "Failing Tests         4",
+                        "Asserts           575/589",
+                        "Time              1.144s"
+                    ]
+    },
+    {
+        "name":  "file-fixed30-default-paint-03",
+        "started":  "2026-10-06T22:52:34.0069831-04:00",
+        "ended":  "2026-10-06T22:52:36.5962899-04:00",
+        "seconds":  2.5893067999999997,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed30-default-paint-03.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        17",
+                        "Failing Tests         4",
+                        "Asserts           575/589",
+                        "Time              1.183s"
+                    ]
+    },
+    {
+        "name":  "file-fixed30-always-paint-01",
+        "started":  "2026-10-06T22:52:36.6072986-04:00",
+        "ended":  "2026-10-06T22:52:39.2031747-04:00",
+        "seconds":  2.5958761,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30",
+                          "-gpaint_after=0"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed30-always-paint-01.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        17",
+                        "Failing Tests         4",
+                        "Asserts           574/589",
+                        "Time              1.16s"
+                    ]
+    },
+    {
+        "name":  "file-fixed30-always-paint-02",
+        "started":  "2026-10-06T22:52:39.2107290-04:00",
+        "ended":  "2026-10-06T22:52:41.7982409-04:00",
+        "seconds":  2.5875119,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30",
+                          "-gpaint_after=0"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed30-always-paint-02.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        17",
+                        "Failing Tests         4",
+                        "Asserts           574/589",
+                        "Time              1.14s"
+                    ]
+    },
+    {
+        "name":  "file-fixed30-always-paint-03",
+        "started":  "2026-10-06T22:52:41.8105663-04:00",
+        "ended":  "2026-10-06T22:52:44.3990998-04:00",
+        "seconds":  2.5885335,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30",
+                          "-gpaint_after=0"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\file-fixed30-always-paint-03.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests                21",
+                        "Passing Tests        17",
+                        "Failing Tests         4",
+                        "Asserts           574/589",
+                        "Time              1.151s"
+                    ]
+    },
+    {
+        "name":  "recursive-fixed30-no-paint-01",
+        "started":  "2026-10-06T22:52:44.4121302-04:00",
+        "ended":  "2026-10-06T22:52:57.6485373-04:00",
+        "seconds":  13.2364071,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gdir=res://tests/player",
+                          "-ginclude_subdirs",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30",
+                          "-gpaint_after=100000"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\recursive-fixed30-no-paint-01.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests               279",
+                        "Passing Tests       275",
+                        "Failing Tests         4",
+                        "Asserts           12399/12414",
+                        "Time              11.131s"
+                    ]
+    },
+    {
+        "name":  "recursive-fixed30-no-paint-02",
+        "started":  "2026-10-06T22:52:57.6760864-04:00",
+        "ended":  "2026-10-06T22:53:10.8015906-04:00",
+        "seconds":  13.1255042,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gdir=res://tests/player",
+                          "-ginclude_subdirs",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30",
+                          "-gpaint_after=100000"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\recursive-fixed30-no-paint-02.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests               279",
+                        "Passing Tests       275",
+                        "Failing Tests         4",
+                        "Asserts           12399/12414",
+                        "Time              11.04s"
+                    ]
+    },
+    {
+        "name":  "recursive-fixed30-no-paint-03",
+        "started":  "2026-10-06T22:53:10.8467162-04:00",
+        "ended":  "2026-10-06T22:53:24.1784066-04:00",
+        "seconds":  13.3316904,
+        "exit":  1,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gdir=res://tests/player",
+                          "-ginclude_subdirs",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30",
+                          "-gpaint_after=100000"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\recursive-fixed30-no-paint-03.log",
+        "target_failed":  false,
+        "target_assertion_failures":  0,
+        "summary":  [
+                        "Tests               279",
+                        "Passing Tests       275",
+                        "Failing Tests         4",
+                        "Asserts           12399/12414",
+                        "Time              11.187s"
+                    ]
+    }
+]

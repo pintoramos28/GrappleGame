@@ -1,0 +1,14 @@
+{
+  "captured_at": "2026-10-07T04:38:03.286054+00:00",
+  "protected_count": 1334,
+  "unchanged_count": 1333,
+  "changed_paths": [
+    "tests/player/locomotion/test_wall_traversal_integration.gd"
+  ],
+  "missing_paths": [],
+  "sole_approved_source_change": true,
+  "original_assertion_count": 278,
+  "missing_or_modified_assertions": [],
+  "frozen_block_unchanged": true,
+  "source_sha256": "027cd443b6f6bfec8ca208b84050161d86b6c6a32b5408368e57361bd4f7b94f"
+}

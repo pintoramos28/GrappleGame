@@ -1,0 +1,62 @@
+{
+  "wrapper": "rtk proxy python",
+  "runs": [
+    {
+      "started_at": "2026-10-07T04:30:28.165436+00:00",
+      "ended_at": "2026-10-07T04:30:32.474408+00:00",
+      "executable": "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+      "version": "4.7.2.stable.official.ed1daf0bf",
+      "arguments": [
+        "--headless",
+        "--path",
+        "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+        "-s",
+        "res://addons/gut/gut_cmdln.gd",
+        "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+        "-gexit"
+      ],
+      "log": "green-file-01.log",
+      "exit_code": 1,
+      "source_sha256": "027cd443b6f6bfec8ca208b84050161d86b6c6a32b5408368e57361bd4f7b94f",
+      "summary": "= Run Summary\n==============================================\n\nres://tests/player/locomotion/test_wall_traversal_integration.gd\n- test_wall_run_direction_never_reverses_across_a_shallow_corner\n    [Failed]:  [0] expected to equal [1]:  \n          at line 116\n    [Failed]:  \n          at line 117\n    [Failed]:  [0] expected to equal [3]:  \n          at line 118\n    [Failed]:  [0.0] expected to be > than [0.1]:  \n          at line 119\n\nTotals\n------\nScripts               1\nTests                23\nPassing Tests        22\nFailing Tests         1\nAsserts           856/860\nTime              2.817s\n\n\n---- 1 failing tests ----\n\n"
+    },
+    {
+      "started_at": "2026-10-07T04:30:32.474758+00:00",
+      "ended_at": "2026-10-07T04:30:36.764418+00:00",
+      "executable": "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+      "version": "4.7.2.stable.official.ed1daf0bf",
+      "arguments": [
+        "--headless",
+        "--path",
+        "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+        "-s",
+        "res://addons/gut/gut_cmdln.gd",
+        "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+        "-gexit"
+      ],
+      "log": "green-file-02.log",
+      "exit_code": 1,
+      "source_sha256": "027cd443b6f6bfec8ca208b84050161d86b6c6a32b5408368e57361bd4f7b94f",
+      "summary": "= Run Summary\n==============================================\n\nres://tests/player/locomotion/test_wall_traversal_integration.gd\n- test_wall_run_direction_never_reverses_across_a_shallow_corner\n    [Failed]:  [0] expected to equal [1]:  \n          at line 116\n    [Failed]:  \n          at line 117\n    [Failed]:  [0] expected to equal [3]:  \n          at line 118\n    [Failed]:  [0.0] expected to be > than [0.1]:  \n          at line 119\n- test_landing_from_a_wall_run_routes_exactly_one_landed_transition\n    [Failed]:  \n          at line 202\n    [Failed]:  [0] expected to equal [1]:  landing dispatched more than once\n          at line 203\n    [Failed]:  [STRING_NAME(player.locomotion.airborne)] expected to equal [STRING_NAME(player.locomotion.grounded)]:  \n          at line 204\n    [Failed]:  [0.0] expected to be > than [1.0]:  no momentum remained before landing\n          at line 205\n    [Failed]:  [0.0] expected to be > than [1.0]:  landing erased along-wall momentum\n          at line 206\n\nTotals\n------\nScripts               1\nTests                23\nPassing Tests        21\nFailing Tests         2\nAsserts           851/860\nTime              2.84s\n\n\n---- 2 failing tests ----\n\n"
+    },
+    {
+      "started_at": "2026-10-07T04:30:36.764746+00:00",
+      "ended_at": "2026-10-07T04:30:41.062953+00:00",
+      "executable": "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+      "version": "4.7.2.stable.official.ed1daf0bf",
+      "arguments": [
+        "--headless",
+        "--path",
+        "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+        "-s",
+        "res://addons/gut/gut_cmdln.gd",
+        "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+        "-gexit"
+      ],
+      "log": "green-file-03.log",
+      "exit_code": 1,
+      "source_sha256": "027cd443b6f6bfec8ca208b84050161d86b6c6a32b5408368e57361bd4f7b94f",
+      "summary": "= Run Summary\n==============================================\n\nres://tests/player/locomotion/test_wall_traversal_integration.gd\n- test_wall_run_direction_never_reverses_across_a_shallow_corner\n    [Failed]:  [2] expected to equal [3]:  \n          at line 118\n\nTotals\n------\nScripts               1\nTests                23\nPassing Tests        22\nFailing Tests         1\nAsserts           859/860\nTime              2.83s\n\n\n---- 1 failing tests ----\n\n"
+    }
+  ]
+}

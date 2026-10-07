@@ -1,0 +1,106 @@
+{
+  "session_id": "testgame@17187ab35ae57813",
+  "phase": "final after all completed GUT batches and Dev Agent Record updates",
+  "scan": {
+    "global_class_count": 135,
+    "global_classes_registered_delta": 0,
+    "reason": "Filesystem scan is an editor operation",
+    "scan_completed": true,
+    "scan_settle": "settled",
+    "undoable": false,
+    "was_already_scanning": false
+  },
+  "source": {
+    "path": "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+    "line_count": 2083,
+    "size": 101054,
+    "barrier_before_pre_spawn": true,
+    "pre_spawn_before_new_world": true,
+    "ready_includes_delta_alignment": true,
+    "destroyed_support_modes": true
+  },
+  "state": {
+    "current_scene": "res://game/levels/content/traversal_validation/traversal_validation_route.tscn",
+    "game_capture_ready": false,
+    "game_status": {
+      "active": false,
+      "editor_log_cursor": 6,
+      "elapsed_msec": 0,
+      "helper_expected": true,
+      "helper_live": false,
+      "ready": false,
+      "ready_wait_msec": 20000,
+      "run_started_msec": 610982321,
+      "run_token": 77,
+      "session_active": false,
+      "status": "stopped"
+    },
+    "godot_version": "4.7.2-stable (official)",
+    "helper_live": false,
+    "is_playing": false,
+    "project_name": "Test Game",
+    "readiness": "ready",
+    "session_active": false
+  },
+  "logs": {
+    "source": "editor",
+    "lines": [],
+    "total_count": 6,
+    "returned_count": 0,
+    "offset": 0,
+    "limit": 100,
+    "has_more": false,
+    "run_id": "",
+    "is_running": false,
+    "dropped_count": 0,
+    "stale_run_id": false,
+    "cursor": 6,
+    "oldest_cursor": 0,
+    "next_cursor": 6,
+    "appended_total": 6,
+    "truncated": false
+  },
+  "scene": {
+    "has_more": false,
+    "limit": 10,
+    "nodes": [
+      {
+        "children_count": 4,
+        "name": "TraversalValidationRoute",
+        "path": "/TraversalValidationRoute",
+        "type": "Node3D"
+      },
+      {
+        "children_count": 35,
+        "name": "Course",
+        "path": "/TraversalValidationRoute/Course",
+        "type": "Node3D"
+      },
+      {
+        "children_count": 15,
+        "name": "Player",
+        "path": "/TraversalValidationRoute/Player",
+        "type": "CharacterBody3D"
+      },
+      {
+        "children_count": 0,
+        "name": "SunLight",
+        "path": "/TraversalValidationRoute/SunLight",
+        "type": "DirectionalLight3D"
+      },
+      {
+        "children_count": 0,
+        "name": "WorldEnvironment",
+        "path": "/TraversalValidationRoute/WorldEnvironment",
+        "type": "WorldEnvironment"
+      }
+    ],
+    "offset": 0,
+    "total_count": 5
+  },
+  "rate": {
+    "key": "physics/common/physics_ticks_per_second",
+    "type": "int",
+    "value": 60
+  }
+}

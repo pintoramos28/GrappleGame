@@ -1,0 +1,848 @@
+{
+  "captured_at": "2026-10-07T05:11:28.744452+00:00",
+  "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+  "sensitivity_control": {
+    "intact_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+    "only_two_helper_barrier_lines_removed_sha256": "48b479de08ed49e6126b2d60713c9cd8bf62a72f2397a7b1e11cc3e865f94198",
+    "recorded_red_sha256": "48b479de08ed49e6126b2d60713c9cd8bf62a72f2397a7b1e11cc3e865f94198",
+    "pre_spawn_oracle_retained": true,
+    "control_hash_matches_actual_red_source": true
+  },
+  "runs": [
+    {
+      "log": "follow-up-final-source-file-01.log",
+      "exit_code": 1,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 24,
+        "passing_tests": 23,
+        "failing_tests": 1,
+        "passing_assertions": 1058,
+        "total_assertions": 1059
+      },
+      "failed_tests": [
+        "test_wall_run_direction_never_reverses_across_a_shallow_corner"
+      ],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-file-02.log",
+      "exit_code": 1,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 24,
+        "passing_tests": 22,
+        "failing_tests": 2,
+        "passing_assertions": 1050,
+        "total_assertions": 1059
+      },
+      "failed_tests": [
+        "test_wall_run_direction_never_reverses_across_a_shallow_corner",
+        "test_landing_from_a_wall_run_routes_exactly_one_landed_transition"
+      ],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-file-03.log",
+      "exit_code": 1,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 24,
+        "passing_tests": 23,
+        "failing_tests": 1,
+        "passing_assertions": 1058,
+        "total_assertions": 1059
+      },
+      "failed_tests": [
+        "test_wall_run_direction_never_reverses_across_a_shallow_corner"
+      ],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-group-01.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 12,
+        "passing_tests": 12,
+        "failing_tests": 0,
+        "passing_assertions": 710,
+        "total_assertions": 710
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-group-02.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 12,
+        "passing_tests": 12,
+        "failing_tests": 0,
+        "passing_assertions": 710,
+        "total_assertions": 710
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-group-03.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 12,
+        "passing_tests": 12,
+        "failing_tests": 0,
+        "passing_assertions": 710,
+        "total_assertions": 710
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-guards-01.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 2,
+        "passing_tests": 2,
+        "failing_tests": 0,
+        "passing_assertions": 151,
+        "total_assertions": 151
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-guards-02.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 2,
+        "passing_tests": 2,
+        "failing_tests": 0,
+        "passing_assertions": 151,
+        "total_assertions": 151
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-guards-03.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 2,
+        "passing_tests": 2,
+        "failing_tests": 0,
+        "passing_assertions": 151,
+        "total_assertions": 151
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-recursive-01.log",
+      "exit_code": 1,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 21,
+        "tests": 282,
+        "passing_tests": 281,
+        "failing_tests": 1,
+        "passing_assertions": 12869,
+        "total_assertions": 12870
+      },
+      "failed_tests": [
+        "test_wall_run_direction_never_reverses_across_a_shallow_corner"
+      ],
+      "shutdown_objectdb_leak": true,
+      "shutdown_resource_leak": true
+    },
+    {
+      "log": "follow-up-final-source-recursive-02.log",
+      "exit_code": 1,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 21,
+        "tests": 282,
+        "passing_tests": 281,
+        "failing_tests": 1,
+        "passing_assertions": 12869,
+        "total_assertions": 12870
+      },
+      "failed_tests": [
+        "test_wall_run_direction_never_reverses_across_a_shallow_corner"
+      ],
+      "shutdown_objectdb_leak": true,
+      "shutdown_resource_leak": true
+    },
+    {
+      "log": "follow-up-final-source-recursive-03.log",
+      "exit_code": 1,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 21,
+        "tests": 282,
+        "passing_tests": 281,
+        "failing_tests": 1,
+        "passing_assertions": 12869,
+        "total_assertions": 12870
+      },
+      "failed_tests": [
+        "test_wall_run_direction_never_reverses_across_a_shallow_corner"
+      ],
+      "shutdown_objectdb_leak": true,
+      "shutdown_resource_leak": true
+    },
+    {
+      "log": "follow-up-final-source-regression-01.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 297,
+        "total_assertions": 297
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-regression-02.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 297,
+        "total_assertions": 297
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-regression-03.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 297,
+        "total_assertions": 297
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-regression-04.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 297,
+        "total_assertions": 297
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-regression-05.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 297,
+        "total_assertions": 297
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-target-01.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-target-02.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-target-03.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-target-04.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-target-05.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-target-06.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-target-07.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-target-08.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-target-09.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-final-source-target-10.log",
+      "exit_code": 0,
+      "source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-group-01.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 12,
+        "passing_tests": 12,
+        "failing_tests": 0,
+        "passing_assertions": 710,
+        "total_assertions": 710
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-group-02.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 12,
+        "passing_tests": 12,
+        "failing_tests": 0,
+        "passing_assertions": 710,
+        "total_assertions": 710
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-group-03.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 12,
+        "passing_tests": 12,
+        "failing_tests": 0,
+        "passing_assertions": 710,
+        "total_assertions": 710
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-guards-01.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 2,
+        "passing_tests": 2,
+        "failing_tests": 0,
+        "passing_assertions": 151,
+        "total_assertions": 151
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-guards-02.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 2,
+        "passing_tests": 2,
+        "failing_tests": 0,
+        "passing_assertions": 151,
+        "total_assertions": 151
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-guards-03.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 2,
+        "passing_tests": 2,
+        "failing_tests": 0,
+        "passing_assertions": 151,
+        "total_assertions": 151
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-regression-01.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 297,
+        "total_assertions": 297
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-regression-02.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 297,
+        "total_assertions": 297
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-regression-03.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 297,
+        "total_assertions": 297
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-regression-04.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 297,
+        "total_assertions": 297
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-regression-05.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 297,
+        "total_assertions": 297
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-target-01.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-target-02.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-target-03.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-target-04.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-target-05.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-target-06.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-target-07.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-target-08.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-target-09.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-green-target-10.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 1,
+        "failing_tests": 0,
+        "passing_assertions": 40,
+        "total_assertions": 40
+      },
+      "failed_tests": [],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-red-regression-01.log",
+      "exit_code": 1,
+      "source_sha256": "48b479de08ed49e6126b2d60713c9cd8bf62a72f2397a7b1e11cc3e865f94198",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 0,
+        "failing_tests": 1,
+        "passing_assertions": 279,
+        "total_assertions": 297
+      },
+      "failed_tests": [
+        "test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks"
+      ],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-red-regression-02.log",
+      "exit_code": 1,
+      "source_sha256": "48b479de08ed49e6126b2d60713c9cd8bf62a72f2397a7b1e11cc3e865f94198",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 0,
+        "failing_tests": 1,
+        "passing_assertions": 279,
+        "total_assertions": 297
+      },
+      "failed_tests": [
+        "test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks"
+      ],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    },
+    {
+      "log": "follow-up-red-regression-03.log",
+      "exit_code": 1,
+      "source_sha256": "48b479de08ed49e6126b2d60713c9cd8bf62a72f2397a7b1e11cc3e865f94198",
+      "totals": {
+        "scripts": 1,
+        "tests": 1,
+        "passing_tests": 0,
+        "failing_tests": 1,
+        "passing_assertions": 279,
+        "total_assertions": 297
+      },
+      "failed_tests": [
+        "test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks"
+      ],
+      "shutdown_objectdb_leak": false,
+      "shutdown_resource_leak": false
+    }
+  ]
+}

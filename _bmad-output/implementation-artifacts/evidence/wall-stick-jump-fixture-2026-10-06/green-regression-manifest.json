@@ -1,0 +1,105 @@
+{
+  "wrapper": "rtk proxy python",
+  "runs": [
+    {
+      "started_at": "2026-10-07T04:29:27.508508+00:00",
+      "ended_at": "2026-10-07T04:29:29.840185+00:00",
+      "executable": "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+      "version": "4.7.2.stable.official.ed1daf0bf",
+      "arguments": [
+        "--headless",
+        "--path",
+        "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+        "-s",
+        "res://addons/gut/gut_cmdln.gd",
+        "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+        "-gunit_test_name=test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks",
+        "-gexit"
+      ],
+      "log": "green-regression-01.log",
+      "exit_code": 0,
+      "source_sha256": "027cd443b6f6bfec8ca208b84050161d86b6c6a32b5408368e57361bd4f7b94f",
+      "summary": "= Run Summary\n==============================================\n\nTotals\n------\nScripts               1\nTests                 1\nPassing Tests         1\nAsserts             243\nTime              0.853s\n\n\nRan Tests matching \"test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks\"\n---- All tests passed! ----\n\n"
+    },
+    {
+      "started_at": "2026-10-07T04:29:29.840553+00:00",
+      "ended_at": "2026-10-07T04:29:32.155418+00:00",
+      "executable": "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+      "version": "4.7.2.stable.official.ed1daf0bf",
+      "arguments": [
+        "--headless",
+        "--path",
+        "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+        "-s",
+        "res://addons/gut/gut_cmdln.gd",
+        "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+        "-gunit_test_name=test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks",
+        "-gexit"
+      ],
+      "log": "green-regression-02.log",
+      "exit_code": 0,
+      "source_sha256": "027cd443b6f6bfec8ca208b84050161d86b6c6a32b5408368e57361bd4f7b94f",
+      "summary": "= Run Summary\n==============================================\n\nTotals\n------\nScripts               1\nTests                 1\nPassing Tests         1\nAsserts             243\nTime              0.839s\n\n\nRan Tests matching \"test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks\"\n---- All tests passed! ----\n\n"
+    },
+    {
+      "started_at": "2026-10-07T04:29:32.155715+00:00",
+      "ended_at": "2026-10-07T04:29:34.471202+00:00",
+      "executable": "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+      "version": "4.7.2.stable.official.ed1daf0bf",
+      "arguments": [
+        "--headless",
+        "--path",
+        "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+        "-s",
+        "res://addons/gut/gut_cmdln.gd",
+        "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+        "-gunit_test_name=test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks",
+        "-gexit"
+      ],
+      "log": "green-regression-03.log",
+      "exit_code": 0,
+      "source_sha256": "027cd443b6f6bfec8ca208b84050161d86b6c6a32b5408368e57361bd4f7b94f",
+      "summary": "= Run Summary\n==============================================\n\nTotals\n------\nScripts               1\nTests                 1\nPassing Tests         1\nAsserts             243\nTime              0.853s\n\n\nRan Tests matching \"test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks\"\n---- All tests passed! ----\n\n"
+    },
+    {
+      "started_at": "2026-10-07T04:29:34.471486+00:00",
+      "ended_at": "2026-10-07T04:29:36.786755+00:00",
+      "executable": "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+      "version": "4.7.2.stable.official.ed1daf0bf",
+      "arguments": [
+        "--headless",
+        "--path",
+        "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+        "-s",
+        "res://addons/gut/gut_cmdln.gd",
+        "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+        "-gunit_test_name=test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks",
+        "-gexit"
+      ],
+      "log": "green-regression-04.log",
+      "exit_code": 0,
+      "source_sha256": "027cd443b6f6bfec8ca208b84050161d86b6c6a32b5408368e57361bd4f7b94f",
+      "summary": "= Run Summary\n==============================================\n\nTotals\n------\nScripts               1\nTests                 1\nPassing Tests         1\nAsserts             243\nTime              0.854s\n\n\nRan Tests matching \"test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks\"\n---- All tests passed! ----\n\n"
+    },
+    {
+      "started_at": "2026-10-07T04:29:36.787048+00:00",
+      "ended_at": "2026-10-07T04:29:39.104335+00:00",
+      "executable": "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+      "version": "4.7.2.stable.official.ed1daf0bf",
+      "arguments": [
+        "--headless",
+        "--path",
+        "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+        "-s",
+        "res://addons/gut/gut_cmdln.gd",
+        "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+        "-gunit_test_name=test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks",
+        "-gexit"
+      ],
+      "log": "green-regression-05.log",
+      "exit_code": 0,
+      "source_sha256": "027cd443b6f6bfec8ca208b84050161d86b6c6a32b5408368e57361bd4f7b94f",
+      "summary": "= Run Summary\n==============================================\n\nTotals\n------\nScripts               1\nTests                 1\nPassing Tests         1\nAsserts             243\nTime              0.841s\n\n\nRan Tests matching \"test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks\"\n---- All tests passed! ----\n\n"
+    }
+  ]
+}

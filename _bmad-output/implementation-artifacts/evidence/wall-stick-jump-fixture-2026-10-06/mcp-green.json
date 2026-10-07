@@ -1,0 +1,50 @@
+{
+  "phase":"corrected helper with internal process->physics barrier before fixture creation",
+  "session_id":"testgame@17187ab35ae57813",
+  "source_sha256":"027cd443b6f6bfec8ca208b84050161d86b6c6a32b5408368e57361bd4f7b94f",
+  "run_token":74,
+  "run_started_msec":609260129,
+  "launch":{"mode":"current","autosave":false,"helper_live":true,"current_run_errors":[]},
+  "qualification":"MCP game_eval same-helper runtime observations, not CLI GUT counts or native McpTestSuite results.",
+  "loaded_source":{"barrier_loaded":true,"line_count":1936},
+  "observations":[
+    {"rate":60,"mode":2,"inherited_rate":120,"inherited_delta":0.00833333333333333,"frames":[37,40],"first_hold_frame":40,"cached_delta":0.0166666666666667,"requested_delta":0.0166666666666667,"first_hold_velocity":[0,0,0],"grapple_held_at_exit":true},
+    {"rate":60,"mode":9,"inherited_rate":120,"inherited_delta":0.00833333333333333,"frames":[48,58],"first_hold_frame":58,"cached_delta":0.0166666666666667,"requested_delta":0.0166666666666667,"first_hold_velocity":[0,0,0],"grapple_held_at_exit":false},
+    {"rate":120,"mode":2,"inherited_rate":60,"inherited_delta":0.0166666666666667,"frames":[64,74],"first_hold_frame":74,"cached_delta":0.00833333333333333,"requested_delta":0.00833333333333333,"first_hold_velocity":[0,0,-0.00000357627845914],"grapple_held_at_exit":true},
+    {"rate":120,"mode":9,"inherited_rate":60,"inherited_delta":0.0166666666666667,"frames":[82,92],"first_hold_frame":92,"cached_delta":0.00833333333333333,"requested_delta":0.00833333333333333,"first_hold_velocity":[0,0,-0.00000357627845914],"grapple_held_at_exit":false},
+    {"rate":60,"mode":2,"inherited_rate":120,"inherited_delta":0.00833333333333333,"frames":[93,103],"first_hold_frame":103,"cached_delta":0.0166666666666667,"requested_delta":0.0166666666666667,"first_hold_velocity":[0,0,0],"grapple_held_at_exit":true},
+    {"rate":60,"mode":9,"inherited_rate":120,"inherited_delta":0.00833333333333333,"frames":[109,116],"first_hold_frame":116,"cached_delta":0.0166666666666667,"requested_delta":0.0166666666666667,"first_hold_velocity":[0,0,0],"grapple_held_at_exit":false}
+  ],
+  "common_observed_tuple_for_all_six":{
+    "first_hold_step":4,"first_hold_contact_step":4,"first_hold_result_step":4,
+    "first_hold":{"ready":true,"active":true,"binding_status":0,"delta_aligned":true,"held_command":true,"hold_carry_blocked":false,"hold_requested":true,"hold_source":true,"in_physics":true,"result_success":true,"successful_hold":true,"supported":true},
+    "first_failed_hold":{},"hold_checks":18,"aligned_holds":18,"valid_holds":18,"held_steps":18,
+    "jump_ready":true,"readiness_step":21,"prepared_step":22,"launch_step":22,"terminal_step":22,
+    "jump_count":1,"reference":0.5,"exit_velocity":[0,5.5,8],"terminal_reason":4,"terminal_count":1,
+    "commit_count_max":1,"post_exit_state":"player.locomotion.airborne","post_exit_holds":0,
+    "still_sticking":false,"wall_cleared_before_terminal":true,"duplicate_terminal_same":true
+  },
+  "readiness_negative":{
+    "frames":[116,124],"ready_before_release":true,"active_after_release":false,"hold_after_release":false,
+    "checks":[
+      {"mode":2,"step_before":22,"step_after":22,"contact_step":22,"result_step":22,"engine_frame":124,"velocity_before":[0,0,0],"velocity_after":[0,0,0],"explicit_failures":1,"prepared":false,"prepared_jump_step":-1,"same_command":true,"jump_pressed_after_step":false,"jump_source_after_step":false},
+      {"mode":9,"step_before":23,"step_after":23,"contact_step":23,"result_step":23,"engine_frame":124,"velocity_before":[0.0333333350718021,-0.163333341479301,0],"velocity_after":[0.0333333350718021,-0.163333341479301,0],"explicit_failures":1,"prepared":false,"prepared_jump_step":-1,"same_command":true,"jump_pressed_after_step":false,"jump_source_after_step":false}
+    ],
+    "common_readiness":{"ready":false,"active":false,"binding_status":-1,"cached_delta":0.0166666666666667,"requested_delta":0.0166666666666667,"configured_rate":60,"delta_aligned":true,"held_command":false,"hold_carry_blocked":false,"hold_requested":false,"hold_source":false,"in_physics":true,"result_success":true,"successful_hold":false,"supported":false}
+  },
+  "fixture_runtime_node_inspection":{
+    "operation":"game_eval read-only snapshots before cleanup",
+    "paths":["/root/@SubViewport@11/@Node3D@12/Player","/root/@SubViewport@20/@Node3D@21/Player","/root/@SubViewport@29/@Node3D@30/Player","/root/@SubViewport@38/@Node3D@39/Player","/root/@SubViewport@47/@Node3D@48/Player","/root/@SubViewport@56/@Node3D@57/Player","/root/@SubViewport@65/@Node3D@66/Player"],
+    "common":{"class":"CharacterBody3D","automatic_physics_enabled":true,"private_world":true}
+  },
+  "route_runtime_node_inspection":{"operation":"game_manage(get_node_info,path=/root/TraversalValidationRoute/Player,include_properties=false)","found":true,"name":"Player","type":"CharacterBody3D","children_count":16,"groups":["player"]},
+  "helper_assertion_failures":0,
+  "cleanup":{"tracked_objects_freed":8,"objects":"seven original fixture viewports plus negative-case GutTest probe; temporary suite/Gut separately freed","remaining_autofree":0,"temporary_context_absent":true,"restored_runtime_rate":60,"process_frame_allowed":true,"project_stop_observed":true,"final_editor_readiness":"ready","final_play_state":"stopped","final_scene":"res://game/levels/content/traversal_validation/traversal_validation_route.tscn","final_project_rate":60},
+  "diagnostics":{
+    "game_logs":"logs_read(game,count=50,include_details=true) timed out after 5s. This and the red timeout are not clean-log evidence.",
+    "editor_cursor_start":6,"editor_cursor_end":6,"new_logger_entries":0,"retained_historical_errors":6,"visible_warning_rows":12,
+    "affected_test_warning":"unchanged seed shadow warning now at line 1924",
+    "preceding_attempt":"Token 73 (run_started_msec=609221159) launch was live. Eval following get_scene_tree encountered EVAL_GAME_NOT_READY (250ms liveness probe timeout). Stopped/relaunched token 74 and dispatched immediate eval successfully. No fixture eval objects were created by the liveness failure.",
+    "visual_verification":"Not performed or claimed."
+  }
+}

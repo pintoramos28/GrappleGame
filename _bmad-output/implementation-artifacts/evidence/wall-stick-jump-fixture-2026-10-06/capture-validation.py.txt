@@ -1,0 +1,188 @@
+"""Evidence-only reproducer; invoke with rtk proxy python <this-file> <action>.
+
+Never edits source or existing evidence. Each output is created exclusively.
+"""
+import datetime
+import hashlib
+import json
+import pathlib
+import re
+import subprocess
+import sys
+
+ROOT = pathlib.Path.cwd()
+OUT = pathlib.Path(__file__).resolve().parent
+SOURCE = ROOT / "tests/player/locomotion/test_wall_traversal_integration.gd"
+SPEC = ROOT / "_bmad-output/implementation-artifacts/spec-wall-stick-jump-fixture-synchronization.md"
+EXE = r"C:\Users\pinto\Documents\Godot Projects\Godot 4.7.2\Godot_v4.7.2-stable_win64_console.exe"
+TARGET = "test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion"
+REGRESSION = "test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks"
+
+
+def now():
+    return datetime.datetime.now(datetime.timezone.utc).isoformat()
+
+
+def digest(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def write(name, data):
+    with (OUT / name).open("x", encoding="utf-8", newline="\n") as f:
+        json.dump(data, f, indent=2)
+        f.write("\n")
+
+
+def frozen(data):
+    return data.split(b"<frozen-after-approval", 1)[1].split(b"</frozen-after-approval>", 1)[0]
+
+
+def assertions(text):
+    lines = text.splitlines(keepends=True)
+    blocks = []
+    i = 0
+    while i < len(lines):
+        if re.match(r"\s*assert_\w+\(", lines[i]):
+            block = lines[i]
+            depth = lines[i].count("(") - lines[i].count(")")
+            while depth > 0:
+                i += 1
+                block += lines[i]
+                depth += lines[i].count("(") - lines[i].count(")")
+            blocks.append(block)
+        i += 1
+    return blocks
+
+
+action = sys.argv[1]
+if action == "start":
+    baseline = json.loads((OUT / "baseline-preservation.json").read_text())
+    mismatches = [p for p, h in baseline["hashes"].items()
+                  if not (ROOT / p).is_file() or digest((ROOT / p).read_bytes()) != h]
+    with (OUT / "baseline-source.gd.txt").open("xb") as f:
+        f.write(SOURCE.read_bytes())
+    with (OUT / "approved-spec.txt").open("xb") as f:
+        f.write(SPEC.read_bytes())
+    data = {"captured_at": now(), "protected_count": len(baseline["hashes"]),
+            "mismatches": mismatches, "source_sha256": digest(SOURCE.read_bytes()),
+            "original_assertion_count": len(assertions(SOURCE.read_text())),
+            "frozen_block_sha256": digest(frozen(SPEC.read_bytes()))}
+    write("implementation-start.json", data)
+    print(json.dumps(data, indent=2))
+elif action == "run":
+    phase, selection = sys.argv[2:4]
+    repetitions = int(sys.argv[4]) if len(sys.argv) > 4 else 1
+    common = ["--headless", "--path", str(ROOT), "-s", "res://addons/gut/gut_cmdln.gd"]
+    file_args = ["-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd"]
+    filters = {"target": ["-gunit_test_name=" + TARGET],
+               "regression": ["-gunit_test_name=" + REGRESSION],
+               "negative": ["-gunit_test_name=test_wall_stick_jump_readiness_rejects_inactive_support_without_mutation"],
+               "group": ["-gunit_test_name=wall_stick_"], "file": []}
+    args = common + (file_args + filters[selection] if selection != "recursive"
+                     else ["-gdir=res://tests/player", "-ginclude_subdirs"]) + ["-gexit"]
+    version = subprocess.run([EXE, "--version"], capture_output=True, text=True).stdout.strip()
+    runs = []
+    for i in range(1, repetitions + 1):
+        name = f"{phase}-{selection}-{i:02d}.log"
+        start = now()
+        with (OUT / name).open("xb") as log:
+            result = subprocess.run([EXE] + args, stdout=log, stderr=subprocess.STDOUT, cwd=ROOT)
+        text = (OUT / name).read_text(encoding="utf-8", errors="replace")
+        clean = re.sub(r"\x1b\[[0-9;]*[A-Za-z]", "", text)
+        summary = clean[clean.rfind("= Run Summary"):]
+        run = {"started_at": start, "ended_at": now(), "executable": EXE,
+               "version": version, "arguments": args, "log": name,
+               "exit_code": result.returncode, "source_sha256": digest(SOURCE.read_bytes()),
+               "summary": summary}
+        runs.append(run)
+        print(json.dumps({k: v for k, v in run.items() if k != "arguments"}, indent=2), flush=True)
+    write(f"{phase}-{selection}-manifest.json", {"wrapper": "rtk proxy python", "runs": runs})
+elif action == "preservation":
+    baseline = json.loads((OUT / "baseline-preservation.json").read_text())
+    changed, missing = [], []
+    for path, before in baseline["hashes"].items():
+        file = ROOT / path
+        if not file.is_file():
+            missing.append(path)
+        elif digest(file.read_bytes()) != before:
+            changed.append(path)
+    original = (OUT / "baseline-source.gd.txt").read_text()
+    current = SOURCE.read_text()
+    blocks = assertions(original)
+    offset, absent = 0, []
+    for block in blocks:
+        found = current.find(block, offset)
+        if found < 0:
+            absent.append(block)
+        else:
+            offset = found + len(block)
+    data = {"captured_at": now(), "protected_count": len(baseline["hashes"]),
+            "unchanged_count": len(baseline["hashes"]) - len(changed) - len(missing),
+            "changed_paths": changed, "missing_paths": missing,
+            "sole_approved_source_change": changed == [SOURCE.relative_to(ROOT).as_posix()],
+            "original_assertion_count": len(blocks), "missing_or_modified_assertions": absent,
+            "frozen_block_unchanged": frozen(SPEC.read_bytes()) == frozen((OUT / "approved-spec.txt").read_bytes()),
+            "source_sha256": digest(SOURCE.read_bytes())}
+    write(sys.argv[2] if len(sys.argv) > 2 else "preservation-result.json", data)
+    print(json.dumps(data, indent=2))
+elif action == "index":
+    reports = []
+    traces = []
+    for manifest in sorted(OUT.glob("*-manifest.json")):
+        for run in json.loads(manifest.read_text())["runs"]:
+            text = (OUT / run["log"]).read_text(encoding="utf-8", errors="replace")
+            clean = re.sub(r"\x1b\[[0-9;]*[A-Za-z]", "", text)
+            summary = clean[clean.rfind("= Run Summary"):]
+            totals = {}
+            for key in ["Scripts", "Tests", "Passing Tests", "Failing Tests", "Asserts", "Time"]:
+                match = re.search(r"^" + key + r"\s+([^\n]+)$", summary, re.M)
+                if match:
+                    totals[key] = match.group(1).strip()
+            reports.append({"log": run["log"], "exit_code": run["exit_code"],
+                            "source_sha256": run["source_sha256"], "totals": totals,
+                            "failing_tests": re.findall(r"^- (test_[^\s]+)", summary, re.M),
+                            "summary": summary})
+            for line in clean.splitlines():
+                if line.startswith(("[wall-stick-fixture-transition]", "[1-9-stick-jump]")):
+                    trace = {"log": run["log"], "label": line.split(" -> ", 1)[0],
+                             "first_failed_hold_empty": bool(re.search(r'"first_failed_hold":\s*\{\s*\}', line))}
+                    for key in ["held_steps", "hold_checks_count", "aligned_hold_count", "valid_hold_count",
+                                "jump_count", "requested_delta", "cached_delta", "readiness_step",
+                                "prepared_jump_step", "launch_step", "terminal_step", "jump_reference_outward_speed"]:
+                        match = re.search('"' + key + r'":\s*(-?[\d.]+)', line)
+                        if match:
+                            trace[key] = float(match.group(1)) if "." in match.group(1) else int(match.group(1))
+                    traces.append(trace)
+    data = {"captured_at": now(), "runs": reports}
+    write("cli-results-index.json", data)
+    write("cli-fixture-traces.json", {"captured_at": now(), "traces": traces})
+    diff = subprocess.run(["rtk", "proxy", "git", "diff", "--", str(SOURCE.relative_to(ROOT))],
+                          capture_output=True, text=True, cwd=ROOT)
+    with (OUT / "source-diff.patch.txt").open("x", encoding="utf-8", newline="\n") as f:
+        f.write(diff.stdout)
+    check = subprocess.run(["rtk", "git", "diff", "--check"], capture_output=True, text=True, cwd=ROOT)
+    status = subprocess.run(["rtk", "proxy", "git", "status", "--short"], capture_output=True, text=True, cwd=ROOT)
+    head = subprocess.run(["rtk", "proxy", "git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=ROOT)
+    write("git-final.json", {"diff_check_exit": check.returncode, "diff_check_stdout": check.stdout,
+                             "diff_check_stderr": check.stderr, "status": status.stdout, "head": head.stdout.strip()})
+    print(json.dumps([{k: v for k, v in run.items() if k != "summary"} for run in reports], indent=2))
+elif action == "verify":
+    files = sorted(OUT.glob("*.json"))
+    for file in files:
+        json.loads(file.read_text(encoding="utf-8"))
+    checks = json.loads((OUT / "final-preservation-result.json").read_text())
+    git = json.loads((OUT / "git-final.json").read_text())
+    assert checks["sole_approved_source_change"]
+    assert checks["unchanged_count"] == 1333
+    assert checks["missing_or_modified_assertions"] == []
+    assert checks["frozen_block_unchanged"]
+    assert git["head"] == "5d128486cf695f92dd4a370a6ee4ca6fb594b10f"
+    assert git["diff_check_exit"] == 0
+    assert digest(SOURCE.read_bytes()) == checks["source_sha256"]
+    data = {"captured_at": now(), "json_files_validated": len(files),
+            "all_json_parsed": True, "source_matches_validated_hash": True,
+            "preservation_and_assertion_checks": "passed", "head_and_diff_check": "passed"}
+    write("evidence-verification.json", data)
+    print(json.dumps(data, indent=2))
+else:
+    raise SystemExit("Unknown action: " + action)

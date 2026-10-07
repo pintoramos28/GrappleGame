@@ -1,0 +1,293 @@
+{
+  "created_at": "2026-10-07T04:41:10.682189+00:00",
+  "baseline_commit": "5d128486cf695f92dd4a370a6ee4ca6fb594b10f",
+  "baseline_dirty_status": "## main...origin/main\n M _bmad-output/implementation-artifacts/deferred-work.md\n M _bmad-output/implementation-artifacts/evidence/1-10/review-fixes-2026-10-02.md\n M tests/player/grapple/test_grapple_targeting_contract.gd\n M tests/player/grapple/test_grapple_targeting_integration.gd\n M tests/player/motor/test_player_motor_integration.gd\n M tests/test_grapple_boundary_mcp.gd\n M tests/test_grapple_targeting_mcp.gd\n?? _bmad-output/implementation-artifacts/evidence/wall-stick-jump-intermittent-2026-10-06/\n?? _bmad-output/implementation-artifacts/investigations/wall-stick-jump-intermittent-investigation.md\n?? _bmad-output/implementation-artifacts/spec-r12-regression-expectation-follow-up.md\n?? _bmad-output/implementation-artifacts/spec-wall-stick-jump-fixture-synchronization.md\n",
+  "task_changed_existing": [
+    "tests/player/locomotion/test_wall_traversal_integration.gd"
+  ],
+  "new_artifacts": [
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/approved-spec.txt",
+      "bytes": 5565,
+      "sha256": "ce17c5df241ae2d7754b8bead805d177a64265dbd6ffb829062baf4998d7d540"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/baseline-preservation.json",
+      "bytes": 188513,
+      "sha256": "60143969979973f694b04b43718a0e511386c4c43d2b15af05b79a900c17b208"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/baseline-source.gd.txt",
+      "bytes": 78739,
+      "sha256": "d9a041423616c73e10ca9cbb6b40fb8e2e55d1fa8300337e51607b43d298b83c"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/capture-validation.py.txt",
+      "bytes": 9782,
+      "sha256": "f8fbff24ed64333d10e0af3502e2c5bc6b405edd9907e11435b4715aac7d9c0e"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/cli-fixture-traces.json",
+      "bytes": 136030,
+      "sha256": "12aa0cecdadb064669235bc6159e76a56e8516383ee9e6947e5cb7c38328233f"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/cli-results-index.json",
+      "bytes": 24178,
+      "sha256": "241a9c4a4f290c9edc480a9e486e2c30add50b342d0af9b64047636a86c6b9da"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/evidence-verification.json",
+      "bytes": 238,
+      "sha256": "38ca28c555eae7e8d446d5a1d79e83abf97f308d0d455486482a4ebbf0a2ba57"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/final-preservation-result.json",
+      "bytes": 459,
+      "sha256": "44d159f186b2c1a1d27117f50926fa5920be47b8de8baf4e402ecc989ace9547"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/git-final.json",
+      "bytes": 1075,
+      "sha256": "9e87c58883c2248da7d90a9bb1465b1235caa9fc9698136baa322018a2243b24"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-file-01.log",
+      "bytes": 79223,
+      "sha256": "bd05e96ba23061fb15de72b74bf3a31156778e804f39e47fa25489d2ecad49d7"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-file-02.log",
+      "bytes": 80317,
+      "sha256": "ff91df75f969ae590f5ba1fedbb37a66d6674c3318c3c4e92e7d0d6649cd897e"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-file-03.log",
+      "bytes": 78760,
+      "sha256": "627c855f46e9f6b0ba66144e2502aab908c8292caa999989d5743af7ca2b3caa"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-file-manifest.json",
+      "bytes": 4653,
+      "sha256": "ac75efa25de46b623351bc698be576dd1b052757c6e9ab8a1ae6172cb9b76bec"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-group-01.log",
+      "bytes": 42309,
+      "sha256": "f3e1ef14c1f44743c16fbe37e4134eed5a7a144d5d2134e3afac861aedbc2811"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-group-02.log",
+      "bytes": 42309,
+      "sha256": "be7f982e1ab70cce40cfd6c2548958798d9e041e205d723f5fd8797dbe6879d0"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-group-03.log",
+      "bytes": 42308,
+      "sha256": "ce9ec18837daa6ed50f89ad18b62818ea7745584da7193d39125f4e87e3b1dde"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-group-manifest.json",
+      "bytes": 3261,
+      "sha256": "f21343c8587b6898042bcb67a7c1965db9334f00612b202da2ad7f0c61b46371"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-negative-01.log",
+      "bytes": 2821,
+      "sha256": "d05f5c80cb14242cb9b9a3a1a92326425c07bc7a3a263a1adde68c00e5c22017"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-negative-02.log",
+      "bytes": 2821,
+      "sha256": "2c09763faa1fd4141201c020ed3fbcc932287155523836237fe99c963dd76f06"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-negative-03.log",
+      "bytes": 2821,
+      "sha256": "213a7d8b5fccff366f251ad4b4eae2fbec5b032b6666da1b1600c78ce823ea52"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-negative-manifest.json",
+      "bytes": 3637,
+      "sha256": "fe19cbaa4bd6283aa7e2a962e09eeffffb3c04954190f3700c86cacf86e87eca"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-recursive-01.log",
+      "bytes": 227322,
+      "sha256": "e5a10e9289778412bc4a695dd971a809bbc1984c04b3a3fd350ac35732b77b26"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-recursive-02.log",
+      "bytes": 226651,
+      "sha256": "62b9d6974d7eadcf7eaa003d51bfafa74736a84c040f89dfc898acb9eae79cd7"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-recursive-03.log",
+      "bytes": 227410,
+      "sha256": "c9e71d91b00bea9e2d029b08418f962763a5688f48420e24ad5b18622dcf7ead"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-recursive-manifest.json",
+      "bytes": 4434,
+      "sha256": "802326cc53da9098ff451b93a975dfb1193749934026bfc83c1282ceab693a45"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-regression-01.log",
+      "bytes": 23193,
+      "sha256": "48e54c1267033e976d16743b1ad0dc0fc3ce8ab4d07a0f02e626887b561ddad5"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-regression-02.log",
+      "bytes": 23193,
+      "sha256": "b4514cce342b3ca12765d6fd56c1fefd373f7b6d7bc02fc2dc4a618940f2fa80"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-regression-03.log",
+      "bytes": 23193,
+      "sha256": "48e54c1267033e976d16743b1ad0dc0fc3ce8ab4d07a0f02e626887b561ddad5"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-regression-04.log",
+      "bytes": 23193,
+      "sha256": "0324b54929dcb0752c2e89b8a5743404809aeaf2aa60069c4453ac50f26997d9"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-regression-05.log",
+      "bytes": 23193,
+      "sha256": "842a2acad20e081e2ec77665e7338c715e3077409d6848f8c4bdcac2bde2d365"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-regression-manifest.json",
+      "bytes": 5987,
+      "sha256": "52a61b7ab314fb313ba9c786fe6f3181ab8f24c96605ebb46ebf908f062493c0"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-target-01.log",
+      "bytes": 4540,
+      "sha256": "f718267db639eedbe03ce53883c6449a51f4acdb0384984c37a926d0d68a5223"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-target-02.log",
+      "bytes": 4540,
+      "sha256": "ca31f9daf5036f0151ed16e644b4b9fa18e794115eeb89e39c41ea57ebea0ebb"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-target-03.log",
+      "bytes": 4540,
+      "sha256": "f1738701610098ed0861b2a9e7cb952f1f13811f05d241f18211615253286bf3"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-target-04.log",
+      "bytes": 4540,
+      "sha256": "8c81d851e3808d7a9f9a53ea758455d6b41e831e0d53db61c9b764a1af490d91"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-target-05.log",
+      "bytes": 4540,
+      "sha256": "25a8733f709743f34605db53b5facdec3d093fc935c01e5fbdb9f076d68db8ed"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-target-06.log",
+      "bytes": 4540,
+      "sha256": "25a8733f709743f34605db53b5facdec3d093fc935c01e5fbdb9f076d68db8ed"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-target-07.log",
+      "bytes": 4540,
+      "sha256": "f1738701610098ed0861b2a9e7cb952f1f13811f05d241f18211615253286bf3"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-target-08.log",
+      "bytes": 4540,
+      "sha256": "6420e7a3c0798659ed64f903468dd123d0186f1cca51dab9da6c8ea57d31f597"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-target-09.log",
+      "bytes": 4540,
+      "sha256": "9fc85e06a914a60417640de527cc75bd8d498bb47bb0b5f895e9e0966c90c51b"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-target-10.log",
+      "bytes": 4540,
+      "sha256": "010352efbc767d434bb6d1c996092edea0e4579d7822315a26b6000d9ef6ca92"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/green-target-manifest.json",
+      "bytes": 11922,
+      "sha256": "259e69b8e5e30489bede969ff1444efd2f518eae02c1c794842476b390826203"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/implementation-record.md",
+      "bytes": 10288,
+      "sha256": "e52927d637d95a73fb21ddc6e89ffe7f0e6747600c16c8f2e989ff59b383511a"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/implementation-start.json",
+      "bytes": 318,
+      "sha256": "fc3899fcb6b0437db190739b7db9e68efab8344f215d2fd7d842b5d96401479d"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/mcp-green-recipe.gd.txt",
+      "bytes": 3773,
+      "sha256": "8aa68a811a9c4444e40b5cf42af87dc4a850f8373db449fc09467ac0398b3d30"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/mcp-green.json",
+      "bytes": 6187,
+      "sha256": "6e2b54af935a8ea682f266a34fcb57d47812c880f96d4d82c5e8e539c6d8f68b"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/mcp-preflight.json",
+      "bytes": 2136,
+      "sha256": "550d78da2b30f1a4a6e33a0a9fa2c0168d714ba5ee3f7ed515c8149d5313c81e"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/mcp-red.json",
+      "bytes": 5545,
+      "sha256": "e70bb2cd618235e4ef9ea74fb068d7ba18f704bd07bda86d704f3d6c809ef9d5"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/mcp-runtime-recipe.gd.txt",
+      "bytes": 2262,
+      "sha256": "0678e1318a99befeb843984da631b5dfb58e4aaf25df8b1b3ad5075bc2289eb3"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/preservation-result.json",
+      "bytes": 459,
+      "sha256": "6c064447937352ca1e04f89f61ab8066a1462991533949d6ee73c1f633e62b5b"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/red-regression-01.log",
+      "bytes": 23502,
+      "sha256": "b24189f8a2b08d04b53abb57f91671a3ee80d963dcf8b350bfdd39293ad7ef33"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/red-regression-02.log",
+      "bytes": 23502,
+      "sha256": "1ad0de7dd2f51b7613a752515f7224181a7d333c1a529a83fde8c38e8f966f83"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/red-regression-03.log",
+      "bytes": 23502,
+      "sha256": "c10eee12a48822189f2b31283672745220c2e87f0b1f9105d379cd4a238c310f"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/red-regression-manifest.json",
+      "bytes": 2611,
+      "sha256": "b8b117c5c08fafc632ac4c7a8bd80de9e2ef70a177bcc8e84877749c5004acc8"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/source-diff.patch.txt",
+      "bytes": 21807,
+      "sha256": "fe603a59f1876f7ff61c3b4483880611abf687cda4607f705d59aac5c1df6e2b"
+    },
+    {
+      "path": "_bmad-output/implementation-artifacts/spec-wall-stick-jump-fixture-synchronization.md",
+      "bytes": 9014,
+      "sha256": "e3f66293a2d1be59288ce192c7ed622850e209bb40ab4b88a281efad43d94a4c"
+    }
+  ],
+  "head_tracked_diff": "review-head-tracked-diff.patch.txt",
+  "task_source_diff": "source-diff.patch.txt",
+  "qualification": "Pre-existing dirty tracked/untracked work retained in baseline and HEAD diff; task reviews use snapshot-scoped source diff plus new spec/evidence. Generated logs/snapshots inventoried rather than treated as gameplay source."
+}

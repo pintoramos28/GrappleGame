@@ -1,0 +1,1917 @@
+{
+  "session_id": "testgame@17187ab35ae57813",
+  "run": {
+    "autosave": false,
+    "current_run_errors": [],
+    "game_status": {
+      "active": true,
+      "editor_log_cursor": 6,
+      "elapsed_msec": 1176,
+      "helper_expected": true,
+      "helper_live": true,
+      "ready": true,
+      "ready_wait_msec": 3000,
+      "run_started_msec": 610982321,
+      "run_token": 77,
+      "session_active": true,
+      "status": "live"
+    },
+    "helper_live": true,
+    "mode": "current",
+    "reason": "Game launched and the Godot AI game helper is live.",
+    "recent_errors": [],
+    "recent_errors_may_predate_run": false,
+    "recent_errors_scope": "none",
+    "recent_errors_truncated": false,
+    "retained_errors": [],
+    "scene": "",
+    "session_active": true,
+    "undoable": false,
+    "was_already_running": false
+  },
+  "result": {
+    "result": {
+      "barrier_loaded": true,
+      "fixture_nodes": [
+        {
+          "automatic_physics_enabled": true,
+          "class": "CharacterBody3D",
+          "path": "/root/@SubViewport@11/@Node3D@12/Player",
+          "private_world": true
+        },
+        {
+          "automatic_physics_enabled": true,
+          "class": "CharacterBody3D",
+          "path": "/root/@SubViewport@20/@Node3D@21/Player",
+          "private_world": true
+        },
+        {
+          "automatic_physics_enabled": true,
+          "class": "CharacterBody3D",
+          "path": "/root/@SubViewport@29/@Node3D@30/Player",
+          "private_world": true
+        },
+        {
+          "automatic_physics_enabled": true,
+          "class": "CharacterBody3D",
+          "path": "/root/@SubViewport@38/@Node3D@39/Player",
+          "private_world": true
+        },
+        {
+          "automatic_physics_enabled": true,
+          "class": "CharacterBody3D",
+          "path": "/root/@SubViewport@47/@Node3D@48/Player",
+          "private_world": true
+        },
+        {
+          "automatic_physics_enabled": true,
+          "class": "CharacterBody3D",
+          "path": "/root/@SubViewport@56/@Node3D@57/Player",
+          "private_world": true
+        },
+        {
+          "automatic_physics_enabled": true,
+          "class": "CharacterBody3D",
+          "path": "/root/@SubViewport@65/@Node3D@66/Player",
+          "private_world": true
+        },
+        {
+          "automatic_physics_enabled": true,
+          "class": "CharacterBody3D",
+          "path": "/root/@SubViewport@76/@Node3D@77/Player",
+          "private_world": true
+        }
+      ],
+      "helper_assertion_failures": 0,
+      "inactive": {
+        "active_after_release": false,
+        "checks": [
+          {
+            "explicit_failures": 1,
+            "grapple_binding_held_after": false,
+            "input_after": {
+              "binding_masks": [
+                0,
+                0,
+                0
+              ],
+              "held_flags": 0,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "input_before": {
+              "binding_masks": [
+                0,
+                0,
+                0
+              ],
+              "held_flags": 0,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "jump_binding_held_after": false,
+            "jump_pressed_after_step": false,
+            "jump_source_after_step": false,
+            "mode": 2,
+            "prepared": false,
+            "prepared_jump_step": -1,
+            "readiness": {
+              "active": false,
+              "binding_status": -1,
+              "body_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "cached_delta": 0.0166666666666667,
+              "commit_delta": 0.0166666666666667,
+              "commit_delta_aligned": true,
+              "committed_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "configured_rate": 60,
+              "contact_step": 22,
+              "current_step": 22,
+              "delta_aligned": true,
+              "engine_frame": 116,
+              "held_command": false,
+              "hold_carry_blocked": false,
+              "hold_requested": false,
+              "hold_source": false,
+              "in_physics": true,
+              "ready": false,
+              "requested_delta": 0.0166666666666667,
+              "result_step": 22,
+              "result_success": true,
+              "submitted_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "successful_hold": false,
+              "supported": false
+            },
+            "same_command": true,
+            "step_after": 22,
+            "step_before": 22,
+            "velocity_after": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocity_before": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "explicit_failures": 1,
+            "grapple_binding_held_after": false,
+            "input_after": {
+              "binding_masks": [
+                0,
+                0,
+                0
+              ],
+              "held_flags": 0,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "input_before": {
+              "binding_masks": [
+                0,
+                0,
+                0
+              ],
+              "held_flags": 0,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "jump_binding_held_after": false,
+            "jump_pressed_after_step": false,
+            "jump_source_after_step": false,
+            "mode": 9,
+            "prepared": false,
+            "prepared_jump_step": -1,
+            "readiness": {
+              "active": false,
+              "binding_status": -1,
+              "body_velocity": {
+                "x": 0.0333333350718021,
+                "y": -0.163333341479301,
+                "z": 0
+              },
+              "cached_delta": 0.0166666666666667,
+              "commit_delta": 0.0166666666666667,
+              "commit_delta_aligned": true,
+              "committed_velocity": {
+                "x": 0.0333333350718021,
+                "y": -0.163333341479301,
+                "z": 0
+              },
+              "configured_rate": 60,
+              "contact_step": 23,
+              "current_step": 23,
+              "delta_aligned": true,
+              "engine_frame": 116,
+              "held_command": false,
+              "hold_carry_blocked": false,
+              "hold_requested": false,
+              "hold_source": false,
+              "in_physics": true,
+              "ready": false,
+              "requested_delta": 0.0166666666666667,
+              "result_step": 23,
+              "result_success": true,
+              "submitted_velocity": {
+                "x": 0.0333333350718021,
+                "y": -0.163333341479301,
+                "z": 0
+              },
+              "successful_hold": false,
+              "supported": false
+            },
+            "same_command": true,
+            "step_after": 23,
+            "step_before": 23,
+            "velocity_after": {
+              "x": 0.0333333350718021,
+              "y": -0.163333341479301,
+              "z": 0
+            },
+            "velocity_before": {
+              "x": 0.0333333350718021,
+              "y": -0.163333341479301,
+              "z": 0
+            }
+          }
+        ],
+        "hold_after_release": false,
+        "ready_before_release": true
+      },
+      "inactive_frames": [
+        106,
+        116
+      ],
+      "loaded_line_count": 2083,
+      "loaded_source_sha256": "1ca5f4c37e7dd3f7da20b6b9b5175b507da30f49c737855be72db293a1934e04",
+      "observations": [
+        {
+          "aligned_holds": 18,
+          "commit_count_max": 1,
+          "duplicate_terminal_same": true,
+          "entry_step": 3,
+          "exit_velocity": {
+            "x": 0,
+            "y": 5.5,
+            "z": 8
+          },
+          "first_failed_hold": {},
+          "first_hold": {
+            "active": true,
+            "binding_status": 0,
+            "body_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "cached_delta": 0.0166666666666667,
+            "commit_delta": 0.0166666666666667,
+            "commit_delta_aligned": true,
+            "committed_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "configured_rate": 60,
+            "contact_step": 4,
+            "current_step": 4,
+            "delta_aligned": true,
+            "engine_frame": 32,
+            "held_command": true,
+            "hold_carry_blocked": false,
+            "hold_requested": true,
+            "hold_source": true,
+            "in_physics": true,
+            "ready": true,
+            "requested_delta": 0.0166666666666667,
+            "result_step": 4,
+            "result_success": true,
+            "submitted_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "successful_hold": true,
+            "supported": true
+          },
+          "frames": [
+            29,
+            32
+          ],
+          "grapple_held_at_exit": true,
+          "held_steps": 18,
+          "hold_checks": 18,
+          "hold_constraints": 18,
+          "inherited_delta": 0.00833333333333333,
+          "inherited_rate": 120,
+          "jump_count": 1,
+          "jump_readiness": {
+            "active": true,
+            "binding_status": 0,
+            "body_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "cached_delta": 0.0166666666666667,
+            "commit_delta": 0.0166666666666667,
+            "commit_delta_aligned": true,
+            "committed_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "configured_rate": 60,
+            "contact_step": 21,
+            "current_step": 21,
+            "delta_aligned": true,
+            "engine_frame": 32,
+            "held_command": true,
+            "hold_carry_blocked": false,
+            "hold_requested": true,
+            "hold_source": true,
+            "in_physics": true,
+            "ready": true,
+            "requested_delta": 0.0166666666666667,
+            "result_step": 21,
+            "result_success": true,
+            "submitted_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "successful_hold": true,
+            "supported": true
+          },
+          "jump_ready": true,
+          "launch_step": 22,
+          "maximum_hold_drift": 0,
+          "maximum_hold_speed": 0,
+          "maximum_latch_drift": 0,
+          "mode": 2,
+          "post_exit_holds": 0,
+          "post_exit_state": "player.locomotion.airborne",
+          "pre_spawn": {
+            "cached_delta": 0.0166666666666667,
+            "configured_rate": 60,
+            "delta_aligned": true,
+            "engine_frame": 30,
+            "in_physics": true,
+            "requested_delta": 0.0166666666666667
+          },
+          "prepared_step": 22,
+          "rate": 60,
+          "readiness_step": 21,
+          "reference": 0.5,
+          "still_sticking": false,
+          "tangent_reference": 3,
+          "terminal_count": 1,
+          "terminal_reason": 4,
+          "terminal_step": 22,
+          "valid_holds": 18,
+          "wall_cleared_before_terminal": true
+        },
+        {
+          "aligned_holds": 18,
+          "commit_count_max": 1,
+          "duplicate_terminal_same": true,
+          "entry_step": 3,
+          "exit_velocity": {
+            "x": 0,
+            "y": 5.5,
+            "z": 8
+          },
+          "first_failed_hold": {},
+          "first_hold": {
+            "active": true,
+            "binding_status": 0,
+            "body_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "cached_delta": 0.0166666666666667,
+            "commit_delta": 0.0166666666666667,
+            "commit_delta_aligned": true,
+            "committed_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "configured_rate": 60,
+            "contact_step": 4,
+            "current_step": 4,
+            "delta_aligned": true,
+            "engine_frame": 50,
+            "held_command": true,
+            "hold_carry_blocked": false,
+            "hold_requested": true,
+            "hold_source": true,
+            "in_physics": true,
+            "ready": true,
+            "requested_delta": 0.0166666666666667,
+            "result_step": 4,
+            "result_success": true,
+            "submitted_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "successful_hold": true,
+            "supported": true
+          },
+          "frames": [
+            40,
+            50
+          ],
+          "grapple_held_at_exit": false,
+          "held_steps": 18,
+          "hold_checks": 18,
+          "hold_constraints": 18,
+          "inherited_delta": 0.00833333333333333,
+          "inherited_rate": 120,
+          "jump_count": 1,
+          "jump_readiness": {
+            "active": true,
+            "binding_status": 0,
+            "body_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "cached_delta": 0.0166666666666667,
+            "commit_delta": 0.0166666666666667,
+            "commit_delta_aligned": true,
+            "committed_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "configured_rate": 60,
+            "contact_step": 21,
+            "current_step": 21,
+            "delta_aligned": true,
+            "engine_frame": 50,
+            "held_command": true,
+            "hold_carry_blocked": false,
+            "hold_requested": true,
+            "hold_source": true,
+            "in_physics": true,
+            "ready": true,
+            "requested_delta": 0.0166666666666667,
+            "result_step": 21,
+            "result_success": true,
+            "submitted_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "successful_hold": true,
+            "supported": true
+          },
+          "jump_ready": true,
+          "launch_step": 22,
+          "maximum_hold_drift": 0,
+          "maximum_hold_speed": 0,
+          "maximum_latch_drift": 0,
+          "mode": 9,
+          "post_exit_holds": 0,
+          "post_exit_state": "player.locomotion.airborne",
+          "pre_spawn": {
+            "cached_delta": 0.0166666666666667,
+            "configured_rate": 60,
+            "delta_aligned": true,
+            "engine_frame": 48,
+            "in_physics": true,
+            "requested_delta": 0.0166666666666667
+          },
+          "prepared_step": 22,
+          "rate": 60,
+          "readiness_step": 21,
+          "reference": 0.5,
+          "still_sticking": false,
+          "tangent_reference": 3,
+          "terminal_count": 1,
+          "terminal_reason": 4,
+          "terminal_step": 22,
+          "valid_holds": 18,
+          "wall_cleared_before_terminal": true
+        },
+        {
+          "aligned_holds": 18,
+          "commit_count_max": 1,
+          "duplicate_terminal_same": true,
+          "entry_step": 3,
+          "exit_velocity": {
+            "x": 0,
+            "y": 5.5,
+            "z": 8
+          },
+          "first_failed_hold": {},
+          "first_hold": {
+            "active": true,
+            "binding_status": 0,
+            "body_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00000357627845914
+            },
+            "cached_delta": 0.00833333333333333,
+            "commit_delta": 0.00833333333333333,
+            "commit_delta_aligned": true,
+            "committed_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00000357627845914
+            },
+            "configured_rate": 120,
+            "contact_step": 4,
+            "current_step": 4,
+            "delta_aligned": true,
+            "engine_frame": 66,
+            "held_command": true,
+            "hold_carry_blocked": false,
+            "hold_requested": true,
+            "hold_source": true,
+            "in_physics": true,
+            "ready": true,
+            "requested_delta": 0.00833333333333333,
+            "result_step": 4,
+            "result_success": true,
+            "submitted_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00000357627845914
+            },
+            "successful_hold": true,
+            "supported": true
+          },
+          "frames": [
+            56,
+            66
+          ],
+          "grapple_held_at_exit": true,
+          "held_steps": 18,
+          "hold_checks": 18,
+          "hold_constraints": 18,
+          "inherited_delta": 0.0166666666666667,
+          "inherited_rate": 60,
+          "jump_count": 1,
+          "jump_readiness": {
+            "active": true,
+            "binding_status": 0,
+            "body_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00000357627845914
+            },
+            "cached_delta": 0.00833333333333333,
+            "commit_delta": 0.00833333333333333,
+            "commit_delta_aligned": true,
+            "committed_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00000357627845914
+            },
+            "configured_rate": 120,
+            "contact_step": 21,
+            "current_step": 21,
+            "delta_aligned": true,
+            "engine_frame": 66,
+            "held_command": true,
+            "hold_carry_blocked": false,
+            "hold_requested": true,
+            "hold_source": true,
+            "in_physics": true,
+            "ready": true,
+            "requested_delta": 0.00833333333333333,
+            "result_step": 21,
+            "result_success": true,
+            "submitted_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00000357627845914
+            },
+            "successful_hold": true,
+            "supported": true
+          },
+          "jump_ready": true,
+          "launch_step": 22,
+          "maximum_hold_drift": 0,
+          "maximum_hold_speed": 0.00000357627845914,
+          "maximum_latch_drift": 2.980232238e-8,
+          "mode": 2,
+          "post_exit_holds": 0,
+          "post_exit_state": "player.locomotion.airborne",
+          "pre_spawn": {
+            "cached_delta": 0.00833333333333333,
+            "configured_rate": 120,
+            "delta_aligned": true,
+            "engine_frame": 64,
+            "in_physics": true,
+            "requested_delta": 0.00833333333333333
+          },
+          "prepared_step": 22,
+          "rate": 120,
+          "readiness_step": 21,
+          "reference": 0.5,
+          "still_sticking": false,
+          "tangent_reference": 3,
+          "terminal_count": 1,
+          "terminal_reason": 4,
+          "terminal_step": 22,
+          "valid_holds": 18,
+          "wall_cleared_before_terminal": true
+        },
+        {
+          "aligned_holds": 18,
+          "commit_count_max": 1,
+          "duplicate_terminal_same": true,
+          "entry_step": 3,
+          "exit_velocity": {
+            "x": 0,
+            "y": 5.5,
+            "z": 8
+          },
+          "first_failed_hold": {},
+          "first_hold": {
+            "active": true,
+            "binding_status": 0,
+            "body_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00000357627845914
+            },
+            "cached_delta": 0.00833333333333333,
+            "commit_delta": 0.00833333333333333,
+            "commit_delta_aligned": true,
+            "committed_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00000357627845914
+            },
+            "configured_rate": 120,
+            "contact_step": 4,
+            "current_step": 4,
+            "delta_aligned": true,
+            "engine_frame": 77,
+            "held_command": true,
+            "hold_carry_blocked": false,
+            "hold_requested": true,
+            "hold_source": true,
+            "in_physics": true,
+            "ready": true,
+            "requested_delta": 0.00833333333333333,
+            "result_step": 4,
+            "result_success": true,
+            "submitted_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00000357627845914
+            },
+            "successful_hold": true,
+            "supported": true
+          },
+          "frames": [
+            67,
+            77
+          ],
+          "grapple_held_at_exit": false,
+          "held_steps": 18,
+          "hold_checks": 18,
+          "hold_constraints": 18,
+          "inherited_delta": 0.0166666666666667,
+          "inherited_rate": 60,
+          "jump_count": 1,
+          "jump_readiness": {
+            "active": true,
+            "binding_status": 0,
+            "body_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00000357627845914
+            },
+            "cached_delta": 0.00833333333333333,
+            "commit_delta": 0.00833333333333333,
+            "commit_delta_aligned": true,
+            "committed_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00000357627845914
+            },
+            "configured_rate": 120,
+            "contact_step": 21,
+            "current_step": 21,
+            "delta_aligned": true,
+            "engine_frame": 77,
+            "held_command": true,
+            "hold_carry_blocked": false,
+            "hold_requested": true,
+            "hold_source": true,
+            "in_physics": true,
+            "ready": true,
+            "requested_delta": 0.00833333333333333,
+            "result_step": 21,
+            "result_success": true,
+            "submitted_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00000357627845914
+            },
+            "successful_hold": true,
+            "supported": true
+          },
+          "jump_ready": true,
+          "launch_step": 22,
+          "maximum_hold_drift": 0,
+          "maximum_hold_speed": 0.00000357627845914,
+          "maximum_latch_drift": 2.980232238e-8,
+          "mode": 9,
+          "post_exit_holds": 0,
+          "post_exit_state": "player.locomotion.airborne",
+          "pre_spawn": {
+            "cached_delta": 0.00833333333333333,
+            "configured_rate": 120,
+            "delta_aligned": true,
+            "engine_frame": 75,
+            "in_physics": true,
+            "requested_delta": 0.00833333333333333
+          },
+          "prepared_step": 22,
+          "rate": 120,
+          "readiness_step": 21,
+          "reference": 0.5,
+          "still_sticking": false,
+          "tangent_reference": 3,
+          "terminal_count": 1,
+          "terminal_reason": 4,
+          "terminal_step": 22,
+          "valid_holds": 18,
+          "wall_cleared_before_terminal": true
+        },
+        {
+          "aligned_holds": 18,
+          "commit_count_max": 1,
+          "duplicate_terminal_same": true,
+          "entry_step": 3,
+          "exit_velocity": {
+            "x": 0,
+            "y": 5.5,
+            "z": 8
+          },
+          "first_failed_hold": {},
+          "first_hold": {
+            "active": true,
+            "binding_status": 0,
+            "body_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "cached_delta": 0.0166666666666667,
+            "commit_delta": 0.0166666666666667,
+            "commit_delta_aligned": true,
+            "committed_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "configured_rate": 60,
+            "contact_step": 4,
+            "current_step": 4,
+            "delta_aligned": true,
+            "engine_frame": 90,
+            "held_command": true,
+            "hold_carry_blocked": false,
+            "hold_requested": true,
+            "hold_source": true,
+            "in_physics": true,
+            "ready": true,
+            "requested_delta": 0.0166666666666667,
+            "result_step": 4,
+            "result_success": true,
+            "submitted_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "successful_hold": true,
+            "supported": true
+          },
+          "frames": [
+            83,
+            90
+          ],
+          "grapple_held_at_exit": true,
+          "held_steps": 18,
+          "hold_checks": 18,
+          "hold_constraints": 18,
+          "inherited_delta": 0.00833333333333333,
+          "inherited_rate": 120,
+          "jump_count": 1,
+          "jump_readiness": {
+            "active": true,
+            "binding_status": 0,
+            "body_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "cached_delta": 0.0166666666666667,
+            "commit_delta": 0.0166666666666667,
+            "commit_delta_aligned": true,
+            "committed_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "configured_rate": 60,
+            "contact_step": 21,
+            "current_step": 21,
+            "delta_aligned": true,
+            "engine_frame": 90,
+            "held_command": true,
+            "hold_carry_blocked": false,
+            "hold_requested": true,
+            "hold_source": true,
+            "in_physics": true,
+            "ready": true,
+            "requested_delta": 0.0166666666666667,
+            "result_step": 21,
+            "result_success": true,
+            "submitted_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "successful_hold": true,
+            "supported": true
+          },
+          "jump_ready": true,
+          "launch_step": 22,
+          "maximum_hold_drift": 0,
+          "maximum_hold_speed": 0,
+          "maximum_latch_drift": 0,
+          "mode": 2,
+          "post_exit_holds": 0,
+          "post_exit_state": "player.locomotion.airborne",
+          "pre_spawn": {
+            "cached_delta": 0.0166666666666667,
+            "configured_rate": 60,
+            "delta_aligned": true,
+            "engine_frame": 88,
+            "in_physics": true,
+            "requested_delta": 0.0166666666666667
+          },
+          "prepared_step": 22,
+          "rate": 60,
+          "readiness_step": 21,
+          "reference": 0.5,
+          "still_sticking": false,
+          "tangent_reference": 3,
+          "terminal_count": 1,
+          "terminal_reason": 4,
+          "terminal_step": 22,
+          "valid_holds": 18,
+          "wall_cleared_before_terminal": true
+        },
+        {
+          "aligned_holds": 18,
+          "commit_count_max": 1,
+          "duplicate_terminal_same": true,
+          "entry_step": 3,
+          "exit_velocity": {
+            "x": 0,
+            "y": 5.5,
+            "z": 8
+          },
+          "first_failed_hold": {},
+          "first_hold": {
+            "active": true,
+            "binding_status": 0,
+            "body_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "cached_delta": 0.0166666666666667,
+            "commit_delta": 0.0166666666666667,
+            "commit_delta_aligned": true,
+            "committed_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "configured_rate": 60,
+            "contact_step": 4,
+            "current_step": 4,
+            "delta_aligned": true,
+            "engine_frame": 106,
+            "held_command": true,
+            "hold_carry_blocked": false,
+            "hold_requested": true,
+            "hold_source": true,
+            "in_physics": true,
+            "ready": true,
+            "requested_delta": 0.0166666666666667,
+            "result_step": 4,
+            "result_success": true,
+            "submitted_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "successful_hold": true,
+            "supported": true
+          },
+          "frames": [
+            96,
+            106
+          ],
+          "grapple_held_at_exit": false,
+          "held_steps": 18,
+          "hold_checks": 18,
+          "hold_constraints": 18,
+          "inherited_delta": 0.00833333333333333,
+          "inherited_rate": 120,
+          "jump_count": 1,
+          "jump_readiness": {
+            "active": true,
+            "binding_status": 0,
+            "body_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "cached_delta": 0.0166666666666667,
+            "commit_delta": 0.0166666666666667,
+            "commit_delta_aligned": true,
+            "committed_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "configured_rate": 60,
+            "contact_step": 21,
+            "current_step": 21,
+            "delta_aligned": true,
+            "engine_frame": 106,
+            "held_command": true,
+            "hold_carry_blocked": false,
+            "hold_requested": true,
+            "hold_source": true,
+            "in_physics": true,
+            "ready": true,
+            "requested_delta": 0.0166666666666667,
+            "result_step": 21,
+            "result_success": true,
+            "submitted_velocity": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "successful_hold": true,
+            "supported": true
+          },
+          "jump_ready": true,
+          "launch_step": 22,
+          "maximum_hold_drift": 0,
+          "maximum_hold_speed": 0,
+          "maximum_latch_drift": 0,
+          "mode": 9,
+          "post_exit_holds": 0,
+          "post_exit_state": "player.locomotion.airborne",
+          "pre_spawn": {
+            "cached_delta": 0.0166666666666667,
+            "configured_rate": 60,
+            "delta_aligned": true,
+            "engine_frame": 104,
+            "in_physics": true,
+            "requested_delta": 0.0166666666666667
+          },
+          "prepared_step": 22,
+          "rate": 60,
+          "readiness_step": 21,
+          "reference": 0.5,
+          "still_sticking": false,
+          "tangent_reference": 3,
+          "terminal_count": 1,
+          "terminal_reason": 4,
+          "terminal_step": 22,
+          "valid_holds": 18,
+          "wall_cleared_before_terminal": true
+        }
+      ],
+      "remaining_autofree": 0,
+      "restored_cached_delta": 0.0166666666666667,
+      "restored_rate": 60,
+      "supported": {
+        "active_after_destruction": true,
+        "checks": [
+          {
+            "case": "delta_mismatch",
+            "explicit_failures": 1,
+            "grapple_binding_held_after": true,
+            "input_after": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "input_before": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "jump_binding_held_after": false,
+            "mode": 2,
+            "prepared": false,
+            "prepared_jump_step": -1,
+            "readiness": {
+              "active": true,
+              "binding_status": 0,
+              "body_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "cached_delta": 0.0166666666666667,
+              "commit_delta": 0.0166666666666667,
+              "commit_delta_aligned": false,
+              "committed_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "configured_rate": 60,
+              "contact_step": 21,
+              "current_step": 21,
+              "delta_aligned": false,
+              "engine_frame": 124,
+              "held_command": true,
+              "hold_carry_blocked": false,
+              "hold_requested": true,
+              "hold_source": true,
+              "in_physics": true,
+              "ready": false,
+              "requested_delta": 0.00833333333333333,
+              "result_step": 21,
+              "result_success": true,
+              "submitted_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "successful_hold": false,
+              "supported": true
+            },
+            "same_command": true,
+            "step_after": 21,
+            "step_before": 21,
+            "velocity_after": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocity_before": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "case": "delta_mismatch",
+            "explicit_failures": 1,
+            "grapple_binding_held_after": true,
+            "input_after": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "input_before": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "jump_binding_held_after": false,
+            "mode": 9,
+            "prepared": false,
+            "prepared_jump_step": -1,
+            "readiness": {
+              "active": true,
+              "binding_status": 0,
+              "body_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "cached_delta": 0.0166666666666667,
+              "commit_delta": 0.0166666666666667,
+              "commit_delta_aligned": false,
+              "committed_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "configured_rate": 60,
+              "contact_step": 21,
+              "current_step": 21,
+              "delta_aligned": false,
+              "engine_frame": 124,
+              "held_command": true,
+              "hold_carry_blocked": false,
+              "hold_requested": true,
+              "hold_source": true,
+              "in_physics": true,
+              "ready": false,
+              "requested_delta": 0.00833333333333333,
+              "result_step": 21,
+              "result_success": true,
+              "submitted_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "successful_hold": false,
+              "supported": true
+            },
+            "same_command": true,
+            "step_after": 21,
+            "step_before": 21,
+            "velocity_after": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocity_before": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "case": "incomplete_holds",
+            "explicit_failures": 1,
+            "grapple_binding_held_after": true,
+            "input_after": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "input_before": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "jump_binding_held_after": false,
+            "mode": 2,
+            "prepared": false,
+            "prepared_jump_step": -1,
+            "readiness": {
+              "active": true,
+              "binding_status": 0,
+              "body_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "cached_delta": 0.0166666666666667,
+              "commit_delta": 0.0166666666666667,
+              "commit_delta_aligned": true,
+              "committed_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "configured_rate": 60,
+              "contact_step": 21,
+              "current_step": 21,
+              "delta_aligned": true,
+              "engine_frame": 124,
+              "held_command": true,
+              "hold_carry_blocked": false,
+              "hold_requested": true,
+              "hold_source": true,
+              "in_physics": true,
+              "ready": true,
+              "requested_delta": 0.0166666666666667,
+              "result_step": 21,
+              "result_success": true,
+              "submitted_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "successful_hold": true,
+              "supported": true
+            },
+            "same_command": true,
+            "step_after": 21,
+            "step_before": 21,
+            "velocity_after": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocity_before": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "case": "incomplete_holds",
+            "explicit_failures": 1,
+            "grapple_binding_held_after": true,
+            "input_after": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "input_before": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "jump_binding_held_after": false,
+            "mode": 9,
+            "prepared": false,
+            "prepared_jump_step": -1,
+            "readiness": {
+              "active": true,
+              "binding_status": 0,
+              "body_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "cached_delta": 0.0166666666666667,
+              "commit_delta": 0.0166666666666667,
+              "commit_delta_aligned": true,
+              "committed_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "configured_rate": 60,
+              "contact_step": 21,
+              "current_step": 21,
+              "delta_aligned": true,
+              "engine_frame": 124,
+              "held_command": true,
+              "hold_carry_blocked": false,
+              "hold_requested": true,
+              "hold_source": true,
+              "in_physics": true,
+              "ready": true,
+              "requested_delta": 0.0166666666666667,
+              "result_step": 21,
+              "result_success": true,
+              "submitted_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "successful_hold": true,
+              "supported": true
+            },
+            "same_command": true,
+            "step_after": 21,
+            "step_before": 21,
+            "velocity_after": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocity_before": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "case": "prior_loss",
+            "explicit_failures": 1,
+            "grapple_binding_held_after": true,
+            "input_after": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "input_before": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "jump_binding_held_after": false,
+            "mode": 2,
+            "prepared": false,
+            "prepared_jump_step": -1,
+            "readiness": {
+              "active": true,
+              "binding_status": 0,
+              "body_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "cached_delta": 0.0166666666666667,
+              "commit_delta": 0.0166666666666667,
+              "commit_delta_aligned": true,
+              "committed_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "configured_rate": 60,
+              "contact_step": 21,
+              "current_step": 21,
+              "delta_aligned": true,
+              "engine_frame": 124,
+              "held_command": true,
+              "hold_carry_blocked": false,
+              "hold_requested": true,
+              "hold_source": true,
+              "in_physics": true,
+              "ready": true,
+              "requested_delta": 0.0166666666666667,
+              "result_step": 21,
+              "result_success": true,
+              "submitted_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "successful_hold": true,
+              "supported": true
+            },
+            "same_command": true,
+            "step_after": 21,
+            "step_before": 21,
+            "velocity_after": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocity_before": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "case": "prior_loss",
+            "explicit_failures": 1,
+            "grapple_binding_held_after": true,
+            "input_after": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "input_before": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "jump_binding_held_after": false,
+            "mode": 9,
+            "prepared": false,
+            "prepared_jump_step": -1,
+            "readiness": {
+              "active": true,
+              "binding_status": 0,
+              "body_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "cached_delta": 0.0166666666666667,
+              "commit_delta": 0.0166666666666667,
+              "commit_delta_aligned": true,
+              "committed_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "configured_rate": 60,
+              "contact_step": 21,
+              "current_step": 21,
+              "delta_aligned": true,
+              "engine_frame": 124,
+              "held_command": true,
+              "hold_carry_blocked": false,
+              "hold_requested": true,
+              "hold_source": true,
+              "in_physics": true,
+              "ready": true,
+              "requested_delta": 0.0166666666666667,
+              "result_step": 21,
+              "result_success": true,
+              "submitted_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "successful_hold": true,
+              "supported": true
+            },
+            "same_command": true,
+            "step_after": 21,
+            "step_before": 21,
+            "velocity_after": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocity_before": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "case": "destroyed_support",
+            "explicit_failures": 1,
+            "grapple_binding_held_after": true,
+            "input_after": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "input_before": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "jump_binding_held_after": false,
+            "mode": 2,
+            "prepared": false,
+            "prepared_jump_step": -1,
+            "readiness": {
+              "active": true,
+              "binding_status": 0,
+              "body_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "cached_delta": 0.0166666666666667,
+              "commit_delta": 0.0166666666666667,
+              "commit_delta_aligned": true,
+              "committed_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "configured_rate": 60,
+              "contact_step": 21,
+              "current_step": 21,
+              "delta_aligned": true,
+              "engine_frame": 124,
+              "held_command": true,
+              "hold_carry_blocked": false,
+              "hold_requested": true,
+              "hold_source": true,
+              "in_physics": true,
+              "ready": false,
+              "requested_delta": 0.0166666666666667,
+              "result_step": 21,
+              "result_success": true,
+              "submitted_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "successful_hold": true,
+              "supported": false
+            },
+            "same_command": true,
+            "step_after": 21,
+            "step_before": 21,
+            "velocity_after": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocity_before": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "case": "destroyed_support",
+            "explicit_failures": 1,
+            "grapple_binding_held_after": true,
+            "input_after": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "input_before": {
+              "binding_masks": [
+                0,
+                1,
+                0
+              ],
+              "held_flags": 2,
+              "pending_pressed_flags": 0,
+              "pending_released_flags": 0
+            },
+            "jump_binding_held_after": false,
+            "mode": 9,
+            "prepared": false,
+            "prepared_jump_step": -1,
+            "readiness": {
+              "active": true,
+              "binding_status": 0,
+              "body_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "cached_delta": 0.0166666666666667,
+              "commit_delta": 0.0166666666666667,
+              "commit_delta_aligned": true,
+              "committed_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "configured_rate": 60,
+              "contact_step": 21,
+              "current_step": 21,
+              "delta_aligned": true,
+              "engine_frame": 124,
+              "held_command": true,
+              "hold_carry_blocked": false,
+              "hold_requested": true,
+              "hold_source": true,
+              "in_physics": true,
+              "ready": false,
+              "requested_delta": 0.0166666666666667,
+              "result_step": 21,
+              "result_success": true,
+              "submitted_velocity": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "successful_hold": true,
+              "supported": false
+            },
+            "same_command": true,
+            "step_after": 21,
+            "step_before": 21,
+            "velocity_after": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocity_before": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          }
+        ],
+        "destruction_step": 21,
+        "grapple_held_after_step": true,
+        "jump_pressed_after_step": false,
+        "jump_source_after_step": false,
+        "ready_before_cases": true,
+        "step_after_destruction_checks": 21
+      },
+      "supported_frames": [
+        116,
+        124
+      ],
+      "temporary_context_absent": true,
+      "tracked_objects_freed": 10
+    },
+    "source": "game"
+  },
+  "runtime_reads": [
+    {
+      "check": "runtime route Player",
+      "status": "fulfilled",
+      "value": {
+        "children_count": 16,
+        "found": true,
+        "groups": [
+          "player"
+        ],
+        "name": "Player",
+        "op": "get_node_info",
+        "path": "/TraversalValidationRoute/Player",
+        "source": "game",
+        "type": "CharacterBody3D"
+      }
+    },
+    {
+      "check": "game logs",
+      "status": "rejected",
+      "diagnostic": "Error: Error calling tool 'logs_read': Command get_logs timed out after 5.0s on session testgame@17187ab35ae57813"
+    },
+    {
+      "check": "incremental editor logs",
+      "status": "fulfilled",
+      "value": {
+        "source": "editor",
+        "lines": [],
+        "total_count": 6,
+        "returned_count": 0,
+        "offset": 0,
+        "limit": 100,
+        "has_more": false,
+        "run_id": "",
+        "is_running": false,
+        "dropped_count": 0,
+        "stale_run_id": false,
+        "cursor": 6,
+        "oldest_cursor": 0,
+        "next_cursor": 6,
+        "appended_total": 6,
+        "truncated": false
+      }
+    }
+  ],
+  "stop": {
+    "readiness_after": "ready",
+    "reason": "Play/stop is a runtime action",
+    "stopped": true,
+    "undoable": false,
+    "was_running": true
+  },
+  "state": {
+    "current_scene": "res://game/levels/content/traversal_validation/traversal_validation_route.tscn",
+    "game_capture_ready": false,
+    "game_status": {
+      "active": false,
+      "editor_log_cursor": 6,
+      "elapsed_msec": 0,
+      "helper_expected": true,
+      "helper_live": false,
+      "ready": false,
+      "ready_wait_msec": 20000,
+      "run_started_msec": 610982321,
+      "run_token": 77,
+      "session_active": false,
+      "status": "stopped"
+    },
+    "godot_version": "4.7.2-stable (official)",
+    "helper_live": false,
+    "is_playing": false,
+    "project_name": "Test Game",
+    "readiness": "ready",
+    "session_active": false
+  },
+  "editor_logs": {
+    "source": "editor",
+    "lines": [
+      {
+        "function": "GDScript::reload",
+        "level": "error",
+        "line": 49,
+        "path": "res://tests/player/locomotion/test_wall_stick_review_hardening.gd",
+        "source": "editor",
+        "text": "Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)"
+      },
+      {
+        "function": "load",
+        "level": "error",
+        "line": 0,
+        "path": "res://tests/player/locomotion/test_wall_stick_review_hardening.gd",
+        "source": "editor",
+        "text": "Failed to load script \"res://tests/player/locomotion/test_wall_stick_review_hardening.gd\" with error \"Parse error\"."
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "error",
+        "line": 48,
+        "path": "res://game/player/abilities/grapple/grapple_surface_binding.gd",
+        "source": "editor",
+        "text": "Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)"
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "error",
+        "line": 0,
+        "path": "res://game/player/abilities/grapple/grapple_attachment.gd",
+        "source": "editor",
+        "text": "Compile Error: Failed to compile depended scripts."
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "error",
+        "line": 48,
+        "path": "res://game/player/abilities/grapple/grapple_surface_binding.gd",
+        "source": "editor",
+        "text": "Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)"
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "error",
+        "line": 151,
+        "path": "res://tests/levels/test_traversal_validation_route.gd",
+        "source": "editor",
+        "text": "Parse Error: Cannot find member \"SHALLOW_CORNER\" in base \"ContactFrame.ContinuityAction\"."
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "warn",
+        "line": 110,
+        "path": "res://game/shared/contracts/grapple_targeting_result.gd",
+        "source": "editor",
+        "text": "GDScript::reload: The function parameter \"seed\" has the same name as a built-in function."
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "warn",
+        "line": 735,
+        "path": "res://game/player/abilities/grapple/grapple_target_resolver.gd",
+        "source": "editor",
+        "text": "GDScript::reload: The variable \"seed\" has the same name as a built-in function."
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "warn",
+        "line": 774,
+        "path": "res://game/player/abilities/grapple/grapple_target_resolver.gd",
+        "source": "editor",
+        "text": "GDScript::reload: The function parameter \"seed\" has the same name as a built-in function."
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "warn",
+        "line": 612,
+        "path": "res://game/player/locomotion/contact/player_contact_provider.gd",
+        "source": "editor",
+        "text": "GDScript::reload: Values of the ternary operator are not mutually compatible."
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "warn",
+        "line": 162,
+        "path": "res://game/player/motor/player_motor_submission.gd",
+        "source": "editor",
+        "text": "GDScript::reload: The local function parameter \"anchor_velocity\" is shadowing an already-declared variable at line 89 in the current class."
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "warn",
+        "line": 392,
+        "path": "res://game/player/motor/player_motor_submission.gd",
+        "source": "editor",
+        "text": "GDScript::reload: The local function parameter \"anchor_position\" is shadowing an already-declared variable at line 79 in the current class."
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "warn",
+        "line": 393,
+        "path": "res://game/player/motor/player_motor_submission.gd",
+        "source": "editor",
+        "text": "GDScript::reload: The local function parameter \"maximum_distance_m\" is shadowing an already-declared variable at line 83 in the current class."
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "warn",
+        "line": 394,
+        "path": "res://game/player/motor/player_motor_submission.gd",
+        "source": "editor",
+        "text": "GDScript::reload: The local function parameter \"anchor_velocity\" is shadowing an already-declared variable at line 89 in the current class."
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "warn",
+        "line": 395,
+        "path": "res://game/player/motor/player_motor_submission.gd",
+        "source": "editor",
+        "text": "GDScript::reload: The local function parameter \"carry_tolerance_mps\" is shadowing an already-declared variable at line 96 in the current class."
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "warn",
+        "line": 265,
+        "path": "res://game/player/abilities/grapple/grapple_controller.gd",
+        "source": "editor",
+        "text": "GDScript::reload: The variable \"current\" is declared below in the parent block."
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "warn",
+        "line": 1264,
+        "path": "res://scripts/player_controller.gd",
+        "source": "editor",
+        "text": "GDScript::reload: The variable \"seed\" has the same name as a built-in function."
+      },
+      {
+        "function": "GDScript::reload",
+        "level": "warn",
+        "line": 2071,
+        "path": "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+        "source": "editor",
+        "text": "GDScript::reload: The variable \"seed\" has the same name as a built-in function."
+      }
+    ],
+    "total_count": 18,
+    "returned_count": 18,
+    "offset": 0,
+    "limit": 100,
+    "has_more": false,
+    "run_id": "",
+    "is_running": false,
+    "dropped_count": 0,
+    "stale_run_id": false,
+    "next_cursor": 6,
+    "appended_total": 6
+  }
+}

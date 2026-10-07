@@ -57,7 +57,7 @@ func test_authored_definition_is_the_one_range_and_pull_authority() -> void:
 	assert_true(definition.get("definition_id") == &"player.grapple.default")
 	assert_true(_near(float(definition.get("max_grapple_length_m")), 35.0))
 	assert_true(_near(float(definition.get("acquisition_tolerance_m")), 0.005, 0.000001))
-	assert_true(_near(float(definition.get("pull_initial_acceleration_mps2")), 48.0))
+	assert_true(_near(float(definition.get("pull_initial_acceleration_mps2")), 60.0))
 	assert_true(_near(float(definition.get("pull_min_acceleration_mps2")), 8.0))
 	assert_true(_near(float(definition.get("pull_acceleration_jerk_mps3")), 53.333333, 0.00001))
 	assert_true(_near(float(definition.get("maximum_speed_mps")), 22.0))

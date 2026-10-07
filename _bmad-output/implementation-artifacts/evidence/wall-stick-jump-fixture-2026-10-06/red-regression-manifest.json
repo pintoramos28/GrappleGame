@@ -1,0 +1,65 @@
+{
+  "wrapper": "rtk proxy python",
+  "runs": [
+    {
+      "started_at": "2026-10-07T04:26:20.812905+00:00",
+      "ended_at": "2026-10-07T04:26:23.050831+00:00",
+      "executable": "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+      "version": "4.7.2.stable.official.ed1daf0bf",
+      "arguments": [
+        "--headless",
+        "--path",
+        "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+        "-s",
+        "res://addons/gut/gut_cmdln.gd",
+        "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+        "-gunit_test_name=test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks",
+        "-gexit"
+      ],
+      "log": "red-regression-01.log",
+      "exit_code": 0,
+      "source_sha256": "f9a222ec1dd8a99f9ed0886439d12f1311e91a728adefe70f4b839d15febe22b",
+      "summary": "\n"
+    },
+    {
+      "started_at": "2026-10-07T04:26:23.051177+00:00",
+      "ended_at": "2026-10-07T04:26:25.280163+00:00",
+      "executable": "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+      "version": "4.7.2.stable.official.ed1daf0bf",
+      "arguments": [
+        "--headless",
+        "--path",
+        "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+        "-s",
+        "res://addons/gut/gut_cmdln.gd",
+        "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+        "-gunit_test_name=test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks",
+        "-gexit"
+      ],
+      "log": "red-regression-02.log",
+      "exit_code": 0,
+      "source_sha256": "f9a222ec1dd8a99f9ed0886439d12f1311e91a728adefe70f4b839d15febe22b",
+      "summary": "\n"
+    },
+    {
+      "started_at": "2026-10-07T04:26:25.280444+00:00",
+      "ended_at": "2026-10-07T04:26:27.413657+00:00",
+      "executable": "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+      "version": "4.7.2.stable.official.ed1daf0bf",
+      "arguments": [
+        "--headless",
+        "--path",
+        "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+        "-s",
+        "res://addons/gut/gut_cmdln.gd",
+        "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+        "-gunit_test_name=test_wall_stick_jump_synchronizes_inherited_opposite_rate_callbacks",
+        "-gexit"
+      ],
+      "log": "red-regression-03.log",
+      "exit_code": 0,
+      "source_sha256": "f9a222ec1dd8a99f9ed0886439d12f1311e91a728adefe70f4b839d15febe22b",
+      "summary": "\n"
+    }
+  ]
+}

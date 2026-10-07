@@ -1,0 +1,12 @@
+{
+  "session_id":"testgame@17187ab35ae57813",
+  "operation":"project_run(mode=current,autosave=false); editor_state",
+  "qualification":"Launch succeeded; the following attempt to persist its response through filesystem_manage(write_text) was refused because the editor was playing. No write occurred. Current state was re-read separately; no clean launch-window logs are claimed for the unreturned response.",
+  "artifact_write_diagnostic":"EDITOR_NOT_READY / EDITOR_PLAYING; evidence persistence only",
+  "observed_state":{
+    "current_scene":"res://game/levels/content/traversal_validation/traversal_validation_route.tscn",
+    "run_token":75,"status":"live","helper_live":true,"game_capture_ready":true,
+    "session_active":true,"is_playing":true,"readiness":"playing","editor_log_cursor":6
+  },
+  "editor_incremental_logs":{"since_cursor":6,"next_cursor":6,"returned_count":0,"lines":[]}
+}

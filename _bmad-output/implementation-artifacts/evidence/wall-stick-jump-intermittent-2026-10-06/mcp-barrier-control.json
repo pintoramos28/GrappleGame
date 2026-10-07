@@ -1,0 +1,23 @@
+{
+  "session_id": "testgame@17187ab35ae57813",
+  "editor_run_token": 70,
+  "editor_run_started_msec": 603183059,
+  "launch": {"mode":"current","autosave":false,"helper_live":true,"current_run_errors":[]},
+  "condition": "Separate control: select Engine.physics_ticks_per_second, await SceneTree.process_frame then physics_frame outside the existing unmodified helper, invoke paired _wall_stick_report(2,rate) and (9,rate). Original fixtures/inputs/manual stepping retained. No source, assertion or geometry changes.",
+  "observations": [
+    {"case":"0:60:mode2","frames":[32,34],"held_steps":18,"jump_count":1,"reference":0.5,"exit_velocity":[0,5.5,8],"terminal_reason":4,"commit_count_max":1},
+    {"case":"0:60:mode9","frames":[34,36],"held_steps":18,"jump_count":1,"reference":0.5,"exit_velocity":[0,5.5,8],"terminal_reason":4,"commit_count_max":1},
+    {"case":"1:120:mode2","frames":[37,39],"held_steps":18,"jump_count":1,"reference":0.5,"exit_velocity":[0,5.5,8],"terminal_reason":4,"commit_count_max":1},
+    {"case":"1:120:mode9","frames":[39,41],"held_steps":18,"jump_count":1,"reference":0.5,"exit_velocity":[0,5.5,8],"terminal_reason":4,"commit_count_max":1},
+    {"case":"2:60:mode2","frames":[45,47],"held_steps":18,"jump_count":1,"reference":0.5,"exit_velocity":[0,5.5,8],"terminal_reason":4,"commit_count_max":1},
+    {"case":"2:60:mode9","frames":[47,49],"held_steps":18,"jump_count":1,"reference":0.5,"exit_velocity":[0,5.5,8],"terminal_reason":4,"commit_count_max":1},
+    {"case":"3:120:mode2","frames":[53,55],"held_steps":18,"jump_count":1,"reference":0.5,"exit_velocity":[0,5.5,8],"terminal_reason":4,"commit_count_max":1},
+    {"case":"3:120:mode9","frames":[55,57],"held_steps":18,"jump_count":1,"reference":0.5,"exit_velocity":[0,5.5,8],"terminal_reason":4,"commit_count_max":1},
+    {"case":"4:60:mode2","frames":[60,62],"held_steps":18,"jump_count":1,"reference":0.5,"exit_velocity":[0,5.5,8],"terminal_reason":4,"commit_count_max":1},
+    {"case":"4:60:mode9","frames":[62,64],"held_steps":18,"jump_count":1,"reference":0.5,"exit_velocity":[0,5.5,8],"terminal_reason":4,"commit_count_max":1}
+  ],
+  "restored_runtime_rate": 60,
+  "cleanup": "All temporary original helper viewports, suite and Gut objects freed; queued Awaiter cleanup allowed; project stopped through MCP.",
+  "game_logs": "logs_read timed out after 5 seconds; no game-log cleanliness claim.",
+  "qualification": "Observed same-fixture launches, not CLI GUT counts, native McpTestSuite counts or an applied correction."
+}

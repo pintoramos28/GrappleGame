@@ -1,0 +1,9 @@
+﻿ M _bmad-output/implementation-artifacts/deferred-work.md
+ M _bmad-output/implementation-artifacts/evidence/1-10/review-fixes-2026-10-02.md
+ M tests/player/grapple/test_grapple_targeting_contract.gd
+ M tests/player/grapple/test_grapple_targeting_integration.gd
+ M tests/player/motor/test_player_motor_integration.gd
+ M tests/test_grapple_boundary_mcp.gd
+ M tests/test_grapple_targeting_mcp.gd
+?? _bmad-output/implementation-artifacts/investigations/wall-stick-jump-intermittent-investigation.md
+?? _bmad-output/implementation-artifacts/spec-r12-regression-expectation-follow-up.md

@@ -1,0 +1,65 @@
+{
+  "wrapper": "rtk proxy python",
+  "runs": [
+    {
+      "started_at": "2026-10-07T04:56:48.931452+00:00",
+      "ended_at": "2026-10-07T04:56:51.068875+00:00",
+      "executable": "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+      "version": "4.7.2.stable.official.ed1daf0bf",
+      "arguments": [
+        "--headless",
+        "--path",
+        "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+        "-s",
+        "res://addons/gut/gut_cmdln.gd",
+        "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+        "-gunit_test_name=wall_stick_jump_readiness",
+        "-gexit"
+      ],
+      "log": "follow-up-green-guards-01.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "summary": "= Run Summary\n==============================================\n\nTotals\n------\nScripts               1\nTests                 2\nPassing Tests         2\nAsserts             151\nTime              0.601s\n\n\nRan Tests matching \"wall_stick_jump_readiness\"\n---- All tests passed! ----\n\n"
+    },
+    {
+      "started_at": "2026-10-07T04:56:51.069174+00:00",
+      "ended_at": "2026-10-07T04:56:53.107607+00:00",
+      "executable": "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+      "version": "4.7.2.stable.official.ed1daf0bf",
+      "arguments": [
+        "--headless",
+        "--path",
+        "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+        "-s",
+        "res://addons/gut/gut_cmdln.gd",
+        "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+        "-gunit_test_name=wall_stick_jump_readiness",
+        "-gexit"
+      ],
+      "log": "follow-up-green-guards-02.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "summary": "= Run Summary\n==============================================\n\nTotals\n------\nScripts               1\nTests                 2\nPassing Tests         2\nAsserts             151\nTime              0.594s\n\n\nRan Tests matching \"wall_stick_jump_readiness\"\n---- All tests passed! ----\n\n"
+    },
+    {
+      "started_at": "2026-10-07T04:56:53.107913+00:00",
+      "ended_at": "2026-10-07T04:56:55.145772+00:00",
+      "executable": "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+      "version": "4.7.2.stable.official.ed1daf0bf",
+      "arguments": [
+        "--headless",
+        "--path",
+        "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+        "-s",
+        "res://addons/gut/gut_cmdln.gd",
+        "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+        "-gunit_test_name=wall_stick_jump_readiness",
+        "-gexit"
+      ],
+      "log": "follow-up-green-guards-03.log",
+      "exit_code": 0,
+      "source_sha256": "dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+      "summary": "= Run Summary\n==============================================\n\nTotals\n------\nScripts               1\nTests                 2\nPassing Tests         2\nAsserts             151\nTime              0.601s\n\n\nRan Tests matching \"wall_stick_jump_readiness\"\n---- All tests passed! ----\n\n"
+    }
+  ]
+}

@@ -1,0 +1,677 @@
+﻿[
+    {
+        "name":  "fixed-30-01",
+        "started":  "2026-10-06T22:40:34.5243631-04:00",
+        "ended":  "2026-10-06T22:40:36.0095224-04:00",
+        "seconds":  1.4851592999999998,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-30-01.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.038s"
+                    ]
+    },
+    {
+        "name":  "fixed-30-02",
+        "started":  "2026-10-06T22:40:36.0596133-04:00",
+        "ended":  "2026-10-06T22:40:37.6290534-04:00",
+        "seconds":  1.5694401,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-30-02.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.038s"
+                    ]
+    },
+    {
+        "name":  "fixed-30-03",
+        "started":  "2026-10-06T22:40:37.6340518-04:00",
+        "ended":  "2026-10-06T22:40:39.1124124-04:00",
+        "seconds":  1.4783606,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-30-03.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.037s"
+                    ]
+    },
+    {
+        "name":  "fixed-30-04",
+        "started":  "2026-10-06T22:40:39.1164131-04:00",
+        "ended":  "2026-10-06T22:40:40.5925074-04:00",
+        "seconds":  1.4760943,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-30-04.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.038s"
+                    ]
+    },
+    {
+        "name":  "fixed-30-05",
+        "started":  "2026-10-06T22:40:40.5980129-04:00",
+        "ended":  "2026-10-06T22:40:42.0777725-04:00",
+        "seconds":  1.4797596,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "30"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-30-05.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.039s"
+                    ]
+    },
+    {
+        "name":  "fixed-60-01",
+        "started":  "2026-10-06T22:40:42.0827746-04:00",
+        "ended":  "2026-10-06T22:40:43.5726305-04:00",
+        "seconds":  1.4898559,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "60"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-60-01.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.038s"
+                    ]
+    },
+    {
+        "name":  "fixed-60-02",
+        "started":  "2026-10-06T22:40:43.5771352-04:00",
+        "ended":  "2026-10-06T22:40:45.0528411-04:00",
+        "seconds":  1.4757059,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "60"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-60-02.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.037s"
+                    ]
+    },
+    {
+        "name":  "fixed-60-03",
+        "started":  "2026-10-06T22:40:45.0583507-04:00",
+        "ended":  "2026-10-06T22:40:46.5375886-04:00",
+        "seconds":  1.4792379,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "60"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-60-03.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.039s"
+                    ]
+    },
+    {
+        "name":  "fixed-60-04",
+        "started":  "2026-10-06T22:40:46.5425975-04:00",
+        "ended":  "2026-10-06T22:40:48.0207582-04:00",
+        "seconds":  1.4781606999999999,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "60"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-60-04.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.037s"
+                    ]
+    },
+    {
+        "name":  "fixed-60-05",
+        "started":  "2026-10-06T22:40:48.0252629-04:00",
+        "ended":  "2026-10-06T22:40:49.5033486-04:00",
+        "seconds":  1.4780856999999998,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "60"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-60-05.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.038s"
+                    ]
+    },
+    {
+        "name":  "fixed-120-01",
+        "started":  "2026-10-06T22:40:49.5088742-04:00",
+        "ended":  "2026-10-06T22:40:50.9903820-04:00",
+        "seconds":  1.4815078,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "120"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-120-01.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.038s"
+                    ]
+    },
+    {
+        "name":  "fixed-120-02",
+        "started":  "2026-10-06T22:40:50.9973987-04:00",
+        "ended":  "2026-10-06T22:40:52.4761439-04:00",
+        "seconds":  1.4787451999999999,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "120"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-120-02.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.039s"
+                    ]
+    },
+    {
+        "name":  "fixed-120-03",
+        "started":  "2026-10-06T22:40:52.4813350-04:00",
+        "ended":  "2026-10-06T22:40:53.9615812-04:00",
+        "seconds":  1.4802461999999998,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "120"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-120-03.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.038s"
+                    ]
+    },
+    {
+        "name":  "fixed-120-04",
+        "started":  "2026-10-06T22:40:53.9670839-04:00",
+        "ended":  "2026-10-06T22:40:55.4442856-04:00",
+        "seconds":  1.4772017,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "120"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-120-04.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.039s"
+                    ]
+    },
+    {
+        "name":  "fixed-120-05",
+        "started":  "2026-10-06T22:40:55.4483098-04:00",
+        "ended":  "2026-10-06T22:40:56.9287935-04:00",
+        "seconds":  1.4804837,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "120"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-120-05.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.038s"
+                    ]
+    },
+    {
+        "name":  "fixed-240-01",
+        "started":  "2026-10-06T22:40:56.9413142-04:00",
+        "ended":  "2026-10-06T22:40:58.4202775-04:00",
+        "seconds":  1.4789633,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "240"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-240-01.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.039s"
+                    ]
+    },
+    {
+        "name":  "fixed-240-02",
+        "started":  "2026-10-06T22:40:58.4252773-04:00",
+        "ended":  "2026-10-06T22:40:59.9056595-04:00",
+        "seconds":  1.4803822,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "240"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-240-02.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.039s"
+                    ]
+    },
+    {
+        "name":  "fixed-240-03",
+        "started":  "2026-10-06T22:40:59.9106800-04:00",
+        "ended":  "2026-10-06T22:41:01.3918881-04:00",
+        "seconds":  1.4812081,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "240"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-240-03.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.04s"
+                    ]
+    },
+    {
+        "name":  "fixed-240-04",
+        "started":  "2026-10-06T22:41:01.3978876-04:00",
+        "ended":  "2026-10-06T22:41:02.8772996-04:00",
+        "seconds":  1.479412,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "240"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-240-04.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.039s"
+                    ]
+    },
+    {
+        "name":  "fixed-240-05",
+        "started":  "2026-10-06T22:41:02.8812989-04:00",
+        "ended":  "2026-10-06T22:41:04.3599485-04:00",
+        "seconds":  1.4786496,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--fixed-fps",
+                          "240"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\fixed-240-05.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.039s"
+                    ]
+    },
+    {
+        "name":  "capped-30-01",
+        "started":  "2026-10-06T22:41:04.3649482-04:00",
+        "ended":  "2026-10-06T22:41:06.2189855-04:00",
+        "seconds":  1.8540372999999999,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--max-fps",
+                          "30"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\capped-30-01.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.373s"
+                    ]
+    },
+    {
+        "name":  "capped-30-02",
+        "started":  "2026-10-06T22:41:06.2245968-04:00",
+        "ended":  "2026-10-06T22:41:08.1689165-04:00",
+        "seconds":  1.9443196999999999,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--max-fps",
+                          "30"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\capped-30-02.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.407s"
+                    ]
+    },
+    {
+        "name":  "capped-30-03",
+        "started":  "2026-10-06T22:41:08.1744225-04:00",
+        "ended":  "2026-10-06T22:41:10.1138758-04:00",
+        "seconds":  1.9394532999999998,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--max-fps",
+                          "30"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\capped-30-03.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.407s"
+                    ]
+    },
+    {
+        "name":  "capped-30-04",
+        "started":  "2026-10-06T22:41:10.1198758-04:00",
+        "ended":  "2026-10-06T22:41:11.9701712-04:00",
+        "seconds":  1.8502953999999998,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--max-fps",
+                          "30"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\capped-30-04.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.373s"
+                    ]
+    },
+    {
+        "name":  "capped-30-05",
+        "started":  "2026-10-06T22:41:11.9752085-04:00",
+        "ended":  "2026-10-06T22:41:13.9174171-04:00",
+        "seconds":  1.9422085999999998,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit",
+                          "--max-fps",
+                          "30"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\capped-30-05.log",
+        "summary":  [
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.407s"
+                    ]
+    }
+]

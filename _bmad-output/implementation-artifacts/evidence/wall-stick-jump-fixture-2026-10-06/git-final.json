@@ -1,0 +1,7 @@
+{
+  "diff_check_exit": 0,
+  "diff_check_stdout": "\n",
+  "diff_check_stderr": "",
+  "status": " M _bmad-output/implementation-artifacts/deferred-work.md\n M _bmad-output/implementation-artifacts/evidence/1-10/review-fixes-2026-10-02.md\n M tests/player/grapple/test_grapple_targeting_contract.gd\n M tests/player/grapple/test_grapple_targeting_integration.gd\n M tests/player/locomotion/test_wall_traversal_integration.gd\n M tests/player/motor/test_player_motor_integration.gd\n M tests/test_grapple_boundary_mcp.gd\n M tests/test_grapple_targeting_mcp.gd\n?? _bmad-output/implementation-artifacts/evidence/wall-stick-jump-fixture-2026-10-06/\n?? _bmad-output/implementation-artifacts/evidence/wall-stick-jump-intermittent-2026-10-06/\n?? _bmad-output/implementation-artifacts/investigations/wall-stick-jump-intermittent-investigation.md\n?? _bmad-output/implementation-artifacts/spec-r12-regression-expectation-follow-up.md\n?? _bmad-output/implementation-artifacts/spec-wall-stick-jump-fixture-synchronization.md\n",
+  "head": "5d128486cf695f92dd4a370a6ee4ca6fb594b10f"
+}

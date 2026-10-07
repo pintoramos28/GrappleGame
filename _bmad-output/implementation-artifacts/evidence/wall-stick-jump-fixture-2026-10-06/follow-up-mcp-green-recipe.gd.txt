@@ -1,0 +1,75 @@
+# Evidence-only follow-up game_eval recipe; never installed as a script.
+var tree := get_tree()
+var gut = load("res://addons/gut/gut.gd").new()
+gut.name = "WallStickFollowUpEvidenceGut"
+tree.root.add_child(gut)
+var suite = load("res://tests/player/locomotion/test_wall_traversal_integration.gd").new()
+suite.name = "WallStickFollowUpEvidenceSuite"
+suite.gut = gut
+tree.root.add_child(suite)
+var loaded_source: String = suite.get_script().source_code
+var observations := []
+for rate in [60, 120, 60]:
+	for mode in [2, 9]:
+		var inherited_rate := 120 if rate == 60 else 60
+		Engine.physics_ticks_per_second = inherited_rate
+		await tree.process_frame
+		await tree.physics_frame
+		var inherited_delta: float = suite.get_physics_process_delta_time()
+		var start_frame := Engine.get_physics_frames()
+		Engine.physics_ticks_per_second = rate
+		var report = await suite._wall_stick_report(mode, rate)
+		observations.append({"rate":rate, "mode":mode, "inherited_rate":inherited_rate,
+			"inherited_delta":inherited_delta, "frames":[start_frame,Engine.get_physics_frames()],
+			"pre_spawn":report.pre_spawn, "entry_step":report.entry_step,
+			"first_hold":report.first_hold, "first_failed_hold":report.first_failed_hold,
+			"hold_checks":report.hold_checks_count, "valid_holds":report.valid_hold_count,
+			"aligned_holds":report.aligned_hold_count, "held_steps":report.held_steps,
+			"hold_constraints":report.hold_constraint_applied_count,
+			"maximum_hold_speed":report.maximum_hold_speed,
+			"maximum_hold_drift":report.maximum_hold_position_drift,
+			"maximum_latch_drift":report.maximum_latch_position_drift,
+			"jump_ready":report.jump_ready, "jump_readiness":report.jump_readiness,
+			"readiness_step":report.readiness_step, "prepared_step":report.prepared_jump_step,
+			"launch_step":report.launch_step, "terminal_step":report.terminal_step,
+			"jump_count":report.jump_count, "reference":report.jump_reference_outward_speed,
+			"tangent_reference":report.jump_reference_tangent_speed, "exit_velocity":report.exit_velocity,
+			"terminal_reason":report.terminal_reason, "terminal_count":report.terminal_count,
+			"commit_count_max":report.commit_count_max, "post_exit_state":report.post_exit_state,
+			"still_sticking":report.still_wall_sticking, "post_exit_holds":report.hold_request_after_exit_count,
+			"wall_cleared_before_terminal":report.wall_cleared_before_terminal_signal,
+			"duplicate_terminal_same":report.duplicate_terminal_same,
+			"grapple_held_at_exit":report.grapple_held_at_exit})
+var inactive_start := Engine.get_physics_frames()
+var inactive = await suite._wall_stick_jump_readiness_negative_report()
+var inactive_frames := [inactive_start,Engine.get_physics_frames()]
+var supported_start := Engine.get_physics_frames()
+var supported = await suite._wall_stick_jump_supported_negative_report()
+var supported_frames := [supported_start,Engine.get_physics_frames()]
+var fixture_nodes := []
+var tracked_nodes: Array = gut.get_autofree()._to_free
+for tracked in tracked_nodes:
+	if tracked is SubViewport:
+		for world in tracked.get_children():
+			for child in world.get_children():
+				if child is CharacterBody3D:
+					fixture_nodes.append({"path":str(child.get_path()), "class":child.get_class(),
+						"automatic_physics_enabled":child.is_physics_processing(),
+						"private_world":tracked.world_3d != tree.current_scene.call("get_world_3d")})
+var failures: int = suite.get_fail_count()
+var fixture_count: int = gut.get_autofree().get_free_count()
+gut.get_autofree().free_all()
+var remaining_autofree: int = gut.get_autofree().get_free_count()
+suite.free()
+gut.free()
+Engine.physics_ticks_per_second = 60
+await tree.process_frame
+await tree.physics_frame
+return {"barrier_loaded":loaded_source.contains("Engine.physics_ticks_per_second = tick_rate\n\tawait get_tree().process_frame\n\tawait get_tree().physics_frame\n\tvar delta := 1.0 / float(tick_rate)"),
+	"loaded_line_count":loaded_source.split("\n").size(), "loaded_source_sha256":loaded_source.sha256_text(),
+	"observations":observations, "inactive":inactive, "inactive_frames":inactive_frames,
+	"supported":supported, "supported_frames":supported_frames, "fixture_nodes":fixture_nodes,
+	"helper_assertion_failures":failures, "tracked_objects_freed":fixture_count,
+	"remaining_autofree":remaining_autofree,
+	"temporary_context_absent":not tree.root.has_node("WallStickFollowUpEvidenceSuite") and not tree.root.has_node("WallStickFollowUpEvidenceGut"),
+	"restored_rate":Engine.physics_ticks_per_second, "restored_cached_delta":get_physics_process_delta_time()}

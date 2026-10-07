@@ -1,0 +1,43 @@
+# Evidence-only game_eval recipe; never loaded as a project script or runner.
+# Both phases use this schedule. The red helper lacks its internal barrier;
+# the corrected helper includes it before constructing its original World3D.
+var tree := get_tree()
+var gut = load("res://addons/gut/gut.gd").new()
+gut.name = "WallStickFixtureEvidenceGut"
+tree.root.add_child(gut)
+var suite = load("res://tests/player/locomotion/test_wall_traversal_integration.gd").new()
+suite.name = "WallStickFixtureEvidenceSuite"
+suite.gut = gut
+tree.root.add_child(suite)
+var observations := []
+for rate in [60, 120, 60]:
+	for mode in [2, 9]:
+		var inherited_rate := 120 if rate == 60 else 60
+		Engine.physics_ticks_per_second = inherited_rate
+		await tree.process_frame
+		await tree.physics_frame
+		var inherited_delta: float = suite.get_physics_process_delta_time()
+		var start_frame := Engine.get_physics_frames()
+		Engine.physics_ticks_per_second = rate
+		var report = await suite._wall_stick_report(mode, rate)
+		observations.append({"rate": rate, "mode": mode,
+			"inherited_rate": inherited_rate, "inherited_delta": inherited_delta,
+			"frames": [start_frame, Engine.get_physics_frames()],
+			"first_hold": report.first_hold, "first_failed_hold": report.first_failed_hold,
+			"hold_checks": report.hold_checks_count, "valid_holds": report.valid_hold_count,
+			"aligned_holds": report.aligned_hold_count, "held_steps": report.held_steps,
+			"jump_ready": report.jump_ready, "readiness_step": report.readiness_step,
+			"prepared_step": report.prepared_jump_step, "launch_step": report.launch_step,
+			"terminal_step": report.terminal_step, "jump_count": report.jump_count,
+			"reference": report.jump_reference_outward_speed, "exit_velocity": report.exit_velocity,
+			"terminal_reason": report.terminal_reason, "terminal_count": report.terminal_count,
+			"commit_count_max": report.commit_count_max})
+var failures: int = suite.get_fail_count()
+var fixture_count: int = gut.get_autofree().get_free_count()
+gut.get_autofree().free_all()
+suite.free()
+gut.free()
+Engine.physics_ticks_per_second = 60
+await tree.process_frame
+return {"observations": observations, "helper_assertion_failures": failures,
+	"fixtures_freed": fixture_count, "restored_rate": Engine.physics_ticks_per_second}

@@ -1,0 +1,362 @@
+﻿[
+    {
+        "name":  "isolated-01",
+        "started":  "2026-10-06T22:35:33.6584821-04:00",
+        "ended":  "2026-10-06T22:35:35.6196474-04:00",
+        "seconds":  1.9611653,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\isolated-01.log",
+        "summary":  [
+                        "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                        "* test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                        "1/1 passed.",
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.383s",
+                        "Ran Tests matching \"test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion\"",
+                        "---- All tests passed! ----"
+                    ]
+    },
+    {
+        "name":  "isolated-02",
+        "started":  "2026-10-06T22:35:35.6767518-04:00",
+        "ended":  "2026-10-06T22:35:37.5325979-04:00",
+        "seconds":  1.8558461,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\isolated-02.log",
+        "summary":  [
+                        "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                        "* test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                        "1/1 passed.",
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.382s",
+                        "Ran Tests matching \"test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion\"",
+                        "---- All tests passed! ----"
+                    ]
+    },
+    {
+        "name":  "isolated-03",
+        "started":  "2026-10-06T22:35:37.5371016-04:00",
+        "ended":  "2026-10-06T22:35:39.3858344-04:00",
+        "seconds":  1.8487327999999998,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\isolated-03.log",
+        "summary":  [
+                        "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                        "* test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                        "1/1 passed.",
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.369s",
+                        "Ran Tests matching \"test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion\"",
+                        "---- All tests passed! ----"
+                    ]
+    },
+    {
+        "name":  "isolated-04",
+        "started":  "2026-10-06T22:35:39.3908346-04:00",
+        "ended":  "2026-10-06T22:35:41.2373507-04:00",
+        "seconds":  1.8465160999999999,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\isolated-04.log",
+        "summary":  [
+                        "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                        "* test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                        "1/1 passed.",
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.382s",
+                        "Ran Tests matching \"test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion\"",
+                        "---- All tests passed! ----"
+                    ]
+    },
+    {
+        "name":  "isolated-05",
+        "started":  "2026-10-06T22:35:41.2418594-04:00",
+        "ended":  "2026-10-06T22:35:43.0951532-04:00",
+        "seconds":  1.8532937999999999,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\isolated-05.log",
+        "summary":  [
+                        "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                        "* test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                        "1/1 passed.",
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.365s",
+                        "Ran Tests matching \"test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion\"",
+                        "---- All tests passed! ----"
+                    ]
+    },
+    {
+        "name":  "isolated-06",
+        "started":  "2026-10-06T22:35:43.1006648-04:00",
+        "ended":  "2026-10-06T22:35:45.1425704-04:00",
+        "seconds":  2.0419055999999998,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\isolated-06.log",
+        "summary":  [
+                        "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                        "* test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                        "1/1 passed.",
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.376s",
+                        "Ran Tests matching \"test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion\"",
+                        "---- All tests passed! ----"
+                    ]
+    },
+    {
+        "name":  "isolated-07",
+        "started":  "2026-10-06T22:35:45.1575694-04:00",
+        "ended":  "2026-10-06T22:35:47.0072474-04:00",
+        "seconds":  1.849678,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\isolated-07.log",
+        "summary":  [
+                        "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                        "* test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                        "1/1 passed.",
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.382s",
+                        "Ran Tests matching \"test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion\"",
+                        "---- All tests passed! ----"
+                    ]
+    },
+    {
+        "name":  "isolated-08",
+        "started":  "2026-10-06T22:35:47.0122577-04:00",
+        "ended":  "2026-10-06T22:35:48.9538433-04:00",
+        "seconds":  1.9415856,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\isolated-08.log",
+        "summary":  [
+                        "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                        "* test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                        "1/1 passed.",
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.375s",
+                        "Ran Tests matching \"test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion\"",
+                        "---- All tests passed! ----"
+                    ]
+    },
+    {
+        "name":  "isolated-09",
+        "started":  "2026-10-06T22:35:48.9593511-04:00",
+        "ended":  "2026-10-06T22:35:50.8069010-04:00",
+        "seconds":  1.8475499,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\isolated-09.log",
+        "summary":  [
+                        "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                        "* test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                        "1/1 passed.",
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.375s",
+                        "Ran Tests matching \"test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion\"",
+                        "---- All tests passed! ----"
+                    ]
+    },
+    {
+        "name":  "isolated-10",
+        "started":  "2026-10-06T22:35:50.8118997-04:00",
+        "ended":  "2026-10-06T22:35:52.6638285-04:00",
+        "seconds":  1.8519287999999998,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\isolated-10.log",
+        "summary":  [
+                        "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                        "* test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                        "1/1 passed.",
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.377s",
+                        "Ran Tests matching \"test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion\"",
+                        "---- All tests passed! ----"
+                    ]
+    },
+    {
+        "name":  "isolated-11",
+        "started":  "2026-10-06T22:35:52.6693367-04:00",
+        "ended":  "2026-10-06T22:35:54.4261436-04:00",
+        "seconds":  1.7568069,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\isolated-11.log",
+        "summary":  [
+                        "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                        "* test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                        "1/1 passed.",
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.368s",
+                        "Ran Tests matching \"test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion\"",
+                        "---- All tests passed! ----"
+                    ]
+    },
+    {
+        "name":  "isolated-12",
+        "started":  "2026-10-06T22:35:54.4311478-04:00",
+        "ended":  "2026-10-06T22:35:56.2761162-04:00",
+        "seconds":  1.8449684,
+        "exit":  0,
+        "exe":  "C:\\Users\\pinto\\Documents\\Godot Projects\\Godot 4.7.2\\Godot_v4.7.2-stable_win64_console.exe",
+        "arguments":  [
+                          "--headless",
+                          "--path",
+                          "C:\\Users\\pinto\\Documents\\Godot Projects\\testgame",
+                          "-s",
+                          "res://addons/gut/gut_cmdln.gd",
+                          "-gtest=res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                          "-gunit_test_name=test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                          "-gexit"
+                      ],
+        "log":  "C:\\Users\\pinto\\AppData\\Local\\Temp\\opencode\\wall-stick-jump-investigation-20261006-2236\\isolated-12.log",
+        "summary":  [
+                        "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                        "* test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion",
+                        "1/1 passed.",
+                        "Tests                 1",
+                        "Passing Tests         1",
+                        "Asserts              34",
+                        "Time              0.382s",
+                        "Ran Tests matching \"test_wall_stick_jump_uses_only_authored_up_and_horizontal_away_motion\"",
+                        "---- All tests passed! ----"
+                    ]
+    }
+]

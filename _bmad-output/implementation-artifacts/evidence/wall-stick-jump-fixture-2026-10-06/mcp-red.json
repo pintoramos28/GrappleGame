@@ -1,0 +1,37 @@
+{
+  "phase": "guard/evidence/regression added; synchronization barrier absent",
+  "session_id": "testgame@17187ab35ae57813",
+  "source_sha256": "f9a222ec1dd8a99f9ed0886439d12f1311e91a728adefe70f4b839d15febe22b",
+  "run_token": 72,
+  "run_started_msec": 608781385,
+  "launch": {"mode":"current","autosave":false,"helper_live":true,"current_run_errors":[]},
+  "qualification": "Live MCP same-helper runtime observations, not CLI GUT or native MCP test-run counts.",
+  "recipe": "mcp-runtime-recipe.gd.txt; select known inherited opposite rate, process then physics boundary, capture inherited cached delta, request target rate, immediately await the real _wall_stick_report. No intervening callback overrides or support mutations.",
+  "observations": [
+    {"rate":60,"mode":2,"inherited_rate":120,"inherited_delta":0.00833333333333333,"frames":[28,30],"first_hold_step":4,"first_hold_cached_delta":0.0166666666666667,"requested_delta":0.0166666666666667,"first_failed_hold":{},"hold_checks":18,"aligned_holds":18,"valid_holds":18,"held_steps":18,"jump_ready":true,"readiness_step":21,"prepared_step":22,"launch_step":22,"terminal_step":22,"jump_count":1,"reference":0.5,"exit_velocity":[0,5.5,8],"terminal_reason":4,"terminal_count":1,"commit_count_max":1},
+    {"rate":60,"mode":9,"inherited_rate":120,"inherited_delta":0.00833333333333333,"frames":[38,40],"first_hold_step":4,"first_hold_cached_delta":0.00833333333333333,"requested_delta":0.0166666666666667,"first_failed_hold_step":4,"hold_checks":1,"aligned_holds":0,"valid_holds":0,"held_steps":1,"jump_ready":false,"readiness_step":4,"prepared_step":-1,"launch_step":-1,"terminal_step":4,"jump_count":0,"reference":0,"exit_velocity":[0,0,0],"terminal_reason":4,"terminal_count":1,"commit_count_max":1},
+    {"rate":120,"mode":2,"inherited_rate":60,"inherited_delta":0.0166666666666667,"frames":[46,48],"first_hold_step":4,"first_hold_cached_delta":0.00833333333333333,"requested_delta":0.00833333333333333,"first_failed_hold":{},"hold_checks":18,"aligned_holds":18,"valid_holds":18,"held_steps":18,"jump_ready":true,"readiness_step":21,"prepared_step":22,"launch_step":22,"terminal_step":22,"jump_count":1,"reference":0.5,"exit_velocity":[0,5.5,8],"terminal_reason":4,"terminal_count":1,"commit_count_max":1},
+    {"rate":120,"mode":9,"inherited_rate":60,"inherited_delta":0.0166666666666667,"frames":[55,57],"first_hold_step":4,"first_hold_cached_delta":0.0166666666666667,"requested_delta":0.00833333333333333,"first_failed_hold_step":4,"hold_checks":1,"aligned_holds":0,"valid_holds":0,"held_steps":1,"jump_ready":false,"readiness_step":4,"prepared_step":-1,"launch_step":-1,"terminal_step":4,"jump_count":0,"reference":0,"exit_velocity":[0,0,0],"terminal_reason":4,"terminal_count":1,"commit_count_max":1},
+    {"rate":60,"mode":2,"inherited_rate":120,"inherited_delta":0.00833333333333333,"frames":[63,65],"first_hold_step":4,"first_hold_cached_delta":0.00833333333333333,"requested_delta":0.0166666666666667,"first_failed_hold_step":4,"hold_checks":1,"aligned_holds":0,"valid_holds":0,"held_steps":1,"jump_ready":false,"readiness_step":4,"prepared_step":-1,"launch_step":-1,"terminal_step":4,"jump_count":0,"reference":0,"exit_velocity":[0,0,0],"terminal_reason":4,"terminal_count":1,"commit_count_max":1},
+    {"rate":60,"mode":9,"inherited_rate":120,"inherited_delta":0.00833333333333333,"frames":[67,69],"first_hold_step":4,"first_hold_cached_delta":0.00833333333333333,"requested_delta":0.0166666666666667,"first_failed_hold_step":4,"hold_checks":1,"aligned_holds":0,"valid_holds":0,"held_steps":1,"jump_ready":false,"readiness_step":4,"prepared_step":-1,"launch_step":-1,"terminal_step":4,"jump_count":0,"reference":0,"exit_velocity":[0,0,0],"terminal_reason":4,"terminal_count":1,"commit_count_max":1}
+  ],
+  "common_first_failed_hold_snapshot": {
+    "current_step":4,"contact_step":4,"result_step":4,"in_physics":true,
+    "active":false,"binding_status":-1,"held_command":true,"result_success":true,
+    "hold_requested":true,"hold_carry_blocked":true,"hold_source":true,
+    "successful_hold":false,"supported":false,"ready":false,"delta_aligned":false,
+    "submitted_velocity":[0,0,0],"committed_velocity":[0,0,0],"body_velocity":[0,0,0],
+    "note":"Each failed case retained this snapshot as both first_hold and first_failed_hold, with that row's rate/deltas and ending engine frame. Exit velocity remains the unprepared default, not an observed launch. No 17 subsequent airborne calls."
+  },
+  "helper_assertion_failures":4,
+  "fixtures_freed":6,
+  "cleanup":"gut.get_autofree().free_all(), suite.free(), gut.free(); restore runtime 60; await process_frame; project_manage(stop) observed ready.",
+  "cli_pre_barrier":"Three fresh focused GUT processes passed 1/1, 243 assertions each. CLI red not reproduced, no expectations weakened or production failure manufactured.",
+  "diagnostics":[
+    "Run 71 initial eval failed to compile because untyped dynamic inferred variables in transient eval. No eval objects created. Corrected with explicit int/float types.",
+    "Run 71 corrected eval reported EVAL_GAME_NOT_READY. MCP resume/debug_status observed unsuspended, tree unpaused, loop_live=false. Stop/relaunch token 72 plus immediate eval succeeded.",
+    "logs_read(game,count=30,include_details=true) timed out after 5s. No clean-game-log claim.",
+    "logs_read(editor,since_cursor=6) returned zero new logger entries, next_cursor=6.",
+    "get_scene_tree(root_path=/root,depth=1) returned not_found; this call is not a successful runtime node inspection."
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "phase": "barrier restored after follow-up sensitivity control",
+  "session_id": "testgame@17187ab35ae57813",
+  "scan": {
+    "global_class_count": 135,
+    "global_classes_registered_delta": 0,
+    "reason": "Filesystem scan is an editor operation",
+    "scan_completed": true,
+    "scan_settle": "settled",
+    "undoable": false,
+    "was_already_scanning": false
+  },
+  "source": {
+    "path": "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+    "size": 101117,
+    "line_count": 2084,
+    "barrier_restored": true,
+    "helper_start": "func _wall_stick_report(exit_mode: int, tick_rate: int = 60, entry_speed: float = 6.0) -> Dictionary:\n\t# A rate setter does not change the inherited physics callback's cached\n\t# delta. Cross both boundaries BEFORE spawning; retain automatic settling\n\t# and the synchronous entry/hold/jump transactions below.\n\tEngine.physics_ticks_per_second = tick_rate\n\tawait get_tree().process_frame\n\tawait get_tree().physics_frame\n\tvar delta := 1.0 / float(tick_rate)\n\tvar cached_delta := get_physics_process_delta_time()\n\tvar pre_spawn := {\n\t\t\"requested_delta\": delta,\n\t\t\"cached_delta\": cached_delta,\n\t\t\"delta_aligned\": is_equal_approx(delta, cached_delta),\n\t\t\"configured_rate\": Engine.physics_ticks_per_second,\n\t\t\"engine_frame\": Engine.get_physics_frames(),\n\t\t\"in_physics\": Engine.is_in_physics_frame(),\n\t}\n\tassert_true(pre_spawn[\"delta_aligned\"], \"wall-stick fixture pre-spawn cached delta does not match request: %s\" % pre_spawn)\n\tvar fixture := _new_world(Vector3(-3.0, 2.0, -0.25))\n\tvar player: CharacterBody3D = fixture[\"player\"]\n\tvar input_source: PlayerInputSource = fixture[\"input_source\"]\n\tvar motor: PlayerMotor = fixture[\"motor\"]\n\tvar world: Node3D = fixture[\"world\"]\n\tvar controller: GrappleControll",
+    "delta_readiness": true,
+    "new_negative_present": true
+  },
+  "state": {
+    "current_scene": "res://game/levels/content/traversal_validation/traversal_validation_route.tscn",
+    "game_capture_ready": false,
+    "game_status": {
+      "active": false,
+      "editor_log_cursor": 6,
+      "elapsed_msec": 0,
+      "helper_expected": true,
+      "helper_live": false,
+      "ready": false,
+      "ready_wait_msec": 20000,
+      "run_started_msec": 609260129,
+      "run_token": 74,
+      "session_active": false,
+      "status": "stopped"
+    },
+    "godot_version": "4.7.2-stable (official)",
+    "helper_live": false,
+    "is_playing": false,
+    "project_name": "Test Game",
+    "readiness": "ready",
+    "session_active": false
+  },
+  "logs": {
+    "source": "editor",
+    "lines": [],
+    "total_count": 6,
+    "returned_count": 0,
+    "offset": 0,
+    "limit": 100,
+    "has_more": false,
+    "run_id": "",
+    "is_running": false,
+    "dropped_count": 0,
+    "stale_run_id": false,
+    "cursor": 6,
+    "oldest_cursor": 0,
+    "next_cursor": 6,
+    "appended_total": 6,
+    "truncated": false
+  }
+}

@@ -328,7 +328,7 @@ func test_definition_validation_locks_authored_values_and_bounds_acquisition_tol
 	assert_eq(authored.validate(), GrappleDefinition.ValidationStatus.SUCCESS)
 	assert_eq(authored.definition_id, &"player.grapple.default")
 	assert_almost_eq(authored.max_grapple_length_m, 35.0, 0.000001)
-	assert_almost_eq(authored.pull_initial_acceleration_mps2, 48.0, 0.000001)
+	assert_almost_eq(authored.pull_initial_acceleration_mps2, 60.0, 0.000001)
 	assert_almost_eq(authored.pull_min_acceleration_mps2, 8.0, 0.000001)
 	assert_almost_eq(authored.pull_acceleration_jerk_mps3, 53.333333, 0.000001)
 	assert_almost_eq(authored.maximum_speed_mps, 22.0, 0.000001)

@@ -1,0 +1,46 @@
+{
+  "qualification":"Selected MCP facts from the intermediate follow-up source, not a raw tool response or final-source gate. Final-source MCP observations will be retained separately.",
+  "session_id":"testgame@17187ab35ae57813",
+  "run_token":76,
+  "loaded_source_sha256":"dd3928ffd6f877e5fd9ebcccaefecd32b9e65fadacd58d596255f29778ac1b5b",
+  "loaded_line_count":2084,
+  "barrier_loaded":true,
+  "launch_window_errors":[],
+  "matrix_frames":[29,106],
+  "matrix_cases":[
+    {"rate":60,"mode":2,"frames":[29,32],"pre_spawn_frame":30},
+    {"rate":60,"mode":9,"frames":[40,50],"pre_spawn_frame":48},
+    {"rate":120,"mode":2,"frames":[56,66],"pre_spawn_frame":64},
+    {"rate":120,"mode":9,"frames":[67,77],"pre_spawn_frame":75},
+    {"rate":60,"mode":2,"frames":[83,90],"pre_spawn_frame":88},
+    {"rate":60,"mode":9,"frames":[96,106],"pre_spawn_frame":104}
+  ],
+  "all_six_matrix_facts":{
+    "pre_spawn_aligned":true,"pre_spawn_in_physics":true,"entry_step":3,"first_hold_step":4,
+    "aligned_valid_hold_count":18,"readiness_step":21,"prepared_launch_terminal_step":22,
+    "outward_reference":0.5,"tangent_reference":3,"exit_velocity":[0,5.5,8],"jump_count":1,
+    "terminal_count":1,"commit_count_max":1,"post_exit_state":"player.locomotion.airborne",
+    "still_sticking":false,"post_exit_holds":0,"first_failed_hold":{},
+    "maximum_hold_speed_at_120":0.00000357627845914,"maximum_latch_drift_at_120":2.980232238e-8,
+    "maximum_hold_speed_at_60":0,"maximum_hold_drift":0
+  },
+  "inactive_frames":[106,115],"inactive_checks":2,"inactive_guard_steps":[22,23],
+  "supported_frames":[115,123],"supported_checks":8,"all_supported_guard_steps":21,
+  "supported_guard_cases":["delta_mismatch","incomplete_holds","prior_loss","destroyed_support"],
+  "all_guard_facts":{"prepared":false,"explicit_failures":1,"prepared_step":-1,"velocity_unchanged":true,"step_unchanged":true,"same_command":true,"input_unchanged":true,"jump_injected":false},
+  "all_supported_guard_facts":{"active":true,"grapple_remained_held":true},
+  "destroyed_support_facts":{"supported":false,"ready":false,"both_checks_before_next_transaction":true},
+  "mismatched_delta_facts":{"supported":true,"requested_delta":0.00833333333333333,"cached_commit_delta":0.0166666666666667,"delta_aligned":false,"commit_delta_aligned":false,"ready":false},
+  "history_guard_facts":{"supported":true,"ready":true,"rejected_report_conditions":"17 holds or nonempty first_failed_hold"},
+  "helper_assertion_failures":0,"fixture_players":8,"automatic_physics_enabled":true,"private_worlds":true,
+  "tracked_objects_freed":10,"remaining_autofree":0,"temporary_context_absent":true,
+  "restored_rate":60,"restored_cached_delta":0.0166666666666667,
+  "post_runtime_editor_warning":"New unused input_source local at line 1712; removed by patch after read-only source/state/log checks. Final-source gate rerun separately.",
+  "recursive_batch":{
+    "wrapper_timeout_ms":120000,"manifest_not_written":true,
+    "complete_log":"follow-up-final-recursive-01.log","complete_test_totals":"281/282; 12869/12870 assertions; corner only; exit 1 observed",
+    "incomplete_log":"follow-up-final-recursive-02.log","incomplete_not_counted_as_gate":true,
+    "no_remaining_test_console_processes":"Confirmed with rtk proxy tasklist after timeout. A prior read-only PowerShell process query failed due to argument quoting; no process mutation occurred.",
+    "logs_retained_without_overwrite":true
+  }
+}

@@ -373,14 +373,17 @@ func test_player_surface_keeps_motion_commit_inside_motor() -> void:
 func test_authored_tuning_contexts_remain_distinct_and_tutorial_reset_stays_out_of_band() -> void:
 	var direct_player: CharacterBody3D = PLAYER_SCENE.instantiate()
 	autofree(direct_player)
-	assert_almost_eq(direct_player.ground_deceleration, 20.0, 0.000001)
-	assert_almost_eq(direct_player.grapple_gravity_scale, 1.0, 0.000001)
+	assert_almost_eq(direct_player.ground_deceleration, 50.0, 0.000001)
+	assert_almost_eq(direct_player.grapple_gravity_scale, 0.0, 0.000001)
 	assert_almost_eq(direct_player.grapple_ground_deceleration, 0.0, 0.000001)
 	assert_almost_eq(direct_player.grapple_air_deceleration, 0.0, 0.000001)
 
 	var main_source := FileAccess.get_file_as_string("res://main.tscn")
 	assert_true(main_source.contains("ground_deceleration = 30.0"))
-	assert_true(main_source.contains("grapple_gravity_scale = 0.0"))
+	assert_false(
+		main_source.contains("grapple_gravity_scale ="),
+		"main inherits the player's zero grapple-gravity value instead of overriding it"
+	)
 
 	var tutorial_source := FileAccess.get_file_as_string(
 		"res://scripts/levels/tree_grapple_tutorial.gd"

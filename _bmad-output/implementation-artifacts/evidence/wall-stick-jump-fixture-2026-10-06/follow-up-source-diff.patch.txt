@@ -1,0 +1,328 @@
+--- reviewed-initial
++++ follow-up-restored
+@@ -525,14 +525,21 @@
+ 			Engine.physics_ticks_per_second = tick_rate
+ 			var report := await _wall_stick_report(exit_mode, tick_rate)
+ 			print("[wall-stick-fixture-transition] ", label, " inherited_delta=", inherited_delta, " -> ", report)
++			assert_almost_eq(report["pre_spawn"]["cached_delta"], report["requested_delta"], 0.000001, label)
++			assert_true(report["pre_spawn"]["delta_aligned"], label)
++			assert_true(report["pre_spawn"]["in_physics"], label)
+ 			assert_almost_eq(report["first_hold"]["cached_delta"], report["requested_delta"], 0.000001, label)
+ 			assert_true(report["first_hold"]["ready"], label)
++			assert_eq(report["first_hold"]["current_step"], report["entry_step"] + 1, label)
+ 			assert_eq(report["first_failed_hold"], {}, "premature hold loss: %s" % label)
+ 			assert_eq(report["hold_checks_count"], 18, label)
+ 			assert_eq(report["aligned_hold_count"], 18, label)
+ 			assert_eq(report["valid_hold_count"], 18, label)
+ 			assert_eq(report["held_steps"], 18, label)
+ 			assert_eq(report["hold_constraint_applied_count"], 18, label)
++			assert_almost_eq(report["maximum_hold_speed"], 0.0, 0.00001, label)
++			assert_lte(report["maximum_hold_position_drift"], 0.001, label)
++			assert_almost_eq(report["maximum_latch_position_drift"], 0.0, 0.00001, label)
+ 			assert_true(report["jump_ready"], label)
+ 			assert_true(report["jump_readiness"]["ready"], label)
+ 			assert_eq(report["jump_readiness"]["contact_step"], report["readiness_step"], label)
+@@ -542,6 +549,7 @@
+ 			assert_eq(report["terminal_step"], report["launch_step"], label)
+ 			assert_eq(report["jump_count"], 1, label)
+ 			assert_gt(report["jump_reference_outward_speed"], 0.0, label)
++			assert_gt(absf(report["jump_reference_tangent_speed"]), 0.0, "zero tangent makes x=0 vacuous: %s" % label)
+ 			assert_almost_eq(report["exit_velocity"].x, 0.0, 0.001, label)
+ 			assert_almost_eq(report["exit_velocity"].y, 5.5, 0.02, label)
+ 			assert_almost_eq(report["exit_velocity"].z, 8.0, 0.1, label)
+@@ -575,9 +583,48 @@
+ 		assert_eq(check["velocity_after"], check["velocity_before"], "guard overwrote velocity")
+ 		assert_eq(check["step_after"], check["step_before"], "readiness advanced gameplay")
+ 		assert_true(check["same_command"], "readiness replaced the current immutable command")
++		assert_eq(check["input_after"], check["input_before"], "guard mutated pending input")
+ 		assert_false(check["jump_pressed_after_step"], "guard injected a fresh jump")
+ 		assert_false(check["jump_source_after_step"], "inactive support fabricated a launch")
+ 	print("[wall-stick-fixture-negative] ", report)
++
++
++func test_wall_stick_jump_readiness_rejects_supported_delta_history_and_destroyed_support() -> void:
++	var report := await _wall_stick_jump_supported_negative_report()
++	assert_true(report["ready_before_cases"], "the real fixture never maintained supported holds")
++	assert_true(report["active_after_destruction"], "destruction was not tested before the next transaction")
++	assert_eq(report["step_after_destruction_checks"], report["destruction_step"])
++	for check in report["checks"]:
++		var label := "%s, mode %d" % [check["case"], check["mode"]]
++		assert_false(check["prepared"], label)
++		assert_eq(check["explicit_failures"], 1, label)
++		assert_eq(check["prepared_jump_step"], -1, label)
++		assert_eq(check["velocity_after"], check["velocity_before"], label)
++		assert_eq(check["step_after"], check["step_before"], label)
++		assert_true(check["same_command"], label)
++		assert_eq(check["input_after"], check["input_before"], label)
++		assert_false(check["jump_binding_held_after"], "guard injected JUMP: %s" % label)
++		assert_true(check["grapple_binding_held_after"], "guard injected release: %s" % label)
++		assert_true(check["readiness"]["active"], label)
++		if check["case"] == &"destroyed_support":
++			assert_false(check["readiness"]["supported"], label)
++			assert_false(check["readiness"]["ready"], label)
++			assert_eq(check["step_before"], report["destruction_step"], label)
++		else:
++			assert_true(check["readiness"]["supported"], label)
++			assert_true(check["readiness"]["result_success"], label)
++			if check["case"] == &"delta_mismatch":
++				assert_false(check["readiness"]["delta_aligned"], label)
++				assert_false(check["readiness"]["commit_delta_aligned"], label)
++				assert_false(check["readiness"]["ready"], label)
++			else:
++				assert_true(check["readiness"]["delta_aligned"], label)
++				assert_true(check["readiness"]["commit_delta_aligned"], label)
++				assert_true(check["readiness"]["ready"], "history guard must reject otherwise-ready support: %s" % label)
++	assert_false(report["jump_pressed_after_step"])
++	assert_true(report["grapple_held_after_step"])
++	assert_false(report["jump_source_after_step"])
++	print("[wall-stick-fixture-supported-negative] ", report)
+ 
+ 
+ func test_wall_stick_attachment_invalidation_ends_the_hold_with_a_typed_reason() -> void:
+@@ -1177,6 +1224,17 @@
+ 	Engine.physics_ticks_per_second = tick_rate
+ 	await get_tree().process_frame
+ 	await get_tree().physics_frame
++	var delta := 1.0 / float(tick_rate)
++	var cached_delta := get_physics_process_delta_time()
++	var pre_spawn := {
++		"requested_delta": delta,
++		"cached_delta": cached_delta,
++		"delta_aligned": is_equal_approx(delta, cached_delta),
++		"configured_rate": Engine.physics_ticks_per_second,
++		"engine_frame": Engine.get_physics_frames(),
++		"in_physics": Engine.is_in_physics_frame(),
++	}
++	assert_true(pre_spawn["delta_aligned"], "wall-stick fixture pre-spawn cached delta does not match request: %s" % pre_spawn)
+ 	var fixture := _new_world(Vector3(-3.0, 2.0, -0.25))
+ 	var player: CharacterBody3D = fixture["player"]
+ 	var input_source: PlayerInputSource = fixture["input_source"]
+@@ -1199,11 +1257,11 @@
+ 	var anchor := _add_anchor(world, Vector3(0.0, 2.0, -2.0))
+ 	await _settle(motor)
+ 
+-	var delta := 1.0 / float(tick_rate)
+ 	var report := _new_report()
+ 	report.merge({
+ 		"requested_rate": tick_rate,
+ 		"requested_delta": delta,
++		"pre_spawn": pre_spawn,
+ 		"entry_step": -1,
+ 		"first_hold": {},
+ 		"first_failed_hold": {},
+@@ -1211,6 +1269,7 @@
+ 		"aligned_hold_count": 0,
+ 		"valid_hold_count": 0,
+ 		"jump_ready": false,
++		"jump_reference_tangent_speed": 0.0,
+ 		"jump_readiness": {},
+ 		"readiness_step": -1,
+ 		"prepared_jump_step": -1,
+@@ -1269,6 +1328,12 @@
+ 			report["first_failed_hold"] = hold_evidence
+ 			break
+ 	assert_true(report["hold_request_seen"], "the wall-stick hold was never requested")
++	if (
++		not report["first_failed_hold"].is_empty()
++		and exit_mode not in [WallStickExit.JUMP, WallStickExit.JUMP_WITH_GRAPPLE_RELEASE]
++	):
++		assert_true(report["first_failed_hold"].is_empty(), "wall-stick fixture lost support before scripted exit mode %d: %s" % [exit_mode, report["first_failed_hold"]])
++		return _finish_wall_stick_report(report, player, motor, controller, terminal_events)
+ 
+ 	match exit_mode:
+ 		WallStickExit.RELEASE:
+@@ -1419,10 +1484,13 @@
+ 	var command: PlayerCommandFrame = player.call("get_player_command_frame")
+ 	var controller: GrappleController = player.get("_grapple_controller")
+ 	var cached_delta := player.get_physics_process_delta_time()
++	var delta_aligned := is_equal_approx(delta, cached_delta)
++	var commit_delta_aligned := result != null and is_equal_approx(delta, result.physics_delta_seconds)
+ 	var active := bool(player.get("is_wall_sticking"))
+ 	var successful_hold := (
+ 		result != null
+ 		and result.success
++		and commit_delta_aligned
+ 		and result.physics_step == current_step
+ 		and result.locomotion_state_id == LOCOMOTION_WALL_STICK
+ 		and result.is_hold_request
+@@ -1449,14 +1517,16 @@
+ 	)
+ 	var normal: Vector3 = player.get("wall_stick_normal")
+ 	return {
+-		"ready": active and successful_hold and supported and held_command and controller.has_active_attachment() and Vector3(normal.x, 0.0, normal.z).length_squared() > 0.0,
++		"ready": delta_aligned and active and successful_hold and supported and held_command and controller.has_active_attachment() and Vector3(normal.x, 0.0, normal.z).length_squared() > 0.0,
+ 		"current_step": current_step,
+ 		"engine_frame": Engine.get_physics_frames(),
+ 		"in_physics": Engine.is_in_physics_frame(),
+ 		"configured_rate": Engine.physics_ticks_per_second,
+ 		"requested_delta": delta,
+ 		"cached_delta": cached_delta,
+-		"delta_aligned": is_equal_approx(delta, cached_delta),
++		"delta_aligned": delta_aligned,
++		"commit_delta": result.physics_delta_seconds if result != null else 0.0,
++		"commit_delta_aligned": commit_delta_aligned,
+ 		"active": active,
+ 		"successful_hold": successful_hold,
+ 		"supported": supported,
+@@ -1499,6 +1569,7 @@
+ 	var jump_normal: Vector3 = player.get("wall_stick_normal")
+ 	var horizontal_jump_normal := Vector3(jump_normal.x, 0.0, jump_normal.z).normalized()
+ 	var jump_reference: Vector3 = player.get("wall_stick_run_direction") * 3.0 + horizontal_jump_normal * 0.5
++	report["jump_reference_tangent_speed"] = jump_reference.dot(player.get("wall_stick_run_direction"))
+ 	report["prepared_jump_step"] = int(readiness["current_step"]) + 1
+ 	player.velocity = jump_reference
+ 	report["jump_reference_outward_speed"] = jump_reference.dot(horizontal_jump_normal)
+@@ -1532,7 +1603,7 @@
+ 	return report
+ 
+ 
+-func _wall_stick_jump_readiness_negative_report() -> Dictionary:
++func _wall_stick_guard_fixture() -> Dictionary:
+ 	Engine.physics_ticks_per_second = 60
+ 	await get_tree().process_frame
+ 	await get_tree().physics_frame
+@@ -1540,7 +1611,7 @@
+ 	var player: CharacterBody3D = fixture["player"]
+ 	var input_source: PlayerInputSource = fixture["input_source"]
+ 	var motor: PlayerMotor = fixture["motor"]
+-	_add_box(fixture["world"], Vector3(0.0, 4.0, -1.0), Vector3(40.0, 8.0, 0.2), 0.0)
++	fixture["wall"] = _add_box(fixture["world"], Vector3(0.0, 4.0, -1.0), Vector3(40.0, 8.0, 0.2), 0.0)
+ 	var anchor := _add_anchor(fixture["world"], Vector3(0.0, 2.0, -2.0))
+ 	await _settle(motor)
+ 	assert_eq(_seed_grapple(player, anchor), GrappleController.CommitStatus.SUCCESS)
+@@ -1555,12 +1626,67 @@
+ 	for _i in range(18):
+ 		player.call("_physics_process", 1.0 / 60.0)
+ 		ready_before_release = ready_before_release and bool(_wall_stick_hold_evidence(player, motor, 1.0 / 60.0)["ready"])
++	fixture["ready"] = ready_before_release
++	return fixture
++
++
++func _wall_stick_guard_input_snapshot(input_source: PlayerInputSource) -> Dictionary:
++	# Read only the existing test seam/pending flags. Looking at the old cached
++	# command alone would miss an accidental injection before the next step.
++	return {
++		"binding_masks": (input_source.get("_test_action_binding_masks") as Array).duplicate(),
++		"held_flags": int(input_source.get("_held_flags")),
++		"pending_pressed_flags": int(input_source.get("_pending_pressed_flags")),
++		"pending_released_flags": int(input_source.get("_pending_released_flags")),
++	}
++
++
++func _capture_wall_stick_jump_guard_case(
++	probe: GutTest,
++	fixture: Dictionary,
++	report: Dictionary,
++	exit_mode: int,
++	delta: float
++) -> Dictionary:
++	var player: CharacterBody3D = fixture["player"]
++	var input_source: PlayerInputSource = fixture["input_source"]
++	var motor: PlayerMotor = fixture["motor"]
++	var velocity_before := player.velocity
++	var step_before := int(player.get("_player_physics_step"))
++	var command_before: PlayerCommandFrame = player.call("get_player_command_frame")
++	var input_before := _wall_stick_guard_input_snapshot(input_source)
++	var failures_before: int = probe.get_fail_count()
++	var prepared: bool = probe.call("_prepare_wall_stick_jump", report, player, motor, input_source, exit_mode, delta)
++	var input_after := _wall_stick_guard_input_snapshot(input_source)
++	return {
++		"mode": exit_mode,
++		"prepared": prepared,
++		"explicit_failures": probe.get_fail_count() - failures_before,
++		"readiness": report["jump_readiness"],
++		"prepared_jump_step": report["prepared_jump_step"],
++		"velocity_before": velocity_before,
++		"velocity_after": player.velocity,
++		"step_before": step_before,
++		"step_after": int(player.get("_player_physics_step")),
++		"same_command": command_before == player.call("get_player_command_frame"),
++		"input_before": input_before,
++		"input_after": input_after,
++		"jump_binding_held_after": input_after["binding_masks"][PlayerCommandFrame.Action.JUMP] != 0,
++		"grapple_binding_held_after": input_after["binding_masks"][PlayerCommandFrame.Action.GRAPPLE] != 0,
++	}
++
++
++func _wall_stick_jump_readiness_negative_report() -> Dictionary:
++	var fixture := await _wall_stick_guard_fixture()
++	var player: CharacterBody3D = fixture["player"]
++	var input_source: PlayerInputSource = fixture["input_source"]
++	var motor: PlayerMotor = fixture["motor"]
+ 	# A real release transaction clears the maintained support; no production
+ 	# fields, result objects, motor guards, or geometry are overridden.
+ 	input_source.inject_action_binding(PlayerCommandFrame.Action.GRAPPLE, 0, false)
+ 	player.call("_physics_process", 1.0 / 60.0)
+ 	var negative := {
+-		"ready_before_release": ready_before_release,
++		"ready_before_release": fixture["ready"],
+ 		"active_after_release": bool(player.get("is_wall_sticking")),
+ 		"hold_after_release": motor.get_last_commit_result().is_hold_request,
+ 		"checks": [],
+@@ -1571,28 +1697,49 @@
+ 	add_child_autofree(probe)
+ 	for exit_mode in [WallStickExit.JUMP, WallStickExit.JUMP_WITH_GRAPPLE_RELEASE]:
+ 		var report := {"valid_hold_count": 18, "first_failed_hold": {}}
+-		var velocity_before := player.velocity
+-		var step_before := int(player.get("_player_physics_step"))
+-		var command_before: PlayerCommandFrame = player.call("get_player_command_frame")
+-		var failures_before: int = probe.get_fail_count()
+-		var prepared: bool = probe.call("_prepare_wall_stick_jump", report, player, motor, input_source, exit_mode, 1.0 / 60.0)
+-		var check := {
+-			"mode": exit_mode,
+-			"prepared": prepared,
+-			"explicit_failures": probe.get_fail_count() - failures_before,
+-			"readiness": report["jump_readiness"],
+-			"prepared_jump_step": report["prepared_jump_step"],
+-			"velocity_before": velocity_before,
+-			"velocity_after": player.velocity,
+-			"step_before": step_before,
+-			"step_after": int(player.get("_player_physics_step")),
+-			"same_command": command_before == player.call("get_player_command_frame"),
+-		}
++		var check := _capture_wall_stick_jump_guard_case(probe, fixture, report, exit_mode, 1.0 / 60.0)
+ 		player.call("_physics_process", 1.0 / 60.0)
+ 		var command_after: PlayerCommandFrame = player.call("get_player_command_frame")
+ 		check["jump_pressed_after_step"] = command_after.was_pressed(PlayerCommandFrame.Action.JUMP)
+ 		check["jump_source_after_step"] = _result_has_source(motor.get_last_commit_result(), SOURCE_JUMP_WALL)
+ 		negative["checks"].append(check)
++	return negative
++
++
++func _wall_stick_jump_supported_negative_report() -> Dictionary:
++	var fixture := await _wall_stick_guard_fixture()
++	var player: CharacterBody3D = fixture["player"]
++	var motor: PlayerMotor = fixture["motor"]
++	var probe: GutTest = load(get_script().resource_path).new()
++	add_child_autofree(probe)
++	var negative := {"ready_before_cases": fixture["ready"], "checks": []}
++	# These are fixture-report inputs, not altered gameplay fields or commits.
++	# Every guard runs while the real successful hold/contact is still current.
++	for guard_case in [&"delta_mismatch", &"incomplete_holds", &"prior_loss"]:
++		for exit_mode in [WallStickExit.JUMP, WallStickExit.JUMP_WITH_GRAPPLE_RELEASE]:
++			var report := {
++				"valid_hold_count": 17 if guard_case == &"incomplete_holds" else 18,
++				"first_failed_hold": {"current_step": int(player.get("_player_physics_step"))} if guard_case == &"prior_loss" else {},
++			}
++			var delta := 1.0 / 120.0 if guard_case == &"delta_mismatch" else 1.0 / 60.0
++			var check := _capture_wall_stick_jump_guard_case(probe, fixture, report, exit_mode, delta)
++			check["case"] = guard_case
++			negative["checks"].append(check)
++	negative["destruction_step"] = int(player.get("_player_physics_step"))
++	(fixture["wall"] as StaticBody3D).free()
++	negative["active_after_destruction"] = bool(player.get("is_wall_sticking"))
++	# No transaction or await between destruction and either preparation mode.
++	for exit_mode in [WallStickExit.JUMP, WallStickExit.JUMP_WITH_GRAPPLE_RELEASE]:
++		var report := {"valid_hold_count": 18, "first_failed_hold": {}}
++		var check := _capture_wall_stick_jump_guard_case(probe, fixture, report, exit_mode, 1.0 / 60.0)
++		check["case"] = &"destroyed_support"
++		negative["checks"].append(check)
++	negative["step_after_destruction_checks"] = int(player.get("_player_physics_step"))
++	player.call("_physics_process", 1.0 / 60.0)
++	var command_after: PlayerCommandFrame = player.call("get_player_command_frame")
++	negative["jump_pressed_after_step"] = command_after.was_pressed(PlayerCommandFrame.Action.JUMP)
++	negative["grapple_held_after_step"] = command_after.is_held(PlayerCommandFrame.Action.GRAPPLE)
++	negative["jump_source_after_step"] = _result_has_source(motor.get_last_commit_result(), SOURCE_JUMP_WALL)
+ 	return negative
+ 
+ 

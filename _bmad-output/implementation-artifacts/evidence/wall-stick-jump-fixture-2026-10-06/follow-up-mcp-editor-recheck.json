@@ -1,0 +1,767 @@
+{
+  "session_id": "testgame@17187ab35ae57813",
+  "phase": "post-runtime editor resource and diagnostics recheck",
+  "checks": [
+    {
+      "check": "player properties",
+      "status": "fulfilled",
+      "value": {
+        "count": 6,
+        "node_type": "CharacterBody3D",
+        "path": "/TraversalValidationRoute/Player",
+        "properties": [
+          {
+            "name": "process_mode",
+            "type": "int",
+            "value": 0
+          },
+          {
+            "name": "process_physics_priority",
+            "type": "int",
+            "value": 0
+          },
+          {
+            "name": "collision_layer",
+            "type": "int",
+            "value": 2
+          },
+          {
+            "name": "collision_mask",
+            "type": "int",
+            "value": 1
+          },
+          {
+            "name": "safe_margin",
+            "type": "float",
+            "value": 0.00100000004749745
+          },
+          {
+            "name": "script",
+            "type": "Object",
+            "value": "res://scripts/player_controller.gd"
+          }
+        ],
+        "total_count": 77,
+        "unknown_fields": []
+      }
+    },
+    {
+      "check": "capsule shape",
+      "status": "fulfilled",
+      "value": {
+        "resources": [
+          {
+            "id": "r1",
+            "path": "res://scenes/player.tscn::CapsuleShape3D_5vw27",
+            "properties": {
+              "custom_solver_bias": 0,
+              "height": 1.79999995231628,
+              "margin": 0.0399999991059303,
+              "radius": 0.449999988079071,
+              "resource_local_to_scene": false,
+              "resource_name": "",
+              "resource_path": "res://scenes/player.tscn::CapsuleShape3D_5vw27"
+            },
+            "type": "CapsuleShape3D"
+          }
+        ],
+        "root": {
+          "ref": "r1"
+        },
+        "truncations": []
+      }
+    },
+    {
+      "check": "full editor diagnostics",
+      "status": "fulfilled",
+      "value": {
+        "source": "editor",
+        "lines": [
+          {
+            "details": {
+              "code": "Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)",
+              "error_type": 2,
+              "error_type_name": "script",
+              "frames": [],
+              "message": "Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)",
+              "rationale": "",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 49,
+                "path": "res://tests/player/locomotion/test_wall_stick_review_hardening.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 49,
+                "path": "res://tests/player/locomotion/test_wall_stick_review_hardening.gd"
+              }
+            },
+            "function": "GDScript::reload",
+            "level": "error",
+            "line": 49,
+            "path": "res://tests/player/locomotion/test_wall_stick_review_hardening.gd",
+            "source": "editor",
+            "text": "Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)"
+          },
+          {
+            "details": {
+              "code": "Failed to load script \"res://tests/player/locomotion/test_wall_stick_review_hardening.gd\" with error \"Parse error\".",
+              "error_type": 0,
+              "error_type_name": "error",
+              "frames": [],
+              "message": "Failed to load script \"res://tests/player/locomotion/test_wall_stick_review_hardening.gd\" with error \"Parse error\".",
+              "rationale": "",
+              "resolved": {
+                "function": "load",
+                "line": 0,
+                "path": "res://tests/player/locomotion/test_wall_stick_review_hardening.gd"
+              },
+              "source": {
+                "function": "load",
+                "line": 46,
+                "path": "modules/gdscript/gdscript_resource_format.cpp"
+              }
+            },
+            "function": "load",
+            "level": "error",
+            "line": 0,
+            "path": "res://tests/player/locomotion/test_wall_stick_review_hardening.gd",
+            "source": "editor",
+            "text": "Failed to load script \"res://tests/player/locomotion/test_wall_stick_review_hardening.gd\" with error \"Parse error\"."
+          },
+          {
+            "details": {
+              "code": "Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)",
+              "error_type": 2,
+              "error_type_name": "script",
+              "frames": [],
+              "message": "Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)",
+              "rationale": "",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 48,
+                "path": "res://game/player/abilities/grapple/grapple_surface_binding.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 48,
+                "path": "res://game/player/abilities/grapple/grapple_surface_binding.gd"
+              }
+            },
+            "function": "GDScript::reload",
+            "level": "error",
+            "line": 48,
+            "path": "res://game/player/abilities/grapple/grapple_surface_binding.gd",
+            "source": "editor",
+            "text": "Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)"
+          },
+          {
+            "details": {
+              "code": "Compile Error: Failed to compile depended scripts.",
+              "error_type": 2,
+              "error_type_name": "script",
+              "frames": [],
+              "message": "Compile Error: Failed to compile depended scripts.",
+              "rationale": "",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 0,
+                "path": "res://game/player/abilities/grapple/grapple_attachment.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 0,
+                "path": "res://game/player/abilities/grapple/grapple_attachment.gd"
+              }
+            },
+            "function": "GDScript::reload",
+            "level": "error",
+            "line": 0,
+            "path": "res://game/player/abilities/grapple/grapple_attachment.gd",
+            "source": "editor",
+            "text": "Compile Error: Failed to compile depended scripts."
+          },
+          {
+            "details": {
+              "code": "Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)",
+              "error_type": 2,
+              "error_type_name": "script",
+              "frames": [],
+              "message": "Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)",
+              "rationale": "",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 48,
+                "path": "res://game/player/abilities/grapple/grapple_surface_binding.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 48,
+                "path": "res://game/player/abilities/grapple/grapple_surface_binding.gd"
+              }
+            },
+            "function": "GDScript::reload",
+            "level": "error",
+            "line": 48,
+            "path": "res://game/player/abilities/grapple/grapple_surface_binding.gd",
+            "source": "editor",
+            "text": "Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)"
+          },
+          {
+            "details": {
+              "code": "Parse Error: Cannot find member \"SHALLOW_CORNER\" in base \"ContactFrame.ContinuityAction\".",
+              "error_type": 2,
+              "error_type_name": "script",
+              "frames": [],
+              "message": "Parse Error: Cannot find member \"SHALLOW_CORNER\" in base \"ContactFrame.ContinuityAction\".",
+              "rationale": "",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 151,
+                "path": "res://tests/levels/test_traversal_validation_route.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 151,
+                "path": "res://tests/levels/test_traversal_validation_route.gd"
+              }
+            },
+            "function": "GDScript::reload",
+            "level": "error",
+            "line": 151,
+            "path": "res://tests/levels/test_traversal_validation_route.gd",
+            "source": "editor",
+            "text": "Parse Error: Cannot find member \"SHALLOW_CORNER\" in base \"ContactFrame.ContinuityAction\"."
+          },
+          {
+            "details": {
+              "children": [
+                {
+                  "label": "<GDScript Error>",
+                  "line": 110,
+                  "path": "res://game/shared/contracts/grapple_targeting_result.gd",
+                  "text": "SHADOWED_GLOBAL_IDENTIFIER"
+                },
+                {
+                  "label": "<GDScript Source>",
+                  "line": 110,
+                  "path": "res://game/shared/contracts/grapple_targeting_result.gd",
+                  "text": "grapple_targeting_result.gd:110 @ GDScript::reload()"
+                }
+              ],
+              "debugger_tab": "Errors",
+              "error_type_name": "warning",
+              "frames": [],
+              "message": "GDScript::reload: The function parameter \"seed\" has the same name as a built-in function.",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 110,
+                "path": "res://game/shared/contracts/grapple_targeting_result.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 110,
+                "path": "res://game/shared/contracts/grapple_targeting_result.gd"
+              },
+              "time": "0:00:00:954"
+            },
+            "function": "GDScript::reload",
+            "level": "warn",
+            "line": 110,
+            "path": "res://game/shared/contracts/grapple_targeting_result.gd",
+            "source": "editor",
+            "text": "GDScript::reload: The function parameter \"seed\" has the same name as a built-in function."
+          },
+          {
+            "details": {
+              "children": [
+                {
+                  "label": "<GDScript Error>",
+                  "line": 735,
+                  "path": "res://game/player/abilities/grapple/grapple_target_resolver.gd",
+                  "text": "SHADOWED_GLOBAL_IDENTIFIER"
+                },
+                {
+                  "label": "<GDScript Source>",
+                  "line": 735,
+                  "path": "res://game/player/abilities/grapple/grapple_target_resolver.gd",
+                  "text": "grapple_target_resolver.gd:735 @ GDScript::reload()"
+                }
+              ],
+              "debugger_tab": "Errors",
+              "error_type_name": "warning",
+              "frames": [],
+              "message": "GDScript::reload: The variable \"seed\" has the same name as a built-in function.",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 735,
+                "path": "res://game/player/abilities/grapple/grapple_target_resolver.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 735,
+                "path": "res://game/player/abilities/grapple/grapple_target_resolver.gd"
+              },
+              "time": "0:00:00:961"
+            },
+            "function": "GDScript::reload",
+            "level": "warn",
+            "line": 735,
+            "path": "res://game/player/abilities/grapple/grapple_target_resolver.gd",
+            "source": "editor",
+            "text": "GDScript::reload: The variable \"seed\" has the same name as a built-in function."
+          },
+          {
+            "details": {
+              "children": [
+                {
+                  "label": "<GDScript Error>",
+                  "line": 774,
+                  "path": "res://game/player/abilities/grapple/grapple_target_resolver.gd",
+                  "text": "SHADOWED_GLOBAL_IDENTIFIER"
+                },
+                {
+                  "label": "<GDScript Source>",
+                  "line": 774,
+                  "path": "res://game/player/abilities/grapple/grapple_target_resolver.gd",
+                  "text": "grapple_target_resolver.gd:774 @ GDScript::reload()"
+                }
+              ],
+              "debugger_tab": "Errors",
+              "error_type_name": "warning",
+              "frames": [],
+              "message": "GDScript::reload: The function parameter \"seed\" has the same name as a built-in function.",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 774,
+                "path": "res://game/player/abilities/grapple/grapple_target_resolver.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 774,
+                "path": "res://game/player/abilities/grapple/grapple_target_resolver.gd"
+              },
+              "time": "0:00:00:961"
+            },
+            "function": "GDScript::reload",
+            "level": "warn",
+            "line": 774,
+            "path": "res://game/player/abilities/grapple/grapple_target_resolver.gd",
+            "source": "editor",
+            "text": "GDScript::reload: The function parameter \"seed\" has the same name as a built-in function."
+          },
+          {
+            "details": {
+              "children": [
+                {
+                  "label": "<GDScript Error>",
+                  "line": 612,
+                  "path": "res://game/player/locomotion/contact/player_contact_provider.gd",
+                  "text": "INCOMPATIBLE_TERNARY"
+                },
+                {
+                  "label": "<GDScript Source>",
+                  "line": 612,
+                  "path": "res://game/player/locomotion/contact/player_contact_provider.gd",
+                  "text": "player_contact_provider.gd:612 @ GDScript::reload()"
+                }
+              ],
+              "debugger_tab": "Errors",
+              "error_type_name": "warning",
+              "frames": [],
+              "message": "GDScript::reload: Values of the ternary operator are not mutually compatible.",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 612,
+                "path": "res://game/player/locomotion/contact/player_contact_provider.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 612,
+                "path": "res://game/player/locomotion/contact/player_contact_provider.gd"
+              },
+              "time": "0:00:00:974"
+            },
+            "function": "GDScript::reload",
+            "level": "warn",
+            "line": 612,
+            "path": "res://game/player/locomotion/contact/player_contact_provider.gd",
+            "source": "editor",
+            "text": "GDScript::reload: Values of the ternary operator are not mutually compatible."
+          },
+          {
+            "details": {
+              "children": [
+                {
+                  "label": "<GDScript Error>",
+                  "line": 162,
+                  "path": "res://game/player/motor/player_motor_submission.gd",
+                  "text": "SHADOWED_VARIABLE"
+                },
+                {
+                  "label": "<GDScript Source>",
+                  "line": 162,
+                  "path": "res://game/player/motor/player_motor_submission.gd",
+                  "text": "player_motor_submission.gd:162 @ GDScript::reload()"
+                }
+              ],
+              "debugger_tab": "Errors",
+              "error_type_name": "warning",
+              "frames": [],
+              "message": "GDScript::reload: The local function parameter \"anchor_velocity\" is shadowing an already-declared variable at line 89 in the current class.",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 162,
+                "path": "res://game/player/motor/player_motor_submission.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 162,
+                "path": "res://game/player/motor/player_motor_submission.gd"
+              },
+              "time": "0:00:00:989"
+            },
+            "function": "GDScript::reload",
+            "level": "warn",
+            "line": 162,
+            "path": "res://game/player/motor/player_motor_submission.gd",
+            "source": "editor",
+            "text": "GDScript::reload: The local function parameter \"anchor_velocity\" is shadowing an already-declared variable at line 89 in the current class."
+          },
+          {
+            "details": {
+              "children": [
+                {
+                  "label": "<GDScript Error>",
+                  "line": 392,
+                  "path": "res://game/player/motor/player_motor_submission.gd",
+                  "text": "SHADOWED_VARIABLE"
+                },
+                {
+                  "label": "<GDScript Source>",
+                  "line": 392,
+                  "path": "res://game/player/motor/player_motor_submission.gd",
+                  "text": "player_motor_submission.gd:392 @ GDScript::reload()"
+                }
+              ],
+              "debugger_tab": "Errors",
+              "error_type_name": "warning",
+              "frames": [],
+              "message": "GDScript::reload: The local function parameter \"anchor_position\" is shadowing an already-declared variable at line 79 in the current class.",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 392,
+                "path": "res://game/player/motor/player_motor_submission.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 392,
+                "path": "res://game/player/motor/player_motor_submission.gd"
+              },
+              "time": "0:00:00:989"
+            },
+            "function": "GDScript::reload",
+            "level": "warn",
+            "line": 392,
+            "path": "res://game/player/motor/player_motor_submission.gd",
+            "source": "editor",
+            "text": "GDScript::reload: The local function parameter \"anchor_position\" is shadowing an already-declared variable at line 79 in the current class."
+          },
+          {
+            "details": {
+              "children": [
+                {
+                  "label": "<GDScript Error>",
+                  "line": 393,
+                  "path": "res://game/player/motor/player_motor_submission.gd",
+                  "text": "SHADOWED_VARIABLE"
+                },
+                {
+                  "label": "<GDScript Source>",
+                  "line": 393,
+                  "path": "res://game/player/motor/player_motor_submission.gd",
+                  "text": "player_motor_submission.gd:393 @ GDScript::reload()"
+                }
+              ],
+              "debugger_tab": "Errors",
+              "error_type_name": "warning",
+              "frames": [],
+              "message": "GDScript::reload: The local function parameter \"maximum_distance_m\" is shadowing an already-declared variable at line 83 in the current class.",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 393,
+                "path": "res://game/player/motor/player_motor_submission.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 393,
+                "path": "res://game/player/motor/player_motor_submission.gd"
+              },
+              "time": "0:00:00:989"
+            },
+            "function": "GDScript::reload",
+            "level": "warn",
+            "line": 393,
+            "path": "res://game/player/motor/player_motor_submission.gd",
+            "source": "editor",
+            "text": "GDScript::reload: The local function parameter \"maximum_distance_m\" is shadowing an already-declared variable at line 83 in the current class."
+          },
+          {
+            "details": {
+              "children": [
+                {
+                  "label": "<GDScript Error>",
+                  "line": 394,
+                  "path": "res://game/player/motor/player_motor_submission.gd",
+                  "text": "SHADOWED_VARIABLE"
+                },
+                {
+                  "label": "<GDScript Source>",
+                  "line": 394,
+                  "path": "res://game/player/motor/player_motor_submission.gd",
+                  "text": "player_motor_submission.gd:394 @ GDScript::reload()"
+                }
+              ],
+              "debugger_tab": "Errors",
+              "error_type_name": "warning",
+              "frames": [],
+              "message": "GDScript::reload: The local function parameter \"anchor_velocity\" is shadowing an already-declared variable at line 89 in the current class.",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 394,
+                "path": "res://game/player/motor/player_motor_submission.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 394,
+                "path": "res://game/player/motor/player_motor_submission.gd"
+              },
+              "time": "0:00:00:989"
+            },
+            "function": "GDScript::reload",
+            "level": "warn",
+            "line": 394,
+            "path": "res://game/player/motor/player_motor_submission.gd",
+            "source": "editor",
+            "text": "GDScript::reload: The local function parameter \"anchor_velocity\" is shadowing an already-declared variable at line 89 in the current class."
+          },
+          {
+            "details": {
+              "children": [
+                {
+                  "label": "<GDScript Error>",
+                  "line": 395,
+                  "path": "res://game/player/motor/player_motor_submission.gd",
+                  "text": "SHADOWED_VARIABLE"
+                },
+                {
+                  "label": "<GDScript Source>",
+                  "line": 395,
+                  "path": "res://game/player/motor/player_motor_submission.gd",
+                  "text": "player_motor_submission.gd:395 @ GDScript::reload()"
+                }
+              ],
+              "debugger_tab": "Errors",
+              "error_type_name": "warning",
+              "frames": [],
+              "message": "GDScript::reload: The local function parameter \"carry_tolerance_mps\" is shadowing an already-declared variable at line 96 in the current class.",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 395,
+                "path": "res://game/player/motor/player_motor_submission.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 395,
+                "path": "res://game/player/motor/player_motor_submission.gd"
+              },
+              "time": "0:00:00:989"
+            },
+            "function": "GDScript::reload",
+            "level": "warn",
+            "line": 395,
+            "path": "res://game/player/motor/player_motor_submission.gd",
+            "source": "editor",
+            "text": "GDScript::reload: The local function parameter \"carry_tolerance_mps\" is shadowing an already-declared variable at line 96 in the current class."
+          },
+          {
+            "details": {
+              "children": [
+                {
+                  "label": "<GDScript Error>",
+                  "line": 265,
+                  "path": "res://game/player/abilities/grapple/grapple_controller.gd",
+                  "text": "CONFUSABLE_LOCAL_DECLARATION"
+                },
+                {
+                  "label": "<GDScript Source>",
+                  "line": 265,
+                  "path": "res://game/player/abilities/grapple/grapple_controller.gd",
+                  "text": "grapple_controller.gd:265 @ GDScript::reload()"
+                }
+              ],
+              "debugger_tab": "Errors",
+              "error_type_name": "warning",
+              "frames": [],
+              "message": "GDScript::reload: The variable \"current\" is declared below in the parent block.",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 265,
+                "path": "res://game/player/abilities/grapple/grapple_controller.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 265,
+                "path": "res://game/player/abilities/grapple/grapple_controller.gd"
+              },
+              "time": "0:00:01:057"
+            },
+            "function": "GDScript::reload",
+            "level": "warn",
+            "line": 265,
+            "path": "res://game/player/abilities/grapple/grapple_controller.gd",
+            "source": "editor",
+            "text": "GDScript::reload: The variable \"current\" is declared below in the parent block."
+          },
+          {
+            "details": {
+              "children": [
+                {
+                  "label": "<GDScript Error>",
+                  "line": 1264,
+                  "path": "res://scripts/player_controller.gd",
+                  "text": "SHADOWED_GLOBAL_IDENTIFIER"
+                },
+                {
+                  "label": "<GDScript Source>",
+                  "line": 1264,
+                  "path": "res://scripts/player_controller.gd",
+                  "text": "player_controller.gd:1264 @ GDScript::reload()"
+                }
+              ],
+              "debugger_tab": "Errors",
+              "error_type_name": "warning",
+              "frames": [],
+              "message": "GDScript::reload: The variable \"seed\" has the same name as a built-in function.",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 1264,
+                "path": "res://scripts/player_controller.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 1264,
+                "path": "res://scripts/player_controller.gd"
+              },
+              "time": "0:00:01:065"
+            },
+            "function": "GDScript::reload",
+            "level": "warn",
+            "line": 1264,
+            "path": "res://scripts/player_controller.gd",
+            "source": "editor",
+            "text": "GDScript::reload: The variable \"seed\" has the same name as a built-in function."
+          },
+          {
+            "details": {
+              "children": [
+                {
+                  "label": "<GDScript Error>",
+                  "line": 1712,
+                  "path": "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                  "text": "UNUSED_VARIABLE"
+                },
+                {
+                  "label": "<GDScript Source>",
+                  "line": 1712,
+                  "path": "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                  "text": "test_wall_traversal_integration.gd:1712 @ GDScript::reload()"
+                }
+              ],
+              "debugger_tab": "Errors",
+              "error_type_name": "warning",
+              "frames": [],
+              "message": "GDScript::reload: The local variable \"input_source\" is declared but never used in the block. If this is intended, prefix it with an underscore: \"_input_source\".",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 1712,
+                "path": "res://tests/player/locomotion/test_wall_traversal_integration.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 1712,
+                "path": "res://tests/player/locomotion/test_wall_traversal_integration.gd"
+              },
+              "time": "0:00:01:990"
+            },
+            "function": "GDScript::reload",
+            "level": "warn",
+            "line": 1712,
+            "path": "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+            "source": "editor",
+            "text": "GDScript::reload: The local variable \"input_source\" is declared but never used in the block. If this is intended, prefix it with an underscore: \"_input_source\"."
+          },
+          {
+            "details": {
+              "children": [
+                {
+                  "label": "<GDScript Error>",
+                  "line": 2072,
+                  "path": "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                  "text": "SHADOWED_GLOBAL_IDENTIFIER"
+                },
+                {
+                  "label": "<GDScript Source>",
+                  "line": 2072,
+                  "path": "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+                  "text": "test_wall_traversal_integration.gd:2072 @ GDScript::reload()"
+                }
+              ],
+              "debugger_tab": "Errors",
+              "error_type_name": "warning",
+              "frames": [],
+              "message": "GDScript::reload: The variable \"seed\" has the same name as a built-in function.",
+              "resolved": {
+                "function": "GDScript::reload",
+                "line": 2072,
+                "path": "res://tests/player/locomotion/test_wall_traversal_integration.gd"
+              },
+              "source": {
+                "function": "GDScript::reload",
+                "line": 2072,
+                "path": "res://tests/player/locomotion/test_wall_traversal_integration.gd"
+              },
+              "time": "0:00:01:990"
+            },
+            "function": "GDScript::reload",
+            "level": "warn",
+            "line": 2072,
+            "path": "res://tests/player/locomotion/test_wall_traversal_integration.gd",
+            "source": "editor",
+            "text": "GDScript::reload: The variable \"seed\" has the same name as a built-in function."
+          }
+        ],
+        "total_count": 19,
+        "returned_count": 19,
+        "offset": 0,
+        "limit": 100,
+        "has_more": false,
+        "run_id": "",
+        "is_running": false,
+        "dropped_count": 0,
+        "stale_run_id": false,
+        "next_cursor": 6,
+        "appended_total": 6
+      }
+    },
+    {
+      "check": "project configured rate",
+      "status": "fulfilled",
+      "value": {
+        "key": "physics/common/physics_ticks_per_second",
+        "type": "int",
+        "value": 60
+      }
+    }
+  ]
+}

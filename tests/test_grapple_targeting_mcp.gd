@@ -32,7 +32,7 @@ func test_authored_definition_carries_the_single_authoritative_range() -> void:
 	assert_true(text.contains("definition_id = &\"player.grapple.default\""))
 	assert_true(text.contains("max_grapple_length_m = 35.0"), "one authored acquisition range")
 	assert_true(text.contains("acquisition_tolerance_m = 0.005"))
-	assert_true(text.contains("pull_initial_acceleration_mps2 = 48.0"))
+	assert_true(text.contains("pull_initial_acceleration_mps2 = 60.0"))
 	assert_true(text.contains("pull_min_acceleration_mps2 = 8.0"))
 	assert_true(text.contains("pull_acceleration_jerk_mps3 = 53.333333"))
 	assert_true(text.contains("maximum_speed_mps = 22.0"))
